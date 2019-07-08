@@ -21,8 +21,15 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"os"
-	"os/exec"
 	"path/filepath"
+
+	"github.com/mitchellh/colorstring"
+
+	"github.com/hashicorp/terraform/command/format"
+	"github.com/hashicorp/terraform/terraform"
+
+	"github.com/hashicorp/terraform/command"
+	"github.com/mitchellh/cli"
 
 	"github.com/pkg/errors"
 
@@ -88,10 +95,11 @@ func (r *ResourceReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	resPath := filepath.Join(basePath, resource.Spec.GVR.Resource+"."+resource.Spec.Namespace+"."+resource.Spec.Name)
 	providerFile := filepath.Join(resPath, "provider.tf")
 	mainFile := filepath.Join(resPath, "main.tf")
+	stateFile := filepath.Join(resPath, "terraform.tfstate")
 
 	if hasFinalizer(obj.GetFinalizers(), KFCFinalizer) {
 		if obj.GetDeletionTimestamp() != nil {
-			err := terraformDestroy(resPath)
+			err := terraformDestroy(resPath, stateFile)
 			if err != nil {
 				log.Error(err, "failed to terraform destroy")
 			}
@@ -121,7 +129,7 @@ func (r *ResourceReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 		}
 	}
 
-	err = createFiles(resPath, providerFile, mainFile)
+	err = createFiles(resPath, stateFile, providerFile, mainFile)
 	if err != nil {
 		log.Error(err, "failed to create files")
 		return ctrl.Result{}, nil
@@ -155,12 +163,12 @@ func (r *ResourceReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 		}
 	}
 
-	err = terraformApply(resPath)
+	err = terraformApply(resPath, stateFile)
 	if err != nil {
 		log.Error(err, "unable to apply terraform")
 	}
 
-	err = updateStatusOut(obj)
+	err = updateStatusOut(obj, stateFile)
 	if err != nil {
 		log.Error(err, "unable to update status out field")
 	}
@@ -186,15 +194,27 @@ func (r *ResourceReconciler) SetupWithManager(mgr ctrl.Manager) error {
 		Complete(r)
 }
 
-func updateStatusOut(u *unstructured.Unstructured) error {
-	cmd := exec.Command("terraform", "show")
-	cmd.Dir = basePath
-	out, err := cmd.Output()
+func updateStatusOut(u *unstructured.Unstructured, stateFile string) error {
+	//TODO: Handle output
+
+	f, err := os.Open(stateFile)
 	if err != nil {
 		return err
 	}
 
-	return unstructured.SetNestedField(u.Object, string(out), "status", "out")
+	state, err := terraform.ReadState(f)
+	if err != nil {
+		return err
+	}
+
+	out := format.State(&format.StateOpts{
+		State: state,
+		Color: &colorstring.Colorize{
+			Disable: true,
+		},
+	})
+
+	return unstructured.SetNestedField(u.Object, out, "status", "out")
 }
 
 func configmapToTFProvider(config *corev1.ConfigMap, providerFile string) error {
@@ -243,38 +263,60 @@ func crdToTFResource(kind string, obj *unstructured.Unstructured, mainFile strin
 }
 
 func terraformInit(resPath string) error {
-	cmd := exec.Command("terraform", "init")
-	cmd.Dir = resPath
-	cmd.Stdout = os.Stdout
-	err := cmd.Run()
-	if err != nil {
-		return err
+	// TODO: This initializes terraform in the current directory. Shouldn't it be moved to the resource directory?
+
+	initCommand := command.InitCommand{
+		Meta: command.Meta{
+			Ui: cli.NewMockUi(),
+		},
+	}
+
+	args := []string{
+		resPath,
+	}
+
+	x := initCommand.Run(args)
+
+	if x != 0 {
+		return errors.New("failed to run terraform init command")
 	}
 
 	return nil
 }
 
-func terraformApply(resPath string) error {
-	cmd := exec.Command("terraform", "apply", "-auto-approve")
-	cmd.Dir = resPath
-	cmd.Stdout = os.Stdout
-	err := cmd.Run()
-	if err != nil {
-		return err
+func terraformApply(resPath, stateFile string) error {
+	cmd := command.ApplyCommand{
+		Meta: command.Meta{
+			Ui: cli.NewMockUi(),
+		},
 	}
+
+	args := []string{
+		"-auto-approve",
+		"-state",
+		stateFile,
+		resPath,
+	}
+	cmd.Run(args)
 
 	return nil
 }
 
-func terraformDestroy(resPath string) error {
-	cmd := exec.Command("terraform", "destroy", "-auto-approve")
-	cmd.Dir = resPath
-	cmd.Stdout = os.Stdout
-	err := cmd.Run()
-	if err != nil {
-		return err
+func terraformDestroy(resPath, stateFile string) error {
+	cmd := command.ApplyCommand{
+		Meta: command.Meta{
+			Ui: cli.NewMockUi(),
+		},
+		Destroy: true,
 	}
 
+	args := []string{
+		"-auto-approve",
+		"-state",
+		stateFile,
+		resPath,
+	}
+	cmd.Run(args)
 	return nil
 }
 
@@ -318,7 +360,7 @@ func removeFinalizer(u *unstructured.Unstructured) error {
 	return nil
 }
 
-func createFiles(resPath, providerFile, mainFile string) error {
+func createFiles(resPath, stateFile, providerFile, mainFile string) error {
 	_, err := os.Stat(resPath)
 	if os.IsNotExist(err) {
 		err := os.MkdirAll(resPath, 0777)
@@ -331,6 +373,11 @@ func createFiles(resPath, providerFile, mainFile string) error {
 		}
 
 		_, err = os.Create(mainFile)
+		if err != nil {
+			return err
+		}
+
+		_, err = os.Create(stateFile)
 		if err != nil {
 			return err
 		}

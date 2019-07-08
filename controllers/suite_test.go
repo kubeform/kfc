@@ -16,22 +16,16 @@ limitations under the License.
 package controllers
 
 import (
-	"fmt"
-	"os"
 	"path/filepath"
 	"testing"
 
-	"github.com/davecgh/go-spew/spew"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime/schema"
-
-	"k8s.io/client-go/dynamic"
-	"k8s.io/client-go/tools/clientcmd"
+	"github.com/hashicorp/terraform/command"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
 	terraformv1alpha1 "github.com/appscode-cloud/kfc/api/v1alpha1"
+	"github.com/mitchellh/cli"
 	"k8s.io/client-go/kubernetes/scheme"
 	"k8s.io/client-go/rest"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -86,25 +80,46 @@ var _ = AfterSuite(func() {
 	Expect(err).ToNot(HaveOccurred())
 })
 
-func TestName(t *testing.T) {
-	kubeconfig := filepath.Join(os.Getenv("HOME"), ".kube/config")
-	cfg, err := clientcmd.BuildConfigFromFlags("", kubeconfig)
-	if err != nil {
-		fmt.Println(err.Error())
+func TestInit(t *testing.T) {
+	cmd := command.InitCommand{
+		Meta: command.Meta{
+			Ui: cli.NewMockUi(),
+		},
 	}
 
-	dc, err := dynamic.NewForConfig(cfg)
-	if err != nil {
-		fmt.Println(err.Error())
+	args := []string{
+		"/home/fahim/.kfc/linodeinstances.default.linode-test",
+	}
+	cmd.Run(args)
+}
+
+func TestApply(t *testing.T) {
+	cmd := command.ApplyCommand{
+		Meta: command.Meta{
+			Ui: cli.NewMockUi(),
+		},
 	}
 
-	obj, err := dc.Resource(schema.GroupVersionResource{
-		Group:    "terraform.kfc.io",
-		Version:  "v1alpha1",
-		Resource: "linodeinstances",
-	}).Namespace("default").Get("linode-test", v1.GetOptions{})
-	if err != nil {
-		fmt.Println(err.Error())
+	args := []string{
+		"-auto-approve",
+		"-state",
+		"/home/fahim/.kfc/linodeinstances.default.linode-test/terraform.tfstate",
+		"/home/fahim/.kfc/linodeinstances.default.linode-test",
 	}
-	spew.Dump(obj)
+	cmd.Run(args)
+}
+
+func TestDestroy(t *testing.T) {
+	cmd := command.ApplyCommand{
+		Meta: command.Meta{
+			Ui: cli.NewMockUi(),
+		},
+		Destroy: true,
+	}
+
+	args := []string{
+		"-auto-approve",
+		"/home/fahim/.kfc/linodeinstances.default.linode-test",
+	}
+	cmd.Run(args)
 }
