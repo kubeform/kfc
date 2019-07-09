@@ -10,7 +10,7 @@ import (
 	tfe "github.com/hashicorp/go-tfe"
 	"github.com/hashicorp/terraform/state"
 	"github.com/hashicorp/terraform/state/remote"
-	"github.com/hashicorp/terraform/terraform"
+	"github.com/hashicorp/terraform/states/statefile"
 )
 
 type remoteClient struct {
@@ -59,14 +59,14 @@ func (r *remoteClient) Put(state []byte) error {
 	ctx := context.Background()
 
 	// Read the raw state into a Terraform state.
-	tfState, err := terraform.ReadState(bytes.NewReader(state))
+	stateFile, err := statefile.Read(bytes.NewReader(state))
 	if err != nil {
 		return fmt.Errorf("Error reading state: %s", err)
 	}
 
 	options := tfe.StateVersionCreateOptions{
-		Lineage: tfe.String(tfState.Lineage),
-		Serial:  tfe.Int64(tfState.Serial),
+		Lineage: tfe.String(stateFile.Lineage),
+		Serial:  tfe.Int64(int64(stateFile.Serial)),
 		MD5:     tfe.String(fmt.Sprintf("%x", md5.Sum(state))),
 		State:   tfe.String(base64.StdEncoding.EncodeToString(state)),
 	}

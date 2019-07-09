@@ -1,0 +1,7 @@
+apiVersion: terraform.kfc.io/v1alpha1
+kind: DigitaloceanDroplet
+metadata:
+  name: digitaloceandroplet-sample
+spec:
+  # Add fields here
+  foo: bar

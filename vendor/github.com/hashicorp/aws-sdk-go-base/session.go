@@ -185,10 +185,13 @@ func GetSessionWithAccountIDAndPartition(c *Config) (*session.Session, string, s
 			return sess, accountID, partition, nil
 		}
 
-		return nil, "", "", fmt.Errorf(
+		// DEPRECATED: Next major version of the provider should return the error instead of logging
+		//             if skip_request_account_id is not enabled.
+		log.Printf("[WARN] %s", fmt.Sprintf(
 			"AWS account ID not previously found and failed retrieving via all available methods. "+
+				"This will return an error in the next major version of the AWS provider. "+
 				"See https://www.terraform.io/docs/providers/aws/index.html#skip_requesting_account_id for workaround and implications. "+
-				"Errors: %s", err)
+				"Errors: %s", err))
 	}
 
 	var partition string

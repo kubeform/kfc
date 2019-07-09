@@ -42,7 +42,6 @@ var (
 )
 
 func init() {
-
 	terraformv1alpha1.AddToScheme(scheme)
 	// +kubebuilder:scaffold:scheme
 }

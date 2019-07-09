@@ -2,7 +2,7 @@ package s3
 
 import (
 	"context"
-	"fmt"
+	"errors"
 	"strings"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -33,7 +33,7 @@ func New() backend.Backend {
 					// s3 will strip leading slashes from an object, so while this will
 					// technically be accepted by s3, it will break our workspace hierarchy.
 					if strings.HasPrefix(v.(string), "/") {
-						return nil, []error{fmt.Errorf("key must not start with '/'")}
+						return nil, []error{errors.New("key must not start with '/'")}
 					}
 					return nil, nil
 				},
@@ -43,7 +43,10 @@ func New() backend.Backend {
 				Type:        schema.TypeString,
 				Required:    true,
 				Description: "The region of the S3 bucket.",
-				DefaultFunc: schema.EnvDefaultFunc("AWS_DEFAULT_REGION", nil),
+				DefaultFunc: schema.MultiEnvDefaultFunc([]string{
+					"AWS_REGION",
+					"AWS_DEFAULT_REGION",
+				}, nil),
 			},
 
 			"dynamodb_endpoint": {
@@ -213,8 +216,15 @@ func New() backend.Backend {
 			"workspace_key_prefix": {
 				Type:        schema.TypeString,
 				Optional:    true,
-				Description: "The prefix applied to the non-default state path inside the bucket",
+				Description: "The prefix applied to the non-default state path inside the bucket.",
 				Default:     "env:",
+				ValidateFunc: func(v interface{}, s string) ([]string, []error) {
+					prefix := v.(string)
+					if strings.HasPrefix(prefix, "/") || strings.HasSuffix(prefix, "/") {
+						return nil, []error{errors.New("workspace_key_prefix must not start or end with '/'")}
+					}
+					return nil, nil
+				},
 			},
 
 			"force_path_style": {

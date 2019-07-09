@@ -22,14 +22,9 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
-
-	"github.com/mitchellh/colorstring"
-
-	"github.com/hashicorp/terraform/command/format"
-	"github.com/hashicorp/terraform/terraform"
+	"strings"
 
 	"github.com/hashicorp/terraform/command"
-	"github.com/mitchellh/cli"
 
 	"github.com/pkg/errors"
 
@@ -93,8 +88,8 @@ func (r *ResourceReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 
 	// TODO: make a namer
 	resPath := filepath.Join(basePath, resource.Spec.GVR.Resource+"."+resource.Spec.Namespace+"."+resource.Spec.Name)
-	providerFile := filepath.Join(resPath, "provider.tf")
-	mainFile := filepath.Join(resPath, "main.tf")
+	providerFile := filepath.Join(resPath, "provider.tf.json")
+	mainFile := filepath.Join(resPath, "main.tf.json")
 	stateFile := filepath.Join(resPath, "terraform.tfstate")
 
 	if hasFinalizer(obj.GetFinalizers(), KFCFinalizer) {
@@ -135,7 +130,8 @@ func (r *ResourceReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 		return ctrl.Result{}, nil
 	}
 
-	configMap, err := r.Kubeclient.CoreV1().ConfigMaps("default").Get("linode", metav1.GetOptions{})
+	// TODO: how to handle provider name?
+	configMap, err := r.Kubeclient.CoreV1().ConfigMaps("default").Get(strings.Split(kindToResouceMap[resource.Spec.GVR.Resource], "_")[0], metav1.GetOptions{})
 	if err != nil {
 		log.Error(err, "unable to fetch configmap")
 	}
@@ -191,34 +187,50 @@ func (r *ResourceReconciler) SetupWithManager(mgr ctrl.Manager) error {
 				r.updateResourceVersion("linodeinstances", updateEvent.MetaNew.GetName(), updateEvent.MetaNew.GetNamespace(), updateEvent.MetaNew.GetResourceVersion())
 			},
 		}).
+		Watches(&source.Kind{Type: &terraformv1alpha1.DigitaloceanDroplet{}}, &handler.Funcs{
+			CreateFunc: func(event event.CreateEvent, limitingInterface workqueue.RateLimitingInterface) {
+				r.createResource("digitaloceandroplets", event.Meta.GetName(), event.Meta.GetNamespace(), event.Meta.GetResourceVersion())
+			},
+			DeleteFunc: func(deleteEvent event.DeleteEvent, limitingInterface workqueue.RateLimitingInterface) {
+				r.updateResourceVersion("digitaloceandroplets", deleteEvent.Meta.GetName(), deleteEvent.Meta.GetNamespace(), deleteEvent.Meta.GetResourceVersion())
+			},
+			UpdateFunc: func(updateEvent event.UpdateEvent, limitingInterface workqueue.RateLimitingInterface) {
+				r.updateResourceVersion("digitaloceandroplets", updateEvent.MetaNew.GetName(), updateEvent.MetaNew.GetNamespace(), updateEvent.MetaNew.GetResourceVersion())
+			},
+		}).
 		Complete(r)
 }
 
-func updateStatusOut(u *unstructured.Unstructured, stateFile string) error {
+func updateStatusOut(u *unstructured.Unstructured, resPath string) error {
 	//TODO: Handle output
+	//codeUi := &CodeUi{
+	//	OutputBuffer: new(bytes.Buffer),
+	//}
+	//showCmd := command.ShowCommand{
+	//	Meta: command.Meta{
+	//		Ui: codeUi,
+	//	},
+	//}
+	//
+	//args := []string{
+	//	"-json",
+	//	resPath,
+	//}
+	//
+	//x := showCmd.Run(args)
+	//if x != 0 {
+	//	return errors.New("failed to run terraform show command")
+	//}
+	//
+	//out := codeUi.OutputBuffer.String()
 
-	f, err := os.Open(stateFile)
-	if err != nil {
-		return err
-	}
-
-	state, err := terraform.ReadState(f)
-	if err != nil {
-		return err
-	}
-
-	out := format.State(&format.StateOpts{
-		State: state,
-		Color: &colorstring.Colorize{
-			Disable: true,
-		},
-	})
+	out := "updated"
 
 	return unstructured.SetNestedField(u.Object, out, "status", "out")
 }
 
 func configmapToTFProvider(config *corev1.ConfigMap, providerFile string) error {
-	d1 := []byte(`{ "provider": { "linode":`)
+	d1 := []byte(`{ "provider": { "` + config.Name + `":`)
 	providerJson, err := json.Marshal(config.Data)
 	if err != nil {
 		return err
@@ -264,10 +276,12 @@ func crdToTFResource(kind string, obj *unstructured.Unstructured, mainFile strin
 
 func terraformInit(resPath string) error {
 	// TODO: This initializes terraform in the current directory. Shouldn't it be moved to the resource directory?
-
+	codeUi := &CodeUi{
+		OutputBuffer: new(bytes.Buffer),
+	}
 	initCommand := command.InitCommand{
 		Meta: command.Meta{
-			Ui: cli.NewMockUi(),
+			Ui: codeUi,
 		},
 	}
 
@@ -285,9 +299,13 @@ func terraformInit(resPath string) error {
 }
 
 func terraformApply(resPath, stateFile string) error {
+	codeUi := &CodeUi{
+		OutputBuffer: new(bytes.Buffer),
+	}
+
 	cmd := command.ApplyCommand{
 		Meta: command.Meta{
-			Ui: cli.NewMockUi(),
+			Ui: codeUi,
 		},
 	}
 
@@ -297,15 +315,22 @@ func terraformApply(resPath, stateFile string) error {
 		stateFile,
 		resPath,
 	}
-	cmd.Run(args)
+	x := cmd.Run(args)
+	if x != 0 {
+		return errors.New("failed to run terraform apply command")
+	}
 
 	return nil
 }
 
 func terraformDestroy(resPath, stateFile string) error {
+	codeUi := &CodeUi{
+		OutputBuffer: new(bytes.Buffer),
+	}
+
 	cmd := command.ApplyCommand{
 		Meta: command.Meta{
-			Ui: cli.NewMockUi(),
+			Ui: codeUi,
 		},
 		Destroy: true,
 	}
@@ -316,7 +341,11 @@ func terraformDestroy(resPath, stateFile string) error {
 		stateFile,
 		resPath,
 	}
-	cmd.Run(args)
+	x := cmd.Run(args)
+	if x != 0 {
+		return errors.New("failed to run terraform destroy command")
+	}
+
 	return nil
 }
 
@@ -466,5 +495,6 @@ func (r *ResourceReconciler) updateResource(gvr schema.GroupVersionResource, u *
 
 // TODO: how to handle resource name?
 var kindToResouceMap = map[string]string{
-	"linodeinstances": "linode_instance",
+	"linodeinstances":      "linode_instance",
+	"digitaloceandroplets": "digitalocean_droplet",
 }
