@@ -1,0 +1,354 @@
+/*
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+package controllers
+
+import (
+	"bytes"
+	"context"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"os"
+	"path/filepath"
+
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+
+	"k8s.io/apimachinery/pkg/runtime/schema"
+
+	"k8s.io/client-go/dynamic"
+
+	"k8s.io/apimachinery/pkg/types"
+
+	terraformv1alpha1 "github.com/appscode-cloud/kfc/api/v1alpha1"
+	"github.com/go-logr/logr"
+	corev1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/client-go/kubernetes"
+	"sigs.k8s.io/controller-runtime/pkg/client"
+)
+
+const KFCFinalizer = "kfc.io"
+
+var (
+	homePath = os.Getenv("HOME")
+	basePath = filepath.Join(homePath, ".kfc")
+)
+
+// ResourceReconciler reconciles a Resource object
+type ResourceReconciler struct {
+	client.Client
+	Log        logr.Logger
+	DynClient  dynamic.Interface
+	Kubeclient kubernetes.Interface
+}
+
+// +kubebuilder:rbac:groups=terraform.kfc.io,resources=resources,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=terraform.kfc.io,resources=resources/status,verbs=get;update;patch
+
+//func (r *ResourceReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
+//	ctx := context.Background()
+//	log := r.Log.WithValues("kfc-controller", req.NamespacedName)
+//	log.Info("Reconciling Resource")
+//
+//	var resource terraformv1alpha1.Resource
+//	if err := r.Get(ctx, req.NamespacedName, &resource); err != nil {
+//		log.Error(err, "unable to fetch resource")
+//	}
+//
+//	obj, err := r.DynClient.Resource(resource.Spec.GVR).Namespace(resource.Spec.Namespace).Get(resource.Spec.Name, metav1.GetOptions{})
+//	if err != nil {
+//		log.Error(err, "unable to get resource", "ns", resource.Spec.Namespace, "name", resource.Spec.Name, "gvr", resource.Spec.GVR)
+//		return ctrl.Result{}, nil
+//	}
+//
+//	// TODO: make a namer
+//	resPath := filepath.Join(basePath, resource.Spec.GVR.Resource+"."+resource.Spec.Namespace+"."+resource.Spec.Name)
+//	providerFile := filepath.Join(resPath, "provider.tf.json")
+//	mainFile := filepath.Join(resPath, "main.tf.json")
+//	stateFile := filepath.Join(resPath, "terraform.tfstate")
+//
+//	if hasFinalizer(obj.GetFinalizers(), KFCFinalizer) {
+//		if obj.GetDeletionTimestamp() != nil {
+//			err := terraformDestroy(resPath, stateFile)
+//			if err != nil {
+//				log.Error(err, "failed to terraform destroy")
+//			}
+//
+//			err = deleteFiles(resPath)
+//			if err != nil {
+//				log.Error(err, "failed to delete files")
+//			}
+//
+//			err = r.Client.Delete(ctx, &resource)
+//			if err != nil {
+//				log.Error(err, "failed to delete resource")
+//			}
+//
+//			err = removeFinalizer(obj)
+//			if err != nil {
+//				log.Error(err, "failed to remove finalizer")
+//			}
+//
+//			r.updateResource(resource.Spec.GVR, obj)
+//			return ctrl.Result{}, nil
+//		}
+//	} else {
+//		err := addFinalizer(obj, KFCFinalizer)
+//		if err != nil {
+//			log.Error(err, "failed to add finalizer")
+//		}
+//	}
+//
+//	err = createFiles(resPath, stateFile, providerFile, mainFile)
+//	if err != nil {
+//		log.Error(err, "failed to create files")
+//		return ctrl.Result{}, nil
+//	}
+//
+//	// TODO: how to handle provider name?
+//	configMap, err := r.Kubeclient.CoreV1().ConfigMaps("default").Get(strings.Split(kindToResouceMap[resource.Spec.GVR.Resource], "_")[0], metav1.GetOptions{})
+//	if err != nil {
+//		log.Error(err, "unable to fetch configmap")
+//	}
+//
+//	err = configmapToTFProvider(configMap, providerFile)
+//	if err != nil {
+//		log.Error(err, "unable to get configmap")
+//	}
+//
+//	err = crdToTFResource(resource.Spec.GVR.Resource, obj, mainFile)
+//	if err != nil {
+//		log.Error(err, "unable to get crd resource")
+//	}
+//
+//	init, _, err := unstructured.NestedBool(obj.Object, "status", "initialized")
+//	if !init {
+//		err = terraformInit(resPath)
+//		if err != nil {
+//			log.Error(err, "unable to initialize terraform")
+//		} else {
+//			err := updateInitializedField(obj)
+//			if err != nil {
+//				log.Error(err, "failed to initialize field")
+//			}
+//		}
+//	}
+//
+//	err = terraformApply(resPath, stateFile)
+//	if err != nil {
+//		log.Error(err, "unable to apply terraform")
+//	}
+//
+//	err = updateStatusOut(obj, stateFile)
+//	if err != nil {
+//		log.Error(err, "unable to update status out field")
+//	}
+//
+//	r.updateResource(resource.Spec.GVR, obj)
+//	return ctrl.Result{}, nil
+//}
+//
+//func (r *ResourceReconciler) SetupWithManager(mgr ctrl.Manager) error {
+//	return ctrl.NewControllerManagedBy(mgr).
+//		For(&terraformv1alpha1.Resource{}).
+//		Watches(&source.Kind{Type: &terraformv1alpha1.LinodeInstance{}}, &handler.Funcs{
+//			CreateFunc: func(event event.CreateEvent, limitingInterface workqueue.RateLimitingInterface) {
+//				r.createResource("linodeinstances", event.Meta.GetName(), event.Meta.GetNamespace(), event.Meta.GetResourceVersion())
+//			},
+//			DeleteFunc: func(deleteEvent event.DeleteEvent, limitingInterface workqueue.RateLimitingInterface) {
+//				r.updateResourceVersion("linodeinstances", deleteEvent.Meta.GetName(), deleteEvent.Meta.GetNamespace(), deleteEvent.Meta.GetResourceVersion())
+//			},
+//			UpdateFunc: func(updateEvent event.UpdateEvent, limitingInterface workqueue.RateLimitingInterface) {
+//				r.updateResourceVersion("linodeinstances", updateEvent.MetaNew.GetName(), updateEvent.MetaNew.GetNamespace(), updateEvent.MetaNew.GetResourceVersion())
+//			},
+//		}).
+//		Watches(&source.Kind{Type: &terraformv1alpha1.DigitaloceanDroplet{}}, &handler.Funcs{
+//			CreateFunc: func(event event.CreateEvent, limitingInterface workqueue.RateLimitingInterface) {
+//				r.createResource("digitaloceandroplets", event.Meta.GetName(), event.Meta.GetNamespace(), event.Meta.GetResourceVersion())
+//			},
+//			DeleteFunc: func(deleteEvent event.DeleteEvent, limitingInterface workqueue.RateLimitingInterface) {
+//				r.updateResourceVersion("digitaloceandroplets", deleteEvent.Meta.GetName(), deleteEvent.Meta.GetNamespace(), deleteEvent.Meta.GetResourceVersion())
+//			},
+//			UpdateFunc: func(updateEvent event.UpdateEvent, limitingInterface workqueue.RateLimitingInterface) {
+//				r.updateResourceVersion("digitaloceandroplets", updateEvent.MetaNew.GetName(), updateEvent.MetaNew.GetNamespace(), updateEvent.MetaNew.GetResourceVersion())
+//			},
+//		}).
+//		Complete(r)
+//}
+
+func configmapToTFProvider(config *corev1.ConfigMap, providerFile string) error {
+	d1 := []byte(`{ "provider": { "` + config.Name + `":`)
+	providerJson, err := json.Marshal(config.Data)
+	if err != nil {
+		return err
+	}
+	d1 = append(d1, providerJson...)
+	d1 = append(d1, []byte("} }")...)
+
+	prettyData, err := prettyJSON(d1)
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile(providerFile, prettyData, 0644)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func crdToTFResource(kind string, obj *unstructured.Unstructured, mainFile string) error {
+	objMap := obj.Object
+
+	d1 := []byte(`{"resource":{ "` + kindToResouceMap[kind] + `":{"` + obj.GetName() + `":`)
+
+	instanceSpecJson, err := json.Marshal(objMap["spec"])
+	if err != nil {
+		return err
+	}
+	d1 = append(d1, instanceSpecJson...)
+	d1 = append(d1, []byte("} } }")...)
+	prettyData, err := prettyJSON(d1)
+	if err != nil {
+		return err
+	}
+	err = ioutil.WriteFile(mainFile, prettyData, 0644)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func hasFinalizer(finalizers []string, finalizer string) bool {
+	for _, f := range finalizers {
+		if f == finalizer {
+			return true
+		}
+	}
+
+	return false
+}
+
+func addFinalizer(u *unstructured.Unstructured, finalizer string) error {
+	//TODO: append previous finalizers
+	finalizers := u.GetFinalizers()
+	finalizers = append(finalizers, finalizer)
+	err := unstructured.SetNestedStringSlice(u.Object, finalizers, "metadata", "finalizers")
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func removeFinalizer(u *unstructured.Unstructured) error {
+	//TODO: don't make finalizers empty
+	err := unstructured.SetNestedStringSlice(u.Object, []string{}, "metadata", "finalizers")
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func createFiles(resPath, stateFile, providerFile, mainFile string) error {
+	_, err := os.Stat(resPath)
+	if os.IsNotExist(err) {
+		err := os.MkdirAll(resPath, 0777)
+		if err != nil {
+			return err
+		}
+		_, err = os.Create(providerFile)
+		if err != nil {
+			return err
+		}
+
+		_, err = os.Create(mainFile)
+		if err != nil {
+			return err
+		}
+
+		_, err = os.Create(stateFile)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func deleteFiles(resPath string) error {
+	err := os.RemoveAll(resPath)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+//func updateInitializedField(obj *unstructured.Unstructured) error {
+//	err := unstructured.SetNestedField(obj.Object, true, "status", "initialized")
+//	if err != nil {
+//		return errors.Wrap(err, "failed to update field")
+//	}
+//
+//	return nil
+//}
+
+func (r *ResourceReconciler) updateResourceVersion(kind, name, namespace, rv string) {
+	r.Log.Info("Updating resource version")
+
+	var resource terraformv1alpha1.Resource
+	err := r.Client.Get(context.Background(), types.NamespacedName{
+		Namespace: corev1.NamespaceDefault,
+		Name:      kind + "-" + name + "-" + namespace,
+	}, &resource)
+	if err != nil {
+		r.Log.Error(err, "failed to get resource")
+	}
+
+	resource.Spec.ResourceVersion = rv
+
+	err = r.Client.Update(context.Background(), &resource)
+	if err != nil {
+		r.Log.Error(err, "failed to update resource")
+	}
+}
+
+func (c *Controller) updateResource(gvr schema.GroupVersionResource, u *unstructured.Unstructured) {
+	_, err := c.dynamicclient.Resource(gvr).Namespace(u.GetNamespace()).Update(u, metav1.UpdateOptions{})
+	if err != nil {
+		fmt.Println(err, "failed to update resource")
+	}
+}
+
+func prettyJSON(byteJson []byte) ([]byte, error) {
+	var prettyJSON bytes.Buffer
+	err := json.Indent(&prettyJSON, byteJson, "", "  ")
+	if err != nil {
+		return nil, err
+	}
+
+	return prettyJSON.Bytes(), err
+}
+
+// TODO: how to handle resource name?
+var kindToResouceMap = map[string]string{
+	"linodeinstances":      "linode_instance",
+	"digitaloceandroplets": "digitalocean_droplet",
+}

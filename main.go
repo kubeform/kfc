@@ -1,4 +1,5 @@
 /*
+Copyright 2017 The Kubernetes Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,91 +18,77 @@ package main
 
 import (
 	"flag"
-	"fmt"
-	"os"
-	"path/filepath"
+	"time"
+
+	"k8s.io/apimachinery/pkg/runtime/schema"
+
+	"github.com/appscode-cloud/kfc/controllers"
 
 	"k8s.io/client-go/dynamic"
-
-	crdclientset "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
+	"k8s.io/client-go/dynamic/dynamicinformer"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
+	"k8s.io/klog"
 
-	terraformv1alpha1 "github.com/appscode-cloud/kfc/api/v1alpha1"
-	"github.com/appscode-cloud/kfc/controllers"
-	"k8s.io/apimachinery/pkg/runtime"
-	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
-	ctrl "sigs.k8s.io/controller-runtime"
-	"sigs.k8s.io/controller-runtime/pkg/log/zap"
-	// +kubebuilder:scaffold:imports
+	// Uncomment the following line to load the gcp plugin (only required to authenticate against GKE clusters).
+	// _ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
+
+	"k8s.io/sample-controller/pkg/signals"
 )
 
 var (
-	scheme   = runtime.NewScheme()
-	setupLog = ctrl.Log.WithName("setup")
+	masterURL  string
+	kubeconfig string
 )
 
-func init() {
-	terraformv1alpha1.AddToScheme(scheme)
-	// +kubebuilder:scaffold:scheme
-}
-
 func main() {
-	var metricsAddr string
-	var enableLeaderElection bool
-	flag.StringVar(&metricsAddr, "metrics-addr", ":8080", "The address the metric endpoint binds to.")
-	flag.BoolVar(&enableLeaderElection, "enable-leader-election", false,
-		"Enable leader election for controller manager. Enabling this will ensure there is only one active controller manager.")
+	klog.InitFlags(nil)
 	flag.Parse()
 
-	ctrl.SetLogger(zap.Logger(true))
+	// set up signals so we handle the first shutdown signal gracefully
+	stopCh := signals.SetupSignalHandler()
 
-	mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
-		Scheme:             scheme,
-		MetricsBindAddress: metricsAddr,
-		LeaderElection:     enableLeaderElection,
-	})
+	cfg, err := clientcmd.BuildConfigFromFlags(masterURL, kubeconfig)
 	if err != nil {
-		setupLog.Error(err, "unable to start manager")
-		os.Exit(1)
+		klog.Fatalf("Error building kubeconfig: %s", err.Error())
 	}
 
-	kubeconfig := filepath.Join(os.Getenv("HOME"), ".kube/config")
-	cfg, err := clientcmd.BuildConfigFromFlags("", kubeconfig)
-	if err != nil {
-		fmt.Println(err.Error())
-	}
 	kubeClient, err := kubernetes.NewForConfig(cfg)
 	if err != nil {
-		fmt.Println(err.Error())
+		klog.Fatalf("Error building kubernetes clientset: %s", err.Error())
 	}
 
-	crdClient, err := crdclientset.NewForConfig(cfg)
+	dynamicClient, err := dynamic.NewForConfig(cfg)
 	if err != nil {
-		fmt.Println(err.Error())
+		klog.Fatalf("Error building kubernetes dynamic clientset: %s", err.Error())
 	}
 
-	dynClient, err := dynamic.NewForConfig(cfg)
-	if err != nil {
-		fmt.Println(err.Error())
-	}
+	exampleInformerFactory := dynamicinformer.NewDynamicSharedInformerFactory(dynamicClient, time.Second*30)
 
-	err = (&controllers.ResourceReconciler{
-		Client:     mgr.GetClient(),
-		Log:        ctrl.Log.WithName("controllers").WithName("LinodeInstance"),
-		Kubeclient: kubeClient,
-		CrdClient:  crdClient,
-		DynClient:  dynClient,
-	}).SetupWithManager(mgr)
-	if err != nil {
-		setupLog.Error(err, "unable to create controller", "controller", "LinodeInstance")
-		os.Exit(1)
+	gvrs := []schema.GroupVersionResource{
+		{
+			"terraform.kfc.io",
+			"v1alpha1",
+			"digitaloceandroplets",
+		},
+		{
+			"terraform.kfc.io",
+			"v1alpha1",
+			"linodeinstances",
+		},
 	}
-	// +kubebuilder:scaffold:builder
+	controller := controllers.NewController(kubeClient, dynamicClient, exampleInformerFactory, gvrs)
 
-	setupLog.Info("starting manager")
-	if err := mgr.Start(ctrl.SetupSignalHandler()); err != nil {
-		setupLog.Error(err, "problem running manager")
-		os.Exit(1)
+	// notice that there is no need to run Start methods in a separate goroutine. (i.e. go kubeInformerFactory.Start(stopCh)
+	// Start method is non-blocking and runs all registered informers in a dedicated goroutine.
+	exampleInformerFactory.Start(stopCh)
+
+	if err = controller.Run(2, stopCh); err != nil {
+		klog.Fatalf("Error running controller: %s", err.Error())
 	}
+}
+
+func init() {
+	flag.StringVar(&kubeconfig, "kubeconfig", "", "Path to a kubeconfig. Only required if out-of-cluster.")
+	flag.StringVar(&masterURL, "master", "", "The address of the Kubernetes API server. Overrides any value in kubeconfig. Only required if out-of-cluster.")
 }

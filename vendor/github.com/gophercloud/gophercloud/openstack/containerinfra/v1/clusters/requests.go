@@ -136,9 +136,9 @@ const (
 )
 
 type UpdateOpts struct {
-	Op    UpdateOp `json:"op" required:"true"`
-	Path  string   `json:"path" required:"true"`
-	Value string   `json:"value,omitempty"`
+	Op    UpdateOp    `json:"op" required:"true"`
+	Path  string      `json:"path" required:"true"`
+	Value interface{} `json:"value,omitempty"`
 }
 
 // UpdateOptsBuilder allows extensions to add additional parameters to the
@@ -167,6 +167,43 @@ func Update(client *gophercloud.ServiceClient, id string, opts []UpdateOptsBuild
 
 	var result *http.Response
 	result, r.Err = client.Patch(updateURL(client, id), o, &r.Body, &gophercloud.RequestOpts{
+		OkCodes: []int{200, 202},
+	})
+
+	if r.Err == nil {
+		r.Header = result.Header
+	}
+	return
+}
+
+// ResizeOptsBuilder allows extensions to add additional parameters to the
+// Resize request.
+type ResizeOptsBuilder interface {
+	ToClusterResizeMap() (map[string]interface{}, error)
+}
+
+// ResizeOpts params
+type ResizeOpts struct {
+	NodeCount     *int     `json:"node_count" required:"true"`
+	NodesToRemove []string `json:"nodes_to_remove,omitempty"`
+	NodeGroup     string   `json:"nodegroup,omitempty"`
+}
+
+// ToClusterResizeMap constructs a request body from ResizeOpts.
+func (opts ResizeOpts) ToClusterResizeMap() (map[string]interface{}, error) {
+	return gophercloud.BuildRequestBody(opts, "")
+}
+
+// Resize an existing cluster node count.
+func Resize(client *gophercloud.ServiceClient, id string, opts ResizeOptsBuilder) (r ResizeResult) {
+	b, err := opts.ToClusterResizeMap()
+	if err != nil {
+		r.Err = err
+		return
+	}
+
+	var result *http.Response
+	result, r.Err = client.Post(resizeURL(client, id), b, &r.Body, &gophercloud.RequestOpts{
 		OkCodes: []int{200, 202},
 	})
 

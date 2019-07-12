@@ -1,4 +1,5 @@
 /*
+Copyright 2017 The Kubernetes Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -16,78 +17,167 @@ limitations under the License.
 package controllers
 
 import (
-	"bytes"
-	"context"
-	"encoding/json"
-	"io/ioutil"
-	"os"
+	"fmt"
 	"path/filepath"
 	"strings"
+	"sync"
 
-	"github.com/hashicorp/terraform/command"
-
-	"github.com/pkg/errors"
-
-	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-
-	"k8s.io/apimachinery/pkg/runtime/schema"
-
-	"k8s.io/client-go/dynamic"
-
-	"k8s.io/apimachinery/pkg/types"
-
-	"k8s.io/client-go/util/workqueue"
-	"sigs.k8s.io/controller-runtime/pkg/event"
-	"sigs.k8s.io/controller-runtime/pkg/handler"
-	"sigs.k8s.io/controller-runtime/pkg/source"
-
-	terraformv1alpha1 "github.com/appscode-cloud/kfc/api/v1alpha1"
-	"github.com/go-logr/logr"
+	"github.com/appscode/go/log"
 	corev1 "k8s.io/api/core/v1"
-	crdclientset "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
+	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime/schema"
+	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
+	"k8s.io/client-go/dynamic"
+	"k8s.io/client-go/dynamic/dynamicinformer"
+	"k8s.io/client-go/dynamic/dynamiclister"
 	"k8s.io/client-go/kubernetes"
-	ctrl "sigs.k8s.io/controller-runtime"
-	"sigs.k8s.io/controller-runtime/pkg/client"
+	"k8s.io/client-go/kubernetes/scheme"
+	typedcorev1 "k8s.io/client-go/kubernetes/typed/core/v1"
+	"k8s.io/client-go/tools/cache"
+	"k8s.io/client-go/tools/record"
+	"k8s.io/klog"
+	"kmodules.xyz/client-go/tools/queue"
+
+	samplescheme "k8s.io/sample-controller/pkg/generated/clientset/versioned/scheme"
 )
 
-const KFCFinalizer = "kfc.io"
+const controllerAgentName = "sample-controller"
 
-var (
-	homePath = os.Getenv("HOME")
-	basePath = filepath.Join(homePath, ".kfc")
+const (
+	// SuccessSynced is used as part of the Event 'reason' when a Foo is synced
+	SuccessSynced = "Synced"
+
+	// MessageResourceSynced is the message used for an Event fired when a Foo
+	// is synced successfully
+	MessageResourceSynced = "Foo synced successfully"
 )
 
-// ResourceReconciler reconciles a Resource object
-type ResourceReconciler struct {
-	client.Client
-	Log        logr.Logger
-	DynClient  dynamic.Interface
-	Kubeclient kubernetes.Interface
-	CrdClient  *crdclientset.Clientset
+// Controller is the controller implementation for Foo resources
+type Controller struct {
+	sync.Mutex
+
+	kubeclientset kubernetes.Interface
+	dynamicclient dynamic.Interface
+
+	crdListers map[schema.GroupVersionResource]dynamiclister.Lister
+	crdWorkers map[schema.GroupVersionResource]*queue.Worker
+	syncedFns  []cache.InformerSynced
+
+	// recorder is an event recorder for recording Event resources to the
+	// Kubernetes API.
+	recorder record.EventRecorder
 }
 
-// +kubebuilder:rbac:groups=terraform.kfc.io,resources=resources,verbs=get;list;watch;create;update;patch;delete
-// +kubebuilder:rbac:groups=terraform.kfc.io,resources=resources/status,verbs=get;update;patch
+// .ForResource(samplev1alpha1.FooGVR)
 
-func (r *ResourceReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
-	ctx := context.Background()
-	log := r.Log.WithValues("kfc-controller", req.NamespacedName)
-	log.Info("Reconciling Resource")
+// NewController returns a new sample controller
+func NewController(
+	kubeclientset kubernetes.Interface,
+	dynamicclient dynamic.Interface,
+	factory dynamicinformer.DynamicSharedInformerFactory,
+	gvrs []schema.GroupVersionResource) *Controller {
 
-	var resource terraformv1alpha1.Resource
-	if err := r.Get(ctx, req.NamespacedName, &resource); err != nil {
-		log.Error(err, "unable to fetch resource")
+	// Create event broadcaster
+	// Add sample-controller types to the default Kubernetes Scheme so Events can be
+	// logged for sample-controller types.
+	utilruntime.Must(samplescheme.AddToScheme(scheme.Scheme))
+	klog.V(4).Info("Creating event broadcaster")
+	eventBroadcaster := record.NewBroadcaster()
+	eventBroadcaster.StartLogging(klog.Infof)
+	eventBroadcaster.StartRecordingToSink(&typedcorev1.EventSinkImpl{Interface: kubeclientset.CoreV1().Events("")})
+	recorder := eventBroadcaster.NewRecorder(scheme.Scheme, corev1.EventSource{Component: controllerAgentName})
+
+	controller := &Controller{
+		kubeclientset: kubeclientset,
+		dynamicclient: dynamicclient,
+		crdListers:    make(map[schema.GroupVersionResource]dynamiclister.Lister),
+		crdWorkers:    make(map[schema.GroupVersionResource]*queue.Worker),
+		recorder:      recorder,
 	}
 
-	obj, err := r.DynClient.Resource(resource.Spec.GVR).Namespace(resource.Spec.Namespace).Get(resource.Spec.Name, metav1.GetOptions{})
+	klog.Info("Setting up event handlers")
+	maxNumRequeues := 5
+	numThreads := 5
+
+	for _, gvr := range gvrs {
+		i := factory.ForResource(gvr)
+		q := queue.New(gvr.String(), maxNumRequeues, numThreads, func(key string) error {
+			return controller.reconcile(gvr, key)
+		})
+
+		// Set up an event handler for when Foo resources change
+		i.Informer().AddEventHandler(queue.DefaultEventHandler(q.GetQueue()))
+
+		controller.crdListers[gvr] = dynamiclister.New(i.Informer().GetIndexer(), gvr)
+		controller.crdWorkers[gvr] = q
+		controller.syncedFns = append(controller.syncedFns, i.Informer().HasSynced)
+	}
+
+	return controller
+}
+
+// Run will set up the event handlers for types we are interested in, as well
+// as syncing informer caches and starting workers. It will block until stopCh
+// is closed, at which point it will shutdown the workqueue and wait for
+// workers to finish processing their current work items.
+func (c *Controller) Run(threadiness int, stopCh <-chan struct{}) error {
+	defer utilruntime.HandleCrash()
+
+	// Start the informer factories to begin populating the informer caches
+	klog.Info("Starting Foo controller")
+
+	// Wait for the caches to be synced before starting workers
+	klog.Info("Waiting for informer caches to sync")
+	if ok := cache.WaitForCacheSync(stopCh, c.syncedFns...); !ok {
+		return fmt.Errorf("failed to wait for caches to sync")
+	}
+
+	klog.Info("Starting workers")
+	// Launch two workers to process Foo resources
+	for _, w := range c.crdWorkers {
+		w.Run(stopCh)
+	}
+
+	klog.Info("Started workers")
+	<-stopCh
+	klog.Info("Shutting down workers")
+
+	return nil
+}
+
+func (c *Controller) Lister(gvr schema.GroupVersionResource) dynamiclister.Lister {
+	c.Lock()
+	defer c.Unlock()
+	return c.crdListers[gvr]
+}
+
+// reconcile compares the actual state with the desired, and attempts to
+// converge the two. It then updates the Status block of the Foo resource
+// with the current status of the resource.
+func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) error {
+	// Convert the namespace/name string into a distinct namespace and name
+	namespace, name, err := cache.SplitMetaNamespaceKey(key)
 	if err != nil {
-		log.Error(err, "unable to get resource", "ns", resource.Spec.Namespace, "name", resource.Spec.Name, "gvr", resource.Spec.GVR)
-		return ctrl.Result{}, nil
+		utilruntime.HandleError(fmt.Errorf("invalid resource key: %s", key))
+		return nil
+	}
+
+	// Get the resource with this namespace/name
+	obj, err := c.Lister(gvr).Namespace(namespace).Get(name)
+	if err != nil {
+		// The resource may no longer exist, in which case we stop
+		// processing.
+		if errors.IsNotFound(err) {
+			utilruntime.HandleError(fmt.Errorf("resource '%s' in work queue no longer exists", key))
+			return nil
+		}
+
+		return err
 	}
 
 	// TODO: make a namer
-	resPath := filepath.Join(basePath, resource.Spec.GVR.Resource+"."+resource.Spec.Namespace+"."+resource.Spec.Name)
+	resPath := filepath.Join(basePath, gvr.Resource+"."+namespace+"."+name)
 	providerFile := filepath.Join(resPath, "provider.tf.json")
 	mainFile := filepath.Join(resPath, "main.tf.json")
 	stateFile := filepath.Join(resPath, "terraform.tfstate")
@@ -104,18 +194,13 @@ func (r *ResourceReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 				log.Error(err, "failed to delete files")
 			}
 
-			err = r.Client.Delete(ctx, &resource)
-			if err != nil {
-				log.Error(err, "failed to delete resource")
-			}
-
 			err = removeFinalizer(obj)
 			if err != nil {
 				log.Error(err, "failed to remove finalizer")
 			}
 
-			r.updateResource(resource.Spec.GVR, obj)
-			return ctrl.Result{}, nil
+			c.updateResource(gvr, obj)
+			return nil
 		}
 	} else {
 		err := addFinalizer(obj, KFCFinalizer)
@@ -127,11 +212,11 @@ func (r *ResourceReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	err = createFiles(resPath, stateFile, providerFile, mainFile)
 	if err != nil {
 		log.Error(err, "failed to create files")
-		return ctrl.Result{}, nil
+		return nil
 	}
 
 	// TODO: how to handle provider name?
-	configMap, err := r.Kubeclient.CoreV1().ConfigMaps("default").Get(strings.Split(kindToResouceMap[resource.Spec.GVR.Resource], "_")[0], metav1.GetOptions{})
+	configMap, err := c.kubeclientset.CoreV1().ConfigMaps("default").Get(strings.Split(gvr.Group, ".")[0], metav1.GetOptions{})
 	if err != nil {
 		log.Error(err, "unable to fetch configmap")
 	}
@@ -141,22 +226,14 @@ func (r *ResourceReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 		log.Error(err, "unable to get configmap")
 	}
 
-	err = crdToTFResource(resource.Spec.GVR.Resource, obj, mainFile)
+	err = crdToTFResource(gvr.Resource, obj, mainFile)
 	if err != nil {
 		log.Error(err, "unable to get crd resource")
 	}
 
-	init, _, err := unstructured.NestedBool(obj.Object, "status", "initialized")
-	if !init {
-		err = terraformInit(resPath)
-		if err != nil {
-			log.Error(err, "unable to initialize terraform")
-		} else {
-			err := updateInitializedField(obj)
-			if err != nil {
-				log.Error(err, "failed to initialize field")
-			}
-		}
+	err = terraformInit(resPath)
+	if err != nil {
+		log.Error(err, "unable to initialize terraform")
 	}
 
 	err = terraformApply(resPath, stateFile)
@@ -169,332 +246,8 @@ func (r *ResourceReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 		log.Error(err, "unable to update status out field")
 	}
 
-	r.updateResource(resource.Spec.GVR, obj)
-	return ctrl.Result{}, nil
-}
+	c.updateResource(gvr, obj)
 
-func (r *ResourceReconciler) SetupWithManager(mgr ctrl.Manager) error {
-	return ctrl.NewControllerManagedBy(mgr).
-		For(&terraformv1alpha1.Resource{}).
-		Watches(&source.Kind{Type: &terraformv1alpha1.LinodeInstance{}}, &handler.Funcs{
-			CreateFunc: func(event event.CreateEvent, limitingInterface workqueue.RateLimitingInterface) {
-				r.createResource("linodeinstances", event.Meta.GetName(), event.Meta.GetNamespace(), event.Meta.GetResourceVersion())
-			},
-			DeleteFunc: func(deleteEvent event.DeleteEvent, limitingInterface workqueue.RateLimitingInterface) {
-				r.updateResourceVersion("linodeinstances", deleteEvent.Meta.GetName(), deleteEvent.Meta.GetNamespace(), deleteEvent.Meta.GetResourceVersion())
-			},
-			UpdateFunc: func(updateEvent event.UpdateEvent, limitingInterface workqueue.RateLimitingInterface) {
-				r.updateResourceVersion("linodeinstances", updateEvent.MetaNew.GetName(), updateEvent.MetaNew.GetNamespace(), updateEvent.MetaNew.GetResourceVersion())
-			},
-		}).
-		Watches(&source.Kind{Type: &terraformv1alpha1.DigitaloceanDroplet{}}, &handler.Funcs{
-			CreateFunc: func(event event.CreateEvent, limitingInterface workqueue.RateLimitingInterface) {
-				r.createResource("digitaloceandroplets", event.Meta.GetName(), event.Meta.GetNamespace(), event.Meta.GetResourceVersion())
-			},
-			DeleteFunc: func(deleteEvent event.DeleteEvent, limitingInterface workqueue.RateLimitingInterface) {
-				r.updateResourceVersion("digitaloceandroplets", deleteEvent.Meta.GetName(), deleteEvent.Meta.GetNamespace(), deleteEvent.Meta.GetResourceVersion())
-			},
-			UpdateFunc: func(updateEvent event.UpdateEvent, limitingInterface workqueue.RateLimitingInterface) {
-				r.updateResourceVersion("digitaloceandroplets", updateEvent.MetaNew.GetName(), updateEvent.MetaNew.GetNamespace(), updateEvent.MetaNew.GetResourceVersion())
-			},
-		}).
-		Complete(r)
-}
-
-func updateStatusOut(u *unstructured.Unstructured, resPath string) error {
-	//TODO: Handle output
-	//codeUi := &CodeUi{
-	//	OutputBuffer: new(bytes.Buffer),
-	//}
-	//showCmd := command.ShowCommand{
-	//	Meta: command.Meta{
-	//		Ui: codeUi,
-	//	},
-	//}
-	//
-	//args := []string{
-	//	"-json",
-	//	resPath,
-	//}
-	//
-	//x := showCmd.Run(args)
-	//if x != 0 {
-	//	return errors.New("failed to run terraform show command")
-	//}
-	//
-	//out := codeUi.OutputBuffer.String()
-
-	out := "updated"
-
-	return unstructured.SetNestedField(u.Object, out, "status", "out")
-}
-
-func configmapToTFProvider(config *corev1.ConfigMap, providerFile string) error {
-	d1 := []byte(`{ "provider": { "` + config.Name + `":`)
-	providerJson, err := json.Marshal(config.Data)
-	if err != nil {
-		return err
-	}
-	d1 = append(d1, providerJson...)
-	d1 = append(d1, []byte("} }")...)
-
-	prettyData, err := prettyJSON(d1)
-	if err != nil {
-		return err
-	}
-
-	err = ioutil.WriteFile(providerFile, prettyData, 0644)
-	if err != nil {
-		return err
-	}
-
+	c.recorder.Event(obj, corev1.EventTypeNormal, SuccessSynced, MessageResourceSynced)
 	return nil
-}
-
-func crdToTFResource(kind string, obj *unstructured.Unstructured, mainFile string) error {
-	objMap := obj.Object
-
-	d1 := []byte(`{"resource":{ "` + kindToResouceMap[kind] + `":{"` + obj.GetName() + `":`)
-
-	instanceSpecJson, err := json.Marshal(objMap["spec"])
-	if err != nil {
-		return err
-	}
-	d1 = append(d1, instanceSpecJson...)
-	d1 = append(d1, []byte("} } }")...)
-	prettyData, err := prettyJSON(d1)
-	if err != nil {
-		return err
-	}
-	err = ioutil.WriteFile(mainFile, prettyData, 0644)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func terraformInit(resPath string) error {
-	// TODO: This initializes terraform in the current directory. Shouldn't it be moved to the resource directory?
-	codeUi := &CodeUi{
-		OutputBuffer: new(bytes.Buffer),
-	}
-	initCommand := command.InitCommand{
-		Meta: command.Meta{
-			Ui: codeUi,
-		},
-	}
-
-	args := []string{
-		resPath,
-	}
-
-	x := initCommand.Run(args)
-
-	if x != 0 {
-		return errors.New("failed to run terraform init command")
-	}
-
-	return nil
-}
-
-func terraformApply(resPath, stateFile string) error {
-	codeUi := &CodeUi{
-		OutputBuffer: new(bytes.Buffer),
-	}
-
-	cmd := command.ApplyCommand{
-		Meta: command.Meta{
-			Ui: codeUi,
-		},
-	}
-
-	args := []string{
-		"-auto-approve",
-		"-state",
-		stateFile,
-		resPath,
-	}
-	x := cmd.Run(args)
-	if x != 0 {
-		return errors.New("failed to run terraform apply command")
-	}
-
-	return nil
-}
-
-func terraformDestroy(resPath, stateFile string) error {
-	codeUi := &CodeUi{
-		OutputBuffer: new(bytes.Buffer),
-	}
-
-	cmd := command.ApplyCommand{
-		Meta: command.Meta{
-			Ui: codeUi,
-		},
-		Destroy: true,
-	}
-
-	args := []string{
-		"-auto-approve",
-		"-state",
-		stateFile,
-		resPath,
-	}
-	x := cmd.Run(args)
-	if x != 0 {
-		return errors.New("failed to run terraform destroy command")
-	}
-
-	return nil
-}
-
-func prettyJSON(byteJson []byte) ([]byte, error) {
-	var prettyJSON bytes.Buffer
-	err := json.Indent(&prettyJSON, byteJson, "", "  ")
-	if err != nil {
-		return nil, err
-	}
-
-	return prettyJSON.Bytes(), err
-}
-
-func hasFinalizer(finalizers []string, finalizer string) bool {
-	for _, f := range finalizers {
-		if f == finalizer {
-			return true
-		}
-	}
-
-	return false
-}
-
-func addFinalizer(u *unstructured.Unstructured, finalizer string) error {
-	finalizers := u.GetFinalizers()
-	finalizers = append(finalizers, finalizer)
-	err := unstructured.SetNestedStringSlice(u.Object, finalizers, "metadata", "finalizers")
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func removeFinalizer(u *unstructured.Unstructured) error {
-	err := unstructured.SetNestedStringSlice(u.Object, []string{}, "metadata", "finalizers")
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func createFiles(resPath, stateFile, providerFile, mainFile string) error {
-	_, err := os.Stat(resPath)
-	if os.IsNotExist(err) {
-		err := os.MkdirAll(resPath, 0777)
-		if err != nil {
-			return err
-		}
-		_, err = os.Create(providerFile)
-		if err != nil {
-			return err
-		}
-
-		_, err = os.Create(mainFile)
-		if err != nil {
-			return err
-		}
-
-		_, err = os.Create(stateFile)
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
-
-func deleteFiles(resPath string) error {
-	err := os.RemoveAll(resPath)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func updateInitializedField(obj *unstructured.Unstructured) error {
-	err := unstructured.SetNestedField(obj.Object, true, "status", "initialized")
-	if err != nil {
-		return errors.Wrap(err, "failed to update field")
-	}
-
-	return nil
-}
-
-func (r *ResourceReconciler) createResource(kind, name, namespace, rv string) {
-	// TODO: make a namer
-	resName := kind + "-" + name + "-" + namespace
-
-	err := r.Client.Get(context.Background(), types.NamespacedName{
-		Namespace: corev1.NamespaceDefault,
-		Name:      resName,
-	}, &terraformv1alpha1.Resource{})
-
-	if err != nil {
-		err = r.Client.Create(context.Background(), &terraformv1alpha1.Resource{
-			ObjectMeta: metav1.ObjectMeta{
-				Name:      resName,
-				Namespace: corev1.NamespaceDefault,
-			},
-			Spec: terraformv1alpha1.ResourceSpec{
-				GVR: schema.GroupVersionResource{
-					Group:    terraformv1alpha1.GroupVersion.Group,
-					Version:  terraformv1alpha1.GroupVersion.Version,
-					Resource: kind,
-				},
-				Name:            name,
-				Namespace:       namespace,
-				ResourceVersion: rv,
-			},
-		})
-
-		if err != nil {
-			r.Log.Error(err, "failed to create resource")
-		}
-	}
-}
-
-func (r *ResourceReconciler) updateResourceVersion(kind, name, namespace, rv string) {
-	r.Log.Info("Updating resource version")
-
-	var resource terraformv1alpha1.Resource
-	err := r.Client.Get(context.Background(), types.NamespacedName{
-		Namespace: corev1.NamespaceDefault,
-		Name:      kind + "-" + name + "-" + namespace,
-	}, &resource)
-	if err != nil {
-		r.Log.Error(err, "failed to get resource")
-	}
-
-	resource.Spec.ResourceVersion = rv
-
-	err = r.Client.Update(context.Background(), &resource)
-	if err != nil {
-		r.Log.Error(err, "failed to update resource")
-	}
-}
-
-func (r *ResourceReconciler) updateResource(gvr schema.GroupVersionResource, u *unstructured.Unstructured) {
-	_, err := r.DynClient.Resource(gvr).Namespace(u.GetNamespace()).Update(u, metav1.UpdateOptions{})
-	if err != nil {
-		r.Log.Error(err, "failed to update resource")
-	}
-}
-
-// TODO: how to handle resource name?
-var kindToResouceMap = map[string]string{
-	"linodeinstances":      "linode_instance",
-	"digitaloceandroplets": "digitalocean_droplet",
 }

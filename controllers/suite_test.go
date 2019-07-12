@@ -16,6 +16,9 @@ limitations under the License.
 package controllers
 
 import (
+	"bytes"
+	"fmt"
+	"os"
 	"path/filepath"
 	"testing"
 
@@ -25,7 +28,6 @@ import (
 	. "github.com/onsi/gomega"
 
 	terraformv1alpha1 "github.com/appscode-cloud/kfc/api/v1alpha1"
-	"github.com/mitchellh/cli"
 	"k8s.io/client-go/kubernetes/scheme"
 	"k8s.io/client-go/rest"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -80,46 +82,27 @@ var _ = AfterSuite(func() {
 	Expect(err).ToNot(HaveOccurred())
 })
 
-func TestInit(t *testing.T) {
-	cmd := command.InitCommand{
+func TestUI(t *testing.T) {
+	wd, _ := os.Getwd()
+	fmt.Println("????????????????????", wd)
+
+	codeUi := &CodeUi{
+		OutputBuffer: new(bytes.Buffer),
+	}
+	showCmd := command.ShowCommand{
 		Meta: command.Meta{
-			Ui: cli.NewMockUi(),
+			GlobalPluginDirs: []string{"/home/fahim/.kfc/digitaloceandroplets.default.do-test/.terraform/plugins/linux_amd64"},
+			Ui:               codeUi,
 		},
 	}
 
 	args := []string{
-		"/home/fahim/.kfc/linodeinstances.default.linode-test",
-	}
-	cmd.Run(args)
-}
-
-func TestApply(t *testing.T) {
-	cmd := command.ApplyCommand{
-		Meta: command.Meta{
-			Ui: cli.NewMockUi(),
-		},
+		"-json",
+		"/home/fahim/.kfc/digitaloceandroplets.default.do-test/terraform.tfstate",
 	}
 
-	args := []string{
-		"-auto-approve",
-		"-state",
-		"/home/fahim/.kfc/linodeinstances.default.linode-test/terraform.tfstate",
-		"/home/fahim/.kfc/linodeinstances.default.linode-test",
-	}
-	cmd.Run(args)
-}
+	showCmd.Run(args)
 
-func TestDestroy(t *testing.T) {
-	cmd := command.ApplyCommand{
-		Meta: command.Meta{
-			Ui: cli.NewMockUi(),
-		},
-		Destroy: true,
-	}
-
-	args := []string{
-		"-auto-approve",
-		"/home/fahim/.kfc/linodeinstances.default.linode-test",
-	}
-	cmd.Run(args)
+	out := codeUi.OutputBuffer.String()
+	fmt.Println(out)
 }
