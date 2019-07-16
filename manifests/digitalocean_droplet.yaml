@@ -1,4 +1,4 @@
-apiVersion: terraform.kfc.io/v1alpha1
+apiVersion: digitalocean.kfc.io/v1alpha1
 kind: DigitaloceanDroplet
 metadata:
   name: do-test

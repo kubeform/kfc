@@ -1,4 +1,4 @@
-apiVersion: terraform.kfc.io/v1alpha1
+apiVersion: linode.kfc.io/v1alpha1
 kind: LinodeInstance
 metadata:
   name: linode-test

@@ -39,7 +39,7 @@ import (
 	"k8s.io/klog"
 	"kmodules.xyz/client-go/tools/queue"
 
-	samplescheme "k8s.io/sample-controller/pkg/generated/clientset/versioned/scheme"
+	kubeformscheme "kubeform.dev/kubeform/client/clientset/versioned/scheme"
 )
 
 const controllerAgentName = "sample-controller"
@@ -81,7 +81,7 @@ func NewController(
 	// Create event broadcaster
 	// Add sample-controller types to the default Kubernetes Scheme so Events can be
 	// logged for sample-controller types.
-	utilruntime.Must(samplescheme.AddToScheme(scheme.Scheme))
+	utilruntime.Must(kubeformscheme.AddToScheme(scheme.Scheme))
 	klog.V(4).Info("Creating event broadcaster")
 	eventBroadcaster := record.NewBroadcaster()
 	eventBroadcaster.StartLogging(klog.Infof)
@@ -99,8 +99,8 @@ func NewController(
 	klog.Info("Setting up event handlers")
 	maxNumRequeues := 5
 	numThreads := 5
-
-	for _, gvr := range gvrs {
+	for i := range gvrs {
+		gvr := gvrs[i]
 		i := factory.ForResource(gvr)
 		q := queue.New(gvr.String(), maxNumRequeues, numThreads, func(key string) error {
 			return controller.reconcile(gvr, key)
@@ -162,6 +162,7 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		utilruntime.HandleError(fmt.Errorf("invalid resource key: %s", key))
 		return nil
 	}
+	fmt.Println(gvr)
 
 	// Get the resource with this namespace/name
 	obj, err := c.Lister(gvr).Namespace(namespace).Get(name)

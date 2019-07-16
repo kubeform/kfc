@@ -42,7 +42,7 @@ var (
 )
 
 func main() {
-	klog.InitFlags(nil)
+	//klog.InitFlags(nil)
 	flag.Parse()
 
 	// set up signals so we handle the first shutdown signal gracefully
@@ -67,12 +67,12 @@ func main() {
 
 	gvrs := []schema.GroupVersionResource{
 		{
-			"terraform.kfc.io",
+			"digitalocean.kfc.io",
 			"v1alpha1",
 			"digitaloceandroplets",
 		},
 		{
-			"terraform.kfc.io",
+			"linode.kfc.io",
 			"v1alpha1",
 			"linodeinstances",
 		},
@@ -89,6 +89,6 @@ func main() {
 }
 
 func init() {
-	flag.StringVar(&kubeconfig, "kubeconfig", "", "Path to a kubeconfig. Only required if out-of-cluster.")
+	flag.StringVar(&kubeconfig, "kubeconfig", "/home/fahim/.kube/config", "Path to a kubeconfig. Only required if out-of-cluster.")
 	flag.StringVar(&masterURL, "master", "", "The address of the Kubernetes API server. Overrides any value in kubeconfig. Only required if out-of-cluster.")
 }

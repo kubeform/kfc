@@ -17,7 +17,6 @@ package controllers
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -30,9 +29,6 @@ import (
 
 	"k8s.io/client-go/dynamic"
 
-	"k8s.io/apimachinery/pkg/types"
-
-	terraformv1alpha1 "github.com/appscode-cloud/kfc/api/v1alpha1"
 	"github.com/go-logr/logr"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -310,25 +306,25 @@ func deleteFiles(resPath string) error {
 //	return nil
 //}
 
-func (r *ResourceReconciler) updateResourceVersion(kind, name, namespace, rv string) {
-	r.Log.Info("Updating resource version")
-
-	var resource terraformv1alpha1.Resource
-	err := r.Client.Get(context.Background(), types.NamespacedName{
-		Namespace: corev1.NamespaceDefault,
-		Name:      kind + "-" + name + "-" + namespace,
-	}, &resource)
-	if err != nil {
-		r.Log.Error(err, "failed to get resource")
-	}
-
-	resource.Spec.ResourceVersion = rv
-
-	err = r.Client.Update(context.Background(), &resource)
-	if err != nil {
-		r.Log.Error(err, "failed to update resource")
-	}
-}
+//func (r *ResourceReconciler) updateResourceVersion(kind, name, namespace, rv string) {
+//	r.Log.Info("Updating resource version")
+//
+//	var resource terraformv1alpha1.Resource
+//	err := r.Client.Get(context.Background(), types.NamespacedName{
+//		Namespace: corev1.NamespaceDefault,
+//		Name:      kind + "-" + name + "-" + namespace,
+//	}, &resource)
+//	if err != nil {
+//		r.Log.Error(err, "failed to get resource")
+//	}
+//
+//	resource.Spec.ResourceVersion = rv
+//
+//	err = r.Client.Update(context.Background(), &resource)
+//	if err != nil {
+//		r.Log.Error(err, "failed to update resource")
+//	}
+//}
 
 func (c *Controller) updateResource(gvr schema.GroupVersionResource, u *unstructured.Unstructured) {
 	_, err := c.dynamicclient.Resource(gvr).Namespace(u.GetNamespace()).Update(u, metav1.UpdateOptions{})

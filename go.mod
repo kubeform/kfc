@@ -4,11 +4,21 @@ go 1.12
 
 require (
 	github.com/appscode/go v0.0.0-20190621064509-6b292c9166e3
+	github.com/chzyer/logex v1.1.11-0.20160617073814-96a4d311aa9b // indirect
 	github.com/go-logr/logr v0.1.0
+	github.com/go-toolsmith/astcast v1.0.0 // indirect
+	github.com/go-toolsmith/astcopy v1.0.0 // indirect
+	github.com/go-toolsmith/astfmt v1.0.0 // indirect
+	github.com/go-toolsmith/astp v1.0.0 // indirect
+	github.com/go-toolsmith/pkgload v1.0.0 // indirect
+	github.com/go-toolsmith/typep v1.0.0 // indirect
 	github.com/gophercloud/gophercloud v0.1.0 // indirect
-	github.com/hashicorp/terraform v0.12.3
+	github.com/hashicorp/go-immutable-radix v1.0.0 // indirect
+	github.com/hashicorp/go-sockaddr v1.0.0 // indirect
+	github.com/hashicorp/serf v0.8.2-0.20171022020050-c20a0b1b1ea9 // indirect
+	github.com/hashicorp/terraform v0.12.4
 	github.com/kr/pty v1.1.3 // indirect
-	github.com/mattn/go-isatty v0.0.8 // indirect
+	github.com/miekg/dns v1.0.14 // indirect
 	github.com/onsi/ginkgo v1.8.0
 	github.com/onsi/gomega v1.5.0
 	github.com/prometheus/client_golang v0.9.3-0.20190127221311-3c4408c8b829 // indirect
@@ -21,6 +31,7 @@ require (
 	k8s.io/sample-controller v0.0.0-20190712023928-20cb8607d0ef
 	k8s.io/utils v0.0.0-20190607212802-c55fbcfc754a // indirect
 	kmodules.xyz/client-go v0.0.0-20190704105105-ad0cd2db49e2
+	kubeform.dev/kubeform v0.0.0-20190713043446-5ddc794cb887
 	sigs.k8s.io/controller-runtime v0.2.0-beta.2
 )
 
