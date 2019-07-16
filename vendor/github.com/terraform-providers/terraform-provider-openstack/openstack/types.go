@@ -10,10 +10,6 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/fwaas/firewalls"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/fwaas/policies"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/fwaas/routerinsertion"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/fwaas/rules"
 	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/layer3/floatingips"
 	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/layer3/routers"
 	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/subnetpools"
@@ -93,21 +89,24 @@ func (lrt *LogRoundTripper) RoundTrip(request *http.Request) (*http.Response, er
 // logRequest will log the HTTP Request details.
 // If the body is JSON, it will attempt to be pretty-formatted.
 func (lrt *LogRoundTripper) logRequest(original io.ReadCloser, contentType string) (io.ReadCloser, error) {
-	defer original.Close()
-
-	var bs bytes.Buffer
-	_, err := io.Copy(&bs, original)
-	if err != nil {
-		return nil, err
-	}
-
 	// Handle request contentType
 	if strings.HasPrefix(contentType, "application/json") {
+		var bs bytes.Buffer
+		defer original.Close()
+
+		_, err := io.Copy(&bs, original)
+		if err != nil {
+			return nil, err
+		}
+
 		debugInfo := lrt.formatJSON(bs.Bytes())
 		log.Printf("[DEBUG] OpenStack Request Body: %s", debugInfo)
+
+		return ioutil.NopCloser(strings.NewReader(bs.String())), nil
 	}
 
-	return ioutil.NopCloser(strings.NewReader(bs.String())), nil
+	log.Printf("[DEBUG] Not logging because OpenStack request body isn't JSON")
+	return original, nil
 }
 
 // logResponse will log the HTTP Response details.
@@ -116,14 +115,17 @@ func (lrt *LogRoundTripper) logResponse(original io.ReadCloser, contentType stri
 	if strings.HasPrefix(contentType, "application/json") {
 		var bs bytes.Buffer
 		defer original.Close()
+
 		_, err := io.Copy(&bs, original)
 		if err != nil {
 			return nil, err
 		}
+
 		debugInfo := lrt.formatJSON(bs.Bytes())
 		if debugInfo != "" {
 			log.Printf("[DEBUG] OpenStack Response Body: %s", debugInfo)
 		}
+
 		return ioutil.NopCloser(strings.NewReader(bs.String())), nil
 	}
 
@@ -134,16 +136,35 @@ func (lrt *LogRoundTripper) logResponse(original io.ReadCloser, contentType stri
 // formatJSON will try to pretty-format a JSON body.
 // It will also mask known fields which contain sensitive information.
 func (lrt *LogRoundTripper) formatJSON(raw []byte) string {
-	var data map[string]interface{}
+	var rawData interface{}
 
-	err := json.Unmarshal(raw, &data)
+	err := json.Unmarshal(raw, &rawData)
 	if err != nil {
 		log.Printf("[DEBUG] Unable to parse OpenStack JSON: %s", err)
 		return string(raw)
 	}
 
+	data, ok := rawData.(map[string]interface{})
+	if !ok {
+		pretty, err := json.MarshalIndent(rawData, "", "  ")
+		if err != nil {
+			log.Printf("[DEBUG] Unable to re-marshal OpenStack JSON: %s", err)
+			return string(raw)
+		}
+
+		return string(pretty)
+	}
+
 	// Mask known password fields
 	if v, ok := data["auth"].(map[string]interface{}); ok {
+		// v2 auth methods
+		if v, ok := v["passwordCredentials"].(map[string]interface{}); ok {
+			v["password"] = "***"
+		}
+		if v, ok := v["token"].(map[string]interface{}); ok {
+			v["id"] = "***"
+		}
+		// v3 auth methods
 		if v, ok := v["identity"].(map[string]interface{}); ok {
 			if v, ok := v["password"].(map[string]interface{}); ok {
 				if v, ok := v["user"].(map[string]interface{}); ok {
@@ -175,33 +196,6 @@ func (lrt *LogRoundTripper) formatJSON(raw []byte) string {
 	return string(pretty)
 }
 
-// Firewall is an OpenStack firewall.
-type Firewall struct {
-	firewalls.Firewall
-	routerinsertion.FirewallExt
-}
-
-// FirewallCreateOpts represents the attributes used when creating a new firewall.
-type FirewallCreateOpts struct {
-	firewalls.CreateOpts
-	ValueSpecs map[string]string `json:"value_specs,omitempty"`
-}
-
-// ToFirewallCreateMap casts a CreateOptsExt struct to a map.
-// It overrides firewalls.ToFirewallCreateMap to add the ValueSpecs field.
-func (opts FirewallCreateOpts) ToFirewallCreateMap() (map[string]interface{}, error) {
-	return BuildRequest(opts, "firewall")
-}
-
-//FirewallUpdateOpts
-type FirewallUpdateOpts struct {
-	firewalls.UpdateOptsBuilder
-}
-
-func (opts FirewallUpdateOpts) ToFirewallUpdateMap() (map[string]interface{}, error) {
-	return BuildRequest(opts, "firewall")
-}
-
 // FloatingIPCreateOpts represents the attributes used when creating a new floating ip.
 type FloatingIPCreateOpts struct {
 	floatingips.CreateOpts
@@ -226,12 +220,6 @@ func (opts NetworkCreateOpts) ToNetworkCreateMap() (map[string]interface{}, erro
 	return BuildRequest(opts, "network")
 }
 
-// PolicyCreateOpts represents the attributes used when creating a new firewall policy.
-type PolicyCreateOpts struct {
-	policies.CreateOpts
-	ValueSpecs map[string]string `json:"value_specs,omitempty"`
-}
-
 // IKEPolicyCreateOpts represents the attributes used when creating a new IKE policy.
 type IKEPolicyCreateOpts struct {
 	ikepolicies.CreateOpts
@@ -242,12 +230,6 @@ type IKEPolicyCreateOpts struct {
 type IKEPolicyLifetimeCreateOpts struct {
 	ikepolicies.LifetimeCreateOpts
 	ValueSpecs map[string]string `json:"value_specs,omitempty"`
-}
-
-// ToPolicyCreateMap casts a CreateOpts struct to a map.
-// It overrides policies.ToFirewallPolicyCreateMap to add the ValueSpecs field.
-func (opts PolicyCreateOpts) ToFirewallPolicyCreateMap() (map[string]interface{}, error) {
-	return BuildRequest(opts, "firewall_policy")
 }
 
 // PortCreateOpts represents the attributes used when creating a new port.
@@ -272,27 +254,6 @@ type RouterCreateOpts struct {
 // It overrides routers.ToRouterCreateMap to add the ValueSpecs field.
 func (opts RouterCreateOpts) ToRouterCreateMap() (map[string]interface{}, error) {
 	return BuildRequest(opts, "router")
-}
-
-// RuleCreateOpts represents the attributes used when creating a new firewall rule.
-type RuleCreateOpts struct {
-	rules.CreateOpts
-	ValueSpecs map[string]string `json:"value_specs,omitempty"`
-}
-
-// ToRuleCreateMap casts a CreateOpts struct to a map.
-// It overrides rules.ToRuleCreateMap to add the ValueSpecs field.
-func (opts RuleCreateOpts) ToRuleCreateMap() (map[string]interface{}, error) {
-	b, err := BuildRequest(opts, "firewall_rule")
-	if err != nil {
-		return nil, err
-	}
-
-	if m := b["firewall_rule"].(map[string]interface{}); m["protocol"] == "any" {
-		m["protocol"] = nil
-	}
-
-	return b, nil
 }
 
 // SubnetCreateOpts represents the attributes used when creating a new subnet.

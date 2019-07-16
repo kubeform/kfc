@@ -6,16 +6,12 @@ import (
 	"strings"
 
 	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/hashicorp/terraform/helper/structure"
 	"github.com/hashicorp/terraform/helper/validation"
 
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/extradhcpopts"
+	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/dns"
 	"github.com/gophercloud/gophercloud/openstack/networking/v2/ports"
 )
-
-type extraPort struct {
-	ports.Port
-	extradhcpopts.ExtraDHCPOptsExt
-}
 
 func dataSourceNetworkingPortV2() *schema.Resource {
 	return &schema.Resource{
@@ -140,7 +136,7 @@ func dataSourceNetworkingPortV2() *schema.Resource {
 			},
 
 			"extra_dhcp_option": {
-				Type:     schema.TypeSet,
+				Type:     schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
@@ -159,6 +155,50 @@ func dataSourceNetworkingPortV2() *schema.Resource {
 					},
 				},
 			},
+
+			"binding": {
+				Type:     schema.TypeList,
+				Computed: true,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"host_id": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"profile": {
+							Type:     schema.TypeString,
+							Computed: true,
+							StateFunc: func(v interface{}) string {
+								json, _ := structure.NormalizeJsonString(v)
+								return json
+							},
+						},
+						"vif_details": {
+							Type:     schema.TypeMap,
+							Computed: true,
+						},
+						"vif_type": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"vnic_type": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+					},
+				},
+			},
+
+			"dns_name": {
+				Type:     schema.TypeString,
+				Optional: true,
+			},
+
+			"dns_assignment": {
+				Type:     schema.TypeList,
+				Computed: true,
+				Elem:     &schema.Schema{Type: schema.TypeMap},
+			},
 		},
 	}
 }
@@ -171,6 +211,7 @@ func dataSourceNetworkingPortV2Read(d *schema.ResourceData, meta interface{}) er
 	}
 
 	listOpts := ports.ListOpts{}
+	var listOptsBuilder ports.ListOptsBuilder
 
 	if v, ok := d.GetOk("port_id"); ok {
 		listOpts.ID = v.(string)
@@ -222,12 +263,21 @@ func dataSourceNetworkingPortV2Read(d *schema.ResourceData, meta interface{}) er
 		listOpts.Tags = strings.Join(tags, ",")
 	}
 
-	allPages, err := ports.List(networkingClient, listOpts).AllPages()
+	listOptsBuilder = listOpts
+
+	if v, ok := d.GetOk("dns_name"); ok {
+		listOptsBuilder = dns.PortListOptsExt{
+			ListOptsBuilder: listOptsBuilder,
+			DNSName:         v.(string),
+		}
+	}
+
+	allPages, err := ports.List(networkingClient, listOptsBuilder).AllPages()
 	if err != nil {
 		return fmt.Errorf("Unable to list openstack_networking_ports_v2: %s", err)
 	}
 
-	var allPorts []extraPort
+	var allPorts []portExtended
 
 	err = ports.ExtractPortsInto(allPages, &allPorts)
 	if err != nil {
@@ -238,7 +288,7 @@ func dataSourceNetworkingPortV2Read(d *schema.ResourceData, meta interface{}) er
 		return fmt.Errorf("No openstack_networking_port_v2 found")
 	}
 
-	var portsList []extraPort
+	var portsList []portExtended
 
 	// Filter returned Fixed IPs by a "fixed_ip".
 	if v, ok := d.GetOk("fixed_ip"); ok {
@@ -259,7 +309,7 @@ func dataSourceNetworkingPortV2Read(d *schema.ResourceData, meta interface{}) er
 
 	securityGroups := expandToStringSlice(d.Get("security_group_ids").(*schema.Set).List())
 	if len(securityGroups) > 0 {
-		var sgPorts []extraPort
+		var sgPorts []portExtended
 		for _, p := range portsList {
 			for _, sg := range p.SecurityGroups {
 				if strSliceContains(securityGroups, sg) {
@@ -299,6 +349,9 @@ func dataSourceNetworkingPortV2Read(d *schema.ResourceData, meta interface{}) er
 	d.Set("all_fixed_ips", expandNetworkingPortFixedIPToStringSlice(port.FixedIPs))
 	d.Set("allowed_address_pairs", flattenNetworkingPortAllowedAddressPairsV2(port.MACAddress, port.AllowedAddressPairs))
 	d.Set("extra_dhcp_option", flattenNetworkingPortDHCPOptsV2(port.ExtraDHCPOptsExt))
+	d.Set("binding", flattenNetworkingPortBindingV2(port))
+	d.Set("dns_name", port.DNSName)
+	d.Set("dns_assignment", port.DNSAssignment)
 
 	return nil
 }

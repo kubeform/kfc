@@ -3,6 +3,8 @@ module github.com/appscode-cloud/kfc
 go 1.12
 
 require (
+	github.com/Azure/go-autorest/autorest/azure/cli v0.1.0 // indirect
+	github.com/Azure/go-autorest/autorest/mocks v0.2.0 // indirect
 	github.com/appscode/go v0.0.0-20190621064509-6b292c9166e3
 	github.com/chzyer/logex v1.1.11-0.20160617073814-96a4d311aa9b // indirect
 	github.com/go-logr/logr v0.1.0
@@ -12,7 +14,6 @@ require (
 	github.com/go-toolsmith/astp v1.0.0 // indirect
 	github.com/go-toolsmith/pkgload v1.0.0 // indirect
 	github.com/go-toolsmith/typep v1.0.0 // indirect
-	github.com/gophercloud/gophercloud v0.1.0 // indirect
 	github.com/hashicorp/go-immutable-radix v1.0.0 // indirect
 	github.com/hashicorp/go-sockaddr v1.0.0 // indirect
 	github.com/hashicorp/serf v0.8.2-0.20171022020050-c20a0b1b1ea9 // indirect
@@ -21,21 +22,23 @@ require (
 	github.com/miekg/dns v1.0.14 // indirect
 	github.com/onsi/ginkgo v1.8.0
 	github.com/onsi/gomega v1.5.0
-	github.com/prometheus/client_golang v0.9.3-0.20190127221311-3c4408c8b829 // indirect
+	github.com/terraform-providers/terraform-provider-openstack v1.20.0 // indirect
 	golang.org/x/crypto v0.0.0-20190611184440-5c40567a22f8 // indirect
-	golang.org/x/net v0.0.0-20190613194153-d28f0bde5980
+	golang.org/x/net v0.0.0-20190620200207-3b0461eec859
 	k8s.io/api v0.0.0-20190711103429-37c3b8b1ca65
 	k8s.io/apimachinery v0.0.0-20190711222657-391ed67afa7b
 	k8s.io/client-go v11.0.1-0.20190409021438-1a26190bd76a+incompatible
 	k8s.io/klog v0.3.1
 	k8s.io/sample-controller v0.0.0-20190712023928-20cb8607d0ef
 	k8s.io/utils v0.0.0-20190607212802-c55fbcfc754a // indirect
-	kmodules.xyz/client-go v0.0.0-20190704105105-ad0cd2db49e2
+	kmodules.xyz/client-go v0.0.0-20190715080709-7162a6c90b04
 	kubeform.dev/kubeform v0.0.0-20190713043446-5ddc794cb887
-	sigs.k8s.io/controller-runtime v0.2.0-beta.2
+	sigs.k8s.io/controller-runtime v0.2.0-beta.4
 )
 
 replace (
+	github.com/Azure/go-autorest => github.com/Azure/go-autorest/autorest v0.5.0
+	github.com/hashicorp/go-azure-helpers => github.com/hashicorp/go-azure-helpers v0.3.2
 	k8s.io/api => k8s.io/api v0.0.0-20190313235455-40a48860b5ab
 	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.0.0-20190315093550-53c4693659ed
 	k8s.io/apimachinery => github.com/kmodules/apimachinery v0.0.0-20190508045248-a52a97a7a2bf

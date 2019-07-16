@@ -3,7 +3,6 @@ package openstack
 import (
 	"fmt"
 	"net/http"
-	"reflect"
 	"sort"
 	"strconv"
 	"strings"
@@ -11,10 +10,8 @@ import (
 
 	"github.com/Unknwon/com"
 	"github.com/gophercloud/gophercloud"
-	"github.com/hashicorp/terraform/flatmap"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/hashicorp/terraform/terraform"
 )
 
 // BuildRequest takes an opts struct and builds a request body for
@@ -103,16 +100,13 @@ func FormatHeaders(headers http.Header, seperator string) string {
 }
 
 func checkForRetryableError(err error) *resource.RetryError {
-	switch errCode := err.(type) {
+	switch err.(type) {
 	case gophercloud.ErrDefault500:
 		return resource.RetryableError(err)
-	case gophercloud.ErrUnexpectedResponseCode:
-		switch errCode.Actual {
-		case 409, 503:
-			return resource.RetryableError(err)
-		default:
-			return resource.NonRetryableError(err)
-		}
+	case gophercloud.ErrDefault409:
+		return resource.RetryableError(err)
+	case gophercloud.ErrDefault503:
+		return resource.RetryableError(err)
 	default:
 		return resource.NonRetryableError(err)
 	}
@@ -194,40 +188,6 @@ func networkV2AttributesTags(d *schema.ResourceData) (tags []string) {
 	return
 }
 
-func testAccCheckNetworkingV2Tags(name string, tags []string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[name]
-
-		if !ok {
-			return fmt.Errorf("resource not found: %s", name)
-		}
-
-		var tagLen int64
-		var err error
-		if count, ok := rs.Primary.Attributes["tags.#"]; !ok {
-			return fmt.Errorf("resource tags not found: %s.tags", name)
-		} else {
-			tagLen, err = strconv.ParseInt(count, 10, 64)
-			if err != nil {
-				return fmt.Errorf("Failed to parse tag amount: %s", err)
-			}
-		}
-
-		rtags := make([]string, tagLen)
-		itags := flatmap.Expand(rs.Primary.Attributes, "tags").([]interface{})
-		for i, val := range itags {
-			rtags[i] = val.(string)
-		}
-		sort.Strings(rtags)
-		sort.Strings(tags)
-		if !reflect.DeepEqual(rtags, tags) {
-			return fmt.Errorf(
-				"%s.tags: expected: %#v, got %#v", name, tags, rtags)
-		}
-		return nil
-	}
-}
-
 func expandToMapStringString(v map[string]interface{}) map[string]string {
 	m := make(map[string]string)
 	for key, val := range v {
@@ -274,4 +234,66 @@ func sliceUnion(a, b []string) []string {
 		}
 	}
 	return res
+}
+
+// compatibleMicroversion will determine if an obtained microversion is
+// compatible with a given microversion.
+func compatibleMicroversion(direction, required, given string) (bool, error) {
+	if direction != "min" && direction != "max" {
+		return false, fmt.Errorf("Invalid microversion direction %s. Must be min or max", direction)
+	}
+
+	if required == "" || given == "" {
+		return false, nil
+	}
+
+	requiredParts := strings.Split(required, ".")
+	if len(requiredParts) != 2 {
+		return false, fmt.Errorf("Not a valid microversion: %s", required)
+	}
+
+	givenParts := strings.Split(given, ".")
+	if len(givenParts) != 2 {
+		return false, fmt.Errorf("Not a valid microversion: %s", given)
+	}
+
+	requiredMajor, requiredMinor := requiredParts[0], requiredParts[1]
+	givenMajor, givenMinor := givenParts[0], givenParts[1]
+
+	requiredMajorInt, err := strconv.Atoi(requiredMajor)
+	if err != nil {
+		return false, fmt.Errorf("Unable to parse microversion: %s", required)
+	}
+
+	requiredMinorInt, err := strconv.Atoi(requiredMinor)
+	if err != nil {
+		return false, fmt.Errorf("Unable to parse microversion: %s", required)
+	}
+
+	givenMajorInt, err := strconv.Atoi(givenMajor)
+	if err != nil {
+		return false, fmt.Errorf("Unable to parse microversion: %s", given)
+	}
+
+	givenMinorInt, err := strconv.Atoi(givenMinor)
+	if err != nil {
+		return false, fmt.Errorf("Unable to parse microversion: %s", given)
+	}
+
+	switch direction {
+	case "min":
+		if requiredMajorInt == givenMajorInt {
+			if requiredMinorInt <= givenMinorInt {
+				return true, nil
+			}
+		}
+	case "max":
+		if requiredMajorInt == givenMajorInt {
+			if requiredMinorInt >= givenMinorInt {
+				return true, nil
+			}
+		}
+	}
+
+	return false, nil
 }

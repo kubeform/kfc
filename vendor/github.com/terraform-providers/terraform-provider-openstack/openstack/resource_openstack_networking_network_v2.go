@@ -3,14 +3,20 @@ package openstack
 import (
 	"fmt"
 	"log"
+	"regexp"
 	"time"
 
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/hashicorp/terraform/helper/validation"
 
 	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/attributestags"
+	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/dns"
 	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/external"
+	mtuext "github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/mtu"
+	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/portsecurity"
 	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/provider"
+	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/qos/policies"
 	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/vlantransparent"
 	"github.com/gophercloud/gophercloud/openstack/networking/v2/networks"
 )
@@ -135,6 +141,31 @@ func resourceNetworkingNetworkV2() *schema.Resource {
 				ForceNew: true,
 				Computed: true,
 			},
+
+			"port_security_enabled": {
+				Type:     schema.TypeBool,
+				Optional: true,
+				Computed: true,
+			},
+
+			"mtu": {
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
+
+			"dns_domain": {
+				Type:         schema.TypeString,
+				Optional:     true,
+				ValidateFunc: validation.StringMatch(regexp.MustCompile(`^$|\.$`), "fully-qualified (unambiguous) DNS domain names must have a dot at the end"),
+			},
+
+			"qos_policy_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: false,
+				Computed: true,
+			},
 		},
 	}
 }
@@ -168,15 +199,12 @@ func resourceNetworkingNetworkV2Create(d *schema.ResourceData, meta interface{})
 		createOpts.Shared = &shared
 	}
 
-	segments := expandNetworkingNetworkSegmentsV2(d.Get("segments").(*schema.Set))
-	isExternal := d.Get("external").(bool)
-	isVLANTransparent := d.Get("transparent_vlan").(bool)
-
 	// Declare a finalCreateOpts interface.
 	var finalCreateOpts networks.CreateOptsBuilder
 	finalCreateOpts = createOpts
 
 	// Add networking segments if specified.
+	segments := expandNetworkingNetworkSegmentsV2(d.Get("segments").(*schema.Set))
 	if len(segments) > 0 {
 		finalCreateOpts = provider.CreateOptsExt{
 			CreateOptsBuilder: finalCreateOpts,
@@ -185,6 +213,7 @@ func resourceNetworkingNetworkV2Create(d *schema.ResourceData, meta interface{})
 	}
 
 	// Add the external attribute if specified.
+	isExternal := d.Get("external").(bool)
 	if isExternal {
 		finalCreateOpts = external.CreateOptsExt{
 			CreateOptsBuilder: finalCreateOpts,
@@ -193,10 +222,45 @@ func resourceNetworkingNetworkV2Create(d *schema.ResourceData, meta interface{})
 	}
 
 	// Add the transparent VLAN attribute if specified.
+	isVLANTransparent := d.Get("transparent_vlan").(bool)
 	if isVLANTransparent {
 		finalCreateOpts = vlantransparent.CreateOptsExt{
 			CreateOptsBuilder: finalCreateOpts,
 			VLANTransparent:   &isVLANTransparent,
+		}
+	}
+
+	// Add the port security attribute if specified.
+	if v, ok := d.GetOkExists("port_security_enabled"); ok {
+		portSecurityEnabled := v.(bool)
+		finalCreateOpts = portsecurity.NetworkCreateOptsExt{
+			CreateOptsBuilder:   finalCreateOpts,
+			PortSecurityEnabled: &portSecurityEnabled,
+		}
+	}
+
+	mtu := d.Get("mtu").(int)
+	// Add the MTU attribute if specified.
+	if mtu > 0 {
+		finalCreateOpts = mtuext.CreateOptsExt{
+			CreateOptsBuilder: finalCreateOpts,
+			MTU:               mtu,
+		}
+	}
+
+	// Add the DNS Domain attribute if specified.
+	if dnsDomain := d.Get("dns_domain").(string); dnsDomain != "" {
+		finalCreateOpts = dns.NetworkCreateOptsExt{
+			CreateOptsBuilder: finalCreateOpts,
+			DNSDomain:         dnsDomain,
+		}
+	}
+
+	// Add the QoS policy ID attribute if specified.
+	if qosPolicyID := d.Get("qos_policy_id").(string); qosPolicyID != "" {
+		finalCreateOpts = policies.NetworkCreateOptsExt{
+			CreateOptsBuilder: finalCreateOpts,
+			QoSPolicyID:       qosPolicyID,
 		}
 	}
 
@@ -245,30 +309,31 @@ func resourceNetworkingNetworkV2Read(d *schema.ResourceData, meta interface{}) e
 		return fmt.Errorf("Error creating OpenStack networking client: %s", err)
 	}
 
-	var n struct {
-		networks.Network
-		external.NetworkExternalExt
-		vlantransparent.TransparentExt
-	}
-	err = networks.Get(networkingClient, d.Id()).ExtractInto(&n)
+	var network networkExtended
+
+	err = networks.Get(networkingClient, d.Id()).ExtractInto(&network)
 	if err != nil {
 		return CheckDeleted(d, err, "Error getting openstack_networking_network_v2")
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_networking_network_v2 %s: %#v", d.Id(), n)
+	log.Printf("[DEBUG] Retrieved openstack_networking_network_v2 %s: %#v", d.Id(), network)
 
-	d.Set("name", n.Name)
-	d.Set("description", n.Description)
-	d.Set("admin_state_up", n.AdminStateUp)
-	d.Set("shared", n.Shared)
-	d.Set("external", n.External)
-	d.Set("tenant_id", n.TenantID)
+	d.Set("name", network.Name)
+	d.Set("description", network.Description)
+	d.Set("admin_state_up", network.AdminStateUp)
+	d.Set("shared", network.Shared)
+	d.Set("external", network.External)
+	d.Set("tenant_id", network.TenantID)
+	d.Set("transparent_vlan", network.VLANTransparent)
+	d.Set("port_security_enabled", network.PortSecurityEnabled)
+	d.Set("mtu", network.MTU)
+	d.Set("dns_domain", network.DNSDomain)
+	d.Set("qos_policy_id", network.QoSPolicyID)
 	d.Set("region", GetRegion(d, config))
-	d.Set("transparent_vlan", n.VLANTransparent)
 
-	networkV2ReadAttributesTags(d, n.Tags)
+	networkV2ReadAttributesTags(d, network.Tags)
 
-	if err := d.Set("availability_zone_hints", n.AvailabilityZoneHints); err != nil {
+	if err := d.Set("availability_zone_hints", network.AvailabilityZoneHints); err != nil {
 		log.Printf("[DEBUG] Unable to set openstack_networking_network_v2 %s availability_zone_hints: %s", d.Id(), err)
 	}
 
@@ -290,7 +355,8 @@ func resourceNetworkingNetworkV2Update(d *schema.ResourceData, meta interface{})
 
 	// Populate basic updateOpts.
 	if d.HasChange("name") {
-		updateOpts.Name = d.Get("name").(string)
+		name := d.Get("name").(string)
+		updateOpts.Name = &name
 	}
 	if d.HasChange("description") {
 		description := d.Get("description").(string)
@@ -320,12 +386,44 @@ func resourceNetworkingNetworkV2Update(d *schema.ResourceData, meta interface{})
 	finalUpdateOpts = updateOpts
 
 	// Populate extensions options.
-	isExternal := false
 	if d.HasChange("external") {
-		isExternal = d.Get("external").(bool)
+		isExternal := d.Get("external").(bool)
 		finalUpdateOpts = external.UpdateOptsExt{
 			UpdateOptsBuilder: finalUpdateOpts,
 			External:          &isExternal,
+		}
+	}
+
+	// Populate port security options.
+	if d.HasChange("port_security_enabled") {
+		portSecurityEnabled := d.Get("port_security_enabled").(bool)
+		finalUpdateOpts = portsecurity.NetworkUpdateOptsExt{
+			UpdateOptsBuilder:   finalUpdateOpts,
+			PortSecurityEnabled: &portSecurityEnabled,
+		}
+	}
+
+	if d.HasChange("mtu") {
+		mtu := d.Get("mtu").(int)
+		finalUpdateOpts = mtuext.UpdateOptsExt{
+			UpdateOptsBuilder: finalUpdateOpts,
+			MTU:               mtu,
+		}
+	}
+
+	if d.HasChange("dns_domain") {
+		dnsDomain := d.Get("dns_domain").(string)
+		finalUpdateOpts = dns.NetworkUpdateOptsExt{
+			UpdateOptsBuilder: finalUpdateOpts,
+			DNSDomain:         &dnsDomain,
+		}
+	}
+
+	if d.HasChange("qos_policy_id") {
+		qosPolicyID := d.Get("qos_policy_id").(string)
+		finalUpdateOpts = policies.NetworkUpdateOptsExt{
+			UpdateOptsBuilder: finalUpdateOpts,
+			QoSPolicyID:       &qosPolicyID,
 		}
 	}
 

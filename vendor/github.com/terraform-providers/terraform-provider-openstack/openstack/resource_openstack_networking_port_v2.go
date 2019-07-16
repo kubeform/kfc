@@ -1,16 +1,23 @@
 package openstack
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"time"
 
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/attributestags"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/extradhcpopts"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/ports"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/hashicorp/terraform/helper/structure"
 	"github.com/hashicorp/terraform/helper/validation"
+
+	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/attributestags"
+	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/dns"
+	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/extradhcpopts"
+	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/portsbinding"
+	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/portsecurity"
+	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/qos/policies"
+	"github.com/gophercloud/gophercloud/openstack/networking/v2/ports"
 )
 
 func resourceNetworkingPortV2() *schema.Resource {
@@ -114,9 +121,8 @@ func resourceNetworkingPortV2() *schema.Resource {
 							Required: true,
 						},
 						"ip_address": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ValidateFunc: validation.SingleIP(),
+							Type:     schema.TypeString,
+							Optional: true,
 						},
 					},
 				},
@@ -137,9 +143,8 @@ func resourceNetworkingPortV2() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"ip_address": {
-							Type:         schema.TypeString,
-							Required:     true,
-							ValidateFunc: validation.SingleIP(),
+							Type:     schema.TypeString,
+							Required: true,
 						},
 						"mac_address": {
 							Type:     schema.TypeString,
@@ -201,6 +206,72 @@ func resourceNetworkingPortV2() *schema.Resource {
 				Type:     schema.TypeSet,
 				Computed: true,
 				Elem:     &schema.Schema{Type: schema.TypeString},
+			},
+
+			"port_security_enabled": {
+				Type:     schema.TypeBool,
+				Optional: true,
+				Computed: true,
+			},
+
+			"binding": {
+				Type:     schema.TypeList,
+				Optional: true,
+				Computed: true,
+				MaxItems: 1,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"host_id": {
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+						"profile": {
+							Type:             schema.TypeString,
+							Optional:         true,
+							ValidateFunc:     validation.ValidateJsonString,
+							DiffSuppressFunc: suppressDiffPortBindingProfileV2,
+							StateFunc: func(v interface{}) string {
+								json, _ := structure.NormalizeJsonString(v)
+								return json
+							},
+						},
+						"vif_details": {
+							Type:     schema.TypeMap,
+							Computed: true,
+						},
+						"vif_type": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
+						"vnic_type": {
+							Type:     schema.TypeString,
+							Optional: true,
+							Default:  "normal",
+							ValidateFunc: validation.StringInSlice([]string{
+								"direct", "direct-physical", "macvtap", "normal", "baremetal", "virtio-forwarder",
+							}, true),
+						},
+					},
+				},
+			},
+
+			"dns_name": {
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+
+			"dns_assignment": {
+				Type:     schema.TypeList,
+				Computed: true,
+				Elem:     &schema.Schema{Type: schema.TypeMap},
+			},
+
+			"qos_policy_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: false,
+				Computed: true,
 			},
 		},
 	}
@@ -266,24 +337,68 @@ func resourceNetworkingPortV2Create(d *schema.ResourceData, meta interface{}) er
 		}
 	}
 
-	log.Printf("[DEBUG] openstack_networking_port_v2 create options: %#v", finalCreateOpts)
-
-	// Create a Neutron port and set extra DHCP options if they're specified.
-	var p struct {
-		ports.Port
-		extradhcpopts.ExtraDHCPOptsExt
+	// Add the port security attribute if specified.
+	if v, ok := d.GetOkExists("port_security_enabled"); ok {
+		portSecurityEnabled := v.(bool)
+		finalCreateOpts = portsecurity.PortCreateOptsExt{
+			CreateOptsBuilder:   finalCreateOpts,
+			PortSecurityEnabled: &portSecurityEnabled,
+		}
 	}
 
-	err = ports.Create(networkingClient, finalCreateOpts).ExtractInto(&p)
+	// Add the port binding parameters if specified.
+	if v, ok := d.GetOkExists("binding"); ok {
+		for _, raw := range v.([]interface{}) {
+			binding := raw.(map[string]interface{})
+			profile := map[string]interface{}{}
+
+			// Convert raw string into the map
+			rawProfile := binding["profile"].(string)
+			if len(rawProfile) > 0 {
+				err := json.Unmarshal([]byte(rawProfile), &profile)
+				if err != nil {
+					return fmt.Errorf("Failed to unmarshal the JSON: %s", err)
+				}
+			}
+
+			finalCreateOpts = portsbinding.CreateOptsExt{
+				CreateOptsBuilder: finalCreateOpts,
+				HostID:            binding["host_id"].(string),
+				Profile:           profile,
+				VNICType:          binding["vnic_type"].(string),
+			}
+		}
+	}
+
+	if dnsName := d.Get("dns_name").(string); dnsName != "" {
+		finalCreateOpts = dns.PortCreateOptsExt{
+			CreateOptsBuilder: finalCreateOpts,
+			DNSName:           dnsName,
+		}
+	}
+
+	if qosPolicyID := d.Get("qos_policy_id").(string); qosPolicyID != "" {
+		finalCreateOpts = policies.PortCreateOptsExt{
+			CreateOptsBuilder: finalCreateOpts,
+			QoSPolicyID:       qosPolicyID,
+		}
+	}
+
+	log.Printf("[DEBUG] openstack_networking_port_v2 create options: %#v", finalCreateOpts)
+
+	// Create a Neutron port and set extra options if they're specified.
+	var port portExtended
+
+	err = ports.Create(networkingClient, finalCreateOpts).ExtractInto(&port)
 	if err != nil {
 		return fmt.Errorf("Error creating openstack_networking_port_v2: %s", err)
 	}
 
-	log.Printf("[DEBUG] Waiting for openstack_networking_port_v2 %s to become available.", p.ID)
+	log.Printf("[DEBUG] Waiting for openstack_networking_port_v2 %s to become available.", port.ID)
 
 	stateConf := &resource.StateChangeConf{
 		Target:     []string{"ACTIVE", "DOWN"},
-		Refresh:    resourceNetworkingPortV2StateRefreshFunc(networkingClient, p.ID),
+		Refresh:    resourceNetworkingPortV2StateRefreshFunc(networkingClient, port.ID),
 		Timeout:    d.Timeout(schema.TimeoutCreate),
 		Delay:      5 * time.Second,
 		MinTimeout: 3 * time.Second,
@@ -291,22 +406,22 @@ func resourceNetworkingPortV2Create(d *schema.ResourceData, meta interface{}) er
 
 	_, err = stateConf.WaitForState()
 	if err != nil {
-		return fmt.Errorf("Error waiting for openstack_networking_port_v2 %s to become available: %s", p.ID, err)
+		return fmt.Errorf("Error waiting for openstack_networking_port_v2 %s to become available: %s", port.ID, err)
 	}
 
-	d.SetId(p.ID)
+	d.SetId(port.ID)
 
 	tags := networkV2AttributesTags(d)
 	if len(tags) > 0 {
 		tagOpts := attributestags.ReplaceAllOpts{Tags: tags}
-		tags, err := attributestags.ReplaceAll(networkingClient, "ports", p.ID, tagOpts).Extract()
+		tags, err := attributestags.ReplaceAll(networkingClient, "ports", port.ID, tagOpts).Extract()
 		if err != nil {
-			return fmt.Errorf("Error setting tags on openstack_networking_port_v2 %s: %s", p.ID, err)
+			return fmt.Errorf("Error setting tags on openstack_networking_port_v2 %s: %s", port.ID, err)
 		}
-		log.Printf("[DEBUG] Set tags %s on openstack_networking_port_v2 %s", tags, p.ID)
+		log.Printf("[DEBUG] Set tags %s on openstack_networking_port_v2 %s", tags, port.ID)
 	}
 
-	log.Printf("[DEBUG] Created openstack_networking_port_v2 %s: %#v", p.ID, p)
+	log.Printf("[DEBUG] Created openstack_networking_port_v2 %s: %#v", port.ID, port)
 	return resourceNetworkingPortV2Read(d, meta)
 }
 
@@ -317,40 +432,42 @@ func resourceNetworkingPortV2Read(d *schema.ResourceData, meta interface{}) erro
 		return fmt.Errorf("Error creating OpenStack networking client: %s", err)
 	}
 
-	var p struct {
-		ports.Port
-		extradhcpopts.ExtraDHCPOptsExt
-	}
-	err = ports.Get(networkingClient, d.Id()).ExtractInto(&p)
+	var port portExtended
+	err = ports.Get(networkingClient, d.Id()).ExtractInto(&port)
 	if err != nil {
 		return CheckDeleted(d, err, "Error getting openstack_networking_port_v2")
 	}
 
-	log.Printf("[DEBUG] Retrieved openstack_networking_port_v2 %s: %#v", d.Id(), p)
+	log.Printf("[DEBUG] Retrieved openstack_networking_port_v2 %s: %#v", d.Id(), port)
 
-	d.Set("name", p.Name)
-	d.Set("description", p.Description)
-	d.Set("admin_state_up", p.AdminStateUp)
-	d.Set("network_id", p.NetworkID)
-	d.Set("mac_address", p.MACAddress)
-	d.Set("tenant_id", p.TenantID)
-	d.Set("device_owner", p.DeviceOwner)
-	d.Set("device_id", p.DeviceID)
+	d.Set("name", port.Name)
+	d.Set("description", port.Description)
+	d.Set("admin_state_up", port.AdminStateUp)
+	d.Set("network_id", port.NetworkID)
+	d.Set("mac_address", port.MACAddress)
+	d.Set("tenant_id", port.TenantID)
+	d.Set("device_owner", port.DeviceOwner)
+	d.Set("device_id", port.DeviceID)
 
-	networkV2ReadAttributesTags(d, p.Tags)
+	networkV2ReadAttributesTags(d, port.Tags)
 
 	// Set a slice of all returned Fixed IPs.
 	// This will be in the order returned by the API,
 	// which is usually alpha-numeric.
-	d.Set("all_fixed_ips", expandNetworkingPortFixedIPToStringSlice(p.FixedIPs))
+	d.Set("all_fixed_ips", expandNetworkingPortFixedIPToStringSlice(port.FixedIPs))
 
 	// Set all security groups.
 	// This can be different from what the user specified since
 	// the port can have the "default" group automatically applied.
-	d.Set("all_security_group_ids", p.SecurityGroups)
+	d.Set("all_security_group_ids", port.SecurityGroups)
 
-	d.Set("allowed_address_pairs", flattenNetworkingPortAllowedAddressPairsV2(p.MACAddress, p.AllowedAddressPairs))
-	d.Set("extra_dhcp_option", flattenNetworkingPortDHCPOptsV2(p.ExtraDHCPOptsExt))
+	d.Set("allowed_address_pairs", flattenNetworkingPortAllowedAddressPairsV2(port.MACAddress, port.AllowedAddressPairs))
+	d.Set("extra_dhcp_option", flattenNetworkingPortDHCPOptsV2(port.ExtraDHCPOptsExt))
+	d.Set("port_security_enabled", port.PortSecurityEnabled)
+	d.Set("binding", flattenNetworkingPortBindingV2(port))
+	d.Set("dns_name", port.DNSName)
+	d.Set("dns_assignment", port.DNSAssignment)
+	d.Set("qos_policy_id", port.QoSPolicyID)
 
 	d.Set("region", GetRegion(d, config))
 
@@ -433,50 +550,98 @@ func resourceNetworkingPortV2Update(d *schema.ResourceData, meta interface{}) er
 		}
 	}
 
-	// At this point, perform the update for all "standard" port changes.
-	if hasChange {
-		log.Printf("[DEBUG] openstack_networking_port_v2 %s update options: %#v", d.Id(), updateOpts)
-		_, err = ports.Update(networkingClient, d.Id(), updateOpts).Extract()
-		if err != nil {
-			return fmt.Errorf("Error updating OpenStack Neutron Port: %s", err)
+	var finalUpdateOpts ports.UpdateOptsBuilder
+	finalUpdateOpts = updateOpts
+
+	if d.HasChange("port_security_enabled") {
+		hasChange = true
+		portSecurityEnabled := d.Get("port_security_enabled").(bool)
+		finalUpdateOpts = portsecurity.PortUpdateOptsExt{
+			UpdateOptsBuilder:   finalUpdateOpts,
+			PortSecurityEnabled: &portSecurityEnabled,
 		}
 	}
 
 	// Next, perform any dhcp option changes.
 	if d.HasChange("extra_dhcp_option") {
+		hasChange = true
+
 		o, n := d.GetChange("extra_dhcp_option")
 		oldDHCPOpts := o.(*schema.Set)
 		newDHCPOpts := n.(*schema.Set)
 
-		// Delete all old DHCP options, regardless of if they still exist.
-		// If they do still exist, they will be re-added below.
-		if oldDHCPOpts.Len() != 0 {
-			deleteExtraDHCPOpts := expandNetworkingPortDHCPOptsV2Delete(oldDHCPOpts)
-			dhcpUpdateOpts := extradhcpopts.UpdateOptsExt{
-				UpdateOptsBuilder: &ports.UpdateOpts{},
-				ExtraDHCPOpts:     deleteExtraDHCPOpts,
+		deleteDHCPOpts := oldDHCPOpts.Difference(newDHCPOpts)
+		addDHCPOpts := newDHCPOpts.Difference(oldDHCPOpts)
+
+		updateExtraDHCPOpts := expandNetworkingPortDHCPOptsV2Update(deleteDHCPOpts, addDHCPOpts)
+		finalUpdateOpts = extradhcpopts.UpdateOptsExt{
+			UpdateOptsBuilder: finalUpdateOpts,
+			ExtraDHCPOpts:     updateExtraDHCPOpts,
+		}
+	}
+
+	// Next, perform port binding option changes.
+	if d.HasChange("binding") {
+		hasChange = true
+
+		profile := map[string]interface{}{}
+
+		// default options, when unsetting the port bindings
+		newOpts := portsbinding.UpdateOptsExt{
+			UpdateOptsBuilder: finalUpdateOpts,
+			HostID:            new(string),
+			Profile:           profile,
+			VNICType:          "normal",
+		}
+
+		for _, raw := range d.Get("binding").([]interface{}) {
+			binding := raw.(map[string]interface{})
+
+			// Convert raw string into the map
+			rawProfile := binding["profile"].(string)
+			if len(rawProfile) > 0 {
+				err := json.Unmarshal([]byte(rawProfile), &profile)
+				if err != nil {
+					return fmt.Errorf("Failed to unmarshal the JSON: %s", err)
+				}
 			}
 
-			log.Printf("[DEBUG] Deleting old DHCP opts for openstack_networking_port_v2 %s", d.Id())
-			_, err = ports.Update(networkingClient, d.Id(), dhcpUpdateOpts).Extract()
-			if err != nil {
-				return fmt.Errorf("Error updating OpenStack Neutron Port: %s", err)
+			hostID := binding["host_id"].(string)
+			newOpts = portsbinding.UpdateOptsExt{
+				UpdateOptsBuilder: finalUpdateOpts,
+				HostID:            &hostID,
+				Profile:           profile,
+				VNICType:          binding["vnic_type"].(string),
 			}
 		}
 
-		// Add any new DHCP options and re-add previously set DHCP options.
-		if newDHCPOpts.Len() != 0 {
-			updateExtraDHCPOpts := expandNetworkingPortDHCPOptsV2Update(newDHCPOpts)
-			dhcpUpdateOpts := extradhcpopts.UpdateOptsExt{
-				UpdateOptsBuilder: &ports.UpdateOpts{},
-				ExtraDHCPOpts:     updateExtraDHCPOpts,
-			}
+		finalUpdateOpts = newOpts
+	}
 
-			log.Printf("[DEBUG] Updating openstack_networking_port_v2 %s with options: %#v", d.Id(), dhcpUpdateOpts)
-			_, err = ports.Update(networkingClient, d.Id(), dhcpUpdateOpts).Extract()
-			if err != nil {
-				return fmt.Errorf("Error updating openstack_networking_port_v2 %s: %s", d.Id(), err)
-			}
+	if d.HasChange("dns_name") {
+		hasChange = true
+
+		dnsName := d.Get("dns_name").(string)
+		finalUpdateOpts = dns.PortUpdateOptsExt{
+			UpdateOptsBuilder: finalUpdateOpts,
+			DNSName:           &dnsName,
+		}
+	}
+
+	if d.HasChange("qos_policy_id") {
+		qosPolicyID := d.Get("qos_policy_id").(string)
+		finalUpdateOpts = policies.PortUpdateOptsExt{
+			UpdateOptsBuilder: finalUpdateOpts,
+			QoSPolicyID:       &qosPolicyID,
+		}
+	}
+
+	// At this point, perform the update for all "standard" port changes.
+	if hasChange {
+		log.Printf("[DEBUG] openstack_networking_port_v2 %s update options: %#v", d.Id(), finalUpdateOpts)
+		_, err = ports.Update(networkingClient, d.Id(), finalUpdateOpts).Extract()
+		if err != nil {
+			return fmt.Errorf("Error updating OpenStack Neutron Port: %s", err)
 		}
 	}
 
