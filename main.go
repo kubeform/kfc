@@ -18,12 +18,16 @@ package main
 
 import (
 	"flag"
+	"strings"
 	"time"
+
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	"github.com/appscode-cloud/kfc/controllers"
 
+	apiextension "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
 	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/dynamic/dynamicinformer"
 	"k8s.io/client-go/kubernetes"
@@ -65,18 +69,30 @@ func main() {
 
 	exampleInformerFactory := dynamicinformer.NewDynamicSharedInformerFactory(dynamicClient, time.Second*30)
 
-	gvrs := []schema.GroupVersionResource{
-		{
-			"digitalocean.kfc.io",
-			"v1alpha1",
-			"digitaloceandroplets",
-		},
-		{
-			"linode.kfc.io",
-			"v1alpha1",
-			"linodeinstances",
-		},
+	extClient, err := apiextension.NewForConfig(cfg)
+	if err != nil {
+		klog.Fatalf("Error building kubernetes api extension clientset: %s", err.Error())
 	}
+
+	crds, err := extClient.ApiextensionsV1beta1().CustomResourceDefinitions().List(v1.ListOptions{})
+	if err != nil {
+		klog.Fatalf("Error listing CRDs: %s", err.Error())
+	}
+
+	var gvrs []schema.GroupVersionResource
+
+	for _, crd := range crds.Items {
+		if strings.Contains(crd.Spec.Group, "kubeform.com") {
+			gvr := schema.GroupVersionResource{
+				Group:    crd.Spec.Group,
+				Version:  crd.Spec.Version,
+				Resource: crd.Spec.Names.Plural,
+			}
+
+			gvrs = append(gvrs, gvr)
+		}
+	}
+
 	controller := controllers.NewController(kubeClient, dynamicClient, exampleInformerFactory, gvrs)
 
 	// notice that there is no need to run Start methods in a separate goroutine. (i.e. go kubeInformerFactory.Start(stopCh)

@@ -1,19 +1,3 @@
-/*
-Copyright 2017 The Kubernetes Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package controllers
 
 import (
@@ -21,6 +5,8 @@ import (
 	"path/filepath"
 	"strings"
 	"sync"
+
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 
 	"github.com/appscode/go/log"
 	corev1 "k8s.io/api/core/v1"
@@ -38,22 +24,20 @@ import (
 	"k8s.io/client-go/tools/record"
 	"k8s.io/klog"
 	"kmodules.xyz/client-go/tools/queue"
-
-	kubeformscheme "kubeform.dev/kubeform/client/clientset/versioned/scheme"
 )
 
-const controllerAgentName = "sample-controller"
+const controllerAgentName = "kfc"
 
 const (
-	// SuccessSynced is used as part of the Event 'reason' when a Foo is synced
+	// SuccessSynced is used as part of the Event 'reason' when a Resource is synced
 	SuccessSynced = "Synced"
 
-	// MessageResourceSynced is the message used for an Event fired when a Foo
+	// MessageResourceSynced is the message used for an Event fired when a Resource
 	// is synced successfully
-	MessageResourceSynced = "Foo synced successfully"
+	MessageResourceSynced = "Resource synced successfully"
 )
 
-// Controller is the controller implementation for Foo resources
+// Controller is the controller implementation for KubeForm resources
 type Controller struct {
 	sync.Mutex
 
@@ -69,19 +53,16 @@ type Controller struct {
 	recorder record.EventRecorder
 }
 
-// .ForResource(samplev1alpha1.FooGVR)
-
 // NewController returns a new sample controller
 func NewController(
 	kubeclientset kubernetes.Interface,
 	dynamicclient dynamic.Interface,
 	factory dynamicinformer.DynamicSharedInformerFactory,
 	gvrs []schema.GroupVersionResource) *Controller {
-
 	// Create event broadcaster
 	// Add sample-controller types to the default Kubernetes Scheme so Events can be
 	// logged for sample-controller types.
-	utilruntime.Must(kubeformscheme.AddToScheme(scheme.Scheme))
+	//utilruntime.Must(kubeformscheme.AddToScheme(scheme.Scheme))
 	klog.V(4).Info("Creating event broadcaster")
 	eventBroadcaster := record.NewBroadcaster()
 	eventBroadcaster.StartLogging(klog.Infof)
@@ -95,7 +76,6 @@ func NewController(
 		crdWorkers:    make(map[schema.GroupVersionResource]*queue.Worker),
 		recorder:      recorder,
 	}
-
 	klog.Info("Setting up event handlers")
 	maxNumRequeues := 5
 	numThreads := 5
@@ -106,7 +86,6 @@ func NewController(
 			return controller.reconcile(gvr, key)
 		})
 
-		// Set up an event handler for when Foo resources change
 		i.Informer().AddEventHandler(queue.DefaultEventHandler(q.GetQueue()))
 
 		controller.crdListers[gvr] = dynamiclister.New(i.Informer().GetIndexer(), gvr)
@@ -125,7 +104,7 @@ func (c *Controller) Run(threadiness int, stopCh <-chan struct{}) error {
 	defer utilruntime.HandleCrash()
 
 	// Start the informer factories to begin populating the informer caches
-	klog.Info("Starting Foo controller")
+	klog.Info("Starting KubeForm controller")
 
 	// Wait for the caches to be synced before starting workers
 	klog.Info("Waiting for informer caches to sync")
@@ -134,7 +113,7 @@ func (c *Controller) Run(threadiness int, stopCh <-chan struct{}) error {
 	}
 
 	klog.Info("Starting workers")
-	// Launch two workers to process Foo resources
+	// Launch workers to process KubeForm resources
 	for _, w := range c.crdWorkers {
 		w.Run(stopCh)
 	}
@@ -153,7 +132,7 @@ func (c *Controller) Lister(gvr schema.GroupVersionResource) dynamiclister.Liste
 }
 
 // reconcile compares the actual state with the desired, and attempts to
-// converge the two. It then updates the Status block of the Foo resource
+// converge the two. It then updates the Status block of the KubeForm resource
 // with the current status of the resource.
 func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) error {
 	// Convert the namespace/name string into a distinct namespace and name
@@ -162,7 +141,6 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		utilruntime.HandleError(fmt.Errorf("invalid resource key: %s", key))
 		return nil
 	}
-	fmt.Println(gvr)
 
 	// Get the resource with this namespace/name
 	obj, err := c.Lister(gvr).Namespace(namespace).Get(name)
@@ -176,6 +154,8 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 
 		return err
 	}
+
+	obj.GetKind()
 
 	// TODO: make a namer
 	resPath := filepath.Join(basePath, gvr.Resource+"."+namespace+"."+name)
@@ -195,7 +175,7 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 				log.Error(err, "failed to delete files")
 			}
 
-			err = removeFinalizer(obj)
+			err = removeFinalizer(obj, KFCFinalizer)
 			if err != nil {
 				log.Error(err, "failed to remove finalizer")
 			}
@@ -216,7 +196,6 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		return nil
 	}
 
-	// TODO: how to handle provider name?
 	configMap, err := c.kubeclientset.CoreV1().ConfigMaps("default").Get(strings.Split(gvr.Group, ".")[0], metav1.GetOptions{})
 	if err != nil {
 		log.Error(err, "unable to fetch configmap")
@@ -227,7 +206,7 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		log.Error(err, "unable to get configmap")
 	}
 
-	err = crdToTFResource(gvr.Resource, obj, mainFile)
+	err = crdToTFResource(obj.GetKind(), obj, mainFile)
 	if err != nil {
 		log.Error(err, "unable to get crd resource")
 	}
@@ -242,13 +221,20 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		log.Error(err, "unable to apply terraform")
 	}
 
-	err = updateStatusOut(obj, stateFile)
-	if err != nil {
-		log.Error(err, "unable to update status out field")
-	}
+	//err = updateStatusOut(obj, stateFile)
+	//if err != nil {
+	//	log.Error(err, "unable to update status out field")
+	//}
 
 	c.updateResource(gvr, obj)
 
 	c.recorder.Event(obj, corev1.EventTypeNormal, SuccessSynced, MessageResourceSynced)
 	return nil
+}
+
+func (c *Controller) updateResource(gvr schema.GroupVersionResource, u *unstructured.Unstructured) {
+	_, err := c.dynamicclient.Resource(gvr).Namespace(u.GetNamespace()).Update(u, metav1.UpdateOptions{})
+	if err != nil {
+		klog.Error("failed to update resource, reason : %s", err.Error())
+	}
 }

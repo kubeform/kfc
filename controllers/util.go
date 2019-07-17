@@ -18,22 +18,13 @@ package controllers
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 
-	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-
-	"k8s.io/apimachinery/pkg/runtime/schema"
-
-	"k8s.io/client-go/dynamic"
-
-	"github.com/go-logr/logr"
+	"github.com/gobuffalo/flect"
 	corev1 "k8s.io/api/core/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/kubernetes"
-	"sigs.k8s.io/controller-runtime/pkg/client"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
 const KFCFinalizer = "kfc.io"
@@ -42,148 +33,6 @@ var (
 	homePath = os.Getenv("HOME")
 	basePath = filepath.Join(homePath, ".kfc")
 )
-
-// ResourceReconciler reconciles a Resource object
-type ResourceReconciler struct {
-	client.Client
-	Log        logr.Logger
-	DynClient  dynamic.Interface
-	Kubeclient kubernetes.Interface
-}
-
-// +kubebuilder:rbac:groups=terraform.kfc.io,resources=resources,verbs=get;list;watch;create;update;patch;delete
-// +kubebuilder:rbac:groups=terraform.kfc.io,resources=resources/status,verbs=get;update;patch
-
-//func (r *ResourceReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
-//	ctx := context.Background()
-//	log := r.Log.WithValues("kfc-controller", req.NamespacedName)
-//	log.Info("Reconciling Resource")
-//
-//	var resource terraformv1alpha1.Resource
-//	if err := r.Get(ctx, req.NamespacedName, &resource); err != nil {
-//		log.Error(err, "unable to fetch resource")
-//	}
-//
-//	obj, err := r.DynClient.Resource(resource.Spec.GVR).Namespace(resource.Spec.Namespace).Get(resource.Spec.Name, metav1.GetOptions{})
-//	if err != nil {
-//		log.Error(err, "unable to get resource", "ns", resource.Spec.Namespace, "name", resource.Spec.Name, "gvr", resource.Spec.GVR)
-//		return ctrl.Result{}, nil
-//	}
-//
-//	// TODO: make a namer
-//	resPath := filepath.Join(basePath, resource.Spec.GVR.Resource+"."+resource.Spec.Namespace+"."+resource.Spec.Name)
-//	providerFile := filepath.Join(resPath, "provider.tf.json")
-//	mainFile := filepath.Join(resPath, "main.tf.json")
-//	stateFile := filepath.Join(resPath, "terraform.tfstate")
-//
-//	if hasFinalizer(obj.GetFinalizers(), KFCFinalizer) {
-//		if obj.GetDeletionTimestamp() != nil {
-//			err := terraformDestroy(resPath, stateFile)
-//			if err != nil {
-//				log.Error(err, "failed to terraform destroy")
-//			}
-//
-//			err = deleteFiles(resPath)
-//			if err != nil {
-//				log.Error(err, "failed to delete files")
-//			}
-//
-//			err = r.Client.Delete(ctx, &resource)
-//			if err != nil {
-//				log.Error(err, "failed to delete resource")
-//			}
-//
-//			err = removeFinalizer(obj)
-//			if err != nil {
-//				log.Error(err, "failed to remove finalizer")
-//			}
-//
-//			r.updateResource(resource.Spec.GVR, obj)
-//			return ctrl.Result{}, nil
-//		}
-//	} else {
-//		err := addFinalizer(obj, KFCFinalizer)
-//		if err != nil {
-//			log.Error(err, "failed to add finalizer")
-//		}
-//	}
-//
-//	err = createFiles(resPath, stateFile, providerFile, mainFile)
-//	if err != nil {
-//		log.Error(err, "failed to create files")
-//		return ctrl.Result{}, nil
-//	}
-//
-//	// TODO: how to handle provider name?
-//	configMap, err := r.Kubeclient.CoreV1().ConfigMaps("default").Get(strings.Split(kindToResouceMap[resource.Spec.GVR.Resource], "_")[0], metav1.GetOptions{})
-//	if err != nil {
-//		log.Error(err, "unable to fetch configmap")
-//	}
-//
-//	err = configmapToTFProvider(configMap, providerFile)
-//	if err != nil {
-//		log.Error(err, "unable to get configmap")
-//	}
-//
-//	err = crdToTFResource(resource.Spec.GVR.Resource, obj, mainFile)
-//	if err != nil {
-//		log.Error(err, "unable to get crd resource")
-//	}
-//
-//	init, _, err := unstructured.NestedBool(obj.Object, "status", "initialized")
-//	if !init {
-//		err = terraformInit(resPath)
-//		if err != nil {
-//			log.Error(err, "unable to initialize terraform")
-//		} else {
-//			err := updateInitializedField(obj)
-//			if err != nil {
-//				log.Error(err, "failed to initialize field")
-//			}
-//		}
-//	}
-//
-//	err = terraformApply(resPath, stateFile)
-//	if err != nil {
-//		log.Error(err, "unable to apply terraform")
-//	}
-//
-//	err = updateStatusOut(obj, stateFile)
-//	if err != nil {
-//		log.Error(err, "unable to update status out field")
-//	}
-//
-//	r.updateResource(resource.Spec.GVR, obj)
-//	return ctrl.Result{}, nil
-//}
-//
-//func (r *ResourceReconciler) SetupWithManager(mgr ctrl.Manager) error {
-//	return ctrl.NewControllerManagedBy(mgr).
-//		For(&terraformv1alpha1.Resource{}).
-//		Watches(&source.Kind{Type: &terraformv1alpha1.LinodeInstance{}}, &handler.Funcs{
-//			CreateFunc: func(event event.CreateEvent, limitingInterface workqueue.RateLimitingInterface) {
-//				r.createResource("linodeinstances", event.Meta.GetName(), event.Meta.GetNamespace(), event.Meta.GetResourceVersion())
-//			},
-//			DeleteFunc: func(deleteEvent event.DeleteEvent, limitingInterface workqueue.RateLimitingInterface) {
-//				r.updateResourceVersion("linodeinstances", deleteEvent.Meta.GetName(), deleteEvent.Meta.GetNamespace(), deleteEvent.Meta.GetResourceVersion())
-//			},
-//			UpdateFunc: func(updateEvent event.UpdateEvent, limitingInterface workqueue.RateLimitingInterface) {
-//				r.updateResourceVersion("linodeinstances", updateEvent.MetaNew.GetName(), updateEvent.MetaNew.GetNamespace(), updateEvent.MetaNew.GetResourceVersion())
-//			},
-//		}).
-//		Watches(&source.Kind{Type: &terraformv1alpha1.DigitaloceanDroplet{}}, &handler.Funcs{
-//			CreateFunc: func(event event.CreateEvent, limitingInterface workqueue.RateLimitingInterface) {
-//				r.createResource("digitaloceandroplets", event.Meta.GetName(), event.Meta.GetNamespace(), event.Meta.GetResourceVersion())
-//			},
-//			DeleteFunc: func(deleteEvent event.DeleteEvent, limitingInterface workqueue.RateLimitingInterface) {
-//				r.updateResourceVersion("digitaloceandroplets", deleteEvent.Meta.GetName(), deleteEvent.Meta.GetNamespace(), deleteEvent.Meta.GetResourceVersion())
-//			},
-//			UpdateFunc: func(updateEvent event.UpdateEvent, limitingInterface workqueue.RateLimitingInterface) {
-//				r.updateResourceVersion("digitaloceandroplets", updateEvent.MetaNew.GetName(), updateEvent.MetaNew.GetNamespace(), updateEvent.MetaNew.GetResourceVersion())
-//			},
-//		}).
-//		Complete(r)
-//}
 
 func configmapToTFProvider(config *corev1.ConfigMap, providerFile string) error {
 	d1 := []byte(`{ "provider": { "` + config.Name + `":`)
@@ -210,7 +59,7 @@ func configmapToTFProvider(config *corev1.ConfigMap, providerFile string) error 
 func crdToTFResource(kind string, obj *unstructured.Unstructured, mainFile string) error {
 	objMap := obj.Object
 
-	d1 := []byte(`{"resource":{ "` + kindToResouceMap[kind] + `":{"` + obj.GetName() + `":`)
+	d1 := []byte(`{"resource":{ "` + flect.Underscore(kind) + `":{"` + obj.GetName() + `":`)
 
 	instanceSpecJson, err := json.Marshal(objMap["spec"])
 	if err != nil {
@@ -241,8 +90,13 @@ func hasFinalizer(finalizers []string, finalizer string) bool {
 }
 
 func addFinalizer(u *unstructured.Unstructured, finalizer string) error {
-	//TODO: append previous finalizers
 	finalizers := u.GetFinalizers()
+	for _, v := range finalizers {
+		if v == finalizer {
+			return nil
+		}
+	}
+
 	finalizers = append(finalizers, finalizer)
 	err := unstructured.SetNestedStringSlice(u.Object, finalizers, "metadata", "finalizers")
 	if err != nil {
@@ -252,9 +106,16 @@ func addFinalizer(u *unstructured.Unstructured, finalizer string) error {
 	return nil
 }
 
-func removeFinalizer(u *unstructured.Unstructured) error {
-	//TODO: don't make finalizers empty
-	err := unstructured.SetNestedStringSlice(u.Object, []string{}, "metadata", "finalizers")
+func removeFinalizer(u *unstructured.Unstructured, finalizer string) error {
+	finalizers := u.GetFinalizers()
+	for i, v := range finalizers {
+		if v == finalizer {
+			finalizers = append(finalizers[:i], finalizers[i+1:]...)
+			break
+		}
+	}
+
+	err := unstructured.SetNestedStringSlice(u.Object, finalizers, "metadata", "finalizers")
 	if err != nil {
 		return err
 	}
@@ -297,42 +158,6 @@ func deleteFiles(resPath string) error {
 	return nil
 }
 
-//func updateInitializedField(obj *unstructured.Unstructured) error {
-//	err := unstructured.SetNestedField(obj.Object, true, "status", "initialized")
-//	if err != nil {
-//		return errors.Wrap(err, "failed to update field")
-//	}
-//
-//	return nil
-//}
-
-//func (r *ResourceReconciler) updateResourceVersion(kind, name, namespace, rv string) {
-//	r.Log.Info("Updating resource version")
-//
-//	var resource terraformv1alpha1.Resource
-//	err := r.Client.Get(context.Background(), types.NamespacedName{
-//		Namespace: corev1.NamespaceDefault,
-//		Name:      kind + "-" + name + "-" + namespace,
-//	}, &resource)
-//	if err != nil {
-//		r.Log.Error(err, "failed to get resource")
-//	}
-//
-//	resource.Spec.ResourceVersion = rv
-//
-//	err = r.Client.Update(context.Background(), &resource)
-//	if err != nil {
-//		r.Log.Error(err, "failed to update resource")
-//	}
-//}
-
-func (c *Controller) updateResource(gvr schema.GroupVersionResource, u *unstructured.Unstructured) {
-	_, err := c.dynamicclient.Resource(gvr).Namespace(u.GetNamespace()).Update(u, metav1.UpdateOptions{})
-	if err != nil {
-		fmt.Println(err, "failed to update resource")
-	}
-}
-
 func prettyJSON(byteJson []byte) ([]byte, error) {
 	var prettyJSON bytes.Buffer
 	err := json.Indent(&prettyJSON, byteJson, "", "  ")
@@ -341,10 +166,4 @@ func prettyJSON(byteJson []byte) ([]byte, error) {
 	}
 
 	return prettyJSON.Bytes(), err
-}
-
-// TODO: how to handle resource name?
-var kindToResouceMap = map[string]string{
-	"linodeinstances":      "linode_instance",
-	"digitaloceandroplets": "digitalocean_droplet",
 }

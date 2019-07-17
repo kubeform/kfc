@@ -18,7 +18,6 @@ package controllers
 import (
 	"bytes"
 	"fmt"
-	"os"
 	"path/filepath"
 	"testing"
 
@@ -83,9 +82,6 @@ var _ = AfterSuite(func() {
 })
 
 func TestUI(t *testing.T) {
-	wd, _ := os.Getwd()
-	fmt.Println("????????????????????", wd)
-
 	codeUi := &CodeUi{
 		OutputBuffer: new(bytes.Buffer),
 	}

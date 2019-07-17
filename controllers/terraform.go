@@ -20,6 +20,9 @@ func terraformInit(resPath string) error {
 	}
 
 	args := []string{
+		"-get-plugins=false",
+		"-plugin-dir=/home/fahim/Desktop/test",
+		"-lock=false",
 		resPath,
 	}
 
@@ -44,6 +47,7 @@ func terraformApply(resPath, stateFile string) error {
 	}
 
 	args := []string{
+		"-lock=false",
 		"-auto-approve",
 		"-state",
 		stateFile,
@@ -84,29 +88,25 @@ func terraformDestroy(resPath, stateFile string) error {
 }
 
 func updateStatusOut(u *unstructured.Unstructured, resPath string) error {
-	//TODO: Handle output
-	//codeUi := &CodeUi{
-	//	OutputBuffer: new(bytes.Buffer),
-	//}
-	//showCmd := command.ShowCommand{
-	//	Meta: command.Meta{
-	//		Ui: codeUi,
-	//	},
-	//}
-	//
-	//args := []string{
-	//	"-json",
-	//	resPath,
-	//}
-	//
-	//x := showCmd.Run(args)
-	//if x != 0 {
-	//	return errors.New("failed to run terraform show command")
-	//}
-	//
-	//out := codeUi.OutputBuffer.String()
+	codeUi := &CodeUi{
+		OutputBuffer: new(bytes.Buffer),
+	}
+	showCmd := command.ShowCommand{
+		Meta: command.Meta{
+			Ui: codeUi,
+		},
+	}
 
-	out := "updated"
+	args := []string{
+		resPath,
+	}
+
+	x := showCmd.Run(args)
+	if x != 0 {
+		return errors.New("failed to run terraform show command")
+	}
+
+	out := codeUi.OutputBuffer.String()
 
 	return unstructured.SetNestedField(u.Object, out, "status", "out")
 }
