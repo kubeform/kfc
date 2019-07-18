@@ -3,12 +3,17 @@ package controllers
 import (
 	"bytes"
 	"errors"
+	"os"
 
 	"github.com/hashicorp/terraform/command"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
 func terraformInit(resPath string) error {
+	err := os.Chdir(resPath)
+	if err != nil {
+		return err
+	}
 	// TODO: This initializes terraform in the current directory. Shouldn't it be moved to the resource directory?
 	codeUi := &CodeUi{
 		OutputBuffer: new(bytes.Buffer),
@@ -19,14 +24,11 @@ func terraformInit(resPath string) error {
 		},
 	}
 
-	args := []string{
-		"-get-plugins=false",
-		"-plugin-dir=/home/fahim/Desktop/test",
-		"-lock=false",
-		resPath,
-	}
+	//args := []string{
+	//	//resPath,
+	//}
 
-	x := initCommand.Run(args)
+	x := initCommand.Run(nil)
 
 	if x != 0 {
 		return errors.New("failed to run terraform init command")
@@ -36,6 +38,10 @@ func terraformInit(resPath string) error {
 }
 
 func terraformApply(resPath, stateFile string) error {
+	err := os.Chdir(resPath)
+	if err != nil {
+		return err
+	}
 	codeUi := &CodeUi{
 		OutputBuffer: new(bytes.Buffer),
 	}
@@ -47,11 +53,7 @@ func terraformApply(resPath, stateFile string) error {
 	}
 
 	args := []string{
-		"-lock=false",
 		"-auto-approve",
-		"-state",
-		stateFile,
-		resPath,
 	}
 	x := cmd.Run(args)
 	if x != 0 {
@@ -62,6 +64,10 @@ func terraformApply(resPath, stateFile string) error {
 }
 
 func terraformDestroy(resPath, stateFile string) error {
+	err := os.Chdir(resPath)
+	if err != nil {
+		return err
+	}
 	codeUi := &CodeUi{
 		OutputBuffer: new(bytes.Buffer),
 	}
@@ -75,9 +81,6 @@ func terraformDestroy(resPath, stateFile string) error {
 
 	args := []string{
 		"-auto-approve",
-		"-state",
-		stateFile,
-		resPath,
 	}
 	x := cmd.Run(args)
 	if x != 0 {
@@ -88,6 +91,10 @@ func terraformDestroy(resPath, stateFile string) error {
 }
 
 func updateStatusOut(u *unstructured.Unstructured, resPath string) error {
+	err := os.Chdir(resPath)
+	if err != nil {
+		return err
+	}
 	codeUi := &CodeUi{
 		OutputBuffer: new(bytes.Buffer),
 	}
@@ -98,7 +105,7 @@ func updateStatusOut(u *unstructured.Unstructured, resPath string) error {
 	}
 
 	args := []string{
-		resPath,
+		"-json",
 	}
 
 	x := showCmd.Run(args)

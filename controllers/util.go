@@ -22,6 +22,15 @@ import (
 	"os"
 	"path/filepath"
 
+	"k8s.io/klog"
+
+	"k8s.io/apimachinery/pkg/runtime/schema"
+
+	"github.com/fatih/structs"
+	"kmodules.xyz/client-go/meta"
+
+	jsoniter "github.com/json-iterator/go"
+
 	"github.com/gobuffalo/flect"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -34,9 +43,9 @@ var (
 	basePath = filepath.Join(homePath, ".kfc")
 )
 
-func configmapToTFProvider(config *corev1.ConfigMap, providerFile string) error {
-	d1 := []byte(`{ "provider": { "` + config.Name + `":`)
-	providerJson, err := json.Marshal(config.Data)
+func secretToTFProvider(secret *corev1.Secret, providerName, providerFile string) error {
+	d1 := []byte(`{ "provider": { "` + providerName + `":`)
+	providerJson, err := json.Marshal(secret.Data)
 	if err != nil {
 		return err
 	}
@@ -56,16 +65,34 @@ func configmapToTFProvider(config *corev1.ConfigMap, providerFile string) error 
 	return nil
 }
 
-func crdToTFResource(kind string, obj *unstructured.Unstructured, mainFile string) error {
-	objMap := obj.Object
-
-	d1 := []byte(`{"resource":{ "` + flect.Underscore(kind) + `":{"` + obj.GetName() + `":`)
-
-	instanceSpecJson, err := json.Marshal(objMap["spec"])
+func crdToTFResource(gv schema.GroupVersion, kind, providerName string, obj *unstructured.Unstructured, mainFile string) error {
+	data, err := meta.MarshalToJson(obj, gv)
 	if err != nil {
-		return err
+		klog.Error(err)
 	}
-	d1 = append(d1, instanceSpecJson...)
+	typedObj, err := meta.UnmarshalFromJSON(data, gv)
+	if err != nil {
+		klog.Error(err)
+	}
+
+	typedStruct := structs.New(typedObj)
+	spec := typedStruct.Field("Spec")
+	value := spec.Value()
+	jsonit := jsoniter.Config{
+		EscapeHTML:             true,
+		SortMapKeys:            true,
+		ValidateJsonRawMessage: true,
+		TagKey:                 "tf",
+	}.Froze()
+
+	tfStr, err := jsonit.Marshal(value)
+	if err != nil {
+		klog.Error(err)
+	}
+
+	d1 := []byte(`{"resource":{ "` + providerName + "_" + flect.Underscore(kind) + `":{"` + obj.GetName() + `":`)
+
+	d1 = append(d1, tfStr...)
 	d1 = append(d1, []byte("} } }")...)
 	prettyData, err := prettyJSON(d1)
 	if err != nil {

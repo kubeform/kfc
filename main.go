@@ -21,13 +21,10 @@ import (
 	"strings"
 	"time"
 
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-
-	"k8s.io/apimachinery/pkg/runtime/schema"
-
 	"github.com/appscode-cloud/kfc/controllers"
-
 	apiextension "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/dynamic/dynamicinformer"
 	"k8s.io/client-go/kubernetes"
@@ -38,6 +35,9 @@ import (
 	// _ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 
 	"k8s.io/sample-controller/pkg/signals"
+
+	clientsetscheme "k8s.io/client-go/kubernetes/scheme"
+	linode "kubeform.dev/kubeform/apis/linode/install"
 )
 
 var (
@@ -66,6 +66,8 @@ func main() {
 	if err != nil {
 		klog.Fatalf("Error building kubernetes dynamic clientset: %s", err.Error())
 	}
+
+	linode.Install(clientsetscheme.Scheme)
 
 	exampleInformerFactory := dynamicinformer.NewDynamicSharedInformerFactory(dynamicClient, time.Second*30)
 

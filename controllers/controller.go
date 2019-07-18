@@ -6,12 +6,11 @@ import (
 	"strings"
 	"sync"
 
-	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-
 	"github.com/appscode/go/log"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/client-go/dynamic"
@@ -196,17 +195,24 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		return nil
 	}
 
-	configMap, err := c.kubeclientset.CoreV1().ConfigMaps("default").Get(strings.Split(gvr.Group, ".")[0], metav1.GetOptions{})
+	providerRef, _, err := unstructured.NestedString(obj.Object, "spec", "providerRef", "name")
+	if err != nil {
+		log.Error(err, "failed to get providerRef")
+		return nil
+	}
+
+	secret, err := c.kubeclientset.CoreV1().Secrets(namespace).Get(providerRef, metav1.GetOptions{})
 	if err != nil {
 		log.Error(err, "unable to fetch configmap")
 	}
 
-	err = configmapToTFProvider(configMap, providerFile)
+	providerName := strings.Split(gvr.Group, ".")[0]
+	err = secretToTFProvider(secret, providerName, providerFile)
 	if err != nil {
 		log.Error(err, "unable to get configmap")
 	}
 
-	err = crdToTFResource(obj.GetKind(), obj, mainFile)
+	err = crdToTFResource(gvr.GroupVersion(), obj.GetKind(), providerName, obj, mainFile)
 	if err != nil {
 		log.Error(err, "unable to get crd resource")
 	}
@@ -221,10 +227,10 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		log.Error(err, "unable to apply terraform")
 	}
 
-	//err = updateStatusOut(obj, stateFile)
-	//if err != nil {
-	//	log.Error(err, "unable to update status out field")
-	//}
+	err = updateStatusOut(obj, resPath)
+	if err != nil {
+		log.Error(err, "unable to update status out field")
+	}
 
 	c.updateResource(gvr, obj)
 
@@ -235,6 +241,6 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 func (c *Controller) updateResource(gvr schema.GroupVersionResource, u *unstructured.Unstructured) {
 	_, err := c.dynamicclient.Resource(gvr).Namespace(u.GetNamespace()).Update(u, metav1.UpdateOptions{})
 	if err != nil {
-		klog.Error("failed to update resource, reason : %s", err.Error())
+		klog.Errorf("failed to update resource, reason : %s", err.Error())
 	}
 }
