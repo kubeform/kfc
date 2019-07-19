@@ -18,9 +18,13 @@ package controllers
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
+
+	"k8s.io/apimachinery/pkg/runtime"
 
 	"k8s.io/klog"
 
@@ -150,7 +154,7 @@ func removeFinalizer(u *unstructured.Unstructured, finalizer string) error {
 	return nil
 }
 
-func createFiles(resPath, stateFile, providerFile, mainFile string) error {
+func createFiles(resPath, providerFile, mainFile string) error {
 	_, err := os.Stat(resPath)
 	if os.IsNotExist(err) {
 		err := os.MkdirAll(resPath, 0777)
@@ -163,11 +167,6 @@ func createFiles(resPath, stateFile, providerFile, mainFile string) error {
 		}
 
 		_, err = os.Create(mainFile)
-		if err != nil {
-			return err
-		}
-
-		_, err = os.Create(stateFile)
 		if err != nil {
 			return err
 		}
@@ -193,4 +192,92 @@ func prettyJSON(byteJson []byte) ([]byte, error) {
 	}
 
 	return prettyJSON.Bytes(), err
+}
+
+func createTFState(filePath string, gv schema.GroupVersion, u *unstructured.Unstructured) {
+	_, existErr := os.Stat(filePath)
+
+	data, err := meta.MarshalToJson(u, gv)
+	if err != nil {
+		klog.Error(err)
+	}
+
+	typedObj, err := meta.UnmarshalFromJSON(data, gv)
+	if err != nil {
+		klog.Error(err)
+	}
+
+	typedStruct := structs.New(typedObj)
+	spec := typedStruct.Field("Status").Field("TFState")
+	value := spec.Value()
+
+	if os.IsNotExist(existErr) && value.(*runtime.RawExtension) != nil {
+		err = ioutil.WriteFile(filePath, value.(*runtime.RawExtension).Raw, 0644)
+		if err != nil {
+			klog.Errorf("failed to write file hash : %s", err.Error())
+		}
+	}
+}
+
+func updateTFState(filePath string, gv schema.GroupVersion, u *unstructured.Unstructured) {
+	data, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		klog.Errorf("failed to read tfstate file : %s", err.Error())
+	}
+
+	jsonData, err := meta.MarshalToJson(u, gv)
+	if err != nil {
+		klog.Error(err)
+	}
+	typedObj, err := meta.UnmarshalFromJSON(jsonData, gv)
+	if err != nil {
+		klog.Error(err)
+	}
+
+	typedStruct := structs.New(typedObj)
+	spec := typedStruct.Field("Status").Field("TFState")
+	value := spec.Value()
+
+	rawData := &runtime.RawExtension{
+		Raw: data,
+	}
+
+	if value.(*runtime.RawExtension) == nil {
+		err = setNestedFieldNoCopy(u.Object, rawData, "status", "tfState")
+		if err != nil {
+			klog.Errorf("failed to update tfstate : %s", err.Error())
+		}
+		return
+	}
+
+	if bytes.Compare(data, value.(*runtime.RawExtension).Raw) != 0 {
+		err = setNestedFieldNoCopy(u.Object, rawData, "status", "tfState")
+		if err != nil {
+			klog.Errorf("failed to update tfstate : %s", err.Error())
+		}
+	}
+}
+
+func setNestedFieldNoCopy(obj map[string]interface{}, value interface{}, fields ...string) error {
+	m := obj
+
+	for i, field := range fields[:len(fields)-1] {
+		if val, ok := m[field]; ok {
+			if valMap, ok := val.(map[string]interface{}); ok {
+				m = valMap
+			} else {
+				return fmt.Errorf("value cannot be set because %v is not a map[string]interface{}", jsonPath(fields[:i+1]))
+			}
+		} else {
+			newVal := make(map[string]interface{})
+			m[field] = newVal
+			m = newVal
+		}
+	}
+	m[fields[len(fields)-1]] = value
+	return nil
+}
+
+func jsonPath(fields []string) string {
+	return "." + strings.Join(fields, ".")
 }

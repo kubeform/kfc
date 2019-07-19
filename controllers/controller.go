@@ -164,7 +164,7 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 
 	if hasFinalizer(obj.GetFinalizers(), KFCFinalizer) {
 		if obj.GetDeletionTimestamp() != nil {
-			err := terraformDestroy(resPath, stateFile)
+			err := terraformDestroy(resPath)
 			if err != nil {
 				log.Error(err, "failed to terraform destroy")
 			}
@@ -189,7 +189,7 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		}
 	}
 
-	err = createFiles(resPath, stateFile, providerFile, mainFile)
+	err = createFiles(resPath, providerFile, mainFile)
 	if err != nil {
 		log.Error(err, "failed to create files")
 		return nil
@@ -222,10 +222,13 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		log.Error(err, "unable to initialize terraform")
 	}
 
-	err = terraformApply(resPath, stateFile)
+	createTFState(stateFile, gvr.GroupVersion(), obj)
+
+	err = terraformApply(resPath)
 	if err != nil {
 		log.Error(err, "unable to apply terraform")
 	}
+	updateTFState(stateFile, gvr.GroupVersion(), obj)
 
 	err = updateStatusOut(obj, resPath)
 	if err != nil {

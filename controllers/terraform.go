@@ -5,6 +5,8 @@ import (
 	"errors"
 	"os"
 
+	"k8s.io/apimachinery/pkg/runtime"
+
 	"github.com/hashicorp/terraform/command"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
@@ -14,7 +16,7 @@ func terraformInit(resPath string) error {
 	if err != nil {
 		return err
 	}
-	// TODO: This initializes terraform in the current directory. Shouldn't it be moved to the resource directory?
+
 	codeUi := &CodeUi{
 		OutputBuffer: new(bytes.Buffer),
 	}
@@ -23,10 +25,6 @@ func terraformInit(resPath string) error {
 			Ui: codeUi,
 		},
 	}
-
-	//args := []string{
-	//	//resPath,
-	//}
 
 	x := initCommand.Run(nil)
 
@@ -37,7 +35,7 @@ func terraformInit(resPath string) error {
 	return nil
 }
 
-func terraformApply(resPath, stateFile string) error {
+func terraformApply(resPath string) error {
 	err := os.Chdir(resPath)
 	if err != nil {
 		return err
@@ -63,7 +61,7 @@ func terraformApply(resPath, stateFile string) error {
 	return nil
 }
 
-func terraformDestroy(resPath, stateFile string) error {
+func terraformDestroy(resPath string) error {
 	err := os.Chdir(resPath)
 	if err != nil {
 		return err
@@ -113,7 +111,10 @@ func updateStatusOut(u *unstructured.Unstructured, resPath string) error {
 		return errors.New("failed to run terraform show command")
 	}
 
-	out := codeUi.OutputBuffer.String()
+	out := codeUi.OutputBuffer.Bytes()
+	rawData := &runtime.RawExtension{
+		Raw: out,
+	}
 
-	return unstructured.SetNestedField(u.Object, out, "status", "out")
+	return setNestedFieldNoCopy(u.Object, rawData, "status", "output")
 }

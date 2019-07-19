@@ -8,6 +8,7 @@ require (
 	github.com/Azure/go-autorest/autorest/mocks v0.2.0 // indirect
 	github.com/appscode/go v0.0.0-20190621064509-6b292c9166e3
 	github.com/chzyer/logex v1.1.11-0.20160617073814-96a4d311aa9b // indirect
+	github.com/davecgh/go-spew v1.1.1
 	github.com/fatih/structs v1.1.0
 	github.com/go-toolsmith/astcast v1.0.0 // indirect
 	github.com/go-toolsmith/astcopy v1.0.0 // indirect
@@ -34,7 +35,7 @@ require (
 	k8s.io/kube-openapi v0.0.0-20190502190224-411b2483e503 // indirect
 	k8s.io/sample-controller v0.0.0-20190712023928-20cb8607d0ef
 	kmodules.xyz/client-go v0.0.0-20190715080709-7162a6c90b04
-	kubeform.dev/kubeform v0.0.2-0.20190718060301-4bdffc30d26d
+	kubeform.dev/kubeform v0.0.2-0.20190719121558-fd69df75a0a7
 	sigs.k8s.io/controller-runtime v0.2.0-beta.4
 )
 
