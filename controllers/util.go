@@ -105,35 +105,47 @@ func crdToTFResource(gv schema.GroupVersion, kind, namespace, providerName strin
 		return err
 	}
 
-	secretName := typedStruct.Field("Spec").Field("Secret").Field("Name").Value()
-	if secretName != nil {
-		secret, err := kubeclient.CoreV1().Secrets(namespace).Get(secretName.(string), v1.GetOptions{})
-		if err != nil {
-			return err
+	fields := typedStruct.Field("Spec").Fields()
+
+	var ok bool
+	for _, field := range fields {
+		if field.Name() == "Secret" {
+			ok = true
+			break
 		}
+	}
 
-		for key := range secret.Data {
-			value := secret.Data[key]
+	if ok {
+		secretName := typedStruct.Field("Spec").Field("Secret").Field("Name").Value()
+		if secretName != nil {
+			secret, err := kubeclient.CoreV1().Secrets(namespace).Get(secretName.(string), v1.GetOptions{})
+			if err != nil {
+				return err
+			}
 
-			var tempMap = make(map[string]interface{}, 0)
-			filedName := strings.Split(key, ".")
+			for key := range secret.Data {
+				value := secret.Data[key]
 
-			buffer := new(bytes.Buffer)
-			if err := json.Compact(buffer, value); err != nil {
-				d := strings.ReplaceAll(string(value), "\n", "")
-				err = unstructured.SetNestedField(u1, d, filedName...)
-				if err != nil {
-					return err
-				}
-			} else {
-				err = json.Unmarshal(buffer.Bytes(), &tempMap)
-				if err != nil {
-					return err
-				}
+				var tempMap = make(map[string]interface{}, 0)
+				filedName := strings.Split(key, ".")
 
-				err = unstructured.SetNestedMap(u1, tempMap, filedName...)
-				if err != nil {
-					return err
+				buffer := new(bytes.Buffer)
+				if err := json.Compact(buffer, value); err != nil {
+					d := strings.ReplaceAll(string(value), "\n", "")
+					err = unstructured.SetNestedField(u1, d, filedName...)
+					if err != nil {
+						return err
+					}
+				} else {
+					err = json.Unmarshal(buffer.Bytes(), &tempMap)
+					if err != nil {
+						return err
+					}
+
+					err = unstructured.SetNestedMap(u1, tempMap, filedName...)
+					if err != nil {
+						return err
+					}
 				}
 			}
 		}

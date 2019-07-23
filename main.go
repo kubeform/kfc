@@ -18,23 +18,35 @@ package main
 
 import (
 	"flag"
+	"os"
+	"path/filepath"
 	"strings"
 	"time"
 
+	aws "kubeform.dev/kubeform/apis/aws/install"
+	azurerm "kubeform.dev/kubeform/apis/azurerm/install"
+	digitalocean "kubeform.dev/kubeform/apis/digitalocean/install"
+	google "kubeform.dev/kubeform/apis/google/install"
+
+	"github.com/appscode/go/log"
+
+	"github.com/appscode-cloud/kfc/signals"
+
+	"k8s.io/client-go/rest"
+
+	"k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
+	informers "k8s.io/apiextensions-apiserver/pkg/client/informers/externalversions"
+	"k8s.io/client-go/tools/cache"
+
 	"github.com/appscode-cloud/kfc/controllers"
-	apiextension "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/dynamic"
-	"k8s.io/client-go/dynamic/dynamicinformer"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
 	"k8s.io/klog"
 
 	// Uncomment the following line to load the gcp plugin (only required to authenticate against GKE clusters).
 	// _ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
-
-	"k8s.io/sample-controller/pkg/signals"
 
 	clientsetscheme "k8s.io/client-go/kubernetes/scheme"
 	linode "kubeform.dev/kubeform/apis/linode/install"
@@ -68,45 +80,70 @@ func main() {
 	}
 
 	linode.Install(clientsetscheme.Scheme)
+	aws.Install(clientsetscheme.Scheme)
+	azurerm.Install(clientsetscheme.Scheme)
+	digitalocean.Install(clientsetscheme.Scheme)
+	google.Install(clientsetscheme.Scheme)
 
-	exampleInformerFactory := dynamicinformer.NewDynamicSharedInformerFactory(dynamicClient, time.Second*30)
+	controller := controllers.NewController(kubeClient, dynamicClient)
 
-	extClient, err := apiextension.NewForConfig(cfg)
-	if err != nil {
-		klog.Fatalf("Error building kubernetes api extension clientset: %s", err.Error())
-	}
+	watchCRD(cfg, stopCh, controller, dynamicClient)
 
-	crds, err := extClient.ApiextensionsV1beta1().CustomResourceDefinitions().List(v1.ListOptions{})
-	if err != nil {
-		klog.Fatalf("Error listing CRDs: %s", err.Error())
-	}
-
-	var gvrs []schema.GroupVersionResource
-
-	for _, crd := range crds.Items {
-		if strings.Contains(crd.Spec.Group, "kubeform.com") {
-			gvr := schema.GroupVersionResource{
-				Group:    crd.Spec.Group,
-				Version:  crd.Spec.Version,
-				Resource: crd.Spec.Names.Plural,
-			}
-
-			gvrs = append(gvrs, gvr)
-		}
-	}
-
-	controller := controllers.NewController(kubeClient, dynamicClient, exampleInformerFactory, gvrs)
-
-	// notice that there is no need to run Start methods in a separate goroutine. (i.e. go kubeInformerFactory.Start(stopCh)
-	// Start method is non-blocking and runs all registered informers in a dedicated goroutine.
-	exampleInformerFactory.Start(stopCh)
-
-	if err = controller.Run(2, stopCh); err != nil {
+	if err = controller.Run(stopCh); err != nil {
 		klog.Fatalf("Error running controller: %s", err.Error())
 	}
 }
 
 func init() {
-	flag.StringVar(&kubeconfig, "kubeconfig", "/home/fahim/.kube/config", "Path to a kubeconfig. Only required if out-of-cluster.")
+	flag.StringVar(&kubeconfig, "kubeconfig", filepath.Join(os.Getenv("HOME"), ".kube/config"), "Path to a kubeconfig. Only required if out-of-cluster.")
 	flag.StringVar(&masterURL, "master", "", "The address of the Kubernetes API server. Overrides any value in kubeconfig. Only required if out-of-cluster.")
+}
+
+func watchCRD(cfg *rest.Config, stopCh <-chan struct{}, controller *controllers.Controller, dynamicClient dynamic.Interface) {
+	crdClient, err := clientset.NewForConfig(cfg)
+	if err != nil {
+		klog.Fatalf("Error building example clientset: %s", err.Error())
+	}
+
+	informerFactory := informers.NewSharedInformerFactory(crdClient, time.Second*30)
+	i := informerFactory.Apiextensions().V1beta1().CustomResourceDefinitions().Informer()
+	l := informerFactory.Apiextensions().V1beta1().CustomResourceDefinitions().Lister()
+
+	i.AddEventHandler(cache.ResourceEventHandlerFuncs{
+		AddFunc: func(obj interface{}) {
+			var key string
+
+			if key, err = cache.MetaNamespaceKeyFunc(obj); err != nil {
+				log.Error(err)
+				return
+			}
+
+			_, name, err := cache.SplitMetaNamespaceKey(key)
+			if err != nil {
+				log.Error(err)
+				return
+			}
+
+			crd, err := l.Get(name)
+			if err != nil {
+				log.Error(err)
+				return
+			}
+			if strings.Contains(crd.Spec.Group, "kubeform.com") {
+				gvr := schema.GroupVersionResource{
+					Group:    crd.Spec.Group,
+					Version:  crd.Spec.Version,
+					Resource: crd.Spec.Names.Plural,
+				}
+
+				err = controller.AddNewCRD(gvr, dynamicClient, stopCh)
+				if err != nil {
+					log.Error(err)
+					return
+				}
+			}
+		},
+	})
+
+	informerFactory.Start(stopCh)
 }

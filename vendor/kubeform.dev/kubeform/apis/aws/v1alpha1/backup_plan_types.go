@@ -1,0 +1,72 @@
+package v1alpha1
+
+import (
+	core "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
+)
+
+// +genclient
+// +k8s:openapi-gen=true
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:object:root=true
+
+type BackupPlan struct {
+	metav1.TypeMeta   `json:",inline,omitempty"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+	Spec              BackupPlanSpec   `json:"spec,omitempty"`
+	Status            BackupPlanStatus `json:"status,omitempty"`
+}
+
+type BackupPlanSpecRuleLifecycle struct {
+	// +optional
+	ColdStorageAfter int `json:"coldStorageAfter,omitempty" tf:"cold_storage_after,omitempty"`
+	// +optional
+	DeleteAfter int `json:"deleteAfter,omitempty" tf:"delete_after,omitempty"`
+}
+
+type BackupPlanSpecRule struct {
+	// +optional
+	CompletionWindow int `json:"completionWindow,omitempty" tf:"completion_window,omitempty"`
+	// +optional
+	// +kubebuilder:validation:MaxItems=1
+	Lifecycle []BackupPlanSpecRuleLifecycle `json:"lifecycle,omitempty" tf:"lifecycle,omitempty"`
+	// +optional
+	RecoveryPointTags map[string]string `json:"recoveryPointTags,omitempty" tf:"recovery_point_tags,omitempty"`
+	RuleName          string            `json:"ruleName" tf:"rule_name"`
+	// +optional
+	Schedule string `json:"schedule,omitempty" tf:"schedule,omitempty"`
+	// +optional
+	StartWindow     int    `json:"startWindow,omitempty" tf:"start_window,omitempty"`
+	TargetVaultName string `json:"targetVaultName" tf:"target_vault_name"`
+}
+
+type BackupPlanSpec struct {
+	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
+
+	Name string `json:"name" tf:"name"`
+	// +kubebuilder:validation:UniqueItems=true
+	Rule []BackupPlanSpecRule `json:"rule" tf:"rule"`
+	// +optional
+	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
+}
+
+type BackupPlanStatus struct {
+	// Resource generation, which is updated on mutation by the API Server.
+	// +optional
+	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
+
+	TFState *runtime.RawExtension `json:"tfState,omitempty"`
+	Output  *runtime.RawExtension `json:"output,omitempty"`
+}
+
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:object:root=true
+
+// BackupPlanList is a list of BackupPlans
+type BackupPlanList struct {
+	metav1.TypeMeta `json:",inline"`
+	metav1.ListMeta `json:"metadata,omitempty"`
+	// Items is a list of BackupPlan CRD objects
+	Items []BackupPlan `json:"items,omitempty"`
+}

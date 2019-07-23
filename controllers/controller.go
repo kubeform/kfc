@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/appscode/go/log"
 	corev1 "k8s.io/api/core/v1"
@@ -45,7 +46,7 @@ type Controller struct {
 
 	crdListers map[schema.GroupVersionResource]dynamiclister.Lister
 	crdWorkers map[schema.GroupVersionResource]*queue.Worker
-	syncedFns  []cache.InformerSynced
+	syncedFns  map[schema.GroupVersionResource]cache.InformerSynced
 
 	// recorder is an event recorder for recording Event resources to the
 	// Kubernetes API.
@@ -55,9 +56,7 @@ type Controller struct {
 // NewController returns a new sample controller
 func NewController(
 	kubeclientset kubernetes.Interface,
-	dynamicclient dynamic.Interface,
-	factory dynamicinformer.DynamicSharedInformerFactory,
-	gvrs []schema.GroupVersionResource) *Controller {
+	dynamicclient dynamic.Interface) *Controller {
 	// Create event broadcaster
 	// Add sample-controller types to the default Kubernetes Scheme so Events can be
 	// logged for sample-controller types.
@@ -73,51 +72,72 @@ func NewController(
 		dynamicclient: dynamicclient,
 		crdListers:    make(map[schema.GroupVersionResource]dynamiclister.Lister),
 		crdWorkers:    make(map[schema.GroupVersionResource]*queue.Worker),
+		syncedFns:     make(map[schema.GroupVersionResource]cache.InformerSynced),
 		recorder:      recorder,
 	}
 	klog.Info("Setting up event handlers")
-	maxNumRequeues := 5
-	numThreads := 5
-	for i := range gvrs {
-		gvr := gvrs[i]
-		i := factory.ForResource(gvr)
-		q := queue.New(gvr.String(), maxNumRequeues, numThreads, func(key string) error {
-			return controller.reconcile(gvr, key)
-		})
-
-		i.Informer().AddEventHandler(queue.DefaultEventHandler(q.GetQueue()))
-
-		controller.crdListers[gvr] = dynamiclister.New(i.Informer().GetIndexer(), gvr)
-		controller.crdWorkers[gvr] = q
-		controller.syncedFns = append(controller.syncedFns, i.Informer().HasSynced)
-	}
+	//maxNumRequeues := 5
+	//numThreads := 5
+	//for i := range gvrs {
+	//	gvr := gvrs[i]
+	//	i := factory.ForResource(gvr)
+	//	q := queue.New(gvr.String(), maxNumRequeues, numThreads, func(key string) error {
+	//		return controller.reconcile(gvr, key)
+	//	})
+	//
+	//	i.Informer().AddEventHandler(queue.DefaultEventHandler(q.GetQueue()))
+	//
+	//	controller.crdListers[gvr] = dynamiclister.New(i.Informer().GetIndexer(), gvr)
+	//	controller.crdWorkers[gvr] = q
+	//	controller.syncedFns = append(controller.syncedFns, i.Informer().HasSynced)
+	//}
 
 	return controller
+}
+
+func (c *Controller) AddNewCRD(gvr schema.GroupVersionResource, dynamicClient dynamic.Interface, stopCh <-chan struct{}) error {
+	factory := dynamicinformer.NewDynamicSharedInformerFactory(dynamicClient, time.Second*30)
+
+	maxNumRequeues := 5
+	numThreads := 5
+	i := factory.ForResource(gvr)
+	q := queue.New(gvr.String(), maxNumRequeues, numThreads, func(key string) error {
+		return c.reconcile(gvr, key)
+	})
+
+	i.Informer().AddEventHandler(queue.DefaultEventHandler(q.GetQueue()))
+
+	c.crdListers[gvr] = dynamiclister.New(i.Informer().GetIndexer(), gvr)
+	c.crdWorkers[gvr] = q
+	c.syncedFns[gvr] = i.Informer().HasSynced
+
+	factory.Start(stopCh)
+
+	klog.Info("Waiting for informer caches to sync")
+	if ok := cache.WaitForCacheSync(stopCh, c.syncedFns[gvr]); !ok {
+		return fmt.Errorf("failed to wait for caches to sync")
+	}
+
+	klog.Info("Starting worker")
+
+	c.crdWorkers[gvr].Run(stopCh)
+
+	return nil
+}
+
+func (c *Controller) GetWorker(gvr schema.GroupVersionResource) *queue.Worker {
+	return c.crdWorkers[gvr]
 }
 
 // Run will set up the event handlers for types we are interested in, as well
 // as syncing informer caches and starting workers. It will block until stopCh
 // is closed, at which point it will shutdown the workqueue and wait for
 // workers to finish processing their current work items.
-func (c *Controller) Run(threadiness int, stopCh <-chan struct{}) error {
+func (c *Controller) Run(stopCh <-chan struct{}) error {
 	defer utilruntime.HandleCrash()
 
-	// Start the informer factories to begin populating the informer caches
 	klog.Info("Starting KubeForm controller")
 
-	// Wait for the caches to be synced before starting workers
-	klog.Info("Waiting for informer caches to sync")
-	if ok := cache.WaitForCacheSync(stopCh, c.syncedFns...); !ok {
-		return fmt.Errorf("failed to wait for caches to sync")
-	}
-
-	klog.Info("Starting workers")
-	// Launch workers to process KubeForm resources
-	for _, w := range c.crdWorkers {
-		w.Run(stopCh)
-	}
-
-	klog.Info("Started workers")
 	<-stopCh
 	klog.Info("Shutting down workers")
 
