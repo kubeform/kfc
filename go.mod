@@ -33,9 +33,8 @@ require (
 	k8s.io/client-go v11.0.1-0.20190409021438-1a26190bd76a+incompatible
 	k8s.io/klog v0.3.1
 	k8s.io/kube-openapi v0.0.0-20190502190224-411b2483e503 // indirect
-	k8s.io/sample-controller v0.0.0-20190712023928-20cb8607d0ef
 	kmodules.xyz/client-go v0.0.0-20190715080709-7162a6c90b04
-	kubeform.dev/kubeform v0.0.2-0.20190719121558-fd69df75a0a7
+	kubeform.dev/kubeform v0.0.2-0.20190723075747-9001a322126a
 	sigs.k8s.io/controller-runtime v0.2.0-beta.4
 )
 

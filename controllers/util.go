@@ -24,6 +24,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"k8s.io/client-go/kubernetes"
+
 	"k8s.io/apimachinery/pkg/runtime"
 
 	"k8s.io/klog"
@@ -37,6 +39,7 @@ import (
 
 	"github.com/gobuffalo/flect"
 	corev1 "k8s.io/api/core/v1"
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
@@ -69,7 +72,9 @@ func secretToTFProvider(secret *corev1.Secret, providerName, providerFile string
 	return nil
 }
 
-func crdToTFResource(gv schema.GroupVersion, kind, providerName string, obj *unstructured.Unstructured, mainFile string) error {
+func crdToTFResource(gv schema.GroupVersion, kind, namespace, providerName string, kubeclient kubernetes.Interface, obj *unstructured.Unstructured, mainFile string) error {
+	resourceName := providerName + "_" + flect.Underscore(kind)
+
 	data, err := meta.MarshalToJson(obj, gv)
 	if err != nil {
 		klog.Error(err)
@@ -81,7 +86,7 @@ func crdToTFResource(gv schema.GroupVersion, kind, providerName string, obj *uns
 
 	typedStruct := structs.New(typedObj)
 	spec := typedStruct.Field("Spec")
-	value := spec.Value()
+	specValue := spec.Value()
 	jsonit := jsoniter.Config{
 		EscapeHTML:             true,
 		SortMapKeys:            true,
@@ -89,19 +94,65 @@ func crdToTFResource(gv schema.GroupVersion, kind, providerName string, obj *uns
 		TagKey:                 "tf",
 	}.Froze()
 
-	tfStr, err := jsonit.Marshal(value)
+	tfStr, err := jsonit.Marshal(specValue)
 	if err != nil {
 		klog.Error(err)
 	}
 
-	d1 := []byte(`{"resource":{ "` + providerName + "_" + flect.Underscore(kind) + `":{"` + obj.GetName() + `":`)
+	var u1 map[string]interface{}
+	err = json.Unmarshal(tfStr, &u1)
+	if err != nil {
+		return err
+	}
 
-	d1 = append(d1, tfStr...)
+	secretName := typedStruct.Field("Spec").Field("Secret").Field("Name").Value()
+	if secretName != nil {
+		secret, err := kubeclient.CoreV1().Secrets(namespace).Get(secretName.(string), v1.GetOptions{})
+		if err != nil {
+			return err
+		}
+
+		for key := range secret.Data {
+			value := secret.Data[key]
+
+			var tempMap = make(map[string]interface{}, 0)
+			filedName := strings.Split(key, ".")
+
+			buffer := new(bytes.Buffer)
+			if err := json.Compact(buffer, value); err != nil {
+				d := strings.ReplaceAll(string(value), "\n", "")
+				err = unstructured.SetNestedField(u1, d, filedName...)
+				if err != nil {
+					return err
+				}
+			} else {
+				err = json.Unmarshal(buffer.Bytes(), &tempMap)
+				if err != nil {
+					return err
+				}
+
+				err = unstructured.SetNestedMap(u1, tempMap, filedName...)
+				if err != nil {
+					return err
+				}
+			}
+		}
+	}
+
+	str, err := json.Marshal(u1)
+	if err != nil {
+		return err
+	}
+
+	d1 := []byte(`{"resource":{ "` + resourceName + `":{"` + obj.GetName() + `":`)
+
+	d1 = append(d1, str...)
 	d1 = append(d1, []byte("} } }")...)
 	prettyData, err := prettyJSON(d1)
 	if err != nil {
 		return err
 	}
+
 	err = ioutil.WriteFile(mainFile, prettyData, 0644)
 	if err != nil {
 		return err
@@ -281,3 +332,7 @@ func setNestedFieldNoCopy(obj map[string]interface{}, value interface{}, fields 
 func jsonPath(fields []string) string {
 	return "." + strings.Join(fields, ".")
 }
+
+//var sensitiveData = map[string][]string{
+//	"linode_instance": {"Spec.RootPass", ""},
+//}

@@ -212,7 +212,7 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		log.Error(err, "unable to get configmap")
 	}
 
-	err = crdToTFResource(gvr.GroupVersion(), obj.GetKind(), providerName, obj, mainFile)
+	err = crdToTFResource(gvr.GroupVersion(), obj.GetKind(), namespace, providerName, c.kubeclientset, obj, mainFile)
 	if err != nil {
 		log.Error(err, "unable to get crd resource")
 	}

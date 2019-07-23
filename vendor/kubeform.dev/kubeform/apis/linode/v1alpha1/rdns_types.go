@@ -19,9 +19,10 @@ type Rdns struct {
 }
 
 type RdnsSpec struct {
-	Address     string                    `json:"address" tf:"address"`
-	Rdns        string                    `json:"rdns" tf:"rdns"`
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
+
+	Address string `json:"address" tf:"address"`
+	Rdns    string `json:"rdns" tf:"rdns"`
 }
 
 type RdnsStatus struct {
