@@ -76,21 +76,6 @@ func NewController(
 		recorder:      recorder,
 	}
 	klog.Info("Setting up event handlers")
-	//maxNumRequeues := 5
-	//numThreads := 5
-	//for i := range gvrs {
-	//	gvr := gvrs[i]
-	//	i := factory.ForResource(gvr)
-	//	q := queue.New(gvr.String(), maxNumRequeues, numThreads, func(key string) error {
-	//		return controller.reconcile(gvr, key)
-	//	})
-	//
-	//	i.Informer().AddEventHandler(queue.DefaultEventHandler(q.GetQueue()))
-	//
-	//	controller.crdListers[gvr] = dynamiclister.New(i.Informer().GetIndexer(), gvr)
-	//	controller.crdWorkers[gvr] = q
-	//	controller.syncedFns = append(controller.syncedFns, i.Informer().HasSynced)
-	//}
 
 	return controller
 }
@@ -250,10 +235,10 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 	}
 	updateTFState(stateFile, gvr.GroupVersion(), obj)
 
-	err = updateStatusOut(obj, resPath)
-	if err != nil {
-		log.Error(err, "unable to update status out field")
-	}
+	//err = updateStatusOut(obj, resPath)
+	//if err != nil {
+	//	log.Error(err, "unable to update status out field")
+	//}
 
 	c.updateResource(gvr, obj)
 

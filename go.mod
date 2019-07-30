@@ -8,7 +8,6 @@ require (
 	github.com/Azure/go-autorest/autorest/mocks v0.2.0 // indirect
 	github.com/appscode/go v0.0.0-20190621064509-6b292c9166e3
 	github.com/chzyer/logex v1.1.11-0.20160617073814-96a4d311aa9b // indirect
-	github.com/davecgh/go-spew v1.1.1
 	github.com/fatih/structs v1.1.0
 	github.com/go-toolsmith/astcast v1.0.0 // indirect
 	github.com/go-toolsmith/astcopy v1.0.0 // indirect

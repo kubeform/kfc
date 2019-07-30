@@ -16,12 +16,8 @@ limitations under the License.
 package controllers
 
 import (
-	"bytes"
-	"fmt"
 	"path/filepath"
 	"testing"
-
-	"github.com/hashicorp/terraform/command"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -80,25 +76,3 @@ var _ = AfterSuite(func() {
 	err := testEnv.Stop()
 	Expect(err).ToNot(HaveOccurred())
 })
-
-func TestUI(t *testing.T) {
-	codeUi := &CodeUi{
-		OutputBuffer: new(bytes.Buffer),
-	}
-	showCmd := command.ShowCommand{
-		Meta: command.Meta{
-			GlobalPluginDirs: []string{"/home/fahim/.kfc/digitaloceandroplets.default.do-test/.terraform/plugins/linux_amd64"},
-			Ui:               codeUi,
-		},
-	}
-
-	args := []string{
-		"-json",
-		"/home/fahim/.kfc/digitaloceandroplets.default.do-test/terraform.tfstate",
-	}
-
-	showCmd.Run(args)
-
-	out := codeUi.OutputBuffer.String()
-	fmt.Println(out)
-}
