@@ -173,6 +173,67 @@ func crdToTFResource(gv schema.GroupVersion, kind, namespace, providerName strin
 	return nil
 }
 
+func updateResourceFields(gvr schema.GroupVersionResource, obj *unstructured.Unstructured, filePath string) error {
+	gv := gvr.GroupVersion()
+	stateJson, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		return err
+	}
+
+	var state state
+	err = json.Unmarshal(stateJson, &state)
+	if err != nil {
+		return err
+	}
+
+	data, err := meta.MarshalToJson(obj, gv)
+	if err != nil {
+		return err
+	}
+
+	typedObj, err := meta.UnmarshalFromJSON(data, gv)
+	if err != nil {
+		return err
+	}
+
+	jsonit := jsoniter.Config{
+		EscapeHTML:             true,
+		SortMapKeys:            true,
+		ValidateJsonRawMessage: true,
+		TagKey:                 "tf",
+	}.Froze()
+
+	var raw []byte
+	jsonByte, err := state.Resources[0].Instances[0].AttributesRaw.MarshalJSON()
+	if err != nil {
+		return err
+	}
+
+	raw = append(raw, []byte(`{"spec":`)...)
+	raw = append(raw, jsonByte...)
+	raw = append(raw, []byte(`}`)...)
+
+	err = jsonit.Unmarshal(raw, &typedObj)
+	if err != nil {
+		return err
+	}
+
+	b, err := json.Marshal(&typedObj)
+	if err != nil {
+		return err
+	}
+
+	var u1 map[string]interface{}
+	err = json.Unmarshal(b, &u1)
+	if err != nil {
+		return err
+	}
+
+	obj.Object = u1
+
+	return nil
+}
+
 func hasFinalizer(finalizers []string, finalizer string) bool {
 	for _, f := range finalizers {
 		if f == finalizer {
@@ -257,17 +318,17 @@ func prettyJSON(byteJson []byte) ([]byte, error) {
 	return prettyJSON.Bytes(), err
 }
 
-func createTFState(filePath string, gv schema.GroupVersion, u *unstructured.Unstructured) {
+func createTFState(filePath string, gv schema.GroupVersion, u *unstructured.Unstructured) error {
 	_, existErr := os.Stat(filePath)
 
 	data, err := meta.MarshalToJson(u, gv)
 	if err != nil {
-		klog.Error(err)
+		return err
 	}
 
 	typedObj, err := meta.UnmarshalFromJSON(data, gv)
 	if err != nil {
-		klog.Error(err)
+		return err
 	}
 
 	typedStruct := structs.New(typedObj)
@@ -280,21 +341,23 @@ func createTFState(filePath string, gv schema.GroupVersion, u *unstructured.Unst
 			klog.Errorf("failed to write file hash : %s", err.Error())
 		}
 	}
+
+	return nil
 }
 
-func updateTFState(filePath string, gv schema.GroupVersion, u *unstructured.Unstructured) {
+func updateTFState(filePath string, gv schema.GroupVersion, u *unstructured.Unstructured) error {
 	data, err := ioutil.ReadFile(filePath)
 	if err != nil {
-		klog.Errorf("failed to read tfstate file : %s", err.Error())
+		return err
 	}
 
 	jsonData, err := meta.MarshalToJson(u, gv)
 	if err != nil {
-		klog.Error(err)
+		return err
 	}
 	typedObj, err := meta.UnmarshalFromJSON(jsonData, gv)
 	if err != nil {
-		klog.Error(err)
+		return err
 	}
 
 	typedStruct := structs.New(typedObj)
@@ -308,17 +371,19 @@ func updateTFState(filePath string, gv schema.GroupVersion, u *unstructured.Unst
 	if value.(*runtime.RawExtension) == nil {
 		err = setNestedFieldNoCopy(u.Object, rawData, "status", "tfState")
 		if err != nil {
-			klog.Errorf("failed to update tfstate : %s", err.Error())
+			return err
 		}
-		return
+		return nil
 	}
 
 	if bytes.Compare(data, value.(*runtime.RawExtension).Raw) != 0 {
 		err = setNestedFieldNoCopy(u.Object, rawData, "status", "tfState")
 		if err != nil {
-			klog.Errorf("failed to update tfstate : %s", err.Error())
+			return err
 		}
 	}
+
+	return nil
 }
 
 func setNestedFieldNoCopy(obj map[string]interface{}, value interface{}, fields ...string) error {
@@ -344,7 +409,3 @@ func setNestedFieldNoCopy(obj map[string]interface{}, value interface{}, fields 
 func jsonPath(fields []string) string {
 	return "." + strings.Join(fields, ".")
 }
-
-//var sensitiveData = map[string][]string{
-//	"linode_instance": {"Spec.RootPass", ""},
-//}

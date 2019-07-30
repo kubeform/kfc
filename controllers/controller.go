@@ -227,13 +227,24 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		log.Error(err, "unable to initialize terraform")
 	}
 
-	createTFState(stateFile, gvr.GroupVersion(), obj)
+	err = createTFState(stateFile, gvr.GroupVersion(), obj)
+	if err != nil {
+		log.Error(err, "unable to create tfstate file")
+	}
 
 	err = terraformApply(resPath)
 	if err != nil {
 		log.Error(err, "unable to apply terraform")
 	}
-	updateTFState(stateFile, gvr.GroupVersion(), obj)
+	err = updateTFState(stateFile, gvr.GroupVersion(), obj)
+	if err != nil {
+		log.Error(err, "unable to update TFState")
+	}
+
+	err = updateResourceFields(gvr, obj, stateFile)
+	if err != nil {
+		log.Error(err, "unable to update resource fields from tfstate")
+	}
 
 	//err = updateStatusOut(obj, resPath)
 	//if err != nil {
