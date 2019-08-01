@@ -3,7 +3,6 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // +genclient
@@ -23,13 +22,17 @@ type ApiManagementSpecAdditionalLocation struct {
 }
 
 type ApiManagementSpecCertificate struct {
-	StoreName string `json:"storeName" tf:"store_name"`
+	CertificatePassword string `json:"-" sensitive:"true" tf:"certificate_password"`
+	EncodedCertificate  string `json:"-" sensitive:"true" tf:"encoded_certificate"`
+	StoreName           string `json:"storeName" tf:"store_name"`
 }
 
 type ApiManagementSpecHostnameConfigurationManagement struct {
 	// +optional
+	Certificate string `json:"-" sensitive:"true" tf:"certificate,omitempty"`
 	// +optional
-	HostName string `json:"hostName" tf:"host_name"`
+	CertificatePassword string `json:"-" sensitive:"true" tf:"certificate_password,omitempty"`
+	HostName            string `json:"hostName" tf:"host_name"`
 	// +optional
 	KeyVaultID string `json:"keyVaultID,omitempty" tf:"key_vault_id,omitempty"`
 	// +optional
@@ -38,8 +41,10 @@ type ApiManagementSpecHostnameConfigurationManagement struct {
 
 type ApiManagementSpecHostnameConfigurationPortal struct {
 	// +optional
+	Certificate string `json:"-" sensitive:"true" tf:"certificate,omitempty"`
 	// +optional
-	HostName string `json:"hostName" tf:"host_name"`
+	CertificatePassword string `json:"-" sensitive:"true" tf:"certificate_password,omitempty"`
+	HostName            string `json:"hostName" tf:"host_name"`
 	// +optional
 	KeyVaultID string `json:"keyVaultID,omitempty" tf:"key_vault_id,omitempty"`
 	// +optional
@@ -48,7 +53,9 @@ type ApiManagementSpecHostnameConfigurationPortal struct {
 
 type ApiManagementSpecHostnameConfigurationProxy struct {
 	// +optional
+	Certificate string `json:"-" sensitive:"true" tf:"certificate,omitempty"`
 	// +optional
+	CertificatePassword string `json:"-" sensitive:"true" tf:"certificate_password,omitempty"`
 	// +optional
 	DefaultSslBinding bool   `json:"defaultSslBinding,omitempty" tf:"default_ssl_binding,omitempty"`
 	HostName          string `json:"hostName" tf:"host_name"`
@@ -60,8 +67,10 @@ type ApiManagementSpecHostnameConfigurationProxy struct {
 
 type ApiManagementSpecHostnameConfigurationScm struct {
 	// +optional
+	Certificate string `json:"-" sensitive:"true" tf:"certificate,omitempty"`
 	// +optional
-	HostName string `json:"hostName" tf:"host_name"`
+	CertificatePassword string `json:"-" sensitive:"true" tf:"certificate_password,omitempty"`
+	HostName            string `json:"hostName" tf:"host_name"`
 	// +optional
 	KeyVaultID string `json:"keyVaultID,omitempty" tf:"key_vault_id,omitempty"`
 	// +optional
@@ -177,10 +186,8 @@ type ApiManagementSpec struct {
 type ApiManagementStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
-	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	ObservedGeneration int64  `json:"observedGeneration,omitempty"`
+	TFState            string `json:"tfState,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

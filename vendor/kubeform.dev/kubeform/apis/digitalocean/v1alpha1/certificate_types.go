@@ -3,7 +3,6 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // +genclient
@@ -32,6 +31,7 @@ type CertificateSpec struct {
 	LeafCertificate string `json:"leafCertificate,omitempty" tf:"leaf_certificate,omitempty"`
 	Name            string `json:"name" tf:"name"`
 	// +optional
+	PrivateKey string `json:"-" sensitive:"true" tf:"private_key,omitempty"`
 	// +optional
 	Type string `json:"type,omitempty" tf:"type,omitempty"`
 }
@@ -39,10 +39,8 @@ type CertificateSpec struct {
 type CertificateStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
-	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	ObservedGeneration int64  `json:"observedGeneration,omitempty"`
+	TFState            string `json:"tfState,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -3,15 +3,13 @@ package controllers
 import "encoding/json"
 
 type state struct {
-	Version          version           `json:"version"`
+	Version          json.Number       `json:"version"`
 	TerraformVersion string            `json:"terraform_version"`
 	Serial           uint64            `json:"serial"`
 	Lineage          string            `json:"lineage"`
 	RootOutputs      map[string]output `json:"outputs"`
 	Resources        []resource        `json:"resources"`
 }
-
-type version struct{}
 
 type output struct {
 	ValueRaw     json.RawMessage `json:"value"`

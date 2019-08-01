@@ -3,7 +3,6 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // +genclient
@@ -86,8 +85,9 @@ type KubernetesClusterSpecNetworkProfile struct {
 }
 
 type KubernetesClusterSpecRoleBasedAccessControlAzureActiveDirectory struct {
-	ClientAppID string `json:"clientAppID" tf:"client_app_id"`
-	ServerAppID string `json:"serverAppID" tf:"server_app_id"`
+	ClientAppID     string `json:"clientAppID" tf:"client_app_id"`
+	ServerAppID     string `json:"serverAppID" tf:"server_app_id"`
+	ServerAppSecret string `json:"-" sensitive:"true" tf:"server_app_secret"`
 	// +optional
 	TenantID string `json:"tenantID,omitempty" tf:"tenant_id,omitempty"`
 }
@@ -100,7 +100,8 @@ type KubernetesClusterSpecRoleBasedAccessControl struct {
 }
 
 type KubernetesClusterSpecServicePrincipal struct {
-	ClientID string `json:"clientID" tf:"client_id"`
+	ClientID     string `json:"clientID" tf:"client_id"`
+	ClientSecret string `json:"-" sensitive:"true" tf:"client_secret"`
 }
 
 type KubernetesClusterSpec struct {
@@ -140,10 +141,8 @@ type KubernetesClusterSpec struct {
 type KubernetesClusterStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
-	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	ObservedGeneration int64  `json:"observedGeneration,omitempty"`
+	TFState            string `json:"tfState,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

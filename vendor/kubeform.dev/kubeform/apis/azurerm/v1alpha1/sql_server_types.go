@@ -3,7 +3,6 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // +genclient
@@ -23,10 +22,11 @@ type SqlServerSpec struct {
 
 	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
-	AdministratorLogin string `json:"administratorLogin" tf:"administrator_login"`
-	Location           string `json:"location" tf:"location"`
-	Name               string `json:"name" tf:"name"`
-	ResourceGroupName  string `json:"resourceGroupName" tf:"resource_group_name"`
+	AdministratorLogin         string `json:"administratorLogin" tf:"administrator_login"`
+	AdministratorLoginPassword string `json:"-" sensitive:"true" tf:"administrator_login_password"`
+	Location                   string `json:"location" tf:"location"`
+	Name                       string `json:"name" tf:"name"`
+	ResourceGroupName          string `json:"resourceGroupName" tf:"resource_group_name"`
 	// +optional
 	Tags    map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 	Version string            `json:"version" tf:"version"`
@@ -35,10 +35,8 @@ type SqlServerSpec struct {
 type SqlServerStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
-	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	ObservedGeneration int64  `json:"observedGeneration,omitempty"`
+	TFState            string `json:"tfState,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

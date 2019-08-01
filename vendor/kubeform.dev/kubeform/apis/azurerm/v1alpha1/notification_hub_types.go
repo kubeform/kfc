@@ -3,7 +3,6 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // +genclient
@@ -23,9 +22,12 @@ type NotificationHubSpecApnsCredential struct {
 	BundleID        string `json:"bundleID" tf:"bundle_id"`
 	KeyID           string `json:"keyID" tf:"key_id"`
 	TeamID          string `json:"teamID" tf:"team_id"`
+	Token           string `json:"-" sensitive:"true" tf:"token"`
 }
 
-type NotificationHubSpecGcmCredential struct{}
+type NotificationHubSpecGcmCredential struct {
+	ApiKey string `json:"-" sensitive:"true" tf:"api_key"`
+}
 
 type NotificationHubSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
@@ -47,10 +49,8 @@ type NotificationHubSpec struct {
 type NotificationHubStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
-	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	ObservedGeneration int64  `json:"observedGeneration,omitempty"`
+	TFState            string `json:"tfState,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

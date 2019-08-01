@@ -3,7 +3,6 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // +genclient
@@ -28,7 +27,9 @@ type RedisCacheSpecRedisConfiguration struct {
 	// +optional
 	AofBackupEnabled bool `json:"aofBackupEnabled,omitempty" tf:"aof_backup_enabled,omitempty"`
 	// +optional
+	AofStorageConnectionString0 string `json:"-" sensitive:"true" tf:"aof_storage_connection_string_0,omitempty"`
 	// +optional
+	AofStorageConnectionString1 string `json:"-" sensitive:"true" tf:"aof_storage_connection_string_1,omitempty"`
 	// +optional
 	EnableAuthentication bool `json:"enableAuthentication,omitempty" tf:"enable_authentication,omitempty"`
 	// +optional
@@ -48,6 +49,7 @@ type RedisCacheSpecRedisConfiguration struct {
 	// +optional
 	RdbBackupMaxSnapshotCount int `json:"rdbBackupMaxSnapshotCount,omitempty" tf:"rdb_backup_max_snapshot_count,omitempty"`
 	// +optional
+	RdbStorageConnectionString string `json:"-" sensitive:"true" tf:"rdb_storage_connection_string,omitempty"`
 }
 
 type RedisCacheSpec struct {
@@ -86,10 +88,8 @@ type RedisCacheSpec struct {
 type RedisCacheStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
-	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	ObservedGeneration int64  `json:"observedGeneration,omitempty"`
+	TFState            string `json:"tfState,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

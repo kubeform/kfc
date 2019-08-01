@@ -3,7 +3,6 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // +genclient
@@ -20,6 +19,7 @@ type OpsworksApplication struct {
 
 type OpsworksApplicationSpecAppSource struct {
 	// +optional
+	Password string `json:"-" sensitive:"true" tf:"password,omitempty"`
 	// +optional
 	Revision string `json:"revision,omitempty" tf:"revision,omitempty"`
 	// +optional
@@ -41,7 +41,8 @@ type OpsworksApplicationSpecEnvironment struct {
 type OpsworksApplicationSpecSslConfiguration struct {
 	Certificate string `json:"certificate" tf:"certificate"`
 	// +optional
-	Chain string `json:"chain,omitempty" tf:"chain,omitempty"`
+	Chain      string `json:"chain,omitempty" tf:"chain,omitempty"`
+	PrivateKey string `json:"-" sensitive:"true" tf:"private_key"`
 }
 
 type OpsworksApplicationSpec struct {
@@ -86,10 +87,8 @@ type OpsworksApplicationSpec struct {
 type OpsworksApplicationStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
-	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	ObservedGeneration int64  `json:"observedGeneration,omitempty"`
+	TFState            string `json:"tfState,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

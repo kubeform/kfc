@@ -5,7 +5,6 @@ import (
 
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // +genclient
@@ -25,28 +24,33 @@ type AppServiceSpecAuthSettingsActiveDirectory struct {
 	AllowedAudiences []string `json:"allowedAudiences,omitempty" tf:"allowed_audiences,omitempty"`
 	ClientID         string   `json:"clientID" tf:"client_id"`
 	// +optional
+	ClientSecret string `json:"-" sensitive:"true" tf:"client_secret,omitempty"`
 }
 
 type AppServiceSpecAuthSettingsFacebook struct {
-	AppID string `json:"appID" tf:"app_id"`
+	AppID     string `json:"appID" tf:"app_id"`
+	AppSecret string `json:"-" sensitive:"true" tf:"app_secret"`
 	// +optional
 	OauthScopes []string `json:"oauthScopes,omitempty" tf:"oauth_scopes,omitempty"`
 }
 
 type AppServiceSpecAuthSettingsGoogle struct {
-	ClientID string `json:"clientID" tf:"client_id"`
+	ClientID     string `json:"clientID" tf:"client_id"`
+	ClientSecret string `json:"-" sensitive:"true" tf:"client_secret"`
 	// +optional
 	OauthScopes []string `json:"oauthScopes,omitempty" tf:"oauth_scopes,omitempty"`
 }
 
 type AppServiceSpecAuthSettingsMicrosoft struct {
-	ClientID string `json:"clientID" tf:"client_id"`
+	ClientID     string `json:"clientID" tf:"client_id"`
+	ClientSecret string `json:"-" sensitive:"true" tf:"client_secret"`
 	// +optional
 	OauthScopes []string `json:"oauthScopes,omitempty" tf:"oauth_scopes,omitempty"`
 }
 
 type AppServiceSpecAuthSettingsTwitter struct {
-	ConsumerKey string `json:"consumerKey" tf:"consumer_key"`
+	ConsumerKey    string `json:"consumerKey" tf:"consumer_key"`
+	ConsumerSecret string `json:"-" sensitive:"true" tf:"consumer_secret"`
 }
 
 type AppServiceSpecAuthSettings struct {
@@ -85,8 +89,9 @@ type AppServiceSpecAuthSettings struct {
 }
 
 type AppServiceSpecConnectionString struct {
-	Name string `json:"name" tf:"name"`
-	Type string `json:"type" tf:"type"`
+	Name  string `json:"name" tf:"name"`
+	Type  string `json:"type" tf:"type"`
+	Value string `json:"-" sensitive:"true" tf:"value"`
 }
 
 type AppServiceSpecIdentity struct {
@@ -96,6 +101,7 @@ type AppServiceSpecIdentity struct {
 type AppServiceSpecLogsApplicationLogsAzureBlobStorage struct {
 	Level           string `json:"level" tf:"level"`
 	RetentionInDays int    `json:"retentionInDays" tf:"retention_in_days"`
+	SasURL          string `json:"-" sensitive:"true" tf:"sas_url"`
 }
 
 type AppServiceSpecLogsApplicationLogs struct {
@@ -216,10 +222,8 @@ type AppServiceSpec struct {
 type AppServiceStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
-	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	ObservedGeneration int64  `json:"observedGeneration,omitempty"`
+	TFState            string `json:"tfState,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

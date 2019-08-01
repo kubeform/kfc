@@ -3,7 +3,6 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // +genclient
@@ -24,11 +23,13 @@ type HdinsightKafkaClusterSpecComponentVersion struct {
 
 type HdinsightKafkaClusterSpecGateway struct {
 	Enabled  bool   `json:"enabled" tf:"enabled"`
+	Password string `json:"-" sensitive:"true" tf:"password"`
 	Username string `json:"username" tf:"username"`
 }
 
 type HdinsightKafkaClusterSpecRolesHeadNode struct {
 	// +optional
+	Password string `json:"-" sensitive:"true" tf:"password,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	SshKeys []string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
@@ -45,6 +46,7 @@ type HdinsightKafkaClusterSpecRolesWorkerNode struct {
 	MinInstanceCount     int `json:"minInstanceCount,omitempty" tf:"min_instance_count,omitempty"`
 	NumberOfDisksPerNode int `json:"numberOfDisksPerNode" tf:"number_of_disks_per_node"`
 	// +optional
+	Password string `json:"-" sensitive:"true" tf:"password,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	SshKeys []string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
@@ -59,6 +61,7 @@ type HdinsightKafkaClusterSpecRolesWorkerNode struct {
 
 type HdinsightKafkaClusterSpecRolesZookeeperNode struct {
 	// +optional
+	Password string `json:"-" sensitive:"true" tf:"password,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	SshKeys []string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
@@ -81,6 +84,7 @@ type HdinsightKafkaClusterSpecRoles struct {
 
 type HdinsightKafkaClusterSpecStorageAccount struct {
 	IsDefault          bool   `json:"isDefault" tf:"is_default"`
+	StorageAccountKey  string `json:"-" sensitive:"true" tf:"storage_account_key"`
 	StorageContainerID string `json:"storageContainerID" tf:"storage_container_id"`
 }
 
@@ -108,10 +112,8 @@ type HdinsightKafkaClusterSpec struct {
 type HdinsightKafkaClusterStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
-	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	ObservedGeneration int64  `json:"observedGeneration,omitempty"`
+	TFState            string `json:"tfState,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

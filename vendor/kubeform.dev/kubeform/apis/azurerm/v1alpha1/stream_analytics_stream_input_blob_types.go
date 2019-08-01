@@ -3,7 +3,6 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // +genclient
@@ -37,6 +36,7 @@ type StreamAnalyticsStreamInputBlobSpec struct {
 	ResourceGroupName string `json:"resourceGroupName" tf:"resource_group_name"`
 	// +kubebuilder:validation:MaxItems=1
 	Serialization          []StreamAnalyticsStreamInputBlobSpecSerialization `json:"serialization" tf:"serialization"`
+	StorageAccountKey      string                                            `json:"-" sensitive:"true" tf:"storage_account_key"`
 	StorageAccountName     string                                            `json:"storageAccountName" tf:"storage_account_name"`
 	StorageContainerName   string                                            `json:"storageContainerName" tf:"storage_container_name"`
 	StreamAnalyticsJobName string                                            `json:"streamAnalyticsJobName" tf:"stream_analytics_job_name"`
@@ -46,10 +46,8 @@ type StreamAnalyticsStreamInputBlobSpec struct {
 type StreamAnalyticsStreamInputBlobStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
-	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	ObservedGeneration int64  `json:"observedGeneration,omitempty"`
+	TFState            string `json:"tfState,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

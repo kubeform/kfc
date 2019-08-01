@@ -5,7 +5,6 @@ import (
 
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // +genclient
@@ -127,6 +126,7 @@ type ContainerGroupSpecContainer struct {
 	// +kubebuilder:validation:MaxItems=1
 	ReadinessProbe []ContainerGroupSpecContainerReadinessProbe `json:"readinessProbe,omitempty" tf:"readiness_probe,omitempty"`
 	// +optional
+	SecureEnvironmentVariables map[string]string `json:"-" sensitive:"true" tf:"secure_environment_variables,omitempty"`
 	// +optional
 	Volume []ContainerGroupSpecContainerVolume `json:"volume,omitempty" tf:"volume,omitempty"`
 }
@@ -134,8 +134,9 @@ type ContainerGroupSpecContainer struct {
 type ContainerGroupSpecDiagnosticsLogAnalytics struct {
 	LogType string `json:"logType" tf:"log_type"`
 	// +optional
-	Metadata    map[string]string `json:"metadata,omitempty" tf:"metadata,omitempty"`
-	WorkspaceID string            `json:"workspaceID" tf:"workspace_id"`
+	Metadata     map[string]string `json:"metadata,omitempty" tf:"metadata,omitempty"`
+	WorkspaceID  string            `json:"workspaceID" tf:"workspace_id"`
+	WorkspaceKey string            `json:"-" sensitive:"true" tf:"workspace_key"`
 }
 
 type ContainerGroupSpecDiagnostics struct {
@@ -151,6 +152,7 @@ type ContainerGroupSpecIdentity struct {
 }
 
 type ContainerGroupSpecImageRegistryCredential struct {
+	Password string `json:"-" sensitive:"true" tf:"password"`
 	Server   string `json:"server" tf:"server"`
 	Username string `json:"username" tf:"username"`
 }
@@ -186,10 +188,8 @@ type ContainerGroupSpec struct {
 type ContainerGroupStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
-	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	ObservedGeneration int64  `json:"observedGeneration,omitempty"`
+	TFState            string `json:"tfState,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

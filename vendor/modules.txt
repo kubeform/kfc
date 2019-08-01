@@ -1101,7 +1101,7 @@ k8s.io/utils/integer
 kmodules.xyz/client-go/meta
 kmodules.xyz/client-go/tools/queue
 kmodules.xyz/client-go
-# kubeform.dev/kubeform v0.0.2-0.20190723075747-9001a322126a
+# kubeform.dev/kubeform v0.0.2-0.20190731091410-8b715ff2c1d8
 kubeform.dev/kubeform/apis/aws/install
 kubeform.dev/kubeform/apis/azurerm/install
 kubeform.dev/kubeform/apis/digitalocean/install

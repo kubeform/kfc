@@ -241,7 +241,7 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		log.Error(err, "unable to update TFState")
 	}
 
-	err = updateResourceFields(gvr, obj, stateFile)
+	err = updateResourceFields(c.kubeclientset, namespace, gvr, obj, stateFile)
 	if err != nil {
 		log.Error(err, "unable to update resource fields from tfstate")
 	}

@@ -22,11 +22,11 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"reflect"
+	"strconv"
 	"strings"
 
 	"k8s.io/client-go/kubernetes"
-
-	"k8s.io/apimachinery/pkg/runtime"
 
 	"k8s.io/klog"
 
@@ -173,7 +173,7 @@ func crdToTFResource(gv schema.GroupVersion, kind, namespace, providerName strin
 	return nil
 }
 
-func updateResourceFields(gvr schema.GroupVersionResource, obj *unstructured.Unstructured, filePath string) error {
+func updateResourceFields(kc kubernetes.Interface, namespace string, gvr schema.GroupVersionResource, obj *unstructured.Unstructured, filePath string) error {
 	gv := gvr.GroupVersion()
 	stateJson, err := ioutil.ReadFile(filePath)
 	if err != nil {
@@ -214,6 +214,26 @@ func updateResourceFields(gvr schema.GroupVersionResource, obj *unstructured.Uns
 	raw = append(raw, []byte(`}`)...)
 
 	err = jsonit.Unmarshal(raw, &typedObj)
+	if err != nil {
+		return err
+	}
+
+	s := structs.New(typedObj)
+	secretData := make(map[string]string, 0)
+	processSensitiveFields(reflect.TypeOf(s.Field("Spec").Value()), reflect.ValueOf(s.Field("Spec").Value()), "", &secretData)
+
+	secret, err := kc.CoreV1().Secrets(namespace).Get(s.Field("Spec").Field("Secret").Field("Name").Value().(string), v1.GetOptions{})
+	if err != nil {
+		return err
+	}
+
+	for key, _ := range secretData {
+		if _, ok := secret.Data[key]; !ok {
+			secret.Data[key] = []byte(secretData[key])
+		}
+	}
+
+	_, err = kc.CoreV1().Secrets(namespace).Update(secret)
 	if err != nil {
 		return err
 	}
@@ -335,8 +355,8 @@ func createTFState(filePath string, gv schema.GroupVersion, u *unstructured.Unst
 	spec := typedStruct.Field("Status").Field("TFState")
 	value := spec.Value()
 
-	if os.IsNotExist(existErr) && value.(*runtime.RawExtension) != nil {
-		err = ioutil.WriteFile(filePath, value.(*runtime.RawExtension).Raw, 0644)
+	if os.IsNotExist(existErr) && value.(string) != "" {
+		err = ioutil.WriteFile(filePath, []byte(value.(string)), 0644)
 		if err != nil {
 			klog.Errorf("failed to write file hash : %s", err.Error())
 		}
@@ -364,23 +384,12 @@ func updateTFState(filePath string, gv schema.GroupVersion, u *unstructured.Unst
 	spec := typedStruct.Field("Status").Field("TFState")
 	value := spec.Value()
 
-	rawData := &runtime.RawExtension{
-		Raw: data,
-	}
-
-	if value.(*runtime.RawExtension) == nil {
-		err = setNestedFieldNoCopy(u.Object, rawData, "status", "tfState")
+	if value.(string) == "" || strings.Compare(string(data), value.(string)) != 0 {
+		err = setNestedFieldNoCopy(u.Object, string(data), "status", "tfState")
 		if err != nil {
 			return err
 		}
 		return nil
-	}
-
-	if bytes.Compare(data, value.(*runtime.RawExtension).Raw) != 0 {
-		err = setNestedFieldNoCopy(u.Object, rawData, "status", "tfState")
-		if err != nil {
-			return err
-		}
 	}
 
 	return nil
@@ -408,4 +417,35 @@ func setNestedFieldNoCopy(obj map[string]interface{}, value interface{}, fields 
 
 func jsonPath(fields []string) string {
 	return "." + strings.Join(fields, ".")
+}
+
+func processSensitiveFields(r reflect.Type, v reflect.Value, tfkey string, data *map[string]string) {
+	d := *data
+	n := r.NumField()
+	for i := 0; i < n; i++ {
+		field := r.Field(i)
+		value := v.Field(i)
+		tftag := strings.ReplaceAll(field.Tag.Get("tf"), ",omitempty", "")
+		newtfkey := tftag
+		if tfkey != "" {
+			newtfkey = tfkey + "." + tftag
+		}
+
+		if field.Tag.Get("sensitive") == "true" && value.Kind() == reflect.String && value.Interface().(string) != "" {
+			d[newtfkey] = value.String()
+		}
+
+		if value.Kind() == reflect.Struct {
+			processSensitiveFields(value.Type(), value, newtfkey, &d)
+		}
+
+		if value.Kind() == reflect.Slice {
+			n := value.Len()
+			for i := 0; i < n; i++ {
+				if value.Index(i).Kind() == reflect.Struct {
+					processSensitiveFields(value.Index(i).Type(), value.Index(i), newtfkey+"."+strconv.FormatInt(int64(i), 10), &d)
+				}
+			}
+		}
+	}
 }

@@ -3,7 +3,6 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // +genclient
@@ -20,6 +19,7 @@ type StoragegatewayGateway struct {
 
 type StoragegatewayGatewaySpecSmbActiveDirectorySettings struct {
 	DomainName string `json:"domainName" tf:"domain_name"`
+	Password   string `json:"-" sensitive:"true" tf:"password"`
 	Username   string `json:"username" tf:"username"`
 }
 
@@ -42,6 +42,7 @@ type StoragegatewayGatewaySpec struct {
 	// +kubebuilder:validation:MaxItems=1
 	SmbActiveDirectorySettings []StoragegatewayGatewaySpecSmbActiveDirectorySettings `json:"smbActiveDirectorySettings,omitempty" tf:"smb_active_directory_settings,omitempty"`
 	// +optional
+	SmbGuestPassword string `json:"-" sensitive:"true" tf:"smb_guest_password,omitempty"`
 	// +optional
 	TapeDriveType string `json:"tapeDriveType,omitempty" tf:"tape_drive_type,omitempty"`
 }
@@ -49,10 +50,8 @@ type StoragegatewayGatewaySpec struct {
 type StoragegatewayGatewayStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
-	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	ObservedGeneration int64  `json:"observedGeneration,omitempty"`
+	TFState            string `json:"tfState,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

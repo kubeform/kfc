@@ -3,7 +3,6 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // +genclient
@@ -38,7 +37,8 @@ type ApiGatewayDomainNameSpec struct {
 	// +optional
 	CertificateName string `json:"certificateName,omitempty" tf:"certificate_name,omitempty"`
 	// +optional
-	DomainName string `json:"domainName" tf:"domain_name"`
+	CertificatePrivateKey string `json:"-" sensitive:"true" tf:"certificate_private_key,omitempty"`
+	DomainName            string `json:"domainName" tf:"domain_name"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	// +kubebuilder:validation:MinItems=1
@@ -52,10 +52,8 @@ type ApiGatewayDomainNameSpec struct {
 type ApiGatewayDomainNameStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
-	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	ObservedGeneration int64  `json:"observedGeneration,omitempty"`
+	TFState            string `json:"tfState,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

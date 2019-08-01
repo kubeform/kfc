@@ -3,7 +3,6 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // +genclient
@@ -20,10 +19,12 @@ type ComputeSnapshot struct {
 
 type ComputeSnapshotSpecSnapshotEncryptionKey struct {
 	// +optional
+	RawKey string `json:"-" sensitive:"true" tf:"raw_key,omitempty"`
 }
 
 type ComputeSnapshotSpecSourceDiskEncryptionKey struct {
 	// +optional
+	RawKey string `json:"-" sensitive:"true" tf:"raw_key,omitempty"`
 }
 
 type ComputeSnapshotSpec struct {
@@ -42,11 +43,13 @@ type ComputeSnapshotSpec struct {
 	// +kubebuilder:validation:MaxItems=1
 	SnapshotEncryptionKey []ComputeSnapshotSpecSnapshotEncryptionKey `json:"snapshotEncryptionKey,omitempty" tf:"snapshot_encryption_key,omitempty"`
 	// +optional
-	SourceDisk string `json:"sourceDisk" tf:"source_disk"`
+	SnapshotEncryptionKeyRaw string `json:"-" sensitive:"true" tf:"snapshot_encryption_key_raw,omitempty"`
+	SourceDisk               string `json:"sourceDisk" tf:"source_disk"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	SourceDiskEncryptionKey []ComputeSnapshotSpecSourceDiskEncryptionKey `json:"sourceDiskEncryptionKey,omitempty" tf:"source_disk_encryption_key,omitempty"`
 	// +optional
+	SourceDiskEncryptionKeyRaw string `json:"-" sensitive:"true" tf:"source_disk_encryption_key_raw,omitempty"`
 	// +optional
 	Zone string `json:"zone,omitempty" tf:"zone,omitempty"`
 }
@@ -54,10 +57,8 @@ type ComputeSnapshotSpec struct {
 type ComputeSnapshotStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
-	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	ObservedGeneration int64  `json:"observedGeneration,omitempty"`
+	TFState            string `json:"tfState,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

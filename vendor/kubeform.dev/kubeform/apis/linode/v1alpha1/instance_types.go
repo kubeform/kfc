@@ -3,7 +3,6 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // +genclient
@@ -178,8 +177,10 @@ type InstanceSpecDisk struct {
 	// +optional
 	ReadOnly bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
 	// +optional
-	Size int `json:"size" tf:"size"`
+	RootPass string `json:"-" sensitive:"true" tf:"root_pass,omitempty"`
+	Size     int    `json:"size" tf:"size"`
 	// +optional
+	StackscriptData map[string]string `json:"-" sensitive:"true" tf:"stackscript_data,omitempty"`
 	// +optional
 	StackscriptID int `json:"stackscriptID,omitempty" tf:"stackscript_id,omitempty"`
 }
@@ -216,7 +217,9 @@ type InstanceSpec struct {
 	PrivateIP bool   `json:"privateIP,omitempty" tf:"private_ip,omitempty"`
 	Region    string `json:"region" tf:"region"`
 	// +optional
+	RootPass string `json:"-" sensitive:"true" tf:"root_pass,omitempty"`
 	// +optional
+	StackscriptData map[string]string `json:"-" sensitive:"true" tf:"stackscript_data,omitempty"`
 	// +optional
 	StackscriptID int `json:"stackscriptID,omitempty" tf:"stackscript_id,omitempty"`
 	// +optional
@@ -233,10 +236,8 @@ type InstanceSpec struct {
 type InstanceStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
-	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	ObservedGeneration int64  `json:"observedGeneration,omitempty"`
+	TFState            string `json:"tfState,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
