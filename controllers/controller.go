@@ -246,11 +246,6 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		return fmt.Errorf("unable to update resource fields from tfstate : %s", err)
 	}
 
-	//err = updateStatusOut(obj, resPath)
-	//if err != nil {
-	//	log.Error(err, "unable to update status out field")
-	//}
-
 	c.updateResource(gvr, obj)
 
 	c.recorder.Event(obj, corev1.EventTypeNormal, SuccessSynced, MessageResourceSynced)

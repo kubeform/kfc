@@ -90,24 +90,16 @@ func crdToTFResource(gv schema.GroupVersion, namespace, providerName string, kub
 	}
 
 	typedStruct := structs.New(typedObj)
-	specValue := typedStruct.Field("Spec").Value()
+	spec := reflect.ValueOf(typedStruct.Field("Spec").Value())
+	specType := reflect.TypeOf(typedStruct.Field("Spec").Value())
+	specValue := reflect.New(specType)
+	specValue.Elem().Set(spec)
 	jsonit := jsoniter.Config{
 		EscapeHTML:             true,
 		SortMapKeys:            true,
 		ValidateJsonRawMessage: true,
 		TagKey:                 "tf",
 	}.Froze()
-
-	tfStr, err := jsonit.Marshal(specValue)
-	if err != nil {
-		klog.Error(err)
-	}
-
-	var u1 map[string]interface{}
-	err = json.Unmarshal(tfStr, &u1)
-	if err != nil {
-		return err
-	}
 
 	secretValue := typedStruct.Field("Spec").Field("KubeFormSecret").Value()
 
@@ -125,32 +117,35 @@ func crdToTFResource(gv schema.GroupVersion, namespace, providerName string, kub
 				}
 				value := secret.Data[key]
 
-				var tempMap = make(map[string]interface{}, 0)
-				filedName := strings.Split(key, ".")
-
+				fieldName := strings.Split(key, ".")
+				var tempMap = make(map[string]string, 0)
 				buffer := new(bytes.Buffer)
+				var secretData interface{}
+
 				if err := json.Compact(buffer, value); err != nil {
-					d := strings.ReplaceAll(string(value), "\n", "")
-					err = unstructured.SetNestedField(u1, d, filedName...)
-					if err != nil {
-						return err
-					}
+					secretData = strings.ReplaceAll(string(value), "\n", "")
 				} else {
 					err = json.Unmarshal(buffer.Bytes(), &tempMap)
 					if err != nil {
 						return err
 					}
-
-					err = unstructured.SetNestedMap(u1, tempMap, filedName...)
-					if err != nil {
-						return err
-					}
+					secretData = tempMap
 				}
+
+				field := specValue.Elem()
+				for _, f := range fieldName {
+					if index, err := strconv.Atoi(f); err == nil {
+						field = field.Index(index)
+						continue
+					}
+					field = reflect.Indirect(field).FieldByName(flect.Capitalize(flect.Camelize(f)))
+				}
+				field.Set(reflect.ValueOf(secretData))
 			}
 		}
 	}
 
-	str, err := json.Marshal(u1)
+	str, err := jsonit.Marshal(specValue.Interface())
 	if err != nil {
 		return err
 	}
@@ -378,6 +373,7 @@ func createTFState(kc kubernetes.Interface, filePath, providerName string, gv sc
 					var secretData interface{}
 					tempMap := make(map[string]string, 0)
 					buffer := new(bytes.Buffer)
+
 					if err := json.Compact(buffer, value); err != nil {
 						secretData = strings.ReplaceAll(string(value), "\n", "")
 					} else {
@@ -400,7 +396,6 @@ func createTFState(kc kubernetes.Interface, filePath, providerName string, gv sc
 						if field.Kind() == reflect.Ptr {
 							field = field.Elem()
 						}
-						fmt.Println(flect.Capitalize(flect.Camelize(fieldName)))
 						field = field.FieldByName(flect.Capitalize(flect.Camelize(fieldName)))
 					}
 
