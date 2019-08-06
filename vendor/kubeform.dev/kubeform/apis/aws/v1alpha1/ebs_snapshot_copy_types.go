@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,25 +21,38 @@ type EbsSnapshotCopy struct {
 type EbsSnapshotCopySpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	DataEncryptionKeyID string `json:"dataEncryptionKeyID,omitempty" tf:"data_encryption_key_id,omitempty"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
 	// +optional
 	Encrypted bool `json:"encrypted,omitempty" tf:"encrypted,omitempty"`
 	// +optional
-	KmsKeyID         string `json:"kmsKeyID,omitempty" tf:"kms_key_id,omitempty"`
+	KmsKeyID string `json:"kmsKeyID,omitempty" tf:"kms_key_id,omitempty"`
+	// +optional
+	OwnerAlias string `json:"ownerAlias,omitempty" tf:"owner_alias,omitempty"`
+	// +optional
+	OwnerID          string `json:"ownerID,omitempty" tf:"owner_id,omitempty"`
 	SourceRegion     string `json:"sourceRegion" tf:"source_region"`
 	SourceSnapshotID string `json:"sourceSnapshotID" tf:"source_snapshot_id"`
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
+	// +optional
+	VolumeID string `json:"volumeID,omitempty" tf:"volume_id,omitempty"`
+	// +optional
+	VolumeSize int `json:"volumeSize,omitempty" tf:"volume_size,omitempty"`
 }
 
 type EbsSnapshotCopyStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *EbsSnapshotCopySpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

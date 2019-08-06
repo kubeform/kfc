@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,6 +21,8 @@ type AmiLaunchPermission struct {
 type AmiLaunchPermissionSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	AccountID string `json:"accountID" tf:"account_id"`
 	ImageID   string `json:"imageID" tf:"image_id"`
 }
@@ -29,9 +31,10 @@ type AmiLaunchPermissionStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *AmiLaunchPermissionSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

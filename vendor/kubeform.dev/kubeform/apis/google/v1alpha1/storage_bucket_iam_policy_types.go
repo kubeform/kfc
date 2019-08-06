@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,7 +21,11 @@ type StorageBucketIamPolicy struct {
 type StorageBucketIamPolicySpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Bucket     string `json:"bucket" tf:"bucket"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	Bucket string `json:"bucket" tf:"bucket"`
+	// +optional
+	Etag       string `json:"etag,omitempty" tf:"etag,omitempty"`
 	PolicyData string `json:"policyData" tf:"policy_data"`
 }
 
@@ -29,9 +33,10 @@ type StorageBucketIamPolicyStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *StorageBucketIamPolicySpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

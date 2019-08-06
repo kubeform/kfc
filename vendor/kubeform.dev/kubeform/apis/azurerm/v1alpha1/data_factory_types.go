@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -27,7 +27,11 @@ type DataFactorySpecGithubConfiguration struct {
 }
 
 type DataFactorySpecIdentity struct {
-	Type string `json:"type" tf:"type"`
+	// +optional
+	PrincipalID string `json:"principalID,omitempty" tf:"principal_id,omitempty"`
+	// +optional
+	TenantID string `json:"tenantID,omitempty" tf:"tenant_id,omitempty"`
+	Type     string `json:"type" tf:"type"`
 }
 
 type DataFactorySpecVstsConfiguration struct {
@@ -41,6 +45,8 @@ type DataFactorySpecVstsConfiguration struct {
 
 type DataFactorySpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
+
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
@@ -62,9 +68,10 @@ type DataFactoryStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *DataFactorySpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

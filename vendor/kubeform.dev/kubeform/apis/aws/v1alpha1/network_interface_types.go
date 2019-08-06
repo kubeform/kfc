@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -19,18 +19,24 @@ type NetworkInterface struct {
 }
 
 type NetworkInterfaceSpecAttachment struct {
-	DeviceIndex int    `json:"deviceIndex" tf:"device_index"`
-	Instance    string `json:"instance" tf:"instance"`
+	// +optional
+	AttachmentID string `json:"attachmentID,omitempty" tf:"attachment_id,omitempty"`
+	DeviceIndex  int    `json:"deviceIndex" tf:"device_index"`
+	Instance     string `json:"instance" tf:"instance"`
 }
 
 type NetworkInterfaceSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
+
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	Attachment []NetworkInterfaceSpecAttachment `json:"attachment,omitempty" tf:"attachment,omitempty"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
+	// +optional
+	PrivateDNSName string `json:"privateDNSName,omitempty" tf:"private_dns_name,omitempty"`
 	// +optional
 	PrivateIP string `json:"privateIP,omitempty" tf:"private_ip,omitempty"`
 	// +optional
@@ -52,9 +58,10 @@ type NetworkInterfaceStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *NetworkInterfaceSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

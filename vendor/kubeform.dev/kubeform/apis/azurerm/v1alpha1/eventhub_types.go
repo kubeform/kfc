@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -41,26 +41,32 @@ type EventhubSpecCaptureDescription struct {
 type EventhubSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	CaptureDescription []EventhubSpecCaptureDescription `json:"captureDescription,omitempty" tf:"capture_description,omitempty"`
 	// +optional
 	// Deprecated
-	Location          string `json:"location,omitempty" tf:"location,omitempty"`
-	MessageRetention  int    `json:"messageRetention" tf:"message_retention"`
-	Name              string `json:"name" tf:"name"`
-	NamespaceName     string `json:"namespaceName" tf:"namespace_name"`
-	PartitionCount    int    `json:"partitionCount" tf:"partition_count"`
-	ResourceGroupName string `json:"resourceGroupName" tf:"resource_group_name"`
+	Location         string `json:"location,omitempty" tf:"location,omitempty"`
+	MessageRetention int    `json:"messageRetention" tf:"message_retention"`
+	Name             string `json:"name" tf:"name"`
+	NamespaceName    string `json:"namespaceName" tf:"namespace_name"`
+	PartitionCount   int    `json:"partitionCount" tf:"partition_count"`
+	// +optional
+	// +kubebuilder:validation:UniqueItems=true
+	PartitionIDS      []string `json:"partitionIDS,omitempty" tf:"partition_ids,omitempty"`
+	ResourceGroupName string   `json:"resourceGroupName" tf:"resource_group_name"`
 }
 
 type EventhubStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *EventhubSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

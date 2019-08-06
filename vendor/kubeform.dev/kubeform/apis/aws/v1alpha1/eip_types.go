@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,12 +21,28 @@ type Eip struct {
 type EipSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	AllocationID string `json:"allocationID,omitempty" tf:"allocation_id,omitempty"`
 	// +optional
 	AssociateWithPrivateIP string `json:"associateWithPrivateIP,omitempty" tf:"associate_with_private_ip,omitempty"`
+	// +optional
+	AssociationID string `json:"associationID,omitempty" tf:"association_id,omitempty"`
+	// +optional
+	Domain string `json:"domain,omitempty" tf:"domain,omitempty"`
 	// +optional
 	Instance string `json:"instance,omitempty" tf:"instance,omitempty"`
 	// +optional
 	NetworkInterface string `json:"networkInterface,omitempty" tf:"network_interface,omitempty"`
+	// +optional
+	PrivateDNS string `json:"privateDNS,omitempty" tf:"private_dns,omitempty"`
+	// +optional
+	PrivateIP string `json:"privateIP,omitempty" tf:"private_ip,omitempty"`
+	// +optional
+	PublicDNS string `json:"publicDNS,omitempty" tf:"public_dns,omitempty"`
+	// +optional
+	PublicIP string `json:"publicIP,omitempty" tf:"public_ip,omitempty"`
 	// +optional
 	PublicIpv4Pool string `json:"publicIpv4Pool,omitempty" tf:"public_ipv4_pool,omitempty"`
 	// +optional
@@ -39,9 +55,10 @@ type EipStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *EipSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

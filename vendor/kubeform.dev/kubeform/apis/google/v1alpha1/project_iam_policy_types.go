@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,24 +21,32 @@ type ProjectIamPolicy struct {
 type ProjectIamPolicySpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	// Deprecated
 	Authoritative bool `json:"authoritative,omitempty" tf:"authoritative,omitempty"`
 	// +optional
 	// Deprecated
-	DisableProject bool   `json:"disableProject,omitempty" tf:"disable_project,omitempty"`
-	PolicyData     string `json:"policyData" tf:"policy_data"`
+	DisableProject bool `json:"disableProject,omitempty" tf:"disable_project,omitempty"`
+	// +optional
+	Etag       string `json:"etag,omitempty" tf:"etag,omitempty"`
+	PolicyData string `json:"policyData" tf:"policy_data"`
 	// +optional
 	Project string `json:"project,omitempty" tf:"project,omitempty"`
+	// +optional
+	// Deprecated
+	RestorePolicy string `json:"restorePolicy,omitempty" tf:"restore_policy,omitempty"`
 }
 
 type ProjectIamPolicyStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ProjectIamPolicySpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

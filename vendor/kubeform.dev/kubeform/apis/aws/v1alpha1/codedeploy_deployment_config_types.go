@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -53,8 +53,12 @@ type CodedeployDeploymentConfigSpecTrafficRoutingConfig struct {
 type CodedeployDeploymentConfigSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
-	ComputePlatform      string `json:"computePlatform,omitempty" tf:"compute_platform,omitempty"`
+	ComputePlatform string `json:"computePlatform,omitempty" tf:"compute_platform,omitempty"`
+	// +optional
+	DeploymentConfigID   string `json:"deploymentConfigID,omitempty" tf:"deployment_config_id,omitempty"`
 	DeploymentConfigName string `json:"deploymentConfigName" tf:"deployment_config_name"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
@@ -68,9 +72,10 @@ type CodedeployDeploymentConfigStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *CodedeployDeploymentConfigSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

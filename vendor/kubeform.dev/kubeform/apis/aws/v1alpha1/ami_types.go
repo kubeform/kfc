@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -42,6 +42,8 @@ type AmiSpecEphemeralBlockDevice struct {
 type AmiSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	Architecture string `json:"architecture,omitempty" tf:"architecture,omitempty"`
 	// +optional
@@ -58,11 +60,15 @@ type AmiSpec struct {
 	ImageLocation string `json:"imageLocation,omitempty" tf:"image_location,omitempty"`
 	// +optional
 	KernelID string `json:"kernelID,omitempty" tf:"kernel_id,omitempty"`
-	Name     string `json:"name" tf:"name"`
+	// +optional
+	ManageEbsSnapshots bool   `json:"manageEbsSnapshots,omitempty" tf:"manage_ebs_snapshots,omitempty"`
+	Name               string `json:"name" tf:"name"`
 	// +optional
 	RamdiskID string `json:"ramdiskID,omitempty" tf:"ramdisk_id,omitempty"`
 	// +optional
 	RootDeviceName string `json:"rootDeviceName,omitempty" tf:"root_device_name,omitempty"`
+	// +optional
+	RootSnapshotID string `json:"rootSnapshotID,omitempty" tf:"root_snapshot_id,omitempty"`
 	// +optional
 	SriovNetSupport string `json:"sriovNetSupport,omitempty" tf:"sriov_net_support,omitempty"`
 	// +optional
@@ -75,9 +81,10 @@ type AmiStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *AmiSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -213,6 +213,8 @@ type S3BucketSpecWebsite struct {
 type S3BucketSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	AccelerationStatus string `json:"accelerationStatus,omitempty" tf:"acceleration_status,omitempty"`
 	// +optional
@@ -222,7 +224,11 @@ type S3BucketSpec struct {
 	// +optional
 	Bucket string `json:"bucket,omitempty" tf:"bucket,omitempty"`
 	// +optional
+	BucketDomainName string `json:"bucketDomainName,omitempty" tf:"bucket_domain_name,omitempty"`
+	// +optional
 	BucketPrefix string `json:"bucketPrefix,omitempty" tf:"bucket_prefix,omitempty"`
+	// +optional
+	BucketRegionalDomainName string `json:"bucketRegionalDomainName,omitempty" tf:"bucket_regional_domain_name,omitempty"`
 	// +optional
 	CorsRule []S3BucketSpecCorsRule `json:"corsRule,omitempty" tf:"cors_rule,omitempty"`
 	// +optional
@@ -267,9 +273,10 @@ type S3BucketStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *S3BucketSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

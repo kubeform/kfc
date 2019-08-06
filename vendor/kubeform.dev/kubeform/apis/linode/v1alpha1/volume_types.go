@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,12 +21,18 @@ type Volume struct {
 type VolumeSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Label string `json:"label" tf:"label"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	FilesystemPath string `json:"filesystemPath,omitempty" tf:"filesystem_path,omitempty"`
+	Label          string `json:"label" tf:"label"`
 	// +optional
 	LinodeID int    `json:"linodeID,omitempty" tf:"linode_id,omitempty"`
 	Region   string `json:"region" tf:"region"`
 	// +optional
 	Size int `json:"size,omitempty" tf:"size,omitempty"`
+	// +optional
+	Status string `json:"status,omitempty" tf:"status,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	Tags []string `json:"tags,omitempty" tf:"tags,omitempty"`
@@ -36,9 +42,10 @@ type VolumeStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *VolumeSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

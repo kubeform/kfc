@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -105,6 +105,8 @@ type ServiceFabricClusterSpecReverseProxyCertificate struct {
 type ServiceFabricClusterSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	AddOnFeatures []string `json:"addOnFeatures,omitempty" tf:"add_on_features,omitempty"`
@@ -122,6 +124,8 @@ type ServiceFabricClusterSpec struct {
 	ClientCertificateThumbprint []ServiceFabricClusterSpecClientCertificateThumbprint `json:"clientCertificateThumbprint,omitempty" tf:"client_certificate_thumbprint,omitempty"`
 	// +optional
 	ClusterCodeVersion string `json:"clusterCodeVersion,omitempty" tf:"cluster_code_version,omitempty"`
+	// +optional
+	ClusterEndpoint string `json:"clusterEndpoint,omitempty" tf:"cluster_endpoint,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	DiagnosticsConfig []ServiceFabricClusterSpecDiagnosticsConfig `json:"diagnosticsConfig,omitempty" tf:"diagnostics_config,omitempty"`
@@ -146,9 +150,10 @@ type ServiceFabricClusterStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ServiceFabricClusterSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

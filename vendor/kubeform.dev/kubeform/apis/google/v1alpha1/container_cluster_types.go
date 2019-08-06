@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -69,6 +69,8 @@ type ContainerClusterSpecIpAllocationPolicy struct {
 }
 
 type ContainerClusterSpecMaintenancePolicyDailyMaintenanceWindow struct {
+	// +optional
+	Duration  string `json:"duration,omitempty" tf:"duration,omitempty"`
 	StartTime string `json:"startTime" tf:"start_time"`
 }
 
@@ -83,9 +85,16 @@ type ContainerClusterSpecMasterAuthClientCertificateConfig struct {
 
 type ContainerClusterSpecMasterAuth struct {
 	// +optional
+	ClientCertificate string `json:"clientCertificate,omitempty" tf:"client_certificate,omitempty"`
+	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	ClientCertificateConfig []ContainerClusterSpecMasterAuthClientCertificateConfig `json:"clientCertificateConfig,omitempty" tf:"client_certificate_config,omitempty"`
-	Username                string                                                  `json:"username" tf:"username"`
+	// +optional
+	ClientKey string `json:"-" sensitive:"true" tf:"client_key,omitempty"`
+	// +optional
+	ClusterCaCertificate string `json:"clusterCaCertificate,omitempty" tf:"cluster_ca_certificate,omitempty"`
+	Password             string `json:"-" sensitive:"true" tf:"password"`
+	Username             string `json:"username" tf:"username"`
 }
 
 type ContainerClusterSpecMasterAuthorizedNetworksConfigCidrBlocks struct {
@@ -231,6 +240,8 @@ type ContainerClusterSpecNodePool struct {
 	// +optional
 	InitialNodeCount int `json:"initialNodeCount,omitempty" tf:"initial_node_count,omitempty"`
 	// +optional
+	InstanceGroupUrls []string `json:"instanceGroupUrls,omitempty" tf:"instance_group_urls,omitempty"`
+	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	Management []ContainerClusterSpecNodePoolManagement `json:"management,omitempty" tf:"management,omitempty"`
 	// +optional
@@ -261,12 +272,18 @@ type ContainerClusterSpecPrivateClusterConfig struct {
 	EnablePrivateNodes bool `json:"enablePrivateNodes,omitempty" tf:"enable_private_nodes,omitempty"`
 	// +optional
 	MasterIpv4CIDRBlock string `json:"masterIpv4CIDRBlock,omitempty" tf:"master_ipv4_cidr_block,omitempty"`
+	// +optional
+	PrivateEndpoint string `json:"privateEndpoint,omitempty" tf:"private_endpoint,omitempty"`
+	// +optional
+	PublicEndpoint string `json:"publicEndpoint,omitempty" tf:"public_endpoint,omitempty"`
 }
 
 type ContainerClusterSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
@@ -289,7 +306,11 @@ type ContainerClusterSpec struct {
 	// Deprecated
 	EnableTpu bool `json:"enableTpu,omitempty" tf:"enable_tpu,omitempty"`
 	// +optional
+	Endpoint string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
+	// +optional
 	InitialNodeCount int `json:"initialNodeCount,omitempty" tf:"initial_node_count,omitempty"`
+	// +optional
+	InstanceGroupUrls []string `json:"instanceGroupUrls,omitempty" tf:"instance_group_urls,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	IpAllocationPolicy []ContainerClusterSpecIpAllocationPolicy `json:"ipAllocationPolicy,omitempty" tf:"ip_allocation_policy,omitempty"`
@@ -307,6 +328,8 @@ type ContainerClusterSpec struct {
 	// +optional
 	// Deprecated
 	MasterIpv4CIDRBlock string `json:"masterIpv4CIDRBlock,omitempty" tf:"master_ipv4_cidr_block,omitempty"`
+	// +optional
+	MasterVersion string `json:"masterVersion,omitempty" tf:"master_version,omitempty"`
 	// +optional
 	MinMasterVersion string `json:"minMasterVersion,omitempty" tf:"min_master_version,omitempty"`
 	// +optional
@@ -352,9 +375,10 @@ type ContainerClusterStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ContainerClusterSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

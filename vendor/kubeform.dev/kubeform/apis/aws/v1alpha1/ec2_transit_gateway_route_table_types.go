@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,6 +21,12 @@ type Ec2TransitGatewayRouteTable struct {
 type Ec2TransitGatewayRouteTableSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	DefaultAssociationRouteTable bool `json:"defaultAssociationRouteTable,omitempty" tf:"default_association_route_table,omitempty"`
+	// +optional
+	DefaultPropagationRouteTable bool `json:"defaultPropagationRouteTable,omitempty" tf:"default_propagation_route_table,omitempty"`
 	// +optional
 	Tags             map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 	TransitGatewayID string            `json:"transitGatewayID" tf:"transit_gateway_id"`
@@ -30,9 +36,10 @@ type Ec2TransitGatewayRouteTableStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *Ec2TransitGatewayRouteTableSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

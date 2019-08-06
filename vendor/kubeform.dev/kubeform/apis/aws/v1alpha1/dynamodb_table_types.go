@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -62,6 +62,10 @@ type DynamodbTableSpecTtl struct {
 type DynamodbTableSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
 	// +kubebuilder:validation:UniqueItems=true
 	Attribute []DynamodbTableSpecAttribute `json:"attribute" tf:"attribute"`
 	// +optional
@@ -85,7 +89,11 @@ type DynamodbTableSpec struct {
 	// +kubebuilder:validation:MaxItems=1
 	ServerSideEncryption []DynamodbTableSpecServerSideEncryption `json:"serverSideEncryption,omitempty" tf:"server_side_encryption,omitempty"`
 	// +optional
+	StreamArn string `json:"streamArn,omitempty" tf:"stream_arn,omitempty"`
+	// +optional
 	StreamEnabled bool `json:"streamEnabled,omitempty" tf:"stream_enabled,omitempty"`
+	// +optional
+	StreamLabel string `json:"streamLabel,omitempty" tf:"stream_label,omitempty"`
 	// +optional
 	StreamViewType string `json:"streamViewType,omitempty" tf:"stream_view_type,omitempty"`
 	// +optional
@@ -101,9 +109,10 @@ type DynamodbTableStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *DynamodbTableSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

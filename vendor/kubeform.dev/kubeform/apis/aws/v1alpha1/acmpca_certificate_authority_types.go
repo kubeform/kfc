@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -73,15 +73,33 @@ type AcmpcaCertificateAuthoritySpecRevocationConfiguration struct {
 type AcmpcaCertificateAuthoritySpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
+	// +optional
+	Certificate string `json:"certificate,omitempty" tf:"certificate,omitempty"`
 	// +kubebuilder:validation:MaxItems=1
 	CertificateAuthorityConfiguration []AcmpcaCertificateAuthoritySpecCertificateAuthorityConfiguration `json:"certificateAuthorityConfiguration" tf:"certificate_authority_configuration"`
 	// +optional
+	CertificateChain string `json:"certificateChain,omitempty" tf:"certificate_chain,omitempty"`
+	// +optional
+	CertificateSigningRequest string `json:"certificateSigningRequest,omitempty" tf:"certificate_signing_request,omitempty"`
+	// +optional
 	Enabled bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+	// +optional
+	NotAfter string `json:"notAfter,omitempty" tf:"not_after,omitempty"`
+	// +optional
+	NotBefore string `json:"notBefore,omitempty" tf:"not_before,omitempty"`
 	// +optional
 	PermanentDeletionTimeInDays int `json:"permanentDeletionTimeInDays,omitempty" tf:"permanent_deletion_time_in_days,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	RevocationConfiguration []AcmpcaCertificateAuthoritySpecRevocationConfiguration `json:"revocationConfiguration,omitempty" tf:"revocation_configuration,omitempty"`
+	// +optional
+	Serial string `json:"serial,omitempty" tf:"serial,omitempty"`
+	// +optional
+	Status string `json:"status,omitempty" tf:"status,omitempty"`
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 	// +optional
@@ -92,9 +110,10 @@ type AcmpcaCertificateAuthorityStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *AcmpcaCertificateAuthoritySpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -5,7 +5,7 @@ import (
 
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -18,6 +18,24 @@ type MssqlElasticpool struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Spec              MssqlElasticpoolSpec   `json:"spec,omitempty"`
 	Status            MssqlElasticpoolStatus `json:"status,omitempty"`
+}
+
+type MssqlElasticpoolSpecElasticPoolProperties struct {
+	// +optional
+	// Deprecated
+	CreationDate string `json:"creationDate,omitempty" tf:"creation_date,omitempty"`
+	// +optional
+	// Deprecated
+	LicenseType string `json:"licenseType,omitempty" tf:"license_type,omitempty"`
+	// +optional
+	// Deprecated
+	MaxSizeBytes int `json:"maxSizeBytes,omitempty" tf:"max_size_bytes,omitempty"`
+	// +optional
+	// Deprecated
+	State string `json:"state,omitempty" tf:"state,omitempty"`
+	// +optional
+	// Deprecated
+	ZoneRedundant bool `json:"zoneRedundant,omitempty" tf:"zone_redundant,omitempty"`
 }
 
 type MssqlElasticpoolSpecPerDatabaseSettings struct {
@@ -36,7 +54,13 @@ type MssqlElasticpoolSpecSku struct {
 type MssqlElasticpoolSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Location string `json:"location" tf:"location"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	// +kubebuilder:validation:MaxItems=1
+	// Deprecated
+	ElasticPoolProperties []MssqlElasticpoolSpecElasticPoolProperties `json:"elasticPoolProperties,omitempty" tf:"elastic_pool_properties,omitempty"`
+	Location              string                                      `json:"location" tf:"location"`
 	// +optional
 	MaxSizeBytes int `json:"maxSizeBytes,omitempty" tf:"max_size_bytes,omitempty"`
 	// +optional
@@ -58,9 +82,10 @@ type MssqlElasticpoolStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *MssqlElasticpoolSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

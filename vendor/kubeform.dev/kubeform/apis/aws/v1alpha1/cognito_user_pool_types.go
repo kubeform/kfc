@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -147,6 +147,8 @@ type CognitoUserPoolSpecVerificationMessageTemplate struct {
 type CognitoUserPoolSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	AdminCreateUserConfig []CognitoUserPoolSpecAdminCreateUserConfig `json:"adminCreateUserConfig,omitempty" tf:"admin_create_user_config,omitempty"`
@@ -154,8 +156,12 @@ type CognitoUserPoolSpec struct {
 	// +kubebuilder:validation:UniqueItems=true
 	AliasAttributes []string `json:"aliasAttributes,omitempty" tf:"alias_attributes,omitempty"`
 	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
+	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	AutoVerifiedAttributes []string `json:"autoVerifiedAttributes,omitempty" tf:"auto_verified_attributes,omitempty"`
+	// +optional
+	CreationDate string `json:"creationDate,omitempty" tf:"creation_date,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	DeviceConfiguration []CognitoUserPoolSpecDeviceConfiguration `json:"deviceConfiguration,omitempty" tf:"device_configuration,omitempty"`
@@ -167,8 +173,12 @@ type CognitoUserPoolSpec struct {
 	// +optional
 	EmailVerificationSubject string `json:"emailVerificationSubject,omitempty" tf:"email_verification_subject,omitempty"`
 	// +optional
+	Endpoint string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
+	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	LambdaConfig []CognitoUserPoolSpecLambdaConfig `json:"lambdaConfig,omitempty" tf:"lambda_config,omitempty"`
+	// +optional
+	LastModifiedDate string `json:"lastModifiedDate,omitempty" tf:"last_modified_date,omitempty"`
 	// +optional
 	MfaConfiguration string `json:"mfaConfiguration,omitempty" tf:"mfa_configuration,omitempty"`
 	Name             string `json:"name" tf:"name"`
@@ -203,9 +213,10 @@ type CognitoUserPoolStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *CognitoUserPoolSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

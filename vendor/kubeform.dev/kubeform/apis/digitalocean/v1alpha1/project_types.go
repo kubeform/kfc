@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,25 +21,36 @@ type Project struct {
 type ProjectSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	CreatedAt string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
 	// +optional
 	Environment string `json:"environment,omitempty" tf:"environment,omitempty"`
 	Name        string `json:"name" tf:"name"`
 	// +optional
+	OwnerID int `json:"ownerID,omitempty" tf:"owner_id,omitempty"`
+	// +optional
+	OwnerUUID string `json:"ownerUUID,omitempty" tf:"owner_uuid,omitempty"`
+	// +optional
 	Purpose string `json:"purpose,omitempty" tf:"purpose,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	Resources []string `json:"resources,omitempty" tf:"resources,omitempty"`
+	// +optional
+	UpdatedAt string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
 }
 
 type ProjectStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ProjectSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

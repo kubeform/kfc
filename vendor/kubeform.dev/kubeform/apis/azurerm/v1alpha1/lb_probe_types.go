@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,9 +21,14 @@ type LbProbe struct {
 type LbProbeSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
-	IntervalInSeconds int    `json:"intervalInSeconds,omitempty" tf:"interval_in_seconds,omitempty"`
-	LoadbalancerID    string `json:"loadbalancerID" tf:"loadbalancer_id"`
+	IntervalInSeconds int `json:"intervalInSeconds,omitempty" tf:"interval_in_seconds,omitempty"`
+	// +optional
+	// +kubebuilder:validation:UniqueItems=true
+	LoadBalancerRules []string `json:"loadBalancerRules,omitempty" tf:"load_balancer_rules,omitempty"`
+	LoadbalancerID    string   `json:"loadbalancerID" tf:"loadbalancer_id"`
 	// +optional
 	// Deprecated
 	Location string `json:"location,omitempty" tf:"location,omitempty"`
@@ -42,9 +47,10 @@ type LbProbeStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *LbProbeSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

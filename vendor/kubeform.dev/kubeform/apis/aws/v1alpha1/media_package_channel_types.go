@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -18,12 +18,34 @@ type MediaPackageChannel struct {
 	Status            MediaPackageChannelStatus `json:"status,omitempty"`
 }
 
+type MediaPackageChannelSpecHlsIngestIngestEndpoints struct {
+	// +optional
+	Password string `json:"-" sensitive:"true" tf:"password,omitempty"`
+	// +optional
+	Url string `json:"url,omitempty" tf:"url,omitempty"`
+	// +optional
+	Username string `json:"username,omitempty" tf:"username,omitempty"`
+}
+
+type MediaPackageChannelSpecHlsIngest struct {
+	// +optional
+	IngestEndpoints []MediaPackageChannelSpecHlsIngestIngestEndpoints `json:"ingestEndpoints,omitempty" tf:"ingest_endpoints,omitempty"`
+}
+
 type MediaPackageChannelSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+
+	// +optional
+	Arn       string `json:"arn,omitempty" tf:"arn,omitempty"`
 	ChannelID string `json:"channelID" tf:"channel_id"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
+	// +optional
+	HlsIngest []MediaPackageChannelSpecHlsIngest `json:"hlsIngest,omitempty" tf:"hls_ingest,omitempty"`
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
@@ -32,9 +54,10 @@ type MediaPackageChannelStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *MediaPackageChannelSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

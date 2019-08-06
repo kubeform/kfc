@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -50,17 +50,25 @@ type ComputeURLMapSpecTest struct {
 type ComputeURLMapSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	DefaultService string `json:"defaultService" tf:"default_service"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
 	// +optional
+	Fingerprint string `json:"fingerprint,omitempty" tf:"fingerprint,omitempty"`
+	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	HostRule []ComputeURLMapSpecHostRule `json:"hostRule,omitempty" tf:"host_rule,omitempty"`
-	Name     string                      `json:"name" tf:"name"`
+	// +optional
+	MapID string `json:"mapID,omitempty" tf:"map_id,omitempty"`
+	Name  string `json:"name" tf:"name"`
 	// +optional
 	PathMatcher []ComputeURLMapSpecPathMatcher `json:"pathMatcher,omitempty" tf:"path_matcher,omitempty"`
 	// +optional
 	Project string `json:"project,omitempty" tf:"project,omitempty"`
+	// +optional
+	SelfLink string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
 	// +optional
 	Test []ComputeURLMapSpecTest `json:"test,omitempty" tf:"test,omitempty"`
 }
@@ -69,9 +77,10 @@ type ComputeURLMapStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ComputeURLMapSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

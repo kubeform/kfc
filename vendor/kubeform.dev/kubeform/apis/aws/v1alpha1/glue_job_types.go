@@ -5,7 +5,7 @@ import (
 
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -33,6 +33,8 @@ type GlueJobSpecExecutionProperty struct {
 
 type GlueJobSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
+
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// +optional
 	// Deprecated
@@ -64,9 +66,10 @@ type GlueJobStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *GlueJobSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

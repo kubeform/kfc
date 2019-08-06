@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -30,14 +30,20 @@ type DbInstanceSpecS3Import struct {
 type DbInstanceSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+
+	// +optional
+	Address string `json:"address,omitempty" tf:"address,omitempty"`
 	// +optional
 	AllocatedStorage int `json:"allocatedStorage,omitempty" tf:"allocated_storage,omitempty"`
 	// +optional
 	AllowMajorVersionUpgrade bool `json:"allowMajorVersionUpgrade,omitempty" tf:"allow_major_version_upgrade,omitempty"`
 	// +optional
 	ApplyImmediately bool `json:"applyImmediately,omitempty" tf:"apply_immediately,omitempty"`
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
 	// +optional
 	AutoMinorVersionUpgrade bool `json:"autoMinorVersionUpgrade,omitempty" tf:"auto_minor_version_upgrade,omitempty"`
 	// +optional
@@ -46,6 +52,8 @@ type DbInstanceSpec struct {
 	BackupRetentionPeriod int `json:"backupRetentionPeriod,omitempty" tf:"backup_retention_period,omitempty"`
 	// +optional
 	BackupWindow string `json:"backupWindow,omitempty" tf:"backup_window,omitempty"`
+	// +optional
+	CaCertIdentifier string `json:"caCertIdentifier,omitempty" tf:"ca_cert_identifier,omitempty"`
 	// +optional
 	CharacterSetName string `json:"characterSetName,omitempty" tf:"character_set_name,omitempty"`
 	// +optional
@@ -61,11 +69,15 @@ type DbInstanceSpec struct {
 	// +optional
 	EnabledCloudwatchLogsExports []string `json:"enabledCloudwatchLogsExports,omitempty" tf:"enabled_cloudwatch_logs_exports,omitempty"`
 	// +optional
+	Endpoint string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
+	// +optional
 	Engine string `json:"engine,omitempty" tf:"engine,omitempty"`
 	// +optional
 	EngineVersion string `json:"engineVersion,omitempty" tf:"engine_version,omitempty"`
 	// +optional
 	FinalSnapshotIdentifier string `json:"finalSnapshotIdentifier,omitempty" tf:"final_snapshot_identifier,omitempty"`
+	// +optional
+	HostedZoneID string `json:"hostedZoneID,omitempty" tf:"hosted_zone_id,omitempty"`
 	// +optional
 	IamDatabaseAuthenticationEnabled bool `json:"iamDatabaseAuthenticationEnabled,omitempty" tf:"iam_database_authentication_enabled,omitempty"`
 	// +optional
@@ -96,6 +108,7 @@ type DbInstanceSpec struct {
 	// +optional
 	ParameterGroupName string `json:"parameterGroupName,omitempty" tf:"parameter_group_name,omitempty"`
 	// +optional
+	Password string `json:"-" sensitive:"true" tf:"password,omitempty"`
 	// +optional
 	PerformanceInsightsEnabled bool `json:"performanceInsightsEnabled,omitempty" tf:"performance_insights_enabled,omitempty"`
 	// +optional
@@ -107,7 +120,11 @@ type DbInstanceSpec struct {
 	// +optional
 	PubliclyAccessible bool `json:"publiclyAccessible,omitempty" tf:"publicly_accessible,omitempty"`
 	// +optional
+	Replicas []string `json:"replicas,omitempty" tf:"replicas,omitempty"`
+	// +optional
 	ReplicateSourceDb string `json:"replicateSourceDb,omitempty" tf:"replicate_source_db,omitempty"`
+	// +optional
+	ResourceID string `json:"resourceID,omitempty" tf:"resource_id,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	S3Import []DbInstanceSpecS3Import `json:"s3Import,omitempty" tf:"s3_import,omitempty"`
@@ -118,6 +135,8 @@ type DbInstanceSpec struct {
 	SkipFinalSnapshot bool `json:"skipFinalSnapshot,omitempty" tf:"skip_final_snapshot,omitempty"`
 	// +optional
 	SnapshotIdentifier string `json:"snapshotIdentifier,omitempty" tf:"snapshot_identifier,omitempty"`
+	// +optional
+	Status string `json:"status,omitempty" tf:"status,omitempty"`
 	// +optional
 	StorageEncrypted bool `json:"storageEncrypted,omitempty" tf:"storage_encrypted,omitempty"`
 	// +optional
@@ -137,9 +156,10 @@ type DbInstanceStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *DbInstanceSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

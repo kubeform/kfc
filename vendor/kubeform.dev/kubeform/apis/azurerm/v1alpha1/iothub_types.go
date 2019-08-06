@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -20,7 +20,8 @@ type Iothub struct {
 
 type IothubSpecEndpoint struct {
 	// +optional
-	BatchFrequencyInSeconds int `json:"batchFrequencyInSeconds,omitempty" tf:"batch_frequency_in_seconds,omitempty"`
+	BatchFrequencyInSeconds int    `json:"batchFrequencyInSeconds,omitempty" tf:"batch_frequency_in_seconds,omitempty"`
+	ConnectionString        string `json:"-" sensitive:"true" tf:"connection_string"`
 	// +optional
 	ContainerName string `json:"containerName,omitempty" tf:"container_name,omitempty"`
 	// +optional
@@ -59,6 +60,17 @@ type IothubSpecRoute struct {
 	Source        string   `json:"source" tf:"source"`
 }
 
+type IothubSpecSharedAccessPolicy struct {
+	// +optional
+	KeyName string `json:"keyName,omitempty" tf:"key_name,omitempty"`
+	// +optional
+	Permissions string `json:"permissions,omitempty" tf:"permissions,omitempty"`
+	// +optional
+	PrimaryKey string `json:"-" sensitive:"true" tf:"primary_key,omitempty"`
+	// +optional
+	SecondaryKey string `json:"-" sensitive:"true" tf:"secondary_key,omitempty"`
+}
+
 type IothubSpecSku struct {
 	Capacity int    `json:"capacity" tf:"capacity"`
 	Name     string `json:"name" tf:"name"`
@@ -68,13 +80,25 @@ type IothubSpecSku struct {
 type IothubSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	Endpoint []IothubSpecEndpoint `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 	// +optional
+	EventHubEventsEndpoint string `json:"eventHubEventsEndpoint,omitempty" tf:"event_hub_events_endpoint,omitempty"`
+	// +optional
+	EventHubEventsPath string `json:"eventHubEventsPath,omitempty" tf:"event_hub_events_path,omitempty"`
+	// +optional
+	EventHubOperationsEndpoint string `json:"eventHubOperationsEndpoint,omitempty" tf:"event_hub_operations_endpoint,omitempty"`
+	// +optional
+	EventHubOperationsPath string `json:"eventHubOperationsPath,omitempty" tf:"event_hub_operations_path,omitempty"`
+	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	FallbackRoute []IothubSpecFallbackRoute `json:"fallbackRoute,omitempty" tf:"fallback_route,omitempty"`
+	// +optional
+	Hostname string `json:"hostname,omitempty" tf:"hostname,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	IpFilterRule      []IothubSpecIpFilterRule `json:"ipFilterRule,omitempty" tf:"ip_filter_rule,omitempty"`
@@ -83,19 +107,24 @@ type IothubSpec struct {
 	ResourceGroupName string                   `json:"resourceGroupName" tf:"resource_group_name"`
 	// +optional
 	Route []IothubSpecRoute `json:"route,omitempty" tf:"route,omitempty"`
+	// +optional
+	SharedAccessPolicy []IothubSpecSharedAccessPolicy `json:"sharedAccessPolicy,omitempty" tf:"shared_access_policy,omitempty"`
 	// +kubebuilder:validation:MaxItems=1
 	Sku []IothubSpecSku `json:"sku" tf:"sku"`
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
+	// +optional
+	Type string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type IothubStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *IothubSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

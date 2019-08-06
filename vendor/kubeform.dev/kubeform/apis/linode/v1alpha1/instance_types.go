@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -29,6 +29,21 @@ type InstanceSpecAlerts struct {
 	NetworkOut int `json:"networkOut,omitempty" tf:"network_out,omitempty"`
 	// +optional
 	TransferQuota int `json:"transferQuota,omitempty" tf:"transfer_quota,omitempty"`
+}
+
+type InstanceSpecBackupsSchedule struct {
+	// +optional
+	Day string `json:"day,omitempty" tf:"day,omitempty"`
+	// +optional
+	Window string `json:"window,omitempty" tf:"window,omitempty"`
+}
+
+type InstanceSpecBackups struct {
+	// +optional
+	Enabled bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+	// +optional
+	// +kubebuilder:validation:MaxItems=1
+	Schedule []InstanceSpecBackupsSchedule `json:"schedule,omitempty" tf:"schedule,omitempty"`
 }
 
 type InstanceSpecConfigDevicesSda struct {
@@ -173,21 +188,38 @@ type InstanceSpecDisk struct {
 	// +optional
 	Filesystem string `json:"filesystem,omitempty" tf:"filesystem,omitempty"`
 	// +optional
+	ID int `json:"ID,omitempty" tf:"id,omitempty"`
+	// +optional
 	Image string `json:"image,omitempty" tf:"image,omitempty"`
 	Label string `json:"label" tf:"label"`
 	// +optional
 	ReadOnly bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
 	// +optional
-	Size int `json:"size" tf:"size"`
+	RootPass string `json:"-" sensitive:"true" tf:"root_pass,omitempty"`
+	Size     int    `json:"size" tf:"size"`
 	// +optional
+	StackscriptData map[string]string `json:"-" sensitive:"true" tf:"stackscript_data,omitempty"`
 	// +optional
 	StackscriptID int `json:"stackscriptID,omitempty" tf:"stackscript_id,omitempty"`
+}
+
+type InstanceSpecSpecs struct {
+	// +optional
+	Disk int `json:"disk,omitempty" tf:"disk,omitempty"`
+	// +optional
+	Memory int `json:"memory,omitempty" tf:"memory,omitempty"`
+	// +optional
+	Transfer int `json:"transfer,omitempty" tf:"transfer,omitempty"`
+	// +optional
+	Vcpus int `json:"vcpus,omitempty" tf:"vcpus,omitempty"`
 }
 
 type InstanceSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
@@ -198,6 +230,9 @@ type InstanceSpec struct {
 	AuthorizedUsers []string `json:"authorizedUsers,omitempty" tf:"authorized_users,omitempty"`
 	// +optional
 	BackupID int `json:"backupID,omitempty" tf:"backup_id,omitempty"`
+	// +optional
+	// +kubebuilder:validation:MaxItems=1
+	Backups []InstanceSpecBackups `json:"backups,omitempty" tf:"backups,omitempty"`
 	// +optional
 	BackupsEnabled bool `json:"backupsEnabled,omitempty" tf:"backups_enabled,omitempty"`
 	// +optional
@@ -211,14 +246,30 @@ type InstanceSpec struct {
 	// +optional
 	Image string `json:"image,omitempty" tf:"image,omitempty"`
 	// +optional
+	IpAddress string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
+	// +optional
+	// +kubebuilder:validation:UniqueItems=true
+	Ipv4 []string `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
+	// +optional
+	Ipv6 string `json:"ipv6,omitempty" tf:"ipv6,omitempty"`
+	// +optional
 	Label string `json:"label,omitempty" tf:"label,omitempty"`
 	// +optional
-	PrivateIP bool   `json:"privateIP,omitempty" tf:"private_ip,omitempty"`
-	Region    string `json:"region" tf:"region"`
+	PrivateIP bool `json:"privateIP,omitempty" tf:"private_ip,omitempty"`
 	// +optional
+	PrivateIPAddress string `json:"privateIPAddress,omitempty" tf:"private_ip_address,omitempty"`
+	Region           string `json:"region" tf:"region"`
 	// +optional
+	RootPass string `json:"-" sensitive:"true" tf:"root_pass,omitempty"`
+	// +optional
+	// +kubebuilder:validation:MaxItems=1
+	Specs []InstanceSpecSpecs `json:"specs,omitempty" tf:"specs,omitempty"`
+	// +optional
+	StackscriptData map[string]string `json:"-" sensitive:"true" tf:"stackscript_data,omitempty"`
 	// +optional
 	StackscriptID int `json:"stackscriptID,omitempty" tf:"stackscript_id,omitempty"`
+	// +optional
+	Status string `json:"status,omitempty" tf:"status,omitempty"`
 	// +optional
 	SwapSize int `json:"swapSize,omitempty" tf:"swap_size,omitempty"`
 	// +optional
@@ -234,9 +285,10 @@ type InstanceStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *InstanceSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

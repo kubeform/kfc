@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -18,6 +18,17 @@ type DaxCluster struct {
 	Status            DaxClusterStatus `json:"status,omitempty"`
 }
 
+type DaxClusterSpecNodes struct {
+	// +optional
+	Address string `json:"address,omitempty" tf:"address,omitempty"`
+	// +optional
+	AvailabilityZone string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
+	// +optional
+	ID string `json:"ID,omitempty" tf:"id,omitempty"`
+	// +optional
+	Port int `json:"port,omitempty" tf:"port,omitempty"`
+}
+
 type DaxClusterSpecServerSideEncryption struct {
 	// +optional
 	Enabled bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
@@ -26,10 +37,18 @@ type DaxClusterSpecServerSideEncryption struct {
 type DaxClusterSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	AvailabilityZones []string `json:"availabilityZones,omitempty" tf:"availability_zones,omitempty"`
-	ClusterName       string   `json:"clusterName" tf:"cluster_name"`
+	// +optional
+	ClusterAddress string `json:"clusterAddress,omitempty" tf:"cluster_address,omitempty"`
+	ClusterName    string `json:"clusterName" tf:"cluster_name"`
+	// +optional
+	ConfigurationEndpoint string `json:"configurationEndpoint,omitempty" tf:"configuration_endpoint,omitempty"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
 	IamRoleArn  string `json:"iamRoleArn" tf:"iam_role_arn"`
@@ -37,10 +56,14 @@ type DaxClusterSpec struct {
 	MaintenanceWindow string `json:"maintenanceWindow,omitempty" tf:"maintenance_window,omitempty"`
 	NodeType          string `json:"nodeType" tf:"node_type"`
 	// +optional
+	Nodes []DaxClusterSpecNodes `json:"nodes,omitempty" tf:"nodes,omitempty"`
+	// +optional
 	NotificationTopicArn string `json:"notificationTopicArn,omitempty" tf:"notification_topic_arn,omitempty"`
 	// +optional
 	ParameterGroupName string `json:"parameterGroupName,omitempty" tf:"parameter_group_name,omitempty"`
-	ReplicationFactor  int    `json:"replicationFactor" tf:"replication_factor"`
+	// +optional
+	Port              int `json:"port,omitempty" tf:"port,omitempty"`
+	ReplicationFactor int `json:"replicationFactor" tf:"replication_factor"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	SecurityGroupIDS []string `json:"securityGroupIDS,omitempty" tf:"security_group_ids,omitempty"`
@@ -57,9 +80,10 @@ type DaxClusterStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *DaxClusterSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

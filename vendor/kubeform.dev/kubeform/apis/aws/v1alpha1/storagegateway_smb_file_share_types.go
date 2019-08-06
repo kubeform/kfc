@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,11 +21,17 @@ type StoragegatewaySmbFileShare struct {
 type StoragegatewaySmbFileShareSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
 	// +optional
 	Authentication string `json:"authentication,omitempty" tf:"authentication,omitempty"`
 	// +optional
 	DefaultStorageClass string `json:"defaultStorageClass,omitempty" tf:"default_storage_class,omitempty"`
-	GatewayArn          string `json:"gatewayArn" tf:"gateway_arn"`
+	// +optional
+	FileshareID string `json:"fileshareID,omitempty" tf:"fileshare_id,omitempty"`
+	GatewayArn  string `json:"gatewayArn" tf:"gateway_arn"`
 	// +optional
 	GuessMimeTypeEnabled bool `json:"guessMimeTypeEnabled,omitempty" tf:"guess_mime_type_enabled,omitempty"`
 	// +optional
@@ -52,9 +58,10 @@ type StoragegatewaySmbFileShareStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *StoragegatewaySmbFileShareSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

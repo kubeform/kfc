@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -48,6 +48,8 @@ type Route53RecordSpecWeightedRoutingPolicy struct {
 type Route53RecordSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	Alias []Route53RecordSpecAlias `json:"alias,omitempty" tf:"alias,omitempty"`
@@ -55,6 +57,8 @@ type Route53RecordSpec struct {
 	AllowOverwrite bool `json:"allowOverwrite,omitempty" tf:"allow_overwrite,omitempty"`
 	// +optional
 	FailoverRoutingPolicy []Route53RecordSpecFailoverRoutingPolicy `json:"failoverRoutingPolicy,omitempty" tf:"failover_routing_policy,omitempty"`
+	// +optional
+	Fqdn string `json:"fqdn,omitempty" tf:"fqdn,omitempty"`
 	// +optional
 	GeolocationRoutingPolicy []Route53RecordSpecGeolocationRoutingPolicy `json:"geolocationRoutingPolicy,omitempty" tf:"geolocation_routing_policy,omitempty"`
 	// +optional
@@ -81,9 +85,10 @@ type Route53RecordStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *Route53RecordSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

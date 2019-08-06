@@ -5,7 +5,7 @@ import (
 
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -127,6 +127,7 @@ type ContainerGroupSpecContainer struct {
 	// +kubebuilder:validation:MaxItems=1
 	ReadinessProbe []ContainerGroupSpecContainerReadinessProbe `json:"readinessProbe,omitempty" tf:"readiness_probe,omitempty"`
 	// +optional
+	SecureEnvironmentVariables map[string]string `json:"-" sensitive:"true" tf:"secure_environment_variables,omitempty"`
 	// +optional
 	Volume []ContainerGroupSpecContainerVolume `json:"volume,omitempty" tf:"volume,omitempty"`
 }
@@ -134,8 +135,9 @@ type ContainerGroupSpecContainer struct {
 type ContainerGroupSpecDiagnosticsLogAnalytics struct {
 	LogType string `json:"logType" tf:"log_type"`
 	// +optional
-	Metadata    map[string]string `json:"metadata,omitempty" tf:"metadata,omitempty"`
-	WorkspaceID string            `json:"workspaceID" tf:"workspace_id"`
+	Metadata     map[string]string `json:"metadata,omitempty" tf:"metadata,omitempty"`
+	WorkspaceID  string            `json:"workspaceID" tf:"workspace_id"`
+	WorkspaceKey string            `json:"-" sensitive:"true" tf:"workspace_key"`
 }
 
 type ContainerGroupSpecDiagnostics struct {
@@ -147,10 +149,13 @@ type ContainerGroupSpecIdentity struct {
 	// +optional
 	// +kubebuilder:validation:MinItems=1
 	IdentityIDS []string `json:"identityIDS,omitempty" tf:"identity_ids,omitempty"`
-	Type        string   `json:"type" tf:"type"`
+	// +optional
+	PrincipalID string `json:"principalID,omitempty" tf:"principal_id,omitempty"`
+	Type        string `json:"type" tf:"type"`
 }
 
 type ContainerGroupSpecImageRegistryCredential struct {
+	Password string `json:"-" sensitive:"true" tf:"password"`
 	Server   string `json:"server" tf:"server"`
 	Username string `json:"username" tf:"username"`
 }
@@ -158,7 +163,9 @@ type ContainerGroupSpecImageRegistryCredential struct {
 type ContainerGroupSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	Container []ContainerGroupSpecContainer `json:"container" tf:"container"`
 	// +optional
@@ -167,10 +174,14 @@ type ContainerGroupSpec struct {
 	// +optional
 	DnsNameLabel string `json:"dnsNameLabel,omitempty" tf:"dns_name_label,omitempty"`
 	// +optional
+	Fqdn string `json:"fqdn,omitempty" tf:"fqdn,omitempty"`
+	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	Identity []ContainerGroupSpecIdentity `json:"identity,omitempty" tf:"identity,omitempty"`
 	// +optional
 	ImageRegistryCredential []ContainerGroupSpecImageRegistryCredential `json:"imageRegistryCredential,omitempty" tf:"image_registry_credential,omitempty"`
+	// +optional
+	IpAddress string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
 	// +optional
 	IpAddressType     string `json:"ipAddressType,omitempty" tf:"ip_address_type,omitempty"`
 	Location          string `json:"location" tf:"location"`
@@ -187,9 +198,10 @@ type ContainerGroupStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ContainerGroupSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

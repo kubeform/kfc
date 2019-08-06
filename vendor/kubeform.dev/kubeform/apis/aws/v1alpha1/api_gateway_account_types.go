@@ -1,9 +1,11 @@
 package v1alpha1
 
 import (
+	"encoding/json"
+
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -18,20 +20,33 @@ type ApiGatewayAccount struct {
 	Status            ApiGatewayAccountStatus `json:"status,omitempty"`
 }
 
+type ApiGatewayAccountSpecThrottleSettings struct {
+	// +optional
+	BurstLimit int `json:"burstLimit,omitempty" tf:"burst_limit,omitempty"`
+	// +optional
+	RateLimit json.Number `json:"rateLimit,omitempty" tf:"rate_limit,omitempty"`
+}
+
 type ApiGatewayAccountSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	CloudwatchRoleArn string `json:"cloudwatchRoleArn,omitempty" tf:"cloudwatch_role_arn,omitempty"`
+	// +optional
+	// +kubebuilder:validation:MaxItems=1
+	ThrottleSettings []ApiGatewayAccountSpecThrottleSettings `json:"throttleSettings,omitempty" tf:"throttle_settings,omitempty"`
 }
 
 type ApiGatewayAccountStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ApiGatewayAccountSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

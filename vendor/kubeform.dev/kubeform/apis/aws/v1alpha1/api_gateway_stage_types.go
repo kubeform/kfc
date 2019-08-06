@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -26,6 +26,8 @@ type ApiGatewayStageSpecAccessLogSettings struct {
 type ApiGatewayStageSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	AccessLogSettings []ApiGatewayStageSpecAccessLogSettings `json:"accessLogSettings,omitempty" tf:"access_log_settings,omitempty"`
@@ -40,8 +42,12 @@ type ApiGatewayStageSpec struct {
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
 	// +optional
 	DocumentationVersion string `json:"documentationVersion,omitempty" tf:"documentation_version,omitempty"`
-	RestAPIID            string `json:"restAPIID" tf:"rest_api_id"`
-	StageName            string `json:"stageName" tf:"stage_name"`
+	// +optional
+	ExecutionArn string `json:"executionArn,omitempty" tf:"execution_arn,omitempty"`
+	// +optional
+	InvokeURL string `json:"invokeURL,omitempty" tf:"invoke_url,omitempty"`
+	RestAPIID string `json:"restAPIID" tf:"rest_api_id"`
+	StageName string `json:"stageName" tf:"stage_name"`
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 	// +optional
@@ -54,9 +60,10 @@ type ApiGatewayStageStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ApiGatewayStageSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

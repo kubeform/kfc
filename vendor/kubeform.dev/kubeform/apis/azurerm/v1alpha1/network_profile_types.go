@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -31,11 +31,15 @@ type NetworkProfileSpecContainerNetworkInterface struct {
 type NetworkProfileSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +kubebuilder:validation:MaxItems=1
 	ContainerNetworkInterface []NetworkProfileSpecContainerNetworkInterface `json:"containerNetworkInterface" tf:"container_network_interface"`
-	Location                  string                                        `json:"location" tf:"location"`
-	Name                      string                                        `json:"name" tf:"name"`
-	ResourceGroupName         string                                        `json:"resourceGroupName" tf:"resource_group_name"`
+	// +optional
+	ContainerNetworkInterfaceIDS []string `json:"containerNetworkInterfaceIDS,omitempty" tf:"container_network_interface_ids,omitempty"`
+	Location                     string   `json:"location" tf:"location"`
+	Name                         string   `json:"name" tf:"name"`
+	ResourceGroupName            string   `json:"resourceGroupName" tf:"resource_group_name"`
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
@@ -44,9 +48,10 @@ type NetworkProfileStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *NetworkProfileSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

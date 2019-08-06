@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -19,12 +19,17 @@ type AppServiceSlot struct {
 }
 
 type AppServiceSlotSpecConnectionString struct {
-	Name string `json:"name" tf:"name"`
-	Type string `json:"type" tf:"type"`
+	Name  string `json:"name" tf:"name"`
+	Type  string `json:"type" tf:"type"`
+	Value string `json:"-" sensitive:"true" tf:"value"`
 }
 
 type AppServiceSlotSpecIdentity struct {
-	Type string `json:"type" tf:"type"`
+	// +optional
+	PrincipalID string `json:"principalID,omitempty" tf:"principal_id,omitempty"`
+	// +optional
+	TenantID string `json:"tenantID,omitempty" tf:"tenant_id,omitempty"`
+	Type     string `json:"type" tf:"type"`
 }
 
 type AppServiceSlotSpecSiteConfigCors struct {
@@ -92,10 +97,19 @@ type AppServiceSlotSpecSiteConfig struct {
 	WindowsFxVersion string `json:"windowsFxVersion,omitempty" tf:"windows_fx_version,omitempty"`
 }
 
+type AppServiceSlotSpecSiteCredential struct {
+	// +optional
+	Password string `json:"-" sensitive:"true" tf:"password,omitempty"`
+	// +optional
+	Username string `json:"username,omitempty" tf:"username,omitempty"`
+}
+
 type AppServiceSlotSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	AppServiceName   string `json:"appServiceName" tf:"app_service_name"`
 	AppServicePlanID string `json:"appServicePlanID" tf:"app_service_plan_id"`
@@ -106,6 +120,8 @@ type AppServiceSlotSpec struct {
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	ConnectionString []AppServiceSlotSpecConnectionString `json:"connectionString,omitempty" tf:"connection_string,omitempty"`
+	// +optional
+	DefaultSiteHostname string `json:"defaultSiteHostname,omitempty" tf:"default_site_hostname,omitempty"`
 	// +optional
 	Enabled bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 	// +optional
@@ -120,6 +136,9 @@ type AppServiceSlotSpec struct {
 	// +kubebuilder:validation:MaxItems=1
 	SiteConfig []AppServiceSlotSpecSiteConfig `json:"siteConfig,omitempty" tf:"site_config,omitempty"`
 	// +optional
+	// +kubebuilder:validation:MaxItems=1
+	SiteCredential []AppServiceSlotSpecSiteCredential `json:"siteCredential,omitempty" tf:"site_credential,omitempty"`
+	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
@@ -127,9 +146,10 @@ type AppServiceSlotStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *AppServiceSlotSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

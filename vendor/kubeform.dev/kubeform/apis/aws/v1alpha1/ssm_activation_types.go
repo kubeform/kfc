@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,13 +21,21 @@ type SsmActivation struct {
 type SsmActivationSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	ActivationCode string `json:"activationCode,omitempty" tf:"activation_code,omitempty"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
 	// +optional
 	ExpirationDate string `json:"expirationDate,omitempty" tf:"expiration_date,omitempty"`
-	IamRole        string `json:"iamRole" tf:"iam_role"`
+	// +optional
+	Expired string `json:"expired,omitempty" tf:"expired,omitempty"`
+	IamRole string `json:"iamRole" tf:"iam_role"`
 	// +optional
 	Name string `json:"name,omitempty" tf:"name,omitempty"`
+	// +optional
+	RegistrationCount int `json:"registrationCount,omitempty" tf:"registration_count,omitempty"`
 	// +optional
 	RegistrationLimit int `json:"registrationLimit,omitempty" tf:"registration_limit,omitempty"`
 	// +optional
@@ -38,9 +46,10 @@ type SsmActivationStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *SsmActivationSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -22,16 +22,22 @@ type BinaryAuthorizationAttestorSpecAttestationAuthorityNotePublicKeys struct {
 	AsciiArmoredPgpPublicKey string `json:"asciiArmoredPgpPublicKey" tf:"ascii_armored_pgp_public_key"`
 	// +optional
 	Comment string `json:"comment,omitempty" tf:"comment,omitempty"`
+	// +optional
+	ID string `json:"ID,omitempty" tf:"id,omitempty"`
 }
 
 type BinaryAuthorizationAttestorSpecAttestationAuthorityNote struct {
-	NoteReference string `json:"noteReference" tf:"note_reference"`
+	// +optional
+	DelegationServiceAccountEmail string `json:"delegationServiceAccountEmail,omitempty" tf:"delegation_service_account_email,omitempty"`
+	NoteReference                 string `json:"noteReference" tf:"note_reference"`
 	// +optional
 	PublicKeys []BinaryAuthorizationAttestorSpecAttestationAuthorityNotePublicKeys `json:"publicKeys,omitempty" tf:"public_keys,omitempty"`
 }
 
 type BinaryAuthorizationAttestorSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
+
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// +kubebuilder:validation:MaxItems=1
 	AttestationAuthorityNote []BinaryAuthorizationAttestorSpecAttestationAuthorityNote `json:"attestationAuthorityNote" tf:"attestation_authority_note"`
@@ -46,9 +52,10 @@ type BinaryAuthorizationAttestorStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *BinaryAuthorizationAttestorSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -5,7 +5,7 @@ import (
 
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -104,17 +104,33 @@ type MonitoringAlertPolicySpecConditions struct {
 	// +kubebuilder:validation:MaxItems=1
 	ConditionThreshold []MonitoringAlertPolicySpecConditionsConditionThreshold `json:"conditionThreshold,omitempty" tf:"condition_threshold,omitempty"`
 	DisplayName        string                                                  `json:"displayName" tf:"display_name"`
+	// +optional
+	Name string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type MonitoringAlertPolicySpecCreationRecord struct {
+	// +optional
+	MutateTime string `json:"mutateTime,omitempty" tf:"mutate_time,omitempty"`
+	// +optional
+	MutatedBy string `json:"mutatedBy,omitempty" tf:"mutated_by,omitempty"`
 }
 
 type MonitoringAlertPolicySpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Combiner    string                                `json:"combiner" tf:"combiner"`
-	Conditions  []MonitoringAlertPolicySpecConditions `json:"conditions" tf:"conditions"`
-	DisplayName string                                `json:"displayName" tf:"display_name"`
-	Enabled     bool                                  `json:"enabled" tf:"enabled"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	Combiner   string                                `json:"combiner" tf:"combiner"`
+	Conditions []MonitoringAlertPolicySpecConditions `json:"conditions" tf:"conditions"`
+	// +optional
+	// +kubebuilder:validation:MaxItems=1
+	CreationRecord []MonitoringAlertPolicySpecCreationRecord `json:"creationRecord,omitempty" tf:"creation_record,omitempty"`
+	DisplayName    string                                    `json:"displayName" tf:"display_name"`
+	Enabled        bool                                      `json:"enabled" tf:"enabled"`
 	// +optional
 	Labels []string `json:"labels,omitempty" tf:"labels,omitempty"`
+	// +optional
+	Name string `json:"name,omitempty" tf:"name,omitempty"`
 	// +optional
 	NotificationChannels []string `json:"notificationChannels,omitempty" tf:"notification_channels,omitempty"`
 	// +optional
@@ -125,9 +141,10 @@ type MonitoringAlertPolicyStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *MonitoringAlertPolicySpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

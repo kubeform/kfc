@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -23,28 +23,52 @@ type AppEngineApplicationSpecFeatureSettings struct {
 	SplitHealthChecks bool `json:"splitHealthChecks,omitempty" tf:"split_health_checks,omitempty"`
 }
 
+type AppEngineApplicationSpecUrlDispatchRule struct {
+	// +optional
+	Domain string `json:"domain,omitempty" tf:"domain,omitempty"`
+	// +optional
+	Path string `json:"path,omitempty" tf:"path,omitempty"`
+	// +optional
+	Service string `json:"service,omitempty" tf:"service,omitempty"`
+}
+
 type AppEngineApplicationSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
+
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// +optional
 	AuthDomain string `json:"authDomain,omitempty" tf:"auth_domain,omitempty"`
 	// +optional
+	CodeBucket string `json:"codeBucket,omitempty" tf:"code_bucket,omitempty"`
+	// +optional
+	DefaultBucket string `json:"defaultBucket,omitempty" tf:"default_bucket,omitempty"`
+	// +optional
+	DefaultHostname string `json:"defaultHostname,omitempty" tf:"default_hostname,omitempty"`
+	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	FeatureSettings []AppEngineApplicationSpecFeatureSettings `json:"featureSettings,omitempty" tf:"feature_settings,omitempty"`
-	LocationID      string                                    `json:"locationID" tf:"location_id"`
+	// +optional
+	GcrDomain  string `json:"gcrDomain,omitempty" tf:"gcr_domain,omitempty"`
+	LocationID string `json:"locationID" tf:"location_id"`
+	// +optional
+	Name string `json:"name,omitempty" tf:"name,omitempty"`
 	// +optional
 	Project string `json:"project,omitempty" tf:"project,omitempty"`
 	// +optional
 	ServingStatus string `json:"servingStatus,omitempty" tf:"serving_status,omitempty"`
+	// +optional
+	UrlDispatchRule []AppEngineApplicationSpecUrlDispatchRule `json:"urlDispatchRule,omitempty" tf:"url_dispatch_rule,omitempty"`
 }
 
 type AppEngineApplicationStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *AppEngineApplicationSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

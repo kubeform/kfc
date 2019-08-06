@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,8 +21,14 @@ type IamUserSSHKey struct {
 type IamUserSSHKeySpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Encoding  string `json:"encoding" tf:"encoding"`
-	PublicKey string `json:"publicKey" tf:"public_key"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	Encoding string `json:"encoding" tf:"encoding"`
+	// +optional
+	Fingerprint string `json:"fingerprint,omitempty" tf:"fingerprint,omitempty"`
+	PublicKey   string `json:"publicKey" tf:"public_key"`
+	// +optional
+	SshPublicKeyID string `json:"sshPublicKeyID,omitempty" tf:"ssh_public_key_id,omitempty"`
 	// +optional
 	Status   string `json:"status,omitempty" tf:"status,omitempty"`
 	Username string `json:"username" tf:"username"`
@@ -32,9 +38,10 @@ type IamUserSSHKeyStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *IamUserSSHKeySpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

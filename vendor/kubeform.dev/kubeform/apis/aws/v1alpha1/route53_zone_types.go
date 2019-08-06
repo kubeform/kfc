@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -27,6 +27,8 @@ type Route53ZoneSpecVpc struct {
 type Route53ZoneSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	Comment string `json:"comment,omitempty" tf:"comment,omitempty"`
 	// +optional
@@ -35,20 +37,25 @@ type Route53ZoneSpec struct {
 	ForceDestroy bool   `json:"forceDestroy,omitempty" tf:"force_destroy,omitempty"`
 	Name         string `json:"name" tf:"name"`
 	// +optional
+	NameServers []string `json:"nameServers,omitempty" tf:"name_servers,omitempty"`
+	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MinItems=1
 	// +kubebuilder:validation:UniqueItems=true
 	Vpc []Route53ZoneSpecVpc `json:"vpc,omitempty" tf:"vpc,omitempty"`
+	// +optional
+	ZoneID string `json:"zoneID,omitempty" tf:"zone_id,omitempty"`
 }
 
 type Route53ZoneStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *Route53ZoneSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

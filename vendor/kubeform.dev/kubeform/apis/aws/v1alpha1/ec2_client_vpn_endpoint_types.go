@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -37,6 +37,8 @@ type Ec2ClientVPNEndpointSpecConnectionLogOptions struct {
 type Ec2ClientVPNEndpointSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +kubebuilder:validation:MaxItems=1
 	AuthenticationOptions []Ec2ClientVPNEndpointSpecAuthenticationOptions `json:"authenticationOptions" tf:"authentication_options"`
 	ClientCIDRBlock       string                                          `json:"clientCIDRBlock" tf:"client_cidr_block"`
@@ -45,9 +47,13 @@ type Ec2ClientVPNEndpointSpec struct {
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
 	// +optional
+	DnsName string `json:"dnsName,omitempty" tf:"dns_name,omitempty"`
+	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	DnsServers           []string `json:"dnsServers,omitempty" tf:"dns_servers,omitempty"`
 	ServerCertificateArn string   `json:"serverCertificateArn" tf:"server_certificate_arn"`
+	// +optional
+	Status string `json:"status,omitempty" tf:"status,omitempty"`
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 	// +optional
@@ -58,9 +64,10 @@ type Ec2ClientVPNEndpointStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *Ec2ClientVPNEndpointSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

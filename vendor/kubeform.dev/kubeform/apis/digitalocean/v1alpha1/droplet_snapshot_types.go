@@ -1,9 +1,11 @@
 package v1alpha1
 
 import (
+	"encoding/json"
+
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,17 +23,29 @@ type DropletSnapshot struct {
 type DropletSnapshotSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	CreatedAt string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 	DropletID string `json:"dropletID" tf:"droplet_id"`
-	Name      string `json:"name" tf:"name"`
+	// +optional
+	MinDiskSize int    `json:"minDiskSize,omitempty" tf:"min_disk_size,omitempty"`
+	Name        string `json:"name" tf:"name"`
+	// +optional
+	// +kubebuilder:validation:UniqueItems=true
+	Regions []string `json:"regions,omitempty" tf:"regions,omitempty"`
+	// +optional
+	Size json.Number `json:"size,omitempty" tf:"size,omitempty"`
 }
 
 type DropletSnapshotStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *DropletSnapshotSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

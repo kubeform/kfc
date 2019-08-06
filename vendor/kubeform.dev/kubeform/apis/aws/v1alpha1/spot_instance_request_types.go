@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -34,6 +34,8 @@ type SpotInstanceRequestSpecEbsBlockDevice struct {
 	// +optional
 	SnapshotID string `json:"snapshotID,omitempty" tf:"snapshot_id,omitempty"`
 	// +optional
+	VolumeID string `json:"volumeID,omitempty" tf:"volume_id,omitempty"`
+	// +optional
 	VolumeSize int `json:"volumeSize,omitempty" tf:"volume_size,omitempty"`
 	// +optional
 	VolumeType string `json:"volumeType,omitempty" tf:"volume_type,omitempty"`
@@ -60,6 +62,8 @@ type SpotInstanceRequestSpecRootBlockDevice struct {
 	// +optional
 	Iops int `json:"iops,omitempty" tf:"iops,omitempty"`
 	// +optional
+	VolumeID string `json:"volumeID,omitempty" tf:"volume_id,omitempty"`
+	// +optional
 	VolumeSize int `json:"volumeSize,omitempty" tf:"volume_size,omitempty"`
 	// +optional
 	VolumeType string `json:"volumeType,omitempty" tf:"volume_type,omitempty"`
@@ -68,7 +72,11 @@ type SpotInstanceRequestSpecRootBlockDevice struct {
 type SpotInstanceRequestSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Ami string `json:"ami" tf:"ami"`
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
 	// +optional
 	AssociatePublicIPAddress bool `json:"associatePublicIPAddress,omitempty" tf:"associate_public_ip_address,omitempty"`
 	// +optional
@@ -102,7 +110,9 @@ type SpotInstanceRequestSpec struct {
 	InstanceInitiatedShutdownBehavior string `json:"instanceInitiatedShutdownBehavior,omitempty" tf:"instance_initiated_shutdown_behavior,omitempty"`
 	// +optional
 	InstanceInterruptionBehaviour string `json:"instanceInterruptionBehaviour,omitempty" tf:"instance_interruption_behaviour,omitempty"`
-	InstanceType                  string `json:"instanceType" tf:"instance_type"`
+	// +optional
+	InstanceState string `json:"instanceState,omitempty" tf:"instance_state,omitempty"`
+	InstanceType  string `json:"instanceType" tf:"instance_type"`
 	// +optional
 	Ipv6AddressCount int `json:"ipv6AddressCount,omitempty" tf:"ipv6_address_count,omitempty"`
 	// +optional
@@ -117,9 +127,19 @@ type SpotInstanceRequestSpec struct {
 	// +kubebuilder:validation:UniqueItems=true
 	NetworkInterface []SpotInstanceRequestSpecNetworkInterface `json:"networkInterface,omitempty" tf:"network_interface,omitempty"`
 	// +optional
+	PasswordData string `json:"passwordData,omitempty" tf:"password_data,omitempty"`
+	// +optional
 	PlacementGroup string `json:"placementGroup,omitempty" tf:"placement_group,omitempty"`
 	// +optional
+	PrimaryNetworkInterfaceID string `json:"primaryNetworkInterfaceID,omitempty" tf:"primary_network_interface_id,omitempty"`
+	// +optional
+	PrivateDNS string `json:"privateDNS,omitempty" tf:"private_dns,omitempty"`
+	// +optional
 	PrivateIP string `json:"privateIP,omitempty" tf:"private_ip,omitempty"`
+	// +optional
+	PublicDNS string `json:"publicDNS,omitempty" tf:"public_dns,omitempty"`
+	// +optional
+	PublicIP string `json:"publicIP,omitempty" tf:"public_ip,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	RootBlockDevice []SpotInstanceRequestSpecRootBlockDevice `json:"rootBlockDevice,omitempty" tf:"root_block_device,omitempty"`
@@ -129,7 +149,13 @@ type SpotInstanceRequestSpec struct {
 	// +optional
 	SourceDestCheck bool `json:"sourceDestCheck,omitempty" tf:"source_dest_check,omitempty"`
 	// +optional
+	SpotBidStatus string `json:"spotBidStatus,omitempty" tf:"spot_bid_status,omitempty"`
+	// +optional
+	SpotInstanceID string `json:"spotInstanceID,omitempty" tf:"spot_instance_id,omitempty"`
+	// +optional
 	SpotPrice string `json:"spotPrice,omitempty" tf:"spot_price,omitempty"`
+	// +optional
+	SpotRequestState string `json:"spotRequestState,omitempty" tf:"spot_request_state,omitempty"`
 	// +optional
 	SpotType string `json:"spotType,omitempty" tf:"spot_type,omitempty"`
 	// +optional
@@ -159,9 +185,10 @@ type SpotInstanceRequestStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *SpotInstanceRequestSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

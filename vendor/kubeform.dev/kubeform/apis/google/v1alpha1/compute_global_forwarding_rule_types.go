@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,6 +21,8 @@ type ComputeGlobalForwardingRule struct {
 type ComputeGlobalForwardingRuleSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
 	// +optional
@@ -30,6 +32,8 @@ type ComputeGlobalForwardingRuleSpec struct {
 	// +optional
 	IpVersion string `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
 	// +optional
+	LabelFingerprint string `json:"labelFingerprint,omitempty" tf:"label_fingerprint,omitempty"`
+	// +optional
 	// Deprecated
 	Labels map[string]string `json:"labels,omitempty" tf:"labels,omitempty"`
 	Name   string            `json:"name" tf:"name"`
@@ -37,16 +41,19 @@ type ComputeGlobalForwardingRuleSpec struct {
 	PortRange string `json:"portRange,omitempty" tf:"port_range,omitempty"`
 	// +optional
 	Project string `json:"project,omitempty" tf:"project,omitempty"`
-	Target  string `json:"target" tf:"target"`
+	// +optional
+	SelfLink string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
+	Target   string `json:"target" tf:"target"`
 }
 
 type ComputeGlobalForwardingRuleStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ComputeGlobalForwardingRuleSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

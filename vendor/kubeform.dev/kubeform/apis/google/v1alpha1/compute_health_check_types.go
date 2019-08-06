@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -69,8 +69,12 @@ type ComputeHealthCheckSpecTcpHealthCheck struct {
 type ComputeHealthCheckSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	CheckIntervalSec int `json:"checkIntervalSec,omitempty" tf:"check_interval_sec,omitempty"`
+	// +optional
+	CreationTimestamp string `json:"creationTimestamp,omitempty" tf:"creation_timestamp,omitempty"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
 	// +optional
@@ -85,6 +89,8 @@ type ComputeHealthCheckSpec struct {
 	// +optional
 	Project string `json:"project,omitempty" tf:"project,omitempty"`
 	// +optional
+	SelfLink string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
+	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	SslHealthCheck []ComputeHealthCheckSpecSslHealthCheck `json:"sslHealthCheck,omitempty" tf:"ssl_health_check,omitempty"`
 	// +optional
@@ -93,6 +99,8 @@ type ComputeHealthCheckSpec struct {
 	// +optional
 	TimeoutSec int `json:"timeoutSec,omitempty" tf:"timeout_sec,omitempty"`
 	// +optional
+	Type string `json:"type,omitempty" tf:"type,omitempty"`
+	// +optional
 	UnhealthyThreshold int `json:"unhealthyThreshold,omitempty" tf:"unhealthy_threshold,omitempty"`
 }
 
@@ -100,9 +108,10 @@ type ComputeHealthCheckStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ComputeHealthCheckSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

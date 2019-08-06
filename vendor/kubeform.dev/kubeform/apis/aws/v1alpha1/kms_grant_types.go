@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -28,14 +28,20 @@ type KmsGrantSpecConstraints struct {
 type KmsGrantSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	Constraints []KmsGrantSpecConstraints `json:"constraints,omitempty" tf:"constraints,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	GrantCreationTokens []string `json:"grantCreationTokens,omitempty" tf:"grant_creation_tokens,omitempty"`
-	GranteePrincipal    string   `json:"granteePrincipal" tf:"grantee_principal"`
-	KeyID               string   `json:"keyID" tf:"key_id"`
+	// +optional
+	GrantID string `json:"grantID,omitempty" tf:"grant_id,omitempty"`
+	// +optional
+	GrantToken       string `json:"grantToken,omitempty" tf:"grant_token,omitempty"`
+	GranteePrincipal string `json:"granteePrincipal" tf:"grantee_principal"`
+	KeyID            string `json:"keyID" tf:"key_id"`
 	// +optional
 	Name string `json:"name,omitempty" tf:"name,omitempty"`
 	// +kubebuilder:validation:UniqueItems=true
@@ -50,9 +56,10 @@ type KmsGrantStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *KmsGrantSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

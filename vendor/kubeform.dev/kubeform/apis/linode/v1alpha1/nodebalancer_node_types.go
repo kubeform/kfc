@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,12 +21,16 @@ type NodebalancerNode struct {
 type NodebalancerNodeSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Address  string `json:"address" tf:"address"`
 	ConfigID int    `json:"configID" tf:"config_id"`
 	Label    string `json:"label" tf:"label"`
 	// +optional
 	Mode           string `json:"mode,omitempty" tf:"mode,omitempty"`
 	NodebalancerID int    `json:"nodebalancerID" tf:"nodebalancer_id"`
+	// +optional
+	Status string `json:"status,omitempty" tf:"status,omitempty"`
 	// +optional
 	Weight int `json:"weight,omitempty" tf:"weight,omitempty"`
 }
@@ -35,9 +39,10 @@ type NodebalancerNodeStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *NodebalancerNodeSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

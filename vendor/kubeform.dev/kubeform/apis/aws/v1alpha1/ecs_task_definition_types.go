@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -57,6 +57,10 @@ type EcsTaskDefinitionSpecVolume struct {
 type EcsTaskDefinitionSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	Arn                  string `json:"arn,omitempty" tf:"arn,omitempty"`
 	ContainerDefinitions string `json:"containerDefinitions" tf:"container_definitions"`
 	// +optional
 	Cpu string `json:"cpu,omitempty" tf:"cpu,omitempty"`
@@ -82,6 +86,8 @@ type EcsTaskDefinitionSpec struct {
 	// +kubebuilder:validation:UniqueItems=true
 	RequiresCompatibilities []string `json:"requiresCompatibilities,omitempty" tf:"requires_compatibilities,omitempty"`
 	// +optional
+	Revision int `json:"revision,omitempty" tf:"revision,omitempty"`
+	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 	// +optional
 	TaskRoleArn string `json:"taskRoleArn,omitempty" tf:"task_role_arn,omitempty"`
@@ -94,9 +100,10 @@ type EcsTaskDefinitionStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *EcsTaskDefinitionSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

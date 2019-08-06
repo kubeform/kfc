@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -18,16 +18,35 @@ type ElasticacheCluster struct {
 	Status            ElasticacheClusterStatus `json:"status,omitempty"`
 }
 
+type ElasticacheClusterSpecCacheNodes struct {
+	// +optional
+	Address string `json:"address,omitempty" tf:"address,omitempty"`
+	// +optional
+	AvailabilityZone string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
+	// +optional
+	ID string `json:"ID,omitempty" tf:"id,omitempty"`
+	// +optional
+	Port int `json:"port,omitempty" tf:"port,omitempty"`
+}
+
 type ElasticacheClusterSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
+
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// +optional
 	ApplyImmediately bool `json:"applyImmediately,omitempty" tf:"apply_immediately,omitempty"`
 	// +optional
 	AvailabilityZone string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 	// +optional
-	AzMode    string `json:"azMode,omitempty" tf:"az_mode,omitempty"`
-	ClusterID string `json:"clusterID" tf:"cluster_id"`
+	AzMode string `json:"azMode,omitempty" tf:"az_mode,omitempty"`
+	// +optional
+	CacheNodes []ElasticacheClusterSpecCacheNodes `json:"cacheNodes,omitempty" tf:"cache_nodes,omitempty"`
+	// +optional
+	ClusterAddress string `json:"clusterAddress,omitempty" tf:"cluster_address,omitempty"`
+	ClusterID      string `json:"clusterID" tf:"cluster_id"`
+	// +optional
+	ConfigurationEndpoint string `json:"configurationEndpoint,omitempty" tf:"configuration_endpoint,omitempty"`
 	// +optional
 	Engine string `json:"engine,omitempty" tf:"engine,omitempty"`
 	// +optional
@@ -73,9 +92,10 @@ type ElasticacheClusterStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ElasticacheClusterSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

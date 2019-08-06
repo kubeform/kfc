@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -45,6 +45,10 @@ type AppsyncGraphqlAPISpecUserPoolConfig struct {
 type AppsyncGraphqlAPISpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	Arn                string `json:"arn,omitempty" tf:"arn,omitempty"`
 	AuthenticationType string `json:"authenticationType" tf:"authentication_type"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
@@ -58,6 +62,8 @@ type AppsyncGraphqlAPISpec struct {
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 	// +optional
+	Uris map[string]string `json:"uris,omitempty" tf:"uris,omitempty"`
+	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	UserPoolConfig []AppsyncGraphqlAPISpecUserPoolConfig `json:"userPoolConfig,omitempty" tf:"user_pool_config,omitempty"`
 }
@@ -66,9 +72,10 @@ type AppsyncGraphqlAPIStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *AppsyncGraphqlAPISpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -18,16 +18,21 @@ type ApiManagementLogger struct {
 	Status            ApiManagementLoggerStatus `json:"status,omitempty"`
 }
 
-type ApiManagementLoggerSpecApplicationInsights struct{}
+type ApiManagementLoggerSpecApplicationInsights struct {
+	InstrumentationKey string `json:"-" sensitive:"true" tf:"instrumentation_key"`
+}
 
 type ApiManagementLoggerSpecEventhub struct {
-	Name string `json:"name" tf:"name"`
+	ConnectionString string `json:"-" sensitive:"true" tf:"connection_string"`
+	Name             string `json:"name" tf:"name"`
 }
 
 type ApiManagementLoggerSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	ApiManagementName string `json:"apiManagementName" tf:"api_management_name"`
 	// +optional
@@ -48,9 +53,10 @@ type ApiManagementLoggerStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ApiManagementLoggerSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

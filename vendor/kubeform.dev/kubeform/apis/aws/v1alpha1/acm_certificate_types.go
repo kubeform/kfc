@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -18,11 +18,26 @@ type AcmCertificate struct {
 	Status            AcmCertificateStatus `json:"status,omitempty"`
 }
 
+type AcmCertificateSpecDomainValidationOptions struct {
+	// +optional
+	DomainName string `json:"domainName,omitempty" tf:"domain_name,omitempty"`
+	// +optional
+	ResourceRecordName string `json:"resourceRecordName,omitempty" tf:"resource_record_name,omitempty"`
+	// +optional
+	ResourceRecordType string `json:"resourceRecordType,omitempty" tf:"resource_record_type,omitempty"`
+	// +optional
+	ResourceRecordValue string `json:"resourceRecordValue,omitempty" tf:"resource_record_value,omitempty"`
+}
+
 type AcmCertificateSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
 	// +optional
 	CertificateBody string `json:"certificateBody,omitempty" tf:"certificate_body,omitempty"`
 	// +optional
@@ -30,10 +45,15 @@ type AcmCertificateSpec struct {
 	// +optional
 	DomainName string `json:"domainName,omitempty" tf:"domain_name,omitempty"`
 	// +optional
+	DomainValidationOptions []AcmCertificateSpecDomainValidationOptions `json:"domainValidationOptions,omitempty" tf:"domain_validation_options,omitempty"`
+	// +optional
+	PrivateKey string `json:"-" sensitive:"true" tf:"private_key,omitempty"`
 	// +optional
 	SubjectAlternativeNames []string `json:"subjectAlternativeNames,omitempty" tf:"subject_alternative_names,omitempty"`
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
+	// +optional
+	ValidationEmails []string `json:"validationEmails,omitempty" tf:"validation_emails,omitempty"`
 	// +optional
 	ValidationMethod string `json:"validationMethod,omitempty" tf:"validation_method,omitempty"`
 }
@@ -42,9 +62,10 @@ type AcmCertificateStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *AcmCertificateSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

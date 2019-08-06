@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -25,21 +25,28 @@ type DatasyncLocationS3SpecS3Config struct {
 type DatasyncLocationS3Spec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	Arn         string `json:"arn,omitempty" tf:"arn,omitempty"`
 	S3BucketArn string `json:"s3BucketArn" tf:"s3_bucket_arn"`
 	// +kubebuilder:validation:MaxItems=1
 	S3Config     []DatasyncLocationS3SpecS3Config `json:"s3Config" tf:"s3_config"`
 	Subdirectory string                           `json:"subdirectory" tf:"subdirectory"`
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
+	// +optional
+	Uri string `json:"uri,omitempty" tf:"uri,omitempty"`
 }
 
 type DatasyncLocationS3Status struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *DatasyncLocationS3Spec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

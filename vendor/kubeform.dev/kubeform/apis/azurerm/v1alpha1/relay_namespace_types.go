@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -25,9 +25,23 @@ type RelayNamespaceSpecSku struct {
 type RelayNamespaceSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Location          string `json:"location" tf:"location"`
-	Name              string `json:"name" tf:"name"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+
+	Location string `json:"location" tf:"location"`
+	// +optional
+	MetricID string `json:"metricID,omitempty" tf:"metric_id,omitempty"`
+	Name     string `json:"name" tf:"name"`
+	// +optional
+	PrimaryConnectionString string `json:"-" sensitive:"true" tf:"primary_connection_string,omitempty"`
+	// +optional
+	PrimaryKey        string `json:"-" sensitive:"true" tf:"primary_key,omitempty"`
 	ResourceGroupName string `json:"resourceGroupName" tf:"resource_group_name"`
+	// +optional
+	SecondaryConnectionString string `json:"-" sensitive:"true" tf:"secondary_connection_string,omitempty"`
+	// +optional
+	SecondaryKey string `json:"-" sensitive:"true" tf:"secondary_key,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	// Deprecated
@@ -42,9 +56,10 @@ type RelayNamespaceStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *RelayNamespaceSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

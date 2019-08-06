@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -26,6 +26,14 @@ type AutomationAccountSpecSku struct {
 type AutomationAccountSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	DscPrimaryAccessKey string `json:"dscPrimaryAccessKey,omitempty" tf:"dsc_primary_access_key,omitempty"`
+	// +optional
+	DscSecondaryAccessKey string `json:"dscSecondaryAccessKey,omitempty" tf:"dsc_secondary_access_key,omitempty"`
+	// +optional
+	DscServerEndpoint string `json:"dscServerEndpoint,omitempty" tf:"dsc_server_endpoint,omitempty"`
 	Location          string `json:"location" tf:"location"`
 	Name              string `json:"name" tf:"name"`
 	ResourceGroupName string `json:"resourceGroupName" tf:"resource_group_name"`
@@ -43,9 +51,10 @@ type AutomationAccountStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *AutomationAccountSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

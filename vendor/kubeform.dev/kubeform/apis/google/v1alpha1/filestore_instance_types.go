@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -24,8 +24,10 @@ type FilestoreInstanceSpecFileShares struct {
 }
 
 type FilestoreInstanceSpecNetworks struct {
-	Modes   []string `json:"modes" tf:"modes"`
-	Network string   `json:"network" tf:"network"`
+	// +optional
+	IpAddresses []string `json:"ipAddresses,omitempty" tf:"ip_addresses,omitempty"`
+	Modes       []string `json:"modes" tf:"modes"`
+	Network     string   `json:"network" tf:"network"`
 	// +optional
 	ReservedIPRange string `json:"reservedIPRange,omitempty" tf:"reserved_ip_range,omitempty"`
 }
@@ -33,8 +35,14 @@ type FilestoreInstanceSpecNetworks struct {
 type FilestoreInstanceSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	CreateTime string `json:"createTime,omitempty" tf:"create_time,omitempty"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
+	// +optional
+	Etag string `json:"etag,omitempty" tf:"etag,omitempty"`
 	// +kubebuilder:validation:MaxItems=1
 	FileShares []FilestoreInstanceSpecFileShares `json:"fileShares" tf:"file_shares"`
 	// +optional
@@ -52,9 +60,10 @@ type FilestoreInstanceStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *FilestoreInstanceSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

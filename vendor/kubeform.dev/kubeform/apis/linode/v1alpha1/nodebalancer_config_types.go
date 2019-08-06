@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -18,10 +18,19 @@ type NodebalancerConfig struct {
 	Status            NodebalancerConfigStatus `json:"status,omitempty"`
 }
 
+type NodebalancerConfigSpecNodeStatus struct {
+	// +optional
+	StatusDown int `json:"statusDown,omitempty" tf:"status_down,omitempty"`
+	// +optional
+	StatusUp int `json:"statusUp,omitempty" tf:"status_up,omitempty"`
+}
+
 type NodebalancerConfigSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	Algorithm string `json:"algorithm,omitempty" tf:"algorithm,omitempty"`
@@ -40,8 +49,10 @@ type NodebalancerConfigSpec struct {
 	// +optional
 	CheckTimeout int `json:"checkTimeout,omitempty" tf:"check_timeout,omitempty"`
 	// +optional
-	CipherSuite    string `json:"cipherSuite,omitempty" tf:"cipher_suite,omitempty"`
-	NodebalancerID int    `json:"nodebalancerID" tf:"nodebalancer_id"`
+	CipherSuite string `json:"cipherSuite,omitempty" tf:"cipher_suite,omitempty"`
+	// +optional
+	NodeStatus     map[string]NodebalancerConfigSpecNodeStatus `json:"nodeStatus,omitempty" tf:"node_status,omitempty"`
+	NodebalancerID int                                         `json:"nodebalancerID" tf:"nodebalancer_id"`
 	// +optional
 	Port int `json:"port,omitempty" tf:"port,omitempty"`
 	// +optional
@@ -49,6 +60,11 @@ type NodebalancerConfigSpec struct {
 	// +optional
 	SslCert string `json:"sslCert,omitempty" tf:"ssl_cert,omitempty"`
 	// +optional
+	SslCommonname string `json:"sslCommonname,omitempty" tf:"ssl_commonname,omitempty"`
+	// +optional
+	SslFingerprint string `json:"sslFingerprint,omitempty" tf:"ssl_fingerprint,omitempty"`
+	// +optional
+	SslKey string `json:"-" sensitive:"true" tf:"ssl_key,omitempty"`
 	// +optional
 	Stickiness string `json:"stickiness,omitempty" tf:"stickiness,omitempty"`
 }
@@ -57,9 +73,10 @@ type NodebalancerConfigStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *NodebalancerConfigSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

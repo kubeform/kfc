@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -36,11 +36,17 @@ type LambdaFunctionSpecVpcConfig struct {
 	SecurityGroupIDS []string `json:"securityGroupIDS" tf:"security_group_ids"`
 	// +kubebuilder:validation:UniqueItems=true
 	SubnetIDS []string `json:"subnetIDS" tf:"subnet_ids"`
+	// +optional
+	VpcID string `json:"vpcID,omitempty" tf:"vpc_id,omitempty"`
 }
 
 type LambdaFunctionSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	DeadLetterConfig []LambdaFunctionSpecDeadLetterConfig `json:"deadLetterConfig,omitempty" tf:"dead_letter_config,omitempty"`
@@ -54,7 +60,11 @@ type LambdaFunctionSpec struct {
 	FunctionName string `json:"functionName" tf:"function_name"`
 	Handler      string `json:"handler" tf:"handler"`
 	// +optional
+	InvokeArn string `json:"invokeArn,omitempty" tf:"invoke_arn,omitempty"`
+	// +optional
 	KmsKeyArn string `json:"kmsKeyArn,omitempty" tf:"kms_key_arn,omitempty"`
+	// +optional
+	LastModified string `json:"lastModified,omitempty" tf:"last_modified,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=5
 	Layers []string `json:"layers,omitempty" tf:"layers,omitempty"`
@@ -62,6 +72,8 @@ type LambdaFunctionSpec struct {
 	MemorySize int `json:"memorySize,omitempty" tf:"memory_size,omitempty"`
 	// +optional
 	Publish bool `json:"publish,omitempty" tf:"publish,omitempty"`
+	// +optional
+	QualifiedArn string `json:"qualifiedArn,omitempty" tf:"qualified_arn,omitempty"`
 	// +optional
 	ReservedConcurrentExecutions int    `json:"reservedConcurrentExecutions,omitempty" tf:"reserved_concurrent_executions,omitempty"`
 	Role                         string `json:"role" tf:"role"`
@@ -75,12 +87,16 @@ type LambdaFunctionSpec struct {
 	// +optional
 	SourceCodeHash string `json:"sourceCodeHash,omitempty" tf:"source_code_hash,omitempty"`
 	// +optional
+	SourceCodeSize int `json:"sourceCodeSize,omitempty" tf:"source_code_size,omitempty"`
+	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 	// +optional
 	Timeout int `json:"timeout,omitempty" tf:"timeout,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	TracingConfig []LambdaFunctionSpecTracingConfig `json:"tracingConfig,omitempty" tf:"tracing_config,omitempty"`
+	// +optional
+	Version string `json:"version,omitempty" tf:"version,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	VpcConfig []LambdaFunctionSpecVpcConfig `json:"vpcConfig,omitempty" tf:"vpc_config,omitempty"`
@@ -90,9 +106,10 @@ type LambdaFunctionStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *LambdaFunctionSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

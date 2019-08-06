@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,20 +21,25 @@ type StorageContainer struct {
 type StorageContainerSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	ContainerAccessType string `json:"containerAccessType,omitempty" tf:"container_access_type,omitempty"`
 	Name                string `json:"name" tf:"name"`
-	ResourceGroupName   string `json:"resourceGroupName" tf:"resource_group_name"`
-	StorageAccountName  string `json:"storageAccountName" tf:"storage_account_name"`
+	// +optional
+	Properties         map[string]string `json:"properties,omitempty" tf:"properties,omitempty"`
+	ResourceGroupName  string            `json:"resourceGroupName" tf:"resource_group_name"`
+	StorageAccountName string            `json:"storageAccountName" tf:"storage_account_name"`
 }
 
 type StorageContainerStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *StorageContainerSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

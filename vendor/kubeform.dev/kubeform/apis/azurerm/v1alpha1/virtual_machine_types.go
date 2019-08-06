@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -27,11 +27,14 @@ type VirtualMachineSpecIdentity struct {
 	// +optional
 	// +kubebuilder:validation:MinItems=1
 	IdentityIDS []string `json:"identityIDS,omitempty" tf:"identity_ids,omitempty"`
-	Type        string   `json:"type" tf:"type"`
+	// +optional
+	PrincipalID string `json:"principalID,omitempty" tf:"principal_id,omitempty"`
+	Type        string `json:"type" tf:"type"`
 }
 
 type VirtualMachineSpecOsProfile struct {
 	// +optional
+	AdminPassword string `json:"-" sensitive:"true" tf:"admin_password,omitempty"`
 	AdminUsername string `json:"adminUsername" tf:"admin_username"`
 	ComputerName  string `json:"computerName" tf:"computer_name"`
 	// +optional
@@ -63,6 +66,7 @@ type VirtualMachineSpecOsProfileSecrets struct {
 
 type VirtualMachineSpecOsProfileWindowsConfigAdditionalUnattendConfig struct {
 	Component   string `json:"component" tf:"component"`
+	Content     string `json:"-" sensitive:"true" tf:"content"`
 	Pass        string `json:"pass" tf:"pass"`
 	SettingName string `json:"settingName" tf:"setting_name"`
 }
@@ -147,7 +151,9 @@ type VirtualMachineSpecStorageOsDisk struct {
 type VirtualMachineSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	AvailabilitySetID string `json:"availabilitySetID,omitempty" tf:"availability_set_id,omitempty"`
@@ -206,9 +212,10 @@ type VirtualMachineStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *VirtualMachineSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

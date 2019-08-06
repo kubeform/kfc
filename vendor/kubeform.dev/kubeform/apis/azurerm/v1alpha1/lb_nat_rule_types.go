@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,9 +21,15 @@ type LbNATRule struct {
 type LbNATRuleSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	BackendPort int `json:"backendPort" tf:"backend_port"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
-	EnableFloatingIP            bool   `json:"enableFloatingIP,omitempty" tf:"enable_floating_ip,omitempty"`
+	BackendIPConfigurationID string `json:"backendIPConfigurationID,omitempty" tf:"backend_ip_configuration_id,omitempty"`
+	BackendPort              int    `json:"backendPort" tf:"backend_port"`
+	// +optional
+	EnableFloatingIP bool `json:"enableFloatingIP,omitempty" tf:"enable_floating_ip,omitempty"`
+	// +optional
+	FrontendIPConfigurationID   string `json:"frontendIPConfigurationID,omitempty" tf:"frontend_ip_configuration_id,omitempty"`
 	FrontendIPConfigurationName string `json:"frontendIPConfigurationName" tf:"frontend_ip_configuration_name"`
 	FrontendPort                int    `json:"frontendPort" tf:"frontend_port"`
 	LoadbalancerID              string `json:"loadbalancerID" tf:"loadbalancer_id"`
@@ -39,9 +45,10 @@ type LbNATRuleStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *LbNATRuleSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

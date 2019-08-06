@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -37,10 +37,14 @@ type RedshiftClusterSpecSnapshotCopy struct {
 type RedshiftClusterSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	AllowVersionUpgrade bool `json:"allowVersionUpgrade,omitempty" tf:"allow_version_upgrade,omitempty"`
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
 	// +optional
 	AutomatedSnapshotRetentionPeriod int `json:"automatedSnapshotRetentionPeriod,omitempty" tf:"automated_snapshot_retention_period,omitempty"`
 	// +optional
@@ -64,6 +68,8 @@ type RedshiftClusterSpec struct {
 	// +optional
 	DatabaseName string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
 	// +optional
+	DnsName string `json:"dnsName,omitempty" tf:"dns_name,omitempty"`
+	// +optional
 	ElasticIP string `json:"elasticIP,omitempty" tf:"elastic_ip,omitempty"`
 	// +optional
 	Encrypted bool `json:"encrypted,omitempty" tf:"encrypted,omitempty"`
@@ -82,6 +88,7 @@ type RedshiftClusterSpec struct {
 	// +kubebuilder:validation:MaxItems=1
 	Logging []RedshiftClusterSpecLogging `json:"logging,omitempty" tf:"logging,omitempty"`
 	// +optional
+	MasterPassword string `json:"-" sensitive:"true" tf:"master_password,omitempty"`
 	// +optional
 	MasterUsername string `json:"masterUsername,omitempty" tf:"master_username,omitempty"`
 	NodeType       string `json:"nodeType" tf:"node_type"`
@@ -115,9 +122,10 @@ type RedshiftClusterStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *RedshiftClusterSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

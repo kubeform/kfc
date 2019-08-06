@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -20,11 +20,13 @@ type HdinsightMlServicesCluster struct {
 
 type HdinsightMlServicesClusterSpecGateway struct {
 	Enabled  bool   `json:"enabled" tf:"enabled"`
+	Password string `json:"-" sensitive:"true" tf:"password"`
 	Username string `json:"username" tf:"username"`
 }
 
 type HdinsightMlServicesClusterSpecRolesEdgeNode struct {
 	// +optional
+	Password string `json:"-" sensitive:"true" tf:"password,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	SshKeys []string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
@@ -38,6 +40,7 @@ type HdinsightMlServicesClusterSpecRolesEdgeNode struct {
 
 type HdinsightMlServicesClusterSpecRolesHeadNode struct {
 	// +optional
+	Password string `json:"-" sensitive:"true" tf:"password,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	SshKeys []string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
@@ -53,6 +56,7 @@ type HdinsightMlServicesClusterSpecRolesWorkerNode struct {
 	// +optional
 	MinInstanceCount int `json:"minInstanceCount,omitempty" tf:"min_instance_count,omitempty"`
 	// +optional
+	Password string `json:"-" sensitive:"true" tf:"password,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	SshKeys []string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
@@ -67,6 +71,7 @@ type HdinsightMlServicesClusterSpecRolesWorkerNode struct {
 
 type HdinsightMlServicesClusterSpecRolesZookeeperNode struct {
 	// +optional
+	Password string `json:"-" sensitive:"true" tf:"password,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	SshKeys []string `json:"sshKeys,omitempty" tf:"ssh_keys,omitempty"`
@@ -91,23 +96,32 @@ type HdinsightMlServicesClusterSpecRoles struct {
 
 type HdinsightMlServicesClusterSpecStorageAccount struct {
 	IsDefault          bool   `json:"isDefault" tf:"is_default"`
+	StorageAccountKey  string `json:"-" sensitive:"true" tf:"storage_account_key"`
 	StorageContainerID string `json:"storageContainerID" tf:"storage_container_id"`
 }
 
 type HdinsightMlServicesClusterSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	ClusterVersion string `json:"clusterVersion" tf:"cluster_version"`
+	// +optional
+	EdgeSSHEndpoint string `json:"edgeSSHEndpoint,omitempty" tf:"edge_ssh_endpoint,omitempty"`
 	// +kubebuilder:validation:MaxItems=1
-	Gateway           []HdinsightMlServicesClusterSpecGateway `json:"gateway" tf:"gateway"`
-	Location          string                                  `json:"location" tf:"location"`
-	Name              string                                  `json:"name" tf:"name"`
-	ResourceGroupName string                                  `json:"resourceGroupName" tf:"resource_group_name"`
+	Gateway []HdinsightMlServicesClusterSpecGateway `json:"gateway" tf:"gateway"`
+	// +optional
+	HttpsEndpoint     string `json:"httpsEndpoint,omitempty" tf:"https_endpoint,omitempty"`
+	Location          string `json:"location" tf:"location"`
+	Name              string `json:"name" tf:"name"`
+	ResourceGroupName string `json:"resourceGroupName" tf:"resource_group_name"`
 	// +kubebuilder:validation:MaxItems=1
-	Roles          []HdinsightMlServicesClusterSpecRoles          `json:"roles" tf:"roles"`
-	Rstudio        bool                                           `json:"rstudio" tf:"rstudio"`
+	Roles   []HdinsightMlServicesClusterSpecRoles `json:"roles" tf:"roles"`
+	Rstudio bool                                  `json:"rstudio" tf:"rstudio"`
+	// +optional
+	SshEndpoint    string                                         `json:"sshEndpoint,omitempty" tf:"ssh_endpoint,omitempty"`
 	StorageAccount []HdinsightMlServicesClusterSpecStorageAccount `json:"storageAccount" tf:"storage_account"`
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
@@ -118,9 +132,10 @@ type HdinsightMlServicesClusterStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *HdinsightMlServicesClusterSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

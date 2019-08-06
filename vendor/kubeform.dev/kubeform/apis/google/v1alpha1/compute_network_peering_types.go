@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,20 +21,27 @@ type ComputeNetworkPeering struct {
 type ComputeNetworkPeeringSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	AutoCreateRoutes bool   `json:"autoCreateRoutes,omitempty" tf:"auto_create_routes,omitempty"`
 	Name             string `json:"name" tf:"name"`
 	Network          string `json:"network" tf:"network"`
 	PeerNetwork      string `json:"peerNetwork" tf:"peer_network"`
+	// +optional
+	State string `json:"state,omitempty" tf:"state,omitempty"`
+	// +optional
+	StateDetails string `json:"stateDetails,omitempty" tf:"state_details,omitempty"`
 }
 
 type ComputeNetworkPeeringStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ComputeNetworkPeeringSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,6 +21,8 @@ type GuarddutyMember struct {
 type GuarddutyMemberSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	AccountID  string `json:"accountID" tf:"account_id"`
 	DetectorID string `json:"detectorID" tf:"detector_id"`
 	// +optional
@@ -30,15 +32,18 @@ type GuarddutyMemberSpec struct {
 	InvitationMessage string `json:"invitationMessage,omitempty" tf:"invitation_message,omitempty"`
 	// +optional
 	Invite bool `json:"invite,omitempty" tf:"invite,omitempty"`
+	// +optional
+	RelationshipStatus string `json:"relationshipStatus,omitempty" tf:"relationship_status,omitempty"`
 }
 
 type GuarddutyMemberStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *GuarddutyMemberSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -26,13 +26,16 @@ type ElasticacheReplicationGroupSpecClusterMode struct {
 type ElasticacheReplicationGroupSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	ApplyImmediately bool `json:"applyImmediately,omitempty" tf:"apply_immediately,omitempty"`
 	// +optional
 	AtRestEncryptionEnabled bool `json:"atRestEncryptionEnabled,omitempty" tf:"at_rest_encryption_enabled,omitempty"`
 	// +optional
+	AuthToken string `json:"-" sensitive:"true" tf:"auth_token,omitempty"`
 	// +optional
 	AutoMinorVersionUpgrade bool `json:"autoMinorVersionUpgrade,omitempty" tf:"auto_minor_version_upgrade,omitempty"`
 	// +optional
@@ -44,11 +47,16 @@ type ElasticacheReplicationGroupSpec struct {
 	// +kubebuilder:validation:MaxItems=1
 	ClusterMode []ElasticacheReplicationGroupSpecClusterMode `json:"clusterMode,omitempty" tf:"cluster_mode,omitempty"`
 	// +optional
+	ConfigurationEndpointAddress string `json:"configurationEndpointAddress,omitempty" tf:"configuration_endpoint_address,omitempty"`
+	// +optional
 	Engine string `json:"engine,omitempty" tf:"engine,omitempty"`
 	// +optional
 	EngineVersion string `json:"engineVersion,omitempty" tf:"engine_version,omitempty"`
 	// +optional
 	MaintenanceWindow string `json:"maintenanceWindow,omitempty" tf:"maintenance_window,omitempty"`
+	// +optional
+	// +kubebuilder:validation:UniqueItems=true
+	MemberClusters []string `json:"memberClusters,omitempty" tf:"member_clusters,omitempty"`
 	// +optional
 	NodeType string `json:"nodeType,omitempty" tf:"node_type,omitempty"`
 	// +optional
@@ -58,7 +66,9 @@ type ElasticacheReplicationGroupSpec struct {
 	// +optional
 	ParameterGroupName string `json:"parameterGroupName,omitempty" tf:"parameter_group_name,omitempty"`
 	// +optional
-	Port                        int    `json:"port,omitempty" tf:"port,omitempty"`
+	Port int `json:"port,omitempty" tf:"port,omitempty"`
+	// +optional
+	PrimaryEndpointAddress      string `json:"primaryEndpointAddress,omitempty" tf:"primary_endpoint_address,omitempty"`
 	ReplicationGroupDescription string `json:"replicationGroupDescription" tf:"replication_group_description"`
 	ReplicationGroupID          string `json:"replicationGroupID" tf:"replication_group_id"`
 	// +optional
@@ -88,9 +98,10 @@ type ElasticacheReplicationGroupStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ElasticacheReplicationGroupSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

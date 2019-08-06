@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -30,10 +30,13 @@ type GlueConnectionSpecPhysicalConnectionRequirements struct {
 type GlueConnectionSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
-	CatalogID string `json:"catalogID,omitempty" tf:"catalog_id,omitempty"`
+	CatalogID            string            `json:"catalogID,omitempty" tf:"catalog_id,omitempty"`
+	ConnectionProperties map[string]string `json:"-" sensitive:"true" tf:"connection_properties"`
 	// +optional
 	ConnectionType string `json:"connectionType,omitempty" tf:"connection_type,omitempty"`
 	// +optional
@@ -50,9 +53,10 @@ type GlueConnectionStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *GlueConnectionSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

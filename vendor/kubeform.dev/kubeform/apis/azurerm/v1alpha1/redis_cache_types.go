@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -28,9 +28,13 @@ type RedisCacheSpecRedisConfiguration struct {
 	// +optional
 	AofBackupEnabled bool `json:"aofBackupEnabled,omitempty" tf:"aof_backup_enabled,omitempty"`
 	// +optional
+	AofStorageConnectionString0 string `json:"-" sensitive:"true" tf:"aof_storage_connection_string_0,omitempty"`
 	// +optional
+	AofStorageConnectionString1 string `json:"-" sensitive:"true" tf:"aof_storage_connection_string_1,omitempty"`
 	// +optional
 	EnableAuthentication bool `json:"enableAuthentication,omitempty" tf:"enable_authentication,omitempty"`
+	// +optional
+	Maxclients int `json:"maxclients,omitempty" tf:"maxclients,omitempty"`
 	// +optional
 	MaxfragmentationmemoryReserved int `json:"maxfragmentationmemoryReserved,omitempty" tf:"maxfragmentationmemory_reserved,omitempty"`
 	// +optional
@@ -48,23 +52,32 @@ type RedisCacheSpecRedisConfiguration struct {
 	// +optional
 	RdbBackupMaxSnapshotCount int `json:"rdbBackupMaxSnapshotCount,omitempty" tf:"rdb_backup_max_snapshot_count,omitempty"`
 	// +optional
+	RdbStorageConnectionString string `json:"-" sensitive:"true" tf:"rdb_storage_connection_string,omitempty"`
 }
 
 type RedisCacheSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	Capacity int `json:"capacity" tf:"capacity"`
 	// +optional
 	EnableNonSslPort bool   `json:"enableNonSslPort,omitempty" tf:"enable_non_ssl_port,omitempty"`
 	Family           string `json:"family" tf:"family"`
-	Location         string `json:"location" tf:"location"`
+	// +optional
+	Hostname string `json:"hostname,omitempty" tf:"hostname,omitempty"`
+	Location string `json:"location" tf:"location"`
 	// +optional
 	MinimumTlsVersion string `json:"minimumTlsVersion,omitempty" tf:"minimum_tls_version,omitempty"`
 	Name              string `json:"name" tf:"name"`
 	// +optional
 	PatchSchedule []RedisCacheSpecPatchSchedule `json:"patchSchedule,omitempty" tf:"patch_schedule,omitempty"`
+	// +optional
+	Port int `json:"port,omitempty" tf:"port,omitempty"`
+	// +optional
+	PrimaryAccessKey string `json:"-" sensitive:"true" tf:"primary_access_key,omitempty"`
 	// +optional
 	PrivateStaticIPAddress string `json:"privateStaticIPAddress,omitempty" tf:"private_static_ip_address,omitempty"`
 	// +optional
@@ -72,8 +85,12 @@ type RedisCacheSpec struct {
 	RedisConfiguration []RedisCacheSpecRedisConfiguration `json:"redisConfiguration,omitempty" tf:"redis_configuration,omitempty"`
 	ResourceGroupName  string                             `json:"resourceGroupName" tf:"resource_group_name"`
 	// +optional
+	SecondaryAccessKey string `json:"-" sensitive:"true" tf:"secondary_access_key,omitempty"`
+	// +optional
 	ShardCount int    `json:"shardCount,omitempty" tf:"shard_count,omitempty"`
 	SkuName    string `json:"skuName" tf:"sku_name"`
+	// +optional
+	SslPort int `json:"sslPort,omitempty" tf:"ssl_port,omitempty"`
 	// +optional
 	SubnetID string `json:"subnetID,omitempty" tf:"subnet_id,omitempty"`
 	// +optional
@@ -87,9 +104,10 @@ type RedisCacheStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *RedisCacheSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

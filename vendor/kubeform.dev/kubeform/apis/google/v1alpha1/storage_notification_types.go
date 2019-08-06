@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,6 +21,8 @@ type StorageNotification struct {
 type StorageNotificationSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Bucket string `json:"bucket" tf:"bucket"`
 	// +optional
 	CustomAttributes map[string]string `json:"customAttributes,omitempty" tf:"custom_attributes,omitempty"`
@@ -30,16 +32,19 @@ type StorageNotificationSpec struct {
 	// +optional
 	ObjectNamePrefix string `json:"objectNamePrefix,omitempty" tf:"object_name_prefix,omitempty"`
 	PayloadFormat    string `json:"payloadFormat" tf:"payload_format"`
-	Topic            string `json:"topic" tf:"topic"`
+	// +optional
+	SelfLink string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
+	Topic    string `json:"topic" tf:"topic"`
 }
 
 type StorageNotificationStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *StorageNotificationSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

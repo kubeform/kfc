@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,11 +21,15 @@ type DmsReplicationTask struct {
 type DmsReplicationTaskSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	CdcStartTime           string `json:"cdcStartTime,omitempty" tf:"cdc_start_time,omitempty"`
 	MigrationType          string `json:"migrationType" tf:"migration_type"`
 	ReplicationInstanceArn string `json:"replicationInstanceArn" tf:"replication_instance_arn"`
-	ReplicationTaskID      string `json:"replicationTaskID" tf:"replication_task_id"`
+	// +optional
+	ReplicationTaskArn string `json:"replicationTaskArn,omitempty" tf:"replication_task_arn,omitempty"`
+	ReplicationTaskID  string `json:"replicationTaskID" tf:"replication_task_id"`
 	// +optional
 	ReplicationTaskSettings string `json:"replicationTaskSettings,omitempty" tf:"replication_task_settings,omitempty"`
 	SourceEndpointArn       string `json:"sourceEndpointArn" tf:"source_endpoint_arn"`
@@ -39,9 +43,10 @@ type DmsReplicationTaskStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *DmsReplicationTaskSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

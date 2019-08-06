@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -19,7 +19,16 @@ type Lb struct {
 }
 
 type LbSpecFrontendIPConfiguration struct {
-	Name string `json:"name" tf:"name"`
+	// +optional
+	// +kubebuilder:validation:UniqueItems=true
+	InboundNATRules []string `json:"inboundNATRules,omitempty" tf:"inbound_nat_rules,omitempty"`
+	// +optional
+	// +kubebuilder:validation:UniqueItems=true
+	LoadBalancerRules []string `json:"loadBalancerRules,omitempty" tf:"load_balancer_rules,omitempty"`
+	Name              string   `json:"name" tf:"name"`
+	// +optional
+	// +kubebuilder:validation:UniqueItems=true
+	OutboundRules []string `json:"outboundRules,omitempty" tf:"outbound_rules,omitempty"`
 	// +optional
 	PrivateIPAddress string `json:"privateIPAddress,omitempty" tf:"private_ip_address,omitempty"`
 	// +optional
@@ -38,12 +47,18 @@ type LbSpecFrontendIPConfiguration struct {
 type LbSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	// +kubebuilder:validation:MinItems=1
 	FrontendIPConfiguration []LbSpecFrontendIPConfiguration `json:"frontendIPConfiguration,omitempty" tf:"frontend_ip_configuration,omitempty"`
 	Location                string                          `json:"location" tf:"location"`
 	Name                    string                          `json:"name" tf:"name"`
-	ResourceGroupName       string                          `json:"resourceGroupName" tf:"resource_group_name"`
+	// +optional
+	PrivateIPAddress string `json:"privateIPAddress,omitempty" tf:"private_ip_address,omitempty"`
+	// +optional
+	PrivateIPAddresses []string `json:"privateIPAddresses,omitempty" tf:"private_ip_addresses,omitempty"`
+	ResourceGroupName  string   `json:"resourceGroupName" tf:"resource_group_name"`
 	// +optional
 	Sku string `json:"sku,omitempty" tf:"sku,omitempty"`
 	// +optional
@@ -54,9 +69,10 @@ type LbStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *LbSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,15 +21,27 @@ type IothubSharedAccessPolicy struct {
 type IothubSharedAccessPolicySpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+
 	// +optional
 	DeviceConnect bool   `json:"deviceConnect,omitempty" tf:"device_connect,omitempty"`
 	IothubName    string `json:"iothubName" tf:"iothub_name"`
 	Name          string `json:"name" tf:"name"`
 	// +optional
+	PrimaryConnectionString string `json:"-" sensitive:"true" tf:"primary_connection_string,omitempty"`
+	// +optional
+	PrimaryKey string `json:"-" sensitive:"true" tf:"primary_key,omitempty"`
+	// +optional
 	RegistryRead bool `json:"registryRead,omitempty" tf:"registry_read,omitempty"`
 	// +optional
 	RegistryWrite     bool   `json:"registryWrite,omitempty" tf:"registry_write,omitempty"`
 	ResourceGroupName string `json:"resourceGroupName" tf:"resource_group_name"`
+	// +optional
+	SecondaryConnectionString string `json:"-" sensitive:"true" tf:"secondary_connection_string,omitempty"`
+	// +optional
+	SecondaryKey string `json:"-" sensitive:"true" tf:"secondary_key,omitempty"`
 	// +optional
 	ServiceConnect bool `json:"serviceConnect,omitempty" tf:"service_connect,omitempty"`
 }
@@ -38,9 +50,10 @@ type IothubSharedAccessPolicyStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *IothubSharedAccessPolicySpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

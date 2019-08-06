@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,17 +21,30 @@ type CloudfrontOriginAccessIdentity struct {
 type CloudfrontOriginAccessIdentitySpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	CallerReference string `json:"callerReference,omitempty" tf:"caller_reference,omitempty"`
+	// +optional
+	CloudfrontAccessIdentityPath string `json:"cloudfrontAccessIdentityPath,omitempty" tf:"cloudfront_access_identity_path,omitempty"`
 	// +optional
 	Comment string `json:"comment,omitempty" tf:"comment,omitempty"`
+	// +optional
+	Etag string `json:"etag,omitempty" tf:"etag,omitempty"`
+	// +optional
+	IamArn string `json:"iamArn,omitempty" tf:"iam_arn,omitempty"`
+	// +optional
+	S3CanonicalUserID string `json:"s3CanonicalUserID,omitempty" tf:"s3_canonical_user_id,omitempty"`
 }
 
 type CloudfrontOriginAccessIdentityStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *CloudfrontOriginAccessIdentitySpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -27,6 +27,8 @@ type ApiGatewayRestAPISpecEndpointConfiguration struct {
 type ApiGatewayRestAPISpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	ApiKeySource string `json:"apiKeySource,omitempty" tf:"api_key_source,omitempty"`
 	// +optional
@@ -34,25 +36,32 @@ type ApiGatewayRestAPISpec struct {
 	// +optional
 	Body string `json:"body,omitempty" tf:"body,omitempty"`
 	// +optional
+	CreatedDate string `json:"createdDate,omitempty" tf:"created_date,omitempty"`
+	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	// +kubebuilder:validation:MinItems=1
 	EndpointConfiguration []ApiGatewayRestAPISpecEndpointConfiguration `json:"endpointConfiguration,omitempty" tf:"endpoint_configuration,omitempty"`
 	// +optional
+	ExecutionArn string `json:"executionArn,omitempty" tf:"execution_arn,omitempty"`
+	// +optional
 	MinimumCompressionSize int    `json:"minimumCompressionSize,omitempty" tf:"minimum_compression_size,omitempty"`
 	Name                   string `json:"name" tf:"name"`
 	// +optional
 	Policy string `json:"policy,omitempty" tf:"policy,omitempty"`
+	// +optional
+	RootResourceID string `json:"rootResourceID,omitempty" tf:"root_resource_id,omitempty"`
 }
 
 type ApiGatewayRestAPIStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ApiGatewayRestAPISpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

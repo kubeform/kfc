@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -83,6 +83,8 @@ type DataprocJobSpecPigConfig struct {
 
 type DataprocJobSpecPlacement struct {
 	ClusterName string `json:"clusterName" tf:"cluster_name"`
+	// +optional
+	ClusterUUID string `json:"clusterUUID,omitempty" tf:"cluster_uuid,omitempty"`
 }
 
 type DataprocJobSpecPysparkConfigLoggingConfig struct {
@@ -165,9 +167,26 @@ type DataprocJobSpecSparksqlConfig struct {
 	ScriptVariables map[string]string `json:"scriptVariables,omitempty" tf:"script_variables,omitempty"`
 }
 
+type DataprocJobSpecStatus struct {
+	// +optional
+	Details string `json:"details,omitempty" tf:"details,omitempty"`
+	// +optional
+	State string `json:"state,omitempty" tf:"state,omitempty"`
+	// +optional
+	StateStartTime string `json:"stateStartTime,omitempty" tf:"state_start_time,omitempty"`
+	// +optional
+	Substate string `json:"substate,omitempty" tf:"substate,omitempty"`
+}
+
 type DataprocJobSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	DriverControlsFilesURI string `json:"driverControlsFilesURI,omitempty" tf:"driver_controls_files_uri,omitempty"`
+	// +optional
+	DriverOutputResourceURI string `json:"driverOutputResourceURI,omitempty" tf:"driver_output_resource_uri,omitempty"`
 	// +optional
 	ForceDelete bool `json:"forceDelete,omitempty" tf:"force_delete,omitempty"`
 	// +optional
@@ -202,15 +221,19 @@ type DataprocJobSpec struct {
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	SparksqlConfig []DataprocJobSpecSparksqlConfig `json:"sparksqlConfig,omitempty" tf:"sparksql_config,omitempty"`
+	// +optional
+	// +kubebuilder:validation:MaxItems=1
+	Status []DataprocJobSpecStatus `json:"status,omitempty" tf:"status,omitempty"`
 }
 
 type DataprocJobStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *DataprocJobSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

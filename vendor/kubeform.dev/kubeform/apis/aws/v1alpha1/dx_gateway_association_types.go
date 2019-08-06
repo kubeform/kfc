@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,6 +21,8 @@ type DxGatewayAssociation struct {
 type DxGatewayAssociationSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	AllowedPrefixes []string `json:"allowedPrefixes,omitempty" tf:"allowed_prefixes,omitempty"`
@@ -28,7 +30,13 @@ type DxGatewayAssociationSpec struct {
 	AssociatedGatewayID string `json:"associatedGatewayID,omitempty" tf:"associated_gateway_id,omitempty"`
 	// +optional
 	AssociatedGatewayOwnerAccountID string `json:"associatedGatewayOwnerAccountID,omitempty" tf:"associated_gateway_owner_account_id,omitempty"`
-	DxGatewayID                     string `json:"dxGatewayID" tf:"dx_gateway_id"`
+	// +optional
+	AssociatedGatewayType string `json:"associatedGatewayType,omitempty" tf:"associated_gateway_type,omitempty"`
+	// +optional
+	DxGatewayAssociationID string `json:"dxGatewayAssociationID,omitempty" tf:"dx_gateway_association_id,omitempty"`
+	DxGatewayID            string `json:"dxGatewayID" tf:"dx_gateway_id"`
+	// +optional
+	DxGatewayOwnerAccountID string `json:"dxGatewayOwnerAccountID,omitempty" tf:"dx_gateway_owner_account_id,omitempty"`
 	// +optional
 	ProposalID string `json:"proposalID,omitempty" tf:"proposal_id,omitempty"`
 	// +optional
@@ -40,9 +48,10 @@ type DxGatewayAssociationStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *DxGatewayAssociationSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

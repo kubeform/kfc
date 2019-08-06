@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -20,16 +20,23 @@ type StoragegatewayGateway struct {
 
 type StoragegatewayGatewaySpecSmbActiveDirectorySettings struct {
 	DomainName string `json:"domainName" tf:"domain_name"`
+	Password   string `json:"-" sensitive:"true" tf:"password"`
 	Username   string `json:"username" tf:"username"`
 }
 
 type StoragegatewayGatewaySpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	ActivationKey string `json:"activationKey,omitempty" tf:"activation_key,omitempty"`
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
+	// +optional
+	GatewayID string `json:"gatewayID,omitempty" tf:"gateway_id,omitempty"`
 	// +optional
 	GatewayIPAddress string `json:"gatewayIPAddress,omitempty" tf:"gateway_ip_address,omitempty"`
 	GatewayName      string `json:"gatewayName" tf:"gateway_name"`
@@ -42,6 +49,7 @@ type StoragegatewayGatewaySpec struct {
 	// +kubebuilder:validation:MaxItems=1
 	SmbActiveDirectorySettings []StoragegatewayGatewaySpecSmbActiveDirectorySettings `json:"smbActiveDirectorySettings,omitempty" tf:"smb_active_directory_settings,omitempty"`
 	// +optional
+	SmbGuestPassword string `json:"-" sensitive:"true" tf:"smb_guest_password,omitempty"`
 	// +optional
 	TapeDriveType string `json:"tapeDriveType,omitempty" tf:"tape_drive_type,omitempty"`
 }
@@ -50,9 +58,10 @@ type StoragegatewayGatewayStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *StoragegatewayGatewaySpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

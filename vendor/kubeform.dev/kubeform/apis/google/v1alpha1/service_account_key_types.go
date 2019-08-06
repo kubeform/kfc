@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,24 +21,43 @@ type ServiceAccountKey struct {
 type ServiceAccountKeySpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+
 	// +optional
 	KeyAlgorithm string `json:"keyAlgorithm,omitempty" tf:"key_algorithm,omitempty"`
 	// +optional
+	Name string `json:"name,omitempty" tf:"name,omitempty"`
+	// +optional
 	PgpKey string `json:"pgpKey,omitempty" tf:"pgp_key,omitempty"`
+	// +optional
+	PrivateKey string `json:"-" sensitive:"true" tf:"private_key,omitempty"`
+	// +optional
+	PrivateKeyEncrypted string `json:"privateKeyEncrypted,omitempty" tf:"private_key_encrypted,omitempty"`
+	// +optional
+	PrivateKeyFingerprint string `json:"privateKeyFingerprint,omitempty" tf:"private_key_fingerprint,omitempty"`
 	// +optional
 	PrivateKeyType string `json:"privateKeyType,omitempty" tf:"private_key_type,omitempty"`
 	// +optional
+	PublicKey string `json:"publicKey,omitempty" tf:"public_key,omitempty"`
+	// +optional
 	PublicKeyType    string `json:"publicKeyType,omitempty" tf:"public_key_type,omitempty"`
 	ServiceAccountID string `json:"serviceAccountID" tf:"service_account_id"`
+	// +optional
+	ValidAfter string `json:"validAfter,omitempty" tf:"valid_after,omitempty"`
+	// +optional
+	ValidBefore string `json:"validBefore,omitempty" tf:"valid_before,omitempty"`
 }
 
 type ServiceAccountKeyStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ServiceAccountKeySpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

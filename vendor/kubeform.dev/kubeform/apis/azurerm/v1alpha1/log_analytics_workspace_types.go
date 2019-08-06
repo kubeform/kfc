@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,23 +21,36 @@ type LogAnalyticsWorkspace struct {
 type LogAnalyticsWorkspaceSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Location          string `json:"location" tf:"location"`
-	Name              string `json:"name" tf:"name"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+
+	Location string `json:"location" tf:"location"`
+	Name     string `json:"name" tf:"name"`
+	// +optional
+	PortalURL string `json:"portalURL,omitempty" tf:"portal_url,omitempty"`
+	// +optional
+	PrimarySharedKey  string `json:"-" sensitive:"true" tf:"primary_shared_key,omitempty"`
 	ResourceGroupName string `json:"resourceGroupName" tf:"resource_group_name"`
 	// +optional
-	RetentionInDays int    `json:"retentionInDays,omitempty" tf:"retention_in_days,omitempty"`
-	Sku             string `json:"sku" tf:"sku"`
+	RetentionInDays int `json:"retentionInDays,omitempty" tf:"retention_in_days,omitempty"`
+	// +optional
+	SecondarySharedKey string `json:"-" sensitive:"true" tf:"secondary_shared_key,omitempty"`
+	Sku                string `json:"sku" tf:"sku"`
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
+	// +optional
+	WorkspaceID string `json:"workspaceID,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type LogAnalyticsWorkspaceStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *LogAnalyticsWorkspaceSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

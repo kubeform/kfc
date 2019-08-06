@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -39,6 +39,7 @@ type LbListenerSpecDefaultActionAuthenticateOidc struct {
 	AuthenticationRequestExtraParams map[string]string `json:"authenticationRequestExtraParams,omitempty" tf:"authentication_request_extra_params,omitempty"`
 	AuthorizationEndpoint            string            `json:"authorizationEndpoint" tf:"authorization_endpoint"`
 	ClientID                         string            `json:"clientID" tf:"client_id"`
+	ClientSecret                     string            `json:"-" sensitive:"true" tf:"client_secret"`
 	Issuer                           string            `json:"issuer" tf:"issuer"`
 	// +optional
 	OnUnauthenticatedRequest string `json:"onUnauthenticatedRequest,omitempty" tf:"on_unauthenticated_request,omitempty"`
@@ -97,8 +98,12 @@ type LbListenerSpecDefaultAction struct {
 type LbListenerSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
 	// +optional
 	CertificateArn  string                        `json:"certificateArn,omitempty" tf:"certificate_arn,omitempty"`
 	DefaultAction   []LbListenerSpecDefaultAction `json:"defaultAction" tf:"default_action"`
@@ -114,9 +119,10 @@ type LbListenerStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *LbListenerSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

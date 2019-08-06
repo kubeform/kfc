@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -62,6 +62,14 @@ type MskClusterSpecEncryptionInfo struct {
 type MskClusterSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
+	// +optional
+	BootstrapBrokers string `json:"bootstrapBrokers,omitempty" tf:"bootstrap_brokers,omitempty"`
+	// +optional
+	BootstrapBrokersTls string `json:"bootstrapBrokersTls,omitempty" tf:"bootstrap_brokers_tls,omitempty"`
 	// +kubebuilder:validation:MaxItems=1
 	BrokerNodeGroupInfo []MskClusterSpecBrokerNodeGroupInfo `json:"brokerNodeGroupInfo" tf:"broker_node_group_info"`
 	// +optional
@@ -72,6 +80,8 @@ type MskClusterSpec struct {
 	// +kubebuilder:validation:MaxItems=1
 	ConfigurationInfo []MskClusterSpecConfigurationInfo `json:"configurationInfo,omitempty" tf:"configuration_info,omitempty"`
 	// +optional
+	CurrentVersion string `json:"currentVersion,omitempty" tf:"current_version,omitempty"`
+	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	EncryptionInfo []MskClusterSpecEncryptionInfo `json:"encryptionInfo,omitempty" tf:"encryption_info,omitempty"`
 	// +optional
@@ -80,15 +90,18 @@ type MskClusterSpec struct {
 	NumberOfBrokerNodes int    `json:"numberOfBrokerNodes" tf:"number_of_broker_nodes"`
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
+	// +optional
+	ZookeeperConnectString string `json:"zookeeperConnectString,omitempty" tf:"zookeeper_connect_string,omitempty"`
 }
 
 type MskClusterStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *MskClusterSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

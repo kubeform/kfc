@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,8 +21,18 @@ type PrivateDNSZone struct {
 type PrivateDNSZoneSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Name              string `json:"name" tf:"name"`
-	ResourceGroupName string `json:"resourceGroupName" tf:"resource_group_name"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	MaxNumberOfRecordSets int `json:"maxNumberOfRecordSets,omitempty" tf:"max_number_of_record_sets,omitempty"`
+	// +optional
+	MaxNumberOfVirtualNetworkLinks int `json:"maxNumberOfVirtualNetworkLinks,omitempty" tf:"max_number_of_virtual_network_links,omitempty"`
+	// +optional
+	MaxNumberOfVirtualNetworkLinksWithRegistration int    `json:"maxNumberOfVirtualNetworkLinksWithRegistration,omitempty" tf:"max_number_of_virtual_network_links_with_registration,omitempty"`
+	Name                                           string `json:"name" tf:"name"`
+	// +optional
+	NumberOfRecordSets int    `json:"numberOfRecordSets,omitempty" tf:"number_of_record_sets,omitempty"`
+	ResourceGroupName  string `json:"resourceGroupName" tf:"resource_group_name"`
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
@@ -31,9 +41,10 @@ type PrivateDNSZoneStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *PrivateDNSZoneSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

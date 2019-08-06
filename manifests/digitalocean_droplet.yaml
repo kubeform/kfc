@@ -1,9 +1,0 @@
-apiVersion: digitalocean.kfc.io/v1alpha1
-kind: DigitaloceanDroplet
-metadata:
-  name: do-test
-spec:
-  region: nyc3
-  image: ubuntu-18-04-x64
-  name: do-test
-  size: s-1vcpu-1gb

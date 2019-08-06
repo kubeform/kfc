@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -22,6 +22,7 @@ type CodepipelineWebhookSpecAuthenticationConfiguration struct {
 	// +optional
 	AllowedIPRange string `json:"allowedIPRange,omitempty" tf:"allowed_ip_range,omitempty"`
 	// +optional
+	SecretToken string `json:"-" sensitive:"true" tf:"secret_token,omitempty"`
 }
 
 type CodepipelineWebhookSpecFilter struct {
@@ -32,7 +33,9 @@ type CodepipelineWebhookSpecFilter struct {
 type CodepipelineWebhookSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	Authentication string `json:"authentication" tf:"authentication"`
 	// +optional
@@ -47,15 +50,18 @@ type CodepipelineWebhookSpec struct {
 	Tags           map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 	TargetAction   string            `json:"targetAction" tf:"target_action"`
 	TargetPipeline string            `json:"targetPipeline" tf:"target_pipeline"`
+	// +optional
+	Url string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
 type CodepipelineWebhookStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *CodepipelineWebhookSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

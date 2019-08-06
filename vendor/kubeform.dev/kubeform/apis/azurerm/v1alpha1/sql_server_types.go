@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,12 +21,17 @@ type SqlServer struct {
 type SqlServerSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
-	AdministratorLogin string `json:"administratorLogin" tf:"administrator_login"`
-	Location           string `json:"location" tf:"location"`
-	Name               string `json:"name" tf:"name"`
-	ResourceGroupName  string `json:"resourceGroupName" tf:"resource_group_name"`
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+
+	AdministratorLogin         string `json:"administratorLogin" tf:"administrator_login"`
+	AdministratorLoginPassword string `json:"-" sensitive:"true" tf:"administrator_login_password"`
+	// +optional
+	FullyQualifiedDomainName string `json:"fullyQualifiedDomainName,omitempty" tf:"fully_qualified_domain_name,omitempty"`
+	Location                 string `json:"location" tf:"location"`
+	Name                     string `json:"name" tf:"name"`
+	ResourceGroupName        string `json:"resourceGroupName" tf:"resource_group_name"`
 	// +optional
 	Tags    map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 	Version string            `json:"version" tf:"version"`
@@ -36,9 +41,10 @@ type SqlServerStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *SqlServerSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

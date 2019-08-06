@@ -5,7 +5,7 @@ import (
 
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -25,28 +25,33 @@ type AppServiceSpecAuthSettingsActiveDirectory struct {
 	AllowedAudiences []string `json:"allowedAudiences,omitempty" tf:"allowed_audiences,omitempty"`
 	ClientID         string   `json:"clientID" tf:"client_id"`
 	// +optional
+	ClientSecret string `json:"-" sensitive:"true" tf:"client_secret,omitempty"`
 }
 
 type AppServiceSpecAuthSettingsFacebook struct {
-	AppID string `json:"appID" tf:"app_id"`
+	AppID     string `json:"appID" tf:"app_id"`
+	AppSecret string `json:"-" sensitive:"true" tf:"app_secret"`
 	// +optional
 	OauthScopes []string `json:"oauthScopes,omitempty" tf:"oauth_scopes,omitempty"`
 }
 
 type AppServiceSpecAuthSettingsGoogle struct {
-	ClientID string `json:"clientID" tf:"client_id"`
+	ClientID     string `json:"clientID" tf:"client_id"`
+	ClientSecret string `json:"-" sensitive:"true" tf:"client_secret"`
 	// +optional
 	OauthScopes []string `json:"oauthScopes,omitempty" tf:"oauth_scopes,omitempty"`
 }
 
 type AppServiceSpecAuthSettingsMicrosoft struct {
-	ClientID string `json:"clientID" tf:"client_id"`
+	ClientID     string `json:"clientID" tf:"client_id"`
+	ClientSecret string `json:"-" sensitive:"true" tf:"client_secret"`
 	// +optional
 	OauthScopes []string `json:"oauthScopes,omitempty" tf:"oauth_scopes,omitempty"`
 }
 
 type AppServiceSpecAuthSettingsTwitter struct {
-	ConsumerKey string `json:"consumerKey" tf:"consumer_key"`
+	ConsumerKey    string `json:"consumerKey" tf:"consumer_key"`
+	ConsumerSecret string `json:"-" sensitive:"true" tf:"consumer_secret"`
 }
 
 type AppServiceSpecAuthSettings struct {
@@ -85,17 +90,23 @@ type AppServiceSpecAuthSettings struct {
 }
 
 type AppServiceSpecConnectionString struct {
-	Name string `json:"name" tf:"name"`
-	Type string `json:"type" tf:"type"`
+	Name  string `json:"name" tf:"name"`
+	Type  string `json:"type" tf:"type"`
+	Value string `json:"-" sensitive:"true" tf:"value"`
 }
 
 type AppServiceSpecIdentity struct {
-	Type string `json:"type" tf:"type"`
+	// +optional
+	PrincipalID string `json:"principalID,omitempty" tf:"principal_id,omitempty"`
+	// +optional
+	TenantID string `json:"tenantID,omitempty" tf:"tenant_id,omitempty"`
+	Type     string `json:"type" tf:"type"`
 }
 
 type AppServiceSpecLogsApplicationLogsAzureBlobStorage struct {
 	Level           string `json:"level" tf:"level"`
 	RetentionInDays int    `json:"retentionInDays" tf:"retention_in_days"`
+	SasURL          string `json:"-" sensitive:"true" tf:"sas_url"`
 }
 
 type AppServiceSpecLogsApplicationLogs struct {
@@ -175,10 +186,26 @@ type AppServiceSpecSiteConfig struct {
 	WindowsFxVersion string `json:"windowsFxVersion,omitempty" tf:"windows_fx_version,omitempty"`
 }
 
+type AppServiceSpecSiteCredential struct {
+	// +optional
+	Password string `json:"-" sensitive:"true" tf:"password,omitempty"`
+	// +optional
+	Username string `json:"username,omitempty" tf:"username,omitempty"`
+}
+
+type AppServiceSpecSourceControl struct {
+	// +optional
+	Branch string `json:"branch,omitempty" tf:"branch,omitempty"`
+	// +optional
+	RepoURL string `json:"repoURL,omitempty" tf:"repo_url,omitempty"`
+}
+
 type AppServiceSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	AppServicePlanID string `json:"appServicePlanID" tf:"app_service_plan_id"`
 	// +optional
@@ -194,6 +221,8 @@ type AppServiceSpec struct {
 	// +kubebuilder:validation:UniqueItems=true
 	ConnectionString []AppServiceSpecConnectionString `json:"connectionString,omitempty" tf:"connection_string,omitempty"`
 	// +optional
+	DefaultSiteHostname string `json:"defaultSiteHostname,omitempty" tf:"default_site_hostname,omitempty"`
+	// +optional
 	Enabled bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 	// +optional
 	HttpsOnly bool `json:"httpsOnly,omitempty" tf:"https_only,omitempty"`
@@ -203,12 +232,22 @@ type AppServiceSpec struct {
 	Location string                   `json:"location" tf:"location"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
-	Logs              []AppServiceSpecLogs `json:"logs,omitempty" tf:"logs,omitempty"`
-	Name              string               `json:"name" tf:"name"`
-	ResourceGroupName string               `json:"resourceGroupName" tf:"resource_group_name"`
+	Logs []AppServiceSpecLogs `json:"logs,omitempty" tf:"logs,omitempty"`
+	Name string               `json:"name" tf:"name"`
+	// +optional
+	OutboundIPAddresses string `json:"outboundIPAddresses,omitempty" tf:"outbound_ip_addresses,omitempty"`
+	// +optional
+	PossibleOutboundIPAddresses string `json:"possibleOutboundIPAddresses,omitempty" tf:"possible_outbound_ip_addresses,omitempty"`
+	ResourceGroupName           string `json:"resourceGroupName" tf:"resource_group_name"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	SiteConfig []AppServiceSpecSiteConfig `json:"siteConfig,omitempty" tf:"site_config,omitempty"`
+	// +optional
+	// +kubebuilder:validation:MaxItems=1
+	SiteCredential []AppServiceSpecSiteCredential `json:"siteCredential,omitempty" tf:"site_credential,omitempty"`
+	// +optional
+	// +kubebuilder:validation:MaxItems=1
+	SourceControl []AppServiceSpecSourceControl `json:"sourceControl,omitempty" tf:"source_control,omitempty"`
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
@@ -217,9 +256,10 @@ type AppServiceStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *AppServiceSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -20,14 +20,22 @@ type Route53ResolverEndpoint struct {
 
 type Route53ResolverEndpointSpecIpAddress struct {
 	// +optional
-	Ip       string `json:"ip,omitempty" tf:"ip,omitempty"`
+	Ip string `json:"ip,omitempty" tf:"ip,omitempty"`
+	// +optional
+	IpID     string `json:"ipID,omitempty" tf:"ip_id,omitempty"`
 	SubnetID string `json:"subnetID" tf:"subnet_id"`
 }
 
 type Route53ResolverEndpointSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	Arn       string `json:"arn,omitempty" tf:"arn,omitempty"`
 	Direction string `json:"direction" tf:"direction"`
+	// +optional
+	HostVpcID string `json:"hostVpcID,omitempty" tf:"host_vpc_id,omitempty"`
 	// +kubebuilder:validation:MaxItems=10
 	// +kubebuilder:validation:MinItems=2
 	// +kubebuilder:validation:UniqueItems=true
@@ -46,9 +54,10 @@ type Route53ResolverEndpointStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *Route53ResolverEndpointSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

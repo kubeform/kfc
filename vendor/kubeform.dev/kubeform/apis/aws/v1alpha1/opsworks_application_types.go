@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -20,6 +20,7 @@ type OpsworksApplication struct {
 
 type OpsworksApplicationSpecAppSource struct {
 	// +optional
+	Password string `json:"-" sensitive:"true" tf:"password,omitempty"`
 	// +optional
 	Revision string `json:"revision,omitempty" tf:"revision,omitempty"`
 	// +optional
@@ -41,13 +42,16 @@ type OpsworksApplicationSpecEnvironment struct {
 type OpsworksApplicationSpecSslConfiguration struct {
 	Certificate string `json:"certificate" tf:"certificate"`
 	// +optional
-	Chain string `json:"chain,omitempty" tf:"chain,omitempty"`
+	Chain      string `json:"chain,omitempty" tf:"chain,omitempty"`
+	PrivateKey string `json:"-" sensitive:"true" tf:"private_key"`
 }
 
 type OpsworksApplicationSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	AppSource []OpsworksApplicationSpecAppSource `json:"appSource,omitempty" tf:"app_source,omitempty"`
@@ -87,9 +91,10 @@ type OpsworksApplicationStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *OpsworksApplicationSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

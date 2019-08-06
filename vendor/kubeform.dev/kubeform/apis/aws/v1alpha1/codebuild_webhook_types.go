@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -33,21 +33,32 @@ type CodebuildWebhookSpecFilterGroup struct {
 type CodebuildWebhookSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+
 	// +optional
 	BranchFilter string `json:"branchFilter,omitempty" tf:"branch_filter,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	FilterGroup []CodebuildWebhookSpecFilterGroup `json:"filterGroup,omitempty" tf:"filter_group,omitempty"`
-	ProjectName string                            `json:"projectName" tf:"project_name"`
+	// +optional
+	PayloadURL  string `json:"payloadURL,omitempty" tf:"payload_url,omitempty"`
+	ProjectName string `json:"projectName" tf:"project_name"`
+	// +optional
+	Secret string `json:"-" sensitive:"true" tf:"secret,omitempty"`
+	// +optional
+	Url string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
 type CodebuildWebhookStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *CodebuildWebhookSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

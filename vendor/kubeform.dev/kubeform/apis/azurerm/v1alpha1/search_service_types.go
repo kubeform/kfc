@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,14 +21,20 @@ type SearchService struct {
 type SearchServiceSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Location string `json:"location" tf:"location"`
 	Name     string `json:"name" tf:"name"`
 	// +optional
 	PartitionCount int `json:"partitionCount,omitempty" tf:"partition_count,omitempty"`
 	// +optional
+	PrimaryKey string `json:"primaryKey,omitempty" tf:"primary_key,omitempty"`
+	// +optional
 	ReplicaCount      int    `json:"replicaCount,omitempty" tf:"replica_count,omitempty"`
 	ResourceGroupName string `json:"resourceGroupName" tf:"resource_group_name"`
-	Sku               string `json:"sku" tf:"sku"`
+	// +optional
+	SecondaryKey string `json:"secondaryKey,omitempty" tf:"secondary_key,omitempty"`
+	Sku          string `json:"sku" tf:"sku"`
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
@@ -37,9 +43,10 @@ type SearchServiceStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *SearchServiceSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

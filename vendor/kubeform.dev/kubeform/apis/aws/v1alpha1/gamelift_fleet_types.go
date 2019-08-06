@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -52,6 +52,10 @@ type GameliftFleetSpecRuntimeConfiguration struct {
 type GameliftFleetSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	Arn     string `json:"arn,omitempty" tf:"arn,omitempty"`
 	BuildID string `json:"buildID" tf:"build_id"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
@@ -60,10 +64,14 @@ type GameliftFleetSpec struct {
 	Ec2InboundPermission []GameliftFleetSpecEc2InboundPermission `json:"ec2InboundPermission,omitempty" tf:"ec2_inbound_permission,omitempty"`
 	Ec2InstanceType      string                                  `json:"ec2InstanceType" tf:"ec2_instance_type"`
 	// +optional
+	LogPaths []string `json:"logPaths,omitempty" tf:"log_paths,omitempty"`
+	// +optional
 	MetricGroups []string `json:"metricGroups,omitempty" tf:"metric_groups,omitempty"`
 	Name         string   `json:"name" tf:"name"`
 	// +optional
 	NewGameSessionProtectionPolicy string `json:"newGameSessionProtectionPolicy,omitempty" tf:"new_game_session_protection_policy,omitempty"`
+	// +optional
+	OperatingSystem string `json:"operatingSystem,omitempty" tf:"operating_system,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	ResourceCreationLimitPolicy []GameliftFleetSpecResourceCreationLimitPolicy `json:"resourceCreationLimitPolicy,omitempty" tf:"resource_creation_limit_policy,omitempty"`
@@ -76,9 +84,10 @@ type GameliftFleetStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *GameliftFleetSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

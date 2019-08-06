@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,13 +21,31 @@ type VpcEndpointService struct {
 type VpcEndpointServiceSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	AcceptanceRequired bool `json:"acceptanceRequired" tf:"acceptance_required"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	AllowedPrincipals []string `json:"allowedPrincipals,omitempty" tf:"allowed_principals,omitempty"`
+	// +optional
+	// +kubebuilder:validation:UniqueItems=true
+	AvailabilityZones []string `json:"availabilityZones,omitempty" tf:"availability_zones,omitempty"`
+	// +optional
+	// +kubebuilder:validation:UniqueItems=true
+	BaseEndpointDNSNames []string `json:"baseEndpointDNSNames,omitempty" tf:"base_endpoint_dns_names,omitempty"`
+	// +optional
+	ManagesVpcEndpoints bool `json:"managesVpcEndpoints,omitempty" tf:"manages_vpc_endpoints,omitempty"`
 	// +kubebuilder:validation:MinItems=1
 	// +kubebuilder:validation:UniqueItems=true
 	NetworkLoadBalancerArns []string `json:"networkLoadBalancerArns" tf:"network_load_balancer_arns"`
+	// +optional
+	PrivateDNSName string `json:"privateDNSName,omitempty" tf:"private_dns_name,omitempty"`
+	// +optional
+	ServiceName string `json:"serviceName,omitempty" tf:"service_name,omitempty"`
+	// +optional
+	ServiceType string `json:"serviceType,omitempty" tf:"service_type,omitempty"`
+	// +optional
+	State string `json:"state,omitempty" tf:"state,omitempty"`
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
@@ -36,9 +54,10 @@ type VpcEndpointServiceStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *VpcEndpointServiceSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

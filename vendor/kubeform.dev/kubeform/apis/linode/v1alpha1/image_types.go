@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,20 +21,39 @@ type Image struct {
 type ImageSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	Created string `json:"created,omitempty" tf:"created,omitempty"`
+	// +optional
+	CreatedBy string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
+	// +optional
+	Deprecated bool `json:"deprecated,omitempty" tf:"deprecated,omitempty"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
 	DiskID      int    `json:"diskID" tf:"disk_id"`
-	Label       string `json:"label" tf:"label"`
-	LinodeID    int    `json:"linodeID" tf:"linode_id"`
+	// +optional
+	Expiry string `json:"expiry,omitempty" tf:"expiry,omitempty"`
+	// +optional
+	IsPublic bool   `json:"isPublic,omitempty" tf:"is_public,omitempty"`
+	Label    string `json:"label" tf:"label"`
+	LinodeID int    `json:"linodeID" tf:"linode_id"`
+	// +optional
+	Size int `json:"size,omitempty" tf:"size,omitempty"`
+	// +optional
+	Type string `json:"type,omitempty" tf:"type,omitempty"`
+	// +optional
+	Vendor string `json:"vendor,omitempty" tf:"vendor,omitempty"`
 }
 
 type ImageStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ImageSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

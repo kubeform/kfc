@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,9 +21,17 @@ type ApiGatewayDeployment struct {
 type ApiGatewayDeploymentSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	CreatedDate string `json:"createdDate,omitempty" tf:"created_date,omitempty"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
-	RestAPIID   string `json:"restAPIID" tf:"rest_api_id"`
+	// +optional
+	ExecutionArn string `json:"executionArn,omitempty" tf:"execution_arn,omitempty"`
+	// +optional
+	InvokeURL string `json:"invokeURL,omitempty" tf:"invoke_url,omitempty"`
+	RestAPIID string `json:"restAPIID" tf:"rest_api_id"`
 	// +optional
 	StageDescription string `json:"stageDescription,omitempty" tf:"stage_description,omitempty"`
 	// +optional
@@ -36,9 +44,10 @@ type ApiGatewayDeploymentStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ApiGatewayDeploymentSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

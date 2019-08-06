@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -53,12 +53,16 @@ type DmsEndpointSpecS3Settings struct {
 type DmsEndpointSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	CertificateArn string `json:"certificateArn,omitempty" tf:"certificate_arn,omitempty"`
 	// +optional
 	DatabaseName string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
+	// +optional
+	EndpointArn  string `json:"endpointArn,omitempty" tf:"endpoint_arn,omitempty"`
 	EndpointID   string `json:"endpointID" tf:"endpoint_id"`
 	EndpointType string `json:"endpointType" tf:"endpoint_type"`
 	EngineName   string `json:"engineName" tf:"engine_name"`
@@ -70,6 +74,7 @@ type DmsEndpointSpec struct {
 	// +kubebuilder:validation:MaxItems=1
 	MongodbSettings []DmsEndpointSpecMongodbSettings `json:"mongodbSettings,omitempty" tf:"mongodb_settings,omitempty"`
 	// +optional
+	Password string `json:"-" sensitive:"true" tf:"password,omitempty"`
 	// +optional
 	Port int `json:"port,omitempty" tf:"port,omitempty"`
 	// +optional
@@ -91,9 +96,10 @@ type DmsEndpointStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *DmsEndpointSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

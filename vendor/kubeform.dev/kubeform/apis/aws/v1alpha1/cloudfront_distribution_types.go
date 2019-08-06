@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -227,9 +227,17 @@ type CloudfrontDistributionSpecViewerCertificate struct {
 type CloudfrontDistributionSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	ActiveTrustedSigners map[string]string `json:"activeTrustedSigners,omitempty" tf:"active_trusted_signers,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	Aliases []string `json:"aliases,omitempty" tf:"aliases,omitempty"`
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
+	// +optional
+	CallerReference string `json:"callerReference,omitempty" tf:"caller_reference,omitempty"`
 	// +optional
 	Comment string `json:"comment,omitempty" tf:"comment,omitempty"`
 	// +optional
@@ -239,11 +247,21 @@ type CloudfrontDistributionSpec struct {
 	DefaultCacheBehavior []CloudfrontDistributionSpecDefaultCacheBehavior `json:"defaultCacheBehavior" tf:"default_cache_behavior"`
 	// +optional
 	DefaultRootObject string `json:"defaultRootObject,omitempty" tf:"default_root_object,omitempty"`
-	Enabled           bool   `json:"enabled" tf:"enabled"`
+	// +optional
+	DomainName string `json:"domainName,omitempty" tf:"domain_name,omitempty"`
+	Enabled    bool   `json:"enabled" tf:"enabled"`
+	// +optional
+	Etag string `json:"etag,omitempty" tf:"etag,omitempty"`
+	// +optional
+	HostedZoneID string `json:"hostedZoneID,omitempty" tf:"hosted_zone_id,omitempty"`
 	// +optional
 	HttpVersion string `json:"httpVersion,omitempty" tf:"http_version,omitempty"`
 	// +optional
+	InProgressValidationBatches int `json:"inProgressValidationBatches,omitempty" tf:"in_progress_validation_batches,omitempty"`
+	// +optional
 	IsIpv6Enabled bool `json:"isIpv6Enabled,omitempty" tf:"is_ipv6_enabled,omitempty"`
+	// +optional
+	LastModifiedTime string `json:"lastModifiedTime,omitempty" tf:"last_modified_time,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	LoggingConfig []CloudfrontDistributionSpecLoggingConfig `json:"loggingConfig,omitempty" tf:"logging_config,omitempty"`
@@ -261,6 +279,8 @@ type CloudfrontDistributionSpec struct {
 	// +optional
 	RetainOnDelete bool `json:"retainOnDelete,omitempty" tf:"retain_on_delete,omitempty"`
 	// +optional
+	Status string `json:"status,omitempty" tf:"status,omitempty"`
+	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 	// +kubebuilder:validation:MaxItems=1
 	ViewerCertificate []CloudfrontDistributionSpecViewerCertificate `json:"viewerCertificate" tf:"viewer_certificate"`
@@ -274,9 +294,10 @@ type CloudfrontDistributionStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *CloudfrontDistributionSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

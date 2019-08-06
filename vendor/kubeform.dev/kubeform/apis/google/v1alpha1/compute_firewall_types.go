@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -33,9 +33,13 @@ type ComputeFirewallSpecDeny struct {
 type ComputeFirewallSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	Allow []ComputeFirewallSpecAllow `json:"allow,omitempty" tf:"allow,omitempty"`
+	// +optional
+	CreationTimestamp string `json:"creationTimestamp,omitempty" tf:"creation_timestamp,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	Deny []ComputeFirewallSpecDeny `json:"deny,omitempty" tf:"deny,omitempty"`
@@ -57,6 +61,8 @@ type ComputeFirewallSpec struct {
 	Priority int `json:"priority,omitempty" tf:"priority,omitempty"`
 	// +optional
 	Project string `json:"project,omitempty" tf:"project,omitempty"`
+	// +optional
+	SelfLink string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	SourceRanges []string `json:"sourceRanges,omitempty" tf:"source_ranges,omitempty"`
@@ -80,9 +86,10 @@ type ComputeFirewallStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ComputeFirewallSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

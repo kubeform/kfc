@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -29,6 +29,7 @@ type VirtualMachineScaleSetSpecExtension struct {
 	AutoUpgradeMinorVersion bool   `json:"autoUpgradeMinorVersion,omitempty" tf:"auto_upgrade_minor_version,omitempty"`
 	Name                    string `json:"name" tf:"name"`
 	// +optional
+	ProtectedSettings string `json:"-" sensitive:"true" tf:"protected_settings,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	ProvisionAfterExtensions []string `json:"provisionAfterExtensions,omitempty" tf:"provision_after_extensions,omitempty"`
@@ -42,7 +43,9 @@ type VirtualMachineScaleSetSpecExtension struct {
 type VirtualMachineScaleSetSpecIdentity struct {
 	// +optional
 	IdentityIDS []string `json:"identityIDS,omitempty" tf:"identity_ids,omitempty"`
-	Type        string   `json:"type" tf:"type"`
+	// +optional
+	PrincipalID string `json:"principalID,omitempty" tf:"principal_id,omitempty"`
+	Type        string `json:"type" tf:"type"`
 }
 
 type VirtualMachineScaleSetSpecNetworkProfileDnsSettings struct {
@@ -94,6 +97,7 @@ type VirtualMachineScaleSetSpecNetworkProfile struct {
 
 type VirtualMachineScaleSetSpecOsProfile struct {
 	// +optional
+	AdminPassword      string `json:"-" sensitive:"true" tf:"admin_password,omitempty"`
 	AdminUsername      string `json:"adminUsername" tf:"admin_username"`
 	ComputerNamePrefix string `json:"computerNamePrefix" tf:"computer_name_prefix"`
 	// +optional
@@ -127,6 +131,7 @@ type VirtualMachineScaleSetSpecOsProfileSecrets struct {
 
 type VirtualMachineScaleSetSpecOsProfileWindowsConfigAdditionalUnattendConfig struct {
 	Component   string `json:"component" tf:"component"`
+	Content     string `json:"-" sensitive:"true" tf:"content"`
 	Pass        string `json:"pass" tf:"pass"`
 	SettingName string `json:"settingName" tf:"setting_name"`
 }
@@ -216,7 +221,9 @@ type VirtualMachineScaleSetSpecStorageProfileOsDisk struct {
 type VirtualMachineScaleSetSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	AutomaticOsUpgrade bool `json:"automaticOsUpgrade,omitempty" tf:"automatic_os_upgrade,omitempty"`
@@ -288,9 +295,10 @@ type VirtualMachineScaleSetStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *VirtualMachineScaleSetSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

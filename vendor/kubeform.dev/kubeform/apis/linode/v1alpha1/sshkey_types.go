@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,17 +21,22 @@ type Sshkey struct {
 type SshkeySpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Label  string `json:"label" tf:"label"`
-	SshKey string `json:"sshKey" tf:"ssh_key"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	Created string `json:"created,omitempty" tf:"created,omitempty"`
+	Label   string `json:"label" tf:"label"`
+	SshKey  string `json:"sshKey" tf:"ssh_key"`
 }
 
 type SshkeyStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *SshkeySpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

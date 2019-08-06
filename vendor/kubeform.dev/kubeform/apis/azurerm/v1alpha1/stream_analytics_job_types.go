@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,16 +21,20 @@ type StreamAnalyticsJob struct {
 type StreamAnalyticsJobSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	CompatibilityLevel                 string `json:"compatibilityLevel" tf:"compatibility_level"`
 	DataLocale                         string `json:"dataLocale" tf:"data_locale"`
 	EventsLateArrivalMaxDelayInSeconds int    `json:"eventsLateArrivalMaxDelayInSeconds" tf:"events_late_arrival_max_delay_in_seconds"`
 	EventsOutOfOrderMaxDelayInSeconds  int    `json:"eventsOutOfOrderMaxDelayInSeconds" tf:"events_out_of_order_max_delay_in_seconds"`
 	EventsOutOfOrderPolicy             string `json:"eventsOutOfOrderPolicy" tf:"events_out_of_order_policy"`
-	Location                           string `json:"location" tf:"location"`
-	Name                               string `json:"name" tf:"name"`
-	OutputErrorPolicy                  string `json:"outputErrorPolicy" tf:"output_error_policy"`
-	ResourceGroupName                  string `json:"resourceGroupName" tf:"resource_group_name"`
-	StreamingUnits                     int    `json:"streamingUnits" tf:"streaming_units"`
+	// +optional
+	JobID             string `json:"jobID,omitempty" tf:"job_id,omitempty"`
+	Location          string `json:"location" tf:"location"`
+	Name              string `json:"name" tf:"name"`
+	OutputErrorPolicy string `json:"outputErrorPolicy" tf:"output_error_policy"`
+	ResourceGroupName string `json:"resourceGroupName" tf:"resource_group_name"`
+	StreamingUnits    int    `json:"streamingUnits" tf:"streaming_units"`
 	// +optional
 	Tags                map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 	TransformationQuery string            `json:"transformationQuery" tf:"transformation_query"`
@@ -40,9 +44,10 @@ type StreamAnalyticsJobStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *StreamAnalyticsJobSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

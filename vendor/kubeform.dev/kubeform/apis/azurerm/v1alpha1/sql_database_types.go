@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -19,10 +19,12 @@ type SqlDatabase struct {
 }
 
 type SqlDatabaseSpecImport struct {
-	AdministratorLogin string `json:"administratorLogin" tf:"administrator_login"`
-	AuthenticationType string `json:"authenticationType" tf:"authentication_type"`
+	AdministratorLogin         string `json:"administratorLogin" tf:"administrator_login"`
+	AdministratorLoginPassword string `json:"-" sensitive:"true" tf:"administrator_login_password"`
+	AuthenticationType         string `json:"authenticationType" tf:"authentication_type"`
 	// +optional
 	OperationMode  string `json:"operationMode,omitempty" tf:"operation_mode,omitempty"`
+	StorageKey     string `json:"-" sensitive:"true" tf:"storage_key"`
 	StorageKeyType string `json:"storageKeyType" tf:"storage_key_type"`
 	StorageURI     string `json:"storageURI" tf:"storage_uri"`
 }
@@ -41,6 +43,7 @@ type SqlDatabaseSpecThreatDetectionPolicy struct {
 	// +optional
 	State string `json:"state,omitempty" tf:"state,omitempty"`
 	// +optional
+	StorageAccountAccessKey string `json:"-" sensitive:"true" tf:"storage_account_access_key,omitempty"`
 	// +optional
 	StorageEndpoint string `json:"storageEndpoint,omitempty" tf:"storage_endpoint,omitempty"`
 	// +optional
@@ -50,16 +53,24 @@ type SqlDatabaseSpecThreatDetectionPolicy struct {
 type SqlDatabaseSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	Collation string `json:"collation,omitempty" tf:"collation,omitempty"`
 	// +optional
 	CreateMode string `json:"createMode,omitempty" tf:"create_mode,omitempty"`
 	// +optional
+	CreationDate string `json:"creationDate,omitempty" tf:"creation_date,omitempty"`
+	// +optional
+	DefaultSecondaryLocation string `json:"defaultSecondaryLocation,omitempty" tf:"default_secondary_location,omitempty"`
+	// +optional
 	Edition string `json:"edition,omitempty" tf:"edition,omitempty"`
 	// +optional
 	ElasticPoolName string `json:"elasticPoolName,omitempty" tf:"elastic_pool_name,omitempty"`
+	// +optional
+	Encryption string `json:"encryption,omitempty" tf:"encryption,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	Import   []SqlDatabaseSpecImport `json:"import,omitempty" tf:"import,omitempty"`
@@ -92,9 +103,10 @@ type SqlDatabaseStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *SqlDatabaseSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

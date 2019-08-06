@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,21 +21,26 @@ type PinpointEmailChannel struct {
 type PinpointEmailChannelSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	ApplicationID string `json:"applicationID" tf:"application_id"`
 	// +optional
 	Enabled     bool   `json:"enabled,omitempty" tf:"enabled,omitempty"`
 	FromAddress string `json:"fromAddress" tf:"from_address"`
 	Identity    string `json:"identity" tf:"identity"`
-	RoleArn     string `json:"roleArn" tf:"role_arn"`
+	// +optional
+	MessagesPerSecond int    `json:"messagesPerSecond,omitempty" tf:"messages_per_second,omitempty"`
+	RoleArn           string `json:"roleArn" tf:"role_arn"`
 }
 
 type PinpointEmailChannelStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *PinpointEmailChannelSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -26,19 +26,25 @@ type DevTestLinuxVirtualMachineSpecGalleryImageReference struct {
 }
 
 type DevTestLinuxVirtualMachineSpecInboundNATRule struct {
-	BackendPort int    `json:"backendPort" tf:"backend_port"`
-	Protocol    string `json:"protocol" tf:"protocol"`
+	BackendPort int `json:"backendPort" tf:"backend_port"`
+	// +optional
+	FrontendPort int    `json:"frontendPort,omitempty" tf:"frontend_port,omitempty"`
+	Protocol     string `json:"protocol" tf:"protocol"`
 }
 
 type DevTestLinuxVirtualMachineSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	AllowClaim bool `json:"allowClaim,omitempty" tf:"allow_claim,omitempty"`
 	// +optional
 	DisallowPublicIPAddress bool `json:"disallowPublicIPAddress,omitempty" tf:"disallow_public_ip_address,omitempty"`
+	// +optional
+	Fqdn string `json:"fqdn,omitempty" tf:"fqdn,omitempty"`
 	// +kubebuilder:validation:MaxItems=1
 	GalleryImageReference []DevTestLinuxVirtualMachineSpecGalleryImageReference `json:"galleryImageReference" tf:"gallery_image_reference"`
 	// +optional
@@ -52,23 +58,27 @@ type DevTestLinuxVirtualMachineSpec struct {
 	// +optional
 	Notes string `json:"notes,omitempty" tf:"notes,omitempty"`
 	// +optional
+	Password          string `json:"-" sensitive:"true" tf:"password,omitempty"`
 	ResourceGroupName string `json:"resourceGroupName" tf:"resource_group_name"`
 	Size              string `json:"size" tf:"size"`
 	// +optional
 	SshKey      string `json:"sshKey,omitempty" tf:"ssh_key,omitempty"`
 	StorageType string `json:"storageType" tf:"storage_type"`
 	// +optional
-	Tags     map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
-	Username string            `json:"username" tf:"username"`
+	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
+	// +optional
+	UniqueIdentifier string `json:"uniqueIdentifier,omitempty" tf:"unique_identifier,omitempty"`
+	Username         string `json:"username" tf:"username"`
 }
 
 type DevTestLinuxVirtualMachineStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *DevTestLinuxVirtualMachineSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

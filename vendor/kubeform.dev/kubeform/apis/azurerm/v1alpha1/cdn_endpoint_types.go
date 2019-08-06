@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -36,11 +36,15 @@ type CdnEndpointSpecOrigin struct {
 type CdnEndpointSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	ContentTypesToCompress []string `json:"contentTypesToCompress,omitempty" tf:"content_types_to_compress,omitempty"`
 	// +optional
 	GeoFilter []CdnEndpointSpecGeoFilter `json:"geoFilter,omitempty" tf:"geo_filter,omitempty"`
+	// +optional
+	HostName string `json:"hostName,omitempty" tf:"host_name,omitempty"`
 	// +optional
 	IsCompressionEnabled bool `json:"isCompressionEnabled,omitempty" tf:"is_compression_enabled,omitempty"`
 	// +optional
@@ -71,9 +75,10 @@ type CdnEndpointStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *CdnEndpointSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -58,6 +58,9 @@ type ComputeInstanceTemplateSpecGuestAccelerator struct {
 
 type ComputeInstanceTemplateSpecNetworkInterfaceAccessConfig struct {
 	// +optional
+	// Deprecated
+	AssignedNATIP string `json:"assignedNATIP,omitempty" tf:"assigned_nat_ip,omitempty"`
+	// +optional
 	NatIP string `json:"natIP,omitempty" tf:"nat_ip,omitempty"`
 	// +optional
 	NetworkTier string `json:"networkTier,omitempty" tf:"network_tier,omitempty"`
@@ -106,6 +109,8 @@ type ComputeInstanceTemplateSpecServiceAccount struct {
 type ComputeInstanceTemplateSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	CanIPForward bool `json:"canIPForward,omitempty" tf:"can_ip_forward,omitempty"`
 	// +optional
@@ -120,6 +125,8 @@ type ComputeInstanceTemplateSpec struct {
 	MachineType string            `json:"machineType" tf:"machine_type"`
 	// +optional
 	Metadata map[string]string `json:"metadata,omitempty" tf:"metadata,omitempty"`
+	// +optional
+	MetadataFingerprint string `json:"metadataFingerprint,omitempty" tf:"metadata_fingerprint,omitempty"`
 	// +optional
 	MetadataStartupScript string `json:"metadataStartupScript,omitempty" tf:"metadata_startup_script,omitempty"`
 	// +optional
@@ -137,20 +144,25 @@ type ComputeInstanceTemplateSpec struct {
 	// +optional
 	Scheduling []ComputeInstanceTemplateSpecScheduling `json:"scheduling,omitempty" tf:"scheduling,omitempty"`
 	// +optional
+	SelfLink string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
+	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	ServiceAccount []ComputeInstanceTemplateSpecServiceAccount `json:"serviceAccount,omitempty" tf:"service_account,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	Tags []string `json:"tags,omitempty" tf:"tags,omitempty"`
+	// +optional
+	TagsFingerprint string `json:"tagsFingerprint,omitempty" tf:"tags_fingerprint,omitempty"`
 }
 
 type ComputeInstanceTemplateStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ComputeInstanceTemplateSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

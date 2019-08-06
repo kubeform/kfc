@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -27,7 +27,9 @@ type ApiGatewayDomainNameSpecEndpointConfiguration struct {
 type ApiGatewayDomainNameSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	CertificateArn string `json:"certificateArn,omitempty" tf:"certificate_arn,omitempty"`
@@ -38,7 +40,14 @@ type ApiGatewayDomainNameSpec struct {
 	// +optional
 	CertificateName string `json:"certificateName,omitempty" tf:"certificate_name,omitempty"`
 	// +optional
-	DomainName string `json:"domainName" tf:"domain_name"`
+	CertificatePrivateKey string `json:"-" sensitive:"true" tf:"certificate_private_key,omitempty"`
+	// +optional
+	CertificateUploadDate string `json:"certificateUploadDate,omitempty" tf:"certificate_upload_date,omitempty"`
+	// +optional
+	CloudfrontDomainName string `json:"cloudfrontDomainName,omitempty" tf:"cloudfront_domain_name,omitempty"`
+	// +optional
+	CloudfrontZoneID string `json:"cloudfrontZoneID,omitempty" tf:"cloudfront_zone_id,omitempty"`
+	DomainName       string `json:"domainName" tf:"domain_name"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	// +kubebuilder:validation:MinItems=1
@@ -47,15 +56,20 @@ type ApiGatewayDomainNameSpec struct {
 	RegionalCertificateArn string `json:"regionalCertificateArn,omitempty" tf:"regional_certificate_arn,omitempty"`
 	// +optional
 	RegionalCertificateName string `json:"regionalCertificateName,omitempty" tf:"regional_certificate_name,omitempty"`
+	// +optional
+	RegionalDomainName string `json:"regionalDomainName,omitempty" tf:"regional_domain_name,omitempty"`
+	// +optional
+	RegionalZoneID string `json:"regionalZoneID,omitempty" tf:"regional_zone_id,omitempty"`
 }
 
 type ApiGatewayDomainNameStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ApiGatewayDomainNameSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

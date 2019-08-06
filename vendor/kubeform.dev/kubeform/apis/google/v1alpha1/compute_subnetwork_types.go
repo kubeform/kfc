@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -26,10 +26,18 @@ type ComputeSubnetworkSpecSecondaryIPRange struct {
 type ComputeSubnetworkSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	CreationTimestamp string `json:"creationTimestamp,omitempty" tf:"creation_timestamp,omitempty"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
 	// +optional
-	EnableFlowLogs bool   `json:"enableFlowLogs,omitempty" tf:"enable_flow_logs,omitempty"`
+	EnableFlowLogs bool `json:"enableFlowLogs,omitempty" tf:"enable_flow_logs,omitempty"`
+	// +optional
+	Fingerprint string `json:"fingerprint,omitempty" tf:"fingerprint,omitempty"`
+	// +optional
+	GatewayAddress string `json:"gatewayAddress,omitempty" tf:"gateway_address,omitempty"`
 	IpCIDRRange    string `json:"ipCIDRRange" tf:"ip_cidr_range"`
 	Name           string `json:"name" tf:"name"`
 	Network        string `json:"network" tf:"network"`
@@ -41,15 +49,18 @@ type ComputeSubnetworkSpec struct {
 	Region string `json:"region,omitempty" tf:"region,omitempty"`
 	// +optional
 	SecondaryIPRange []ComputeSubnetworkSpecSecondaryIPRange `json:"secondaryIPRange,omitempty" tf:"secondary_ip_range,omitempty"`
+	// +optional
+	SelfLink string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
 }
 
 type ComputeSubnetworkStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ComputeSubnetworkSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -58,6 +58,8 @@ type DataprocClusterSpecClusterConfigMasterConfig struct {
 	// +kubebuilder:validation:MaxItems=1
 	DiskConfig []DataprocClusterSpecClusterConfigMasterConfigDiskConfig `json:"diskConfig,omitempty" tf:"disk_config,omitempty"`
 	// +optional
+	InstanceNames []string `json:"instanceNames,omitempty" tf:"instance_names,omitempty"`
+	// +optional
 	MachineType string `json:"machineType,omitempty" tf:"machine_type,omitempty"`
 	// +optional
 	NumInstances int `json:"numInstances,omitempty" tf:"num_instances,omitempty"`
@@ -73,6 +75,8 @@ type DataprocClusterSpecClusterConfigPreemptibleWorkerConfig struct {
 	// +kubebuilder:validation:MaxItems=1
 	DiskConfig []DataprocClusterSpecClusterConfigPreemptibleWorkerConfigDiskConfig `json:"diskConfig,omitempty" tf:"disk_config,omitempty"`
 	// +optional
+	InstanceNames []string `json:"instanceNames,omitempty" tf:"instance_names,omitempty"`
+	// +optional
 	NumInstances int `json:"numInstances,omitempty" tf:"num_instances,omitempty"`
 }
 
@@ -81,6 +85,8 @@ type DataprocClusterSpecClusterConfigSoftwareConfig struct {
 	ImageVersion string `json:"imageVersion,omitempty" tf:"image_version,omitempty"`
 	// +optional
 	OverrideProperties map[string]string `json:"overrideProperties,omitempty" tf:"override_properties,omitempty"`
+	// +optional
+	Properties map[string]string `json:"properties,omitempty" tf:"properties,omitempty"`
 }
 
 type DataprocClusterSpecClusterConfigWorkerConfigDiskConfig struct {
@@ -97,12 +103,16 @@ type DataprocClusterSpecClusterConfigWorkerConfig struct {
 	// +kubebuilder:validation:MaxItems=1
 	DiskConfig []DataprocClusterSpecClusterConfigWorkerConfigDiskConfig `json:"diskConfig,omitempty" tf:"disk_config,omitempty"`
 	// +optional
+	InstanceNames []string `json:"instanceNames,omitempty" tf:"instance_names,omitempty"`
+	// +optional
 	MachineType string `json:"machineType,omitempty" tf:"machine_type,omitempty"`
 	// +optional
 	NumInstances int `json:"numInstances,omitempty" tf:"num_instances,omitempty"`
 }
 
 type DataprocClusterSpecClusterConfig struct {
+	// +optional
+	Bucket string `json:"bucket,omitempty" tf:"bucket,omitempty"`
 	// +optional
 	// Deprecated
 	DeleteAutogenBucket bool `json:"deleteAutogenBucket,omitempty" tf:"delete_autogen_bucket,omitempty"`
@@ -130,6 +140,8 @@ type DataprocClusterSpecClusterConfig struct {
 type DataprocClusterSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	ClusterConfig []DataprocClusterSpecClusterConfig `json:"clusterConfig,omitempty" tf:"cluster_config,omitempty"`
@@ -146,9 +158,10 @@ type DataprocClusterStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *DataprocClusterSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

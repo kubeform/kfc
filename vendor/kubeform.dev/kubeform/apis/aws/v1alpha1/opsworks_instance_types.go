@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -51,6 +51,8 @@ type OpsworksInstanceSpecRootBlockDevice struct {
 type OpsworksInstanceSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	AgentVersion string `json:"agentVersion,omitempty" tf:"agent_version,omitempty"`
 	// +optional
@@ -72,6 +74,8 @@ type OpsworksInstanceSpec struct {
 	EbsBlockDevice []OpsworksInstanceSpecEbsBlockDevice `json:"ebsBlockDevice,omitempty" tf:"ebs_block_device,omitempty"`
 	// +optional
 	EbsOptimized bool `json:"ebsOptimized,omitempty" tf:"ebs_optimized,omitempty"`
+	// +optional
+	Ec2InstanceID string `json:"ec2InstanceID,omitempty" tf:"ec2_instance_id,omitempty"`
 	// +optional
 	EcsClusterArn string `json:"ecsClusterArn,omitempty" tf:"ecs_cluster_arn,omitempty"`
 	// +optional
@@ -146,9 +150,10 @@ type OpsworksInstanceStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *OpsworksInstanceSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,10 +21,16 @@ type AppsyncFunction struct {
 type AppsyncFunctionSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	ApiID      string `json:"apiID" tf:"api_id"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	ApiID string `json:"apiID" tf:"api_id"`
+	// +optional
+	Arn        string `json:"arn,omitempty" tf:"arn,omitempty"`
 	DataSource string `json:"dataSource" tf:"data_source"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
+	// +optional
+	FunctionID string `json:"functionID,omitempty" tf:"function_id,omitempty"`
 	// +optional
 	FunctionVersion         string `json:"functionVersion,omitempty" tf:"function_version,omitempty"`
 	Name                    string `json:"name" tf:"name"`
@@ -36,9 +42,10 @@ type AppsyncFunctionStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *AppsyncFunctionSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

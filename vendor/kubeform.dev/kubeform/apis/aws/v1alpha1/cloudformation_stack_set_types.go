@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,7 +21,11 @@ type CloudformationStackSet struct {
 type CloudformationStackSetSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	AdministrationRoleArn string `json:"administrationRoleArn" tf:"administration_role_arn"`
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	Capabilities []string `json:"capabilities,omitempty" tf:"capabilities,omitempty"`
@@ -32,6 +36,8 @@ type CloudformationStackSetSpec struct {
 	Name              string `json:"name" tf:"name"`
 	// +optional
 	Parameters map[string]string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+	// +optional
+	StackSetID string `json:"stackSetID,omitempty" tf:"stack_set_id,omitempty"`
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 	// +optional
@@ -44,9 +50,10 @@ type CloudformationStackSetStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *CloudformationStackSetSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

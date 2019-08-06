@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -36,8 +36,12 @@ type DirectoryServiceDirectorySpecVpcSettings struct {
 type DirectoryServiceDirectorySpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+
+	// +optional
+	AccessURL string `json:"accessURL,omitempty" tf:"access_url,omitempty"`
 	// +optional
 	Alias string `json:"alias,omitempty" tf:"alias,omitempty"`
 	// +optional
@@ -46,10 +50,16 @@ type DirectoryServiceDirectorySpec struct {
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
 	// +optional
+	// +kubebuilder:validation:UniqueItems=true
+	DnsIPAddresses []string `json:"dnsIPAddresses,omitempty" tf:"dns_ip_addresses,omitempty"`
+	// +optional
 	Edition string `json:"edition,omitempty" tf:"edition,omitempty"`
 	// +optional
 	EnableSso bool   `json:"enableSso,omitempty" tf:"enable_sso,omitempty"`
 	Name      string `json:"name" tf:"name"`
+	Password  string `json:"-" sensitive:"true" tf:"password"`
+	// +optional
+	SecurityGroupID string `json:"securityGroupID,omitempty" tf:"security_group_id,omitempty"`
 	// +optional
 	ShortName string `json:"shortName,omitempty" tf:"short_name,omitempty"`
 	// +optional
@@ -67,9 +77,10 @@ type DirectoryServiceDirectoryStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *DirectoryServiceDirectorySpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

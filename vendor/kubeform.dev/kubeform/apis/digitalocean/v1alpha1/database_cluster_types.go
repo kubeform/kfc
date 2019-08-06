@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -26,24 +26,39 @@ type DatabaseClusterSpecMaintenanceWindow struct {
 type DatabaseClusterSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Engine string `json:"engine" tf:"engine"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	Database string `json:"database,omitempty" tf:"database,omitempty"`
+	Engine   string `json:"engine" tf:"engine"`
+	// +optional
+	Host string `json:"host,omitempty" tf:"host,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MinItems=1
 	MaintenanceWindow []DatabaseClusterSpecMaintenanceWindow `json:"maintenanceWindow,omitempty" tf:"maintenance_window,omitempty"`
 	Name              string                                 `json:"name" tf:"name"`
 	NodeCount         int                                    `json:"nodeCount" tf:"node_count"`
-	Region            string                                 `json:"region" tf:"region"`
-	Size              string                                 `json:"size" tf:"size"`
-	Version           string                                 `json:"version" tf:"version"`
+	// +optional
+	Password string `json:"password,omitempty" tf:"password,omitempty"`
+	// +optional
+	Port   int    `json:"port,omitempty" tf:"port,omitempty"`
+	Region string `json:"region" tf:"region"`
+	Size   string `json:"size" tf:"size"`
+	// +optional
+	Uri string `json:"uri,omitempty" tf:"uri,omitempty"`
+	// +optional
+	User    string `json:"user,omitempty" tf:"user,omitempty"`
+	Version string `json:"version" tf:"version"`
 }
 
 type DatabaseClusterStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *DatabaseClusterSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

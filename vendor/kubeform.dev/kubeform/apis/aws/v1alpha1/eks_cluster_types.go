@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -18,6 +18,11 @@ type EksCluster struct {
 	Status            EksClusterStatus `json:"status,omitempty"`
 }
 
+type EksClusterSpecCertificateAuthority struct {
+	// +optional
+	Data string `json:"data,omitempty" tf:"data,omitempty"`
+}
+
 type EksClusterSpecVpcConfig struct {
 	// +optional
 	EndpointPrivateAccess bool `json:"endpointPrivateAccess,omitempty" tf:"endpoint_private_access,omitempty"`
@@ -29,16 +34,31 @@ type EksClusterSpecVpcConfig struct {
 	// +kubebuilder:validation:MinItems=1
 	// +kubebuilder:validation:UniqueItems=true
 	SubnetIDS []string `json:"subnetIDS" tf:"subnet_ids"`
+	// +optional
+	VpcID string `json:"vpcID,omitempty" tf:"vpc_id,omitempty"`
 }
 
 type EksClusterSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
+	// +optional
+	// +kubebuilder:validation:MaxItems=1
+	CertificateAuthority []EksClusterSpecCertificateAuthority `json:"certificateAuthority,omitempty" tf:"certificate_authority,omitempty"`
+	// +optional
+	CreatedAt string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	EnabledClusterLogTypes []string `json:"enabledClusterLogTypes,omitempty" tf:"enabled_cluster_log_types,omitempty"`
-	Name                   string   `json:"name" tf:"name"`
-	RoleArn                string   `json:"roleArn" tf:"role_arn"`
+	// +optional
+	Endpoint string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
+	Name     string `json:"name" tf:"name"`
+	// +optional
+	PlatformVersion string `json:"platformVersion,omitempty" tf:"platform_version,omitempty"`
+	RoleArn         string `json:"roleArn" tf:"role_arn"`
 	// +optional
 	Version string `json:"version,omitempty" tf:"version,omitempty"`
 	// +kubebuilder:validation:MaxItems=1
@@ -50,9 +70,10 @@ type EksClusterStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *EksClusterSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

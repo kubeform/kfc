@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,6 +21,8 @@ type StorageBucketObject struct {
 type StorageBucketObjectSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Bucket string `json:"bucket" tf:"bucket"`
 	// +optional
 	CacheControl string `json:"cacheControl,omitempty" tf:"cache_control,omitempty"`
@@ -35,8 +37,12 @@ type StorageBucketObjectSpec struct {
 	// +optional
 	ContentType string `json:"contentType,omitempty" tf:"content_type,omitempty"`
 	// +optional
+	Crc32c string `json:"crc32c,omitempty" tf:"crc32c,omitempty"`
+	// +optional
 	DetectMd5hash string `json:"detectMd5hash,omitempty" tf:"detect_md5hash,omitempty"`
-	Name          string `json:"name" tf:"name"`
+	// +optional
+	Md5hash string `json:"md5hash,omitempty" tf:"md5hash,omitempty"`
+	Name    string `json:"name" tf:"name"`
 	// +optional
 	Source string `json:"source,omitempty" tf:"source,omitempty"`
 	// +optional
@@ -47,9 +53,10 @@ type StorageBucketObjectStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *StorageBucketObjectSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

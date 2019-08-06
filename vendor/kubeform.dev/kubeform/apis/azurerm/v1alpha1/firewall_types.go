@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -24,12 +24,16 @@ type FirewallSpecIpConfiguration struct {
 	InternalPublicIPAddressID string `json:"internalPublicIPAddressID,omitempty" tf:"internal_public_ip_address_id,omitempty"`
 	Name                      string `json:"name" tf:"name"`
 	// +optional
+	PrivateIPAddress string `json:"privateIPAddress,omitempty" tf:"private_ip_address,omitempty"`
+	// +optional
 	PublicIPAddressID string `json:"publicIPAddressID,omitempty" tf:"public_ip_address_id,omitempty"`
 	SubnetID          string `json:"subnetID" tf:"subnet_id"`
 }
 
 type FirewallSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
+
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// +kubebuilder:validation:MaxItems=1
 	IpConfiguration   []FirewallSpecIpConfiguration `json:"ipConfiguration" tf:"ip_configuration"`
@@ -44,9 +48,10 @@ type FirewallStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *FirewallSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

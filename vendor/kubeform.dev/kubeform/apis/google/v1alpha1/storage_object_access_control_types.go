@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -18,22 +18,43 @@ type StorageObjectAccessControl struct {
 	Status            StorageObjectAccessControlStatus `json:"status,omitempty"`
 }
 
+type StorageObjectAccessControlSpecProjectTeam struct {
+	// +optional
+	ProjectNumber string `json:"projectNumber,omitempty" tf:"project_number,omitempty"`
+	// +optional
+	Team string `json:"team,omitempty" tf:"team,omitempty"`
+}
+
 type StorageObjectAccessControlSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	Bucket string `json:"bucket" tf:"bucket"`
+	// +optional
+	Domain string `json:"domain,omitempty" tf:"domain,omitempty"`
+	// +optional
+	Email  string `json:"email,omitempty" tf:"email,omitempty"`
 	Entity string `json:"entity" tf:"entity"`
-	Object string `json:"object" tf:"object"`
-	Role   string `json:"role" tf:"role"`
+	// +optional
+	EntityID string `json:"entityID,omitempty" tf:"entity_id,omitempty"`
+	// +optional
+	Generation int    `json:"generation,omitempty" tf:"generation,omitempty"`
+	Object     string `json:"object" tf:"object"`
+	// +optional
+	// +kubebuilder:validation:MaxItems=1
+	ProjectTeam []StorageObjectAccessControlSpecProjectTeam `json:"projectTeam,omitempty" tf:"project_team,omitempty"`
+	Role        string                                      `json:"role" tf:"role"`
 }
 
 type StorageObjectAccessControlStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *StorageObjectAccessControlSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

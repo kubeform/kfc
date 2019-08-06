@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -18,6 +18,17 @@ type SsmDocument struct {
 	Status            SsmDocumentStatus `json:"status,omitempty"`
 }
 
+type SsmDocumentSpecParameter struct {
+	// +optional
+	DefaultValue string `json:"defaultValue,omitempty" tf:"default_value,omitempty"`
+	// +optional
+	Description string `json:"description,omitempty" tf:"description,omitempty"`
+	// +optional
+	Name string `json:"name,omitempty" tf:"name,omitempty"`
+	// +optional
+	Type string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
 type SsmDocumentSpecPermissions struct {
 	AccountIDS string `json:"accountIDS" tf:"account_ids"`
 	Type       string `json:"type" tf:"type"`
@@ -26,13 +37,39 @@ type SsmDocumentSpecPermissions struct {
 type SsmDocumentSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	Arn     string `json:"arn,omitempty" tf:"arn,omitempty"`
 	Content string `json:"content" tf:"content"`
+	// +optional
+	CreatedDate string `json:"createdDate,omitempty" tf:"created_date,omitempty"`
+	// +optional
+	DefaultVersion string `json:"defaultVersion,omitempty" tf:"default_version,omitempty"`
+	// +optional
+	Description string `json:"description,omitempty" tf:"description,omitempty"`
 	// +optional
 	DocumentFormat string `json:"documentFormat,omitempty" tf:"document_format,omitempty"`
 	DocumentType   string `json:"documentType" tf:"document_type"`
-	Name           string `json:"name" tf:"name"`
+	// +optional
+	Hash string `json:"hash,omitempty" tf:"hash,omitempty"`
+	// +optional
+	HashType string `json:"hashType,omitempty" tf:"hash_type,omitempty"`
+	// +optional
+	LatestVersion string `json:"latestVersion,omitempty" tf:"latest_version,omitempty"`
+	Name          string `json:"name" tf:"name"`
+	// +optional
+	Owner string `json:"owner,omitempty" tf:"owner,omitempty"`
+	// +optional
+	Parameter []SsmDocumentSpecParameter `json:"parameter,omitempty" tf:"parameter,omitempty"`
 	// +optional
 	Permissions map[string]SsmDocumentSpecPermissions `json:"permissions,omitempty" tf:"permissions,omitempty"`
+	// +optional
+	PlatformTypes []string `json:"platformTypes,omitempty" tf:"platform_types,omitempty"`
+	// +optional
+	SchemaVersion string `json:"schemaVersion,omitempty" tf:"schema_version,omitempty"`
+	// +optional
+	Status string `json:"status,omitempty" tf:"status,omitempty"`
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
@@ -41,9 +78,10 @@ type SsmDocumentStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *SsmDocumentSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

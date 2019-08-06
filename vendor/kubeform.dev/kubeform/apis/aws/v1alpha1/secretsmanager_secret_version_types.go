@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,11 +21,19 @@ type SecretsmanagerSecretVersion struct {
 type SecretsmanagerSecretVersionSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
-	SecretID string `json:"secretID" tf:"secret_id"`
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
 	// +optional
+	SecretBinary string `json:"-" sensitive:"true" tf:"secret_binary,omitempty"`
+	SecretID     string `json:"secretID" tf:"secret_id"`
+	// +optional
+	SecretString string `json:"-" sensitive:"true" tf:"secret_string,omitempty"`
+	// +optional
+	VersionID string `json:"versionID,omitempty" tf:"version_id,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	VersionStages []string `json:"versionStages,omitempty" tf:"version_stages,omitempty"`
@@ -35,9 +43,10 @@ type SecretsmanagerSecretVersionStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *SecretsmanagerSecretVersionSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

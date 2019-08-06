@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,6 +21,8 @@ type NotificationHubAuthorizationRule struct {
 type NotificationHubAuthorizationRuleSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	Listen bool `json:"listen,omitempty" tf:"listen,omitempty"`
 	// +optional
@@ -28,7 +30,11 @@ type NotificationHubAuthorizationRuleSpec struct {
 	Name                string `json:"name" tf:"name"`
 	NamespaceName       string `json:"namespaceName" tf:"namespace_name"`
 	NotificationHubName string `json:"notificationHubName" tf:"notification_hub_name"`
-	ResourceGroupName   string `json:"resourceGroupName" tf:"resource_group_name"`
+	// +optional
+	PrimaryAccessKey  string `json:"primaryAccessKey,omitempty" tf:"primary_access_key,omitempty"`
+	ResourceGroupName string `json:"resourceGroupName" tf:"resource_group_name"`
+	// +optional
+	SecondaryAccessKey string `json:"secondaryAccessKey,omitempty" tf:"secondary_access_key,omitempty"`
 	// +optional
 	Send bool `json:"send,omitempty" tf:"send,omitempty"`
 }
@@ -37,9 +43,10 @@ type NotificationHubAuthorizationRuleStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *NotificationHubAuthorizationRuleSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

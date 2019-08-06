@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -18,15 +18,37 @@ type VpcEndpoint struct {
 	Status            VpcEndpointStatus `json:"status,omitempty"`
 }
 
+type VpcEndpointSpecDnsEntry struct {
+	// +optional
+	DnsName string `json:"dnsName,omitempty" tf:"dns_name,omitempty"`
+	// +optional
+	HostedZoneID string `json:"hostedZoneID,omitempty" tf:"hosted_zone_id,omitempty"`
+}
+
 type VpcEndpointSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
+
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// +optional
 	AutoAccept bool `json:"autoAccept,omitempty" tf:"auto_accept,omitempty"`
 	// +optional
+	CidrBlocks []string `json:"cidrBlocks,omitempty" tf:"cidr_blocks,omitempty"`
+	// +optional
+	DnsEntry []VpcEndpointSpecDnsEntry `json:"dnsEntry,omitempty" tf:"dns_entry,omitempty"`
+	// +optional
+	// +kubebuilder:validation:UniqueItems=true
+	NetworkInterfaceIDS []string `json:"networkInterfaceIDS,omitempty" tf:"network_interface_ids,omitempty"`
+	// +optional
+	OwnerID string `json:"ownerID,omitempty" tf:"owner_id,omitempty"`
+	// +optional
 	Policy string `json:"policy,omitempty" tf:"policy,omitempty"`
 	// +optional
+	PrefixListID string `json:"prefixListID,omitempty" tf:"prefix_list_id,omitempty"`
+	// +optional
 	PrivateDNSEnabled bool `json:"privateDNSEnabled,omitempty" tf:"private_dns_enabled,omitempty"`
+	// +optional
+	RequesterManaged bool `json:"requesterManaged,omitempty" tf:"requester_managed,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	RouteTableIDS []string `json:"routeTableIDS,omitempty" tf:"route_table_ids,omitempty"`
@@ -34,6 +56,8 @@ type VpcEndpointSpec struct {
 	// +kubebuilder:validation:UniqueItems=true
 	SecurityGroupIDS []string `json:"securityGroupIDS,omitempty" tf:"security_group_ids,omitempty"`
 	ServiceName      string   `json:"serviceName" tf:"service_name"`
+	// +optional
+	State string `json:"state,omitempty" tf:"state,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	SubnetIDS []string `json:"subnetIDS,omitempty" tf:"subnet_ids,omitempty"`
@@ -48,9 +72,10 @@ type VpcEndpointStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *VpcEndpointSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

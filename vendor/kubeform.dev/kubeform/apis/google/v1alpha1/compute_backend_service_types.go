@@ -5,7 +5,7 @@ import (
 
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -63,13 +63,16 @@ type ComputeBackendServiceSpecCdnPolicy struct {
 }
 
 type ComputeBackendServiceSpecIap struct {
-	Oauth2ClientID string `json:"oauth2ClientID" tf:"oauth2_client_id"`
+	Oauth2ClientID     string `json:"oauth2ClientID" tf:"oauth2_client_id"`
+	Oauth2ClientSecret string `json:"-" sensitive:"true" tf:"oauth2_client_secret"`
 }
 
 type ComputeBackendServiceSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
@@ -87,6 +90,8 @@ type ComputeBackendServiceSpec struct {
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
 	// +optional
 	EnableCdn bool `json:"enableCdn,omitempty" tf:"enable_cdn,omitempty"`
+	// +optional
+	Fingerprint string `json:"fingerprint,omitempty" tf:"fingerprint,omitempty"`
 	// +kubebuilder:validation:MaxItems=1
 	// +kubebuilder:validation:MinItems=1
 	// +kubebuilder:validation:UniqueItems=true
@@ -104,6 +109,8 @@ type ComputeBackendServiceSpec struct {
 	// +optional
 	SecurityPolicy string `json:"securityPolicy,omitempty" tf:"security_policy,omitempty"`
 	// +optional
+	SelfLink string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
+	// +optional
 	SessionAffinity string `json:"sessionAffinity,omitempty" tf:"session_affinity,omitempty"`
 	// +optional
 	TimeoutSec int `json:"timeoutSec,omitempty" tf:"timeout_sec,omitempty"`
@@ -113,9 +120,10 @@ type ComputeBackendServiceStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ComputeBackendServiceSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

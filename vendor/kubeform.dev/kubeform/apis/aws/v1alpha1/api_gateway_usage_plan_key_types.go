@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,18 +21,25 @@ type ApiGatewayUsagePlanKey struct {
 type ApiGatewayUsagePlanKeySpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	KeyID       string `json:"keyID" tf:"key_id"`
-	KeyType     string `json:"keyType" tf:"key_type"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KeyID   string `json:"keyID" tf:"key_id"`
+	KeyType string `json:"keyType" tf:"key_type"`
+	// +optional
+	Name        string `json:"name,omitempty" tf:"name,omitempty"`
 	UsagePlanID string `json:"usagePlanID" tf:"usage_plan_id"`
+	// +optional
+	Value string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type ApiGatewayUsagePlanKeyStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ApiGatewayUsagePlanKeySpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -23,14 +23,19 @@ type NotificationHubSpecApnsCredential struct {
 	BundleID        string `json:"bundleID" tf:"bundle_id"`
 	KeyID           string `json:"keyID" tf:"key_id"`
 	TeamID          string `json:"teamID" tf:"team_id"`
+	Token           string `json:"-" sensitive:"true" tf:"token"`
 }
 
-type NotificationHubSpecGcmCredential struct{}
+type NotificationHubSpecGcmCredential struct {
+	ApiKey string `json:"-" sensitive:"true" tf:"api_key"`
+}
 
 type NotificationHubSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
@@ -48,9 +53,10 @@ type NotificationHubStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *NotificationHubSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

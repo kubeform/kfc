@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,20 +21,27 @@ type DmsCertificate struct {
 type DmsCertificateSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
-	CertificateID string `json:"certificateID" tf:"certificate_id"`
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+
 	// +optional
+	CertificateArn string `json:"certificateArn,omitempty" tf:"certificate_arn,omitempty"`
+	CertificateID  string `json:"certificateID" tf:"certificate_id"`
 	// +optional
+	CertificatePem string `json:"-" sensitive:"true" tf:"certificate_pem,omitempty"`
+	// +optional
+	CertificateWallet string `json:"-" sensitive:"true" tf:"certificate_wallet,omitempty"`
 }
 
 type DmsCertificateStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *DmsCertificateSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

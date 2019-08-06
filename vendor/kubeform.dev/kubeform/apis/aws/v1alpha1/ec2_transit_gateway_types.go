@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,8 +21,14 @@ type Ec2TransitGateway struct {
 type Ec2TransitGatewaySpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	AmazonSideAsn int `json:"amazonSideAsn,omitempty" tf:"amazon_side_asn,omitempty"`
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
+	// +optional
+	AssociationDefaultRouteTableID string `json:"associationDefaultRouteTableID,omitempty" tf:"association_default_route_table_id,omitempty"`
 	// +optional
 	AutoAcceptSharedAttachments string `json:"autoAcceptSharedAttachments,omitempty" tf:"auto_accept_shared_attachments,omitempty"`
 	// +optional
@@ -34,6 +40,10 @@ type Ec2TransitGatewaySpec struct {
 	// +optional
 	DnsSupport string `json:"dnsSupport,omitempty" tf:"dns_support,omitempty"`
 	// +optional
+	OwnerID string `json:"ownerID,omitempty" tf:"owner_id,omitempty"`
+	// +optional
+	PropagationDefaultRouteTableID string `json:"propagationDefaultRouteTableID,omitempty" tf:"propagation_default_route_table_id,omitempty"`
+	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 	// +optional
 	VpnEcmpSupport string `json:"vpnEcmpSupport,omitempty" tf:"vpn_ecmp_support,omitempty"`
@@ -43,9 +53,10 @@ type Ec2TransitGatewayStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *Ec2TransitGatewaySpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

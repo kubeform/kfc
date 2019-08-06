@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -26,7 +26,9 @@ type ApiManagementAuthorizationServerSpecTokenBodyParameter struct {
 type ApiManagementAuthorizationServerSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	ApiManagementName     string `json:"apiManagementName" tf:"api_management_name"`
 	AuthorizationEndpoint string `json:"authorizationEndpoint" tf:"authorization_endpoint"`
@@ -41,6 +43,7 @@ type ApiManagementAuthorizationServerSpec struct {
 	ClientID                   string   `json:"clientID" tf:"client_id"`
 	ClientRegistrationEndpoint string   `json:"clientRegistrationEndpoint" tf:"client_registration_endpoint"`
 	// +optional
+	ClientSecret string `json:"-" sensitive:"true" tf:"client_secret,omitempty"`
 	// +optional
 	DefaultScope string `json:"defaultScope,omitempty" tf:"default_scope,omitempty"`
 	// +optional
@@ -51,6 +54,7 @@ type ApiManagementAuthorizationServerSpec struct {
 	Name              string   `json:"name" tf:"name"`
 	ResourceGroupName string   `json:"resourceGroupName" tf:"resource_group_name"`
 	// +optional
+	ResourceOwnerPassword string `json:"-" sensitive:"true" tf:"resource_owner_password,omitempty"`
 	// +optional
 	ResourceOwnerUsername string `json:"resourceOwnerUsername,omitempty" tf:"resource_owner_username,omitempty"`
 	// +optional
@@ -65,9 +69,10 @@ type ApiManagementAuthorizationServerStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ApiManagementAuthorizationServerSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

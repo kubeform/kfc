@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,13 +21,23 @@ type NeptuneClusterInstance struct {
 type NeptuneClusterInstanceSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	Address string `json:"address,omitempty" tf:"address,omitempty"`
 	// +optional
 	ApplyImmediately bool `json:"applyImmediately,omitempty" tf:"apply_immediately,omitempty"`
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
 	// +optional
 	AutoMinorVersionUpgrade bool `json:"autoMinorVersionUpgrade,omitempty" tf:"auto_minor_version_upgrade,omitempty"`
 	// +optional
 	AvailabilityZone  string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 	ClusterIdentifier string `json:"clusterIdentifier" tf:"cluster_identifier"`
+	// +optional
+	DbiResourceID string `json:"dbiResourceID,omitempty" tf:"dbi_resource_id,omitempty"`
+	// +optional
+	Endpoint string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 	// +optional
 	Engine string `json:"engine,omitempty" tf:"engine,omitempty"`
 	// +optional
@@ -37,6 +47,8 @@ type NeptuneClusterInstanceSpec struct {
 	// +optional
 	IdentifierPrefix string `json:"identifierPrefix,omitempty" tf:"identifier_prefix,omitempty"`
 	InstanceClass    string `json:"instanceClass" tf:"instance_class"`
+	// +optional
+	KmsKeyArn string `json:"kmsKeyArn,omitempty" tf:"kms_key_arn,omitempty"`
 	// +optional
 	NeptuneParameterGroupName string `json:"neptuneParameterGroupName,omitempty" tf:"neptune_parameter_group_name,omitempty"`
 	// +optional
@@ -52,16 +64,21 @@ type NeptuneClusterInstanceSpec struct {
 	// +optional
 	PubliclyAccessible bool `json:"publiclyAccessible,omitempty" tf:"publicly_accessible,omitempty"`
 	// +optional
+	StorageEncrypted bool `json:"storageEncrypted,omitempty" tf:"storage_encrypted,omitempty"`
+	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
+	// +optional
+	Writer bool `json:"writer,omitempty" tf:"writer,omitempty"`
 }
 
 type NeptuneClusterInstanceStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *NeptuneClusterInstanceSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

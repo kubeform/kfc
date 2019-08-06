@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -35,9 +35,15 @@ type BigqueryTableSpecView struct {
 type BigqueryTableSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	DatasetID string `json:"datasetID" tf:"dataset_id"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	CreationTime int    `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
+	DatasetID    string `json:"datasetID" tf:"dataset_id"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
+	// +optional
+	Etag string `json:"etag,omitempty" tf:"etag,omitempty"`
 	// +optional
 	ExpirationTime int `json:"expirationTime,omitempty" tf:"expiration_time,omitempty"`
 	// +optional
@@ -45,13 +51,27 @@ type BigqueryTableSpec struct {
 	// +optional
 	Labels map[string]string `json:"labels,omitempty" tf:"labels,omitempty"`
 	// +optional
+	LastModifiedTime int `json:"lastModifiedTime,omitempty" tf:"last_modified_time,omitempty"`
+	// +optional
+	Location string `json:"location,omitempty" tf:"location,omitempty"`
+	// +optional
+	NumBytes int `json:"numBytes,omitempty" tf:"num_bytes,omitempty"`
+	// +optional
+	NumLongTermBytes int `json:"numLongTermBytes,omitempty" tf:"num_long_term_bytes,omitempty"`
+	// +optional
+	NumRows int `json:"numRows,omitempty" tf:"num_rows,omitempty"`
+	// +optional
 	Project string `json:"project,omitempty" tf:"project,omitempty"`
 	// +optional
-	Schema  string `json:"schema,omitempty" tf:"schema,omitempty"`
-	TableID string `json:"tableID" tf:"table_id"`
+	Schema string `json:"schema,omitempty" tf:"schema,omitempty"`
+	// +optional
+	SelfLink string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
+	TableID  string `json:"tableID" tf:"table_id"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	TimePartitioning []BigqueryTableSpecTimePartitioning `json:"timePartitioning,omitempty" tf:"time_partitioning,omitempty"`
+	// +optional
+	Type string `json:"type,omitempty" tf:"type,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	View []BigqueryTableSpecView `json:"view,omitempty" tf:"view,omitempty"`
@@ -61,9 +81,10 @@ type BigqueryTableStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *BigqueryTableSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,12 +21,24 @@ type ServicebusNamespace struct {
 type ServicebusNamespaceSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+
 	// +optional
-	Capacity          int    `json:"capacity,omitempty" tf:"capacity,omitempty"`
-	Location          string `json:"location" tf:"location"`
-	Name              string `json:"name" tf:"name"`
-	ResourceGroupName string `json:"resourceGroupName" tf:"resource_group_name"`
-	Sku               string `json:"sku" tf:"sku"`
+	Capacity int `json:"capacity,omitempty" tf:"capacity,omitempty"`
+	// +optional
+	DefaultPrimaryConnectionString string `json:"-" sensitive:"true" tf:"default_primary_connection_string,omitempty"`
+	// +optional
+	DefaultPrimaryKey string `json:"-" sensitive:"true" tf:"default_primary_key,omitempty"`
+	// +optional
+	DefaultSecondaryConnectionString string `json:"-" sensitive:"true" tf:"default_secondary_connection_string,omitempty"`
+	// +optional
+	DefaultSecondaryKey string `json:"-" sensitive:"true" tf:"default_secondary_key,omitempty"`
+	Location            string `json:"location" tf:"location"`
+	Name                string `json:"name" tf:"name"`
+	ResourceGroupName   string `json:"resourceGroupName" tf:"resource_group_name"`
+	Sku                 string `json:"sku" tf:"sku"`
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
@@ -35,9 +47,10 @@ type ServicebusNamespaceStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ServicebusNamespaceSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

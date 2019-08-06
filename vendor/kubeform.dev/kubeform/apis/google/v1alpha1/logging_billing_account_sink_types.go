@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,20 +21,25 @@ type LoggingBillingAccountSink struct {
 type LoggingBillingAccountSinkSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	BillingAccount string `json:"billingAccount" tf:"billing_account"`
 	Destination    string `json:"destination" tf:"destination"`
 	// +optional
 	Filter string `json:"filter,omitempty" tf:"filter,omitempty"`
 	Name   string `json:"name" tf:"name"`
+	// +optional
+	WriterIdentity string `json:"writerIdentity,omitempty" tf:"writer_identity,omitempty"`
 }
 
 type LoggingBillingAccountSinkStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *LoggingBillingAccountSinkSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

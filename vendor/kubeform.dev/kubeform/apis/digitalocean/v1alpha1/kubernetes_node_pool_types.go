@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -18,13 +18,30 @@ type KubernetesNodePool struct {
 	Status            KubernetesNodePoolStatus `json:"status,omitempty"`
 }
 
+type KubernetesNodePoolSpecNodes struct {
+	// +optional
+	CreatedAt string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+	// +optional
+	ID string `json:"ID,omitempty" tf:"id,omitempty"`
+	// +optional
+	Name string `json:"name,omitempty" tf:"name,omitempty"`
+	// +optional
+	Status string `json:"status,omitempty" tf:"status,omitempty"`
+	// +optional
+	UpdatedAt string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
+}
+
 type KubernetesNodePoolSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
+
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
 	ClusterID string `json:"clusterID" tf:"cluster_id"`
 	Name      string `json:"name" tf:"name"`
 	NodeCount int    `json:"nodeCount" tf:"node_count"`
-	Size      string `json:"size" tf:"size"`
+	// +optional
+	Nodes []KubernetesNodePoolSpecNodes `json:"nodes,omitempty" tf:"nodes,omitempty"`
+	Size  string                        `json:"size" tf:"size"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	Tags []string `json:"tags,omitempty" tf:"tags,omitempty"`
@@ -34,9 +51,10 @@ type KubernetesNodePoolStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *KubernetesNodePoolSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

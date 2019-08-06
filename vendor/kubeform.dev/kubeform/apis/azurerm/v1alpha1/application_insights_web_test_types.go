@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -20,6 +20,8 @@ type ApplicationInsightsWebTest struct {
 
 type ApplicationInsightsWebTestSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
+
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
 	ApplicationInsightsID string `json:"applicationInsightsID" tf:"application_insights_id"`
 	Configuration         string `json:"configuration" tf:"configuration"`
@@ -38,6 +40,8 @@ type ApplicationInsightsWebTestSpec struct {
 	// +optional
 	RetryEnabled bool `json:"retryEnabled,omitempty" tf:"retry_enabled,omitempty"`
 	// +optional
+	SyntheticMonitorID string `json:"syntheticMonitorID,omitempty" tf:"synthetic_monitor_id,omitempty"`
+	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 	// +optional
 	Timeout int `json:"timeout,omitempty" tf:"timeout,omitempty"`
@@ -47,9 +51,10 @@ type ApplicationInsightsWebTestStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ApplicationInsightsWebTestSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

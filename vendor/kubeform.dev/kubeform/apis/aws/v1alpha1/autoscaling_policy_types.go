@@ -5,7 +5,7 @@ import (
 
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -64,8 +64,12 @@ type AutoscalingPolicySpecTargetTrackingConfiguration struct {
 type AutoscalingPolicySpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
-	AdjustmentType       string `json:"adjustmentType,omitempty" tf:"adjustment_type,omitempty"`
+	AdjustmentType string `json:"adjustmentType,omitempty" tf:"adjustment_type,omitempty"`
+	// +optional
+	Arn                  string `json:"arn,omitempty" tf:"arn,omitempty"`
 	AutoscalingGroupName string `json:"autoscalingGroupName" tf:"autoscaling_group_name"`
 	// +optional
 	Cooldown int `json:"cooldown,omitempty" tf:"cooldown,omitempty"`
@@ -92,9 +96,10 @@ type AutoscalingPolicyStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *AutoscalingPolicySpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

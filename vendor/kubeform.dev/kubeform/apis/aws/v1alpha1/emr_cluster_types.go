@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -42,6 +42,8 @@ type EmrClusterSpecCoreInstanceGroup struct {
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	EbsConfig []EmrClusterSpecCoreInstanceGroupEbsConfig `json:"ebsConfig,omitempty" tf:"ebs_config,omitempty"`
+	// +optional
+	ID string `json:"ID,omitempty" tf:"id,omitempty"`
 	// +optional
 	InstanceCount int    `json:"instanceCount,omitempty" tf:"instance_count,omitempty"`
 	InstanceType  string `json:"instanceType" tf:"instance_type"`
@@ -85,6 +87,8 @@ type EmrClusterSpecInstanceGroup struct {
 	// +kubebuilder:validation:UniqueItems=true
 	EbsConfig []EmrClusterSpecInstanceGroupEbsConfig `json:"ebsConfig,omitempty" tf:"ebs_config,omitempty"`
 	// +optional
+	ID string `json:"ID,omitempty" tf:"id,omitempty"`
+	// +optional
 	InstanceCount int    `json:"instanceCount,omitempty" tf:"instance_count,omitempty"`
 	InstanceRole  string `json:"instanceRole" tf:"instance_role"`
 	InstanceType  string `json:"instanceType" tf:"instance_type"`
@@ -94,10 +98,13 @@ type EmrClusterSpecInstanceGroup struct {
 
 type EmrClusterSpecKerberosAttributes struct {
 	// +optional
+	AdDomainJoinPassword string `json:"-" sensitive:"true" tf:"ad_domain_join_password,omitempty"`
 	// +optional
 	AdDomainJoinUser string `json:"adDomainJoinUser,omitempty" tf:"ad_domain_join_user,omitempty"`
 	// +optional
-	Realm string `json:"realm" tf:"realm"`
+	CrossRealmTrustPrincipalPassword string `json:"-" sensitive:"true" tf:"cross_realm_trust_principal_password,omitempty"`
+	KdcAdminPassword                 string `json:"-" sensitive:"true" tf:"kdc_admin_password"`
+	Realm                            string `json:"realm" tf:"realm"`
 }
 
 type EmrClusterSpecMasterInstanceGroupEbsConfig struct {
@@ -114,8 +121,10 @@ type EmrClusterSpecMasterInstanceGroup struct {
 	BidPrice string `json:"bidPrice,omitempty" tf:"bid_price,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
-	EbsConfig    []EmrClusterSpecMasterInstanceGroupEbsConfig `json:"ebsConfig,omitempty" tf:"ebs_config,omitempty"`
-	InstanceType string                                       `json:"instanceType" tf:"instance_type"`
+	EbsConfig []EmrClusterSpecMasterInstanceGroupEbsConfig `json:"ebsConfig,omitempty" tf:"ebs_config,omitempty"`
+	// +optional
+	ID           string `json:"ID,omitempty" tf:"id,omitempty"`
+	InstanceType string `json:"instanceType" tf:"instance_type"`
 	// +optional
 	Name string `json:"name,omitempty" tf:"name,omitempty"`
 }
@@ -140,7 +149,9 @@ type EmrClusterSpecStep struct {
 type EmrClusterSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	AdditionalInfo string `json:"additionalInfo,omitempty" tf:"additional_info,omitempty"`
@@ -152,6 +163,8 @@ type EmrClusterSpec struct {
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	BootstrapAction []EmrClusterSpecBootstrapAction `json:"bootstrapAction,omitempty" tf:"bootstrap_action,omitempty"`
+	// +optional
+	ClusterState string `json:"clusterState,omitempty" tf:"cluster_state,omitempty"`
 	// +optional
 	Configurations string `json:"configurations,omitempty" tf:"configurations,omitempty"`
 	// +optional
@@ -189,8 +202,10 @@ type EmrClusterSpec struct {
 	// +optional
 	// Deprecated
 	MasterInstanceType string `json:"masterInstanceType,omitempty" tf:"master_instance_type,omitempty"`
-	Name               string `json:"name" tf:"name"`
-	ReleaseLabel       string `json:"releaseLabel" tf:"release_label"`
+	// +optional
+	MasterPublicDNS string `json:"masterPublicDNS,omitempty" tf:"master_public_dns,omitempty"`
+	Name            string `json:"name" tf:"name"`
+	ReleaseLabel    string `json:"releaseLabel" tf:"release_label"`
 	// +optional
 	ScaleDownBehavior string `json:"scaleDownBehavior,omitempty" tf:"scale_down_behavior,omitempty"`
 	// +optional
@@ -210,9 +225,10 @@ type EmrClusterStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *EmrClusterSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

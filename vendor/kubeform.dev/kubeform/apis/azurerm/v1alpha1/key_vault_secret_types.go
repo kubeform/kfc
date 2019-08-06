@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,7 +21,9 @@ type KeyVaultSecret struct {
 type KeyVaultSecretSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	ContentType string `json:"contentType,omitempty" tf:"content_type,omitempty"`
@@ -29,19 +31,23 @@ type KeyVaultSecretSpec struct {
 	KeyVaultID string `json:"keyVaultID,omitempty" tf:"key_vault_id,omitempty"`
 	Name       string `json:"name" tf:"name"`
 	// +optional
-	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
+	Tags  map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
+	Value string            `json:"-" sensitive:"true" tf:"value"`
 	// +optional
 	// Deprecated
 	VaultURI string `json:"vaultURI,omitempty" tf:"vault_uri,omitempty"`
+	// +optional
+	Version string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
 type KeyVaultSecretStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *KeyVaultSecretSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

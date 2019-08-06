@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -85,6 +85,8 @@ type StorageBucketSpecWebsite struct {
 type StorageBucketSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	Cors []StorageBucketSpecCors `json:"cors,omitempty" tf:"cors,omitempty"`
 	// +optional
@@ -106,7 +108,11 @@ type StorageBucketSpec struct {
 	// +optional
 	Project string `json:"project,omitempty" tf:"project,omitempty"`
 	// +optional
+	SelfLink string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
+	// +optional
 	StorageClass string `json:"storageClass,omitempty" tf:"storage_class,omitempty"`
+	// +optional
+	Url string `json:"url,omitempty" tf:"url,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	Versioning []StorageBucketSpecVersioning `json:"versioning,omitempty" tf:"versioning,omitempty"`
@@ -118,9 +124,10 @@ type StorageBucketStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *StorageBucketSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

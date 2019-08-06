@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,8 +21,12 @@ type ComputeForwardingRule struct {
 type ComputeForwardingRuleSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	BackendService string `json:"backendService,omitempty" tf:"backend_service,omitempty"`
+	// +optional
+	CreationTimestamp string `json:"creationTimestamp,omitempty" tf:"creation_timestamp,omitempty"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
 	// +optional
@@ -31,6 +35,8 @@ type ComputeForwardingRuleSpec struct {
 	IpProtocol string `json:"ipProtocol,omitempty" tf:"ip_protocol,omitempty"`
 	// +optional
 	IpVersion string `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
+	// +optional
+	LabelFingerprint string `json:"labelFingerprint,omitempty" tf:"label_fingerprint,omitempty"`
 	// +optional
 	// Deprecated
 	Labels map[string]string `json:"labels,omitempty" tf:"labels,omitempty"`
@@ -52,8 +58,13 @@ type ComputeForwardingRuleSpec struct {
 	// +optional
 	Region string `json:"region,omitempty" tf:"region,omitempty"`
 	// +optional
+	SelfLink string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
+	// +optional
 	// Deprecated
 	ServiceLabel string `json:"serviceLabel,omitempty" tf:"service_label,omitempty"`
+	// +optional
+	// Deprecated
+	ServiceName string `json:"serviceName,omitempty" tf:"service_name,omitempty"`
 	// +optional
 	Subnetwork string `json:"subnetwork,omitempty" tf:"subnetwork,omitempty"`
 	// +optional
@@ -64,9 +75,10 @@ type ComputeForwardingRuleStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ComputeForwardingRuleSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

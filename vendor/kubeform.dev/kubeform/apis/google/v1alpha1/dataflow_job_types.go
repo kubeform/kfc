@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,6 +21,8 @@ type DataflowJob struct {
 type DataflowJobSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	MaxWorkers int    `json:"maxWorkers,omitempty" tf:"max_workers,omitempty"`
 	Name       string `json:"name" tf:"name"`
@@ -31,7 +33,9 @@ type DataflowJobSpec struct {
 	// +optional
 	Project string `json:"project,omitempty" tf:"project,omitempty"`
 	// +optional
-	Region          string `json:"region,omitempty" tf:"region,omitempty"`
+	Region string `json:"region,omitempty" tf:"region,omitempty"`
+	// +optional
+	State           string `json:"state,omitempty" tf:"state,omitempty"`
 	TempGcsLocation string `json:"tempGcsLocation" tf:"temp_gcs_location"`
 	TemplateGcsPath string `json:"templateGcsPath" tf:"template_gcs_path"`
 	// +optional
@@ -42,9 +46,10 @@ type DataflowJobStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *DataflowJobSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

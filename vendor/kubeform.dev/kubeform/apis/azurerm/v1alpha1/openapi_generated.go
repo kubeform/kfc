@@ -411,6 +411,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSlotSpecSiteConfig":                                                             schema_kubeform_apis_azurerm_v1alpha1_AppServiceSlotSpecSiteConfig(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSlotSpecSiteConfigCors":                                                         schema_kubeform_apis_azurerm_v1alpha1_AppServiceSlotSpecSiteConfigCors(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSlotSpecSiteConfigIpRestriction":                                                schema_kubeform_apis_azurerm_v1alpha1_AppServiceSlotSpecSiteConfigIpRestriction(ref),
+		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSlotSpecSiteCredential":                                                         schema_kubeform_apis_azurerm_v1alpha1_AppServiceSlotSpecSiteCredential(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSlotStatus":                                                                     schema_kubeform_apis_azurerm_v1alpha1_AppServiceSlotStatus(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpec":                                                                           schema_kubeform_apis_azurerm_v1alpha1_AppServiceSpec(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpecAuthSettings":                                                               schema_kubeform_apis_azurerm_v1alpha1_AppServiceSpecAuthSettings(ref),
@@ -427,6 +428,8 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpecSiteConfig":                                                                 schema_kubeform_apis_azurerm_v1alpha1_AppServiceSpecSiteConfig(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpecSiteConfigCors":                                                             schema_kubeform_apis_azurerm_v1alpha1_AppServiceSpecSiteConfigCors(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpecSiteConfigIpRestriction":                                                    schema_kubeform_apis_azurerm_v1alpha1_AppServiceSpecSiteConfigIpRestriction(ref),
+		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpecSiteCredential":                                                             schema_kubeform_apis_azurerm_v1alpha1_AppServiceSpecSiteCredential(ref),
+		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpecSourceControl":                                                              schema_kubeform_apis_azurerm_v1alpha1_AppServiceSpecSourceControl(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceStatus":                                                                         schema_kubeform_apis_azurerm_v1alpha1_AppServiceStatus(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApplicationGateway":                                                                       schema_kubeform_apis_azurerm_v1alpha1_ApplicationGateway(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApplicationGatewayList":                                                                   schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewayList(ref),
@@ -889,6 +892,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.FunctionAppSpecConnectionString":                                                          schema_kubeform_apis_azurerm_v1alpha1_FunctionAppSpecConnectionString(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.FunctionAppSpecIdentity":                                                                  schema_kubeform_apis_azurerm_v1alpha1_FunctionAppSpecIdentity(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.FunctionAppSpecSiteConfig":                                                                schema_kubeform_apis_azurerm_v1alpha1_FunctionAppSpecSiteConfig(ref),
+		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.FunctionAppSpecSiteCredential":                                                            schema_kubeform_apis_azurerm_v1alpha1_FunctionAppSpecSiteCredential(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.FunctionAppStatus":                                                                        schema_kubeform_apis_azurerm_v1alpha1_FunctionAppStatus(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.HdinsightHadoopCluster":                                                                   schema_kubeform_apis_azurerm_v1alpha1_HdinsightHadoopCluster(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.HdinsightHadoopClusterList":                                                               schema_kubeform_apis_azurerm_v1alpha1_HdinsightHadoopClusterList(ref),
@@ -1008,6 +1012,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubSpecFallbackRoute":                                                                  schema_kubeform_apis_azurerm_v1alpha1_IothubSpecFallbackRoute(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubSpecIpFilterRule":                                                                   schema_kubeform_apis_azurerm_v1alpha1_IothubSpecIpFilterRule(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubSpecRoute":                                                                          schema_kubeform_apis_azurerm_v1alpha1_IothubSpecRoute(ref),
+		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubSpecSharedAccessPolicy":                                                             schema_kubeform_apis_azurerm_v1alpha1_IothubSpecSharedAccessPolicy(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubSpecSku":                                                                            schema_kubeform_apis_azurerm_v1alpha1_IothubSpecSku(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubStatus":                                                                             schema_kubeform_apis_azurerm_v1alpha1_IothubStatus(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.KeyVault":                                                                                 schema_kubeform_apis_azurerm_v1alpha1_KeyVault(ref),
@@ -1051,6 +1056,8 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecAddonProfileHttpApplicationRouting":                                  schema_kubeform_apis_azurerm_v1alpha1_KubernetesClusterSpecAddonProfileHttpApplicationRouting(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecAddonProfileOmsAgent":                                                schema_kubeform_apis_azurerm_v1alpha1_KubernetesClusterSpecAddonProfileOmsAgent(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecAgentPoolProfile":                                                    schema_kubeform_apis_azurerm_v1alpha1_KubernetesClusterSpecAgentPoolProfile(ref),
+		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecKubeAdminConfig":                                                     schema_kubeform_apis_azurerm_v1alpha1_KubernetesClusterSpecKubeAdminConfig(ref),
+		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecKubeConfig":                                                          schema_kubeform_apis_azurerm_v1alpha1_KubernetesClusterSpecKubeConfig(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecLinuxProfile":                                                        schema_kubeform_apis_azurerm_v1alpha1_KubernetesClusterSpecLinuxProfile(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecLinuxProfileSshKey":                                                  schema_kubeform_apis_azurerm_v1alpha1_KubernetesClusterSpecLinuxProfileSshKey(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecNetworkProfile":                                                      schema_kubeform_apis_azurerm_v1alpha1_KubernetesClusterSpecNetworkProfile(ref),
@@ -1232,6 +1239,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.MssqlElasticpool":                                                                         schema_kubeform_apis_azurerm_v1alpha1_MssqlElasticpool(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.MssqlElasticpoolList":                                                                     schema_kubeform_apis_azurerm_v1alpha1_MssqlElasticpoolList(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.MssqlElasticpoolSpec":                                                                     schema_kubeform_apis_azurerm_v1alpha1_MssqlElasticpoolSpec(ref),
+		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.MssqlElasticpoolSpecElasticPoolProperties":                                                schema_kubeform_apis_azurerm_v1alpha1_MssqlElasticpoolSpecElasticPoolProperties(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.MssqlElasticpoolSpecPerDatabaseSettings":                                                  schema_kubeform_apis_azurerm_v1alpha1_MssqlElasticpoolSpecPerDatabaseSettings(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.MssqlElasticpoolSpecSku":                                                                  schema_kubeform_apis_azurerm_v1alpha1_MssqlElasticpoolSpecSku(ref),
 		"kubeform.dev/kubeform/apis/azurerm/v1alpha1.MssqlElasticpoolStatus":                                                                   schema_kubeform_apis_azurerm_v1alpha1_MssqlElasticpoolStatus(ref),
@@ -14018,6 +14026,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementAPIOperationPolicySpec(r
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"apiManagementName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -14076,21 +14090,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementAPIOperationPolicyStatus
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementAPIOperationPolicySpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementAPIOperationPolicySpec"},
 	}
 }
 
@@ -14103,6 +14117,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementAPIOperationSpec(ref com
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"apiManagementName": {
@@ -14756,21 +14776,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementAPIOperationStatus(ref c
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementAPIOperationSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementAPIOperationSpec"},
 	}
 }
 
@@ -14875,6 +14895,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementAPIPolicySpec(ref common
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"apiManagementName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -14927,21 +14953,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementAPIPolicyStatus(ref comm
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementAPIPolicySpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementAPIPolicySpec"},
 	}
 }
 
@@ -15046,6 +15072,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementAPISchemaSpec(ref common
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"apiManagementName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -15104,21 +15136,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementAPISchemaStatus(ref comm
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementAPISchemaSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementAPISchemaSpec"},
 	}
 }
 
@@ -15131,6 +15163,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementAPISpec(ref common.Refer
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"apiManagementName": {
@@ -15161,6 +15199,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementAPISpec(ref common.Refer
 									},
 								},
 							},
+						},
+					},
+					"isCurrent": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"isOnline": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
 						},
 					},
 					"name": {
@@ -15222,6 +15272,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementAPISpec(ref common.Refer
 									},
 								},
 							},
+						},
+					},
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"versionSetID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 				},
@@ -15335,21 +15397,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementAPIStatus(ref common.Ref
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementAPISpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementAPISpec"},
 	}
 }
 
@@ -15454,6 +15516,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementAPIVersionSetSpec(ref co
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"apiManagementName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -15524,21 +15592,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementAPIVersionSetStatus(ref 
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementAPIVersionSetSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementAPIVersionSetSpec"},
 	}
 }
 
@@ -15641,6 +15709,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementAuthorizationServerSpec(
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"secret": {
@@ -15831,21 +15905,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementAuthorizationServerStatu
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementAuthorizationServerSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementAuthorizationServerSpec"},
 	}
 }
 
@@ -15950,12 +16024,24 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementCertificateSpec(ref comm
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
 					"apiManagementName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"expiration": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -15973,8 +16059,20 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementCertificateSpec(ref comm
 							Format: "",
 						},
 					},
+					"subject": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"thumbprint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 				},
-				Required: []string{"providerRef", "apiManagementName", "name"},
+				Required: []string{"providerRef", "apiManagementName", "name", "resourceGroupName"},
 			},
 		},
 		Dependencies: []string{
@@ -15995,21 +16093,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementCertificateStatus(ref co
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementCertificateSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementCertificateSpec"},
 	}
 }
 
@@ -16114,6 +16212,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementGroupSpec(ref common.Ref
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"apiManagementName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -16178,21 +16282,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementGroupStatus(ref common.R
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementGroupSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementGroupSpec"},
 	}
 }
 
@@ -16297,6 +16401,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementGroupUserSpec(ref common
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"apiManagementName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -16343,21 +16453,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementGroupUserStatus(ref comm
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementGroupUserSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementGroupUserSpec"},
 	}
 }
 
@@ -16509,6 +16619,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementLoggerSpec(ref common.Re
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -16619,21 +16735,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementLoggerStatus(ref common.
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementLoggerSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementLoggerSpec"},
 	}
 }
 
@@ -16738,6 +16854,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementOpenidConnectProviderSpe
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -16801,21 +16923,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementOpenidConnectProviderSta
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementOpenidConnectProviderSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementOpenidConnectProviderSpec"},
 	}
 }
 
@@ -16963,6 +17085,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementProductAPISpec(ref commo
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"apiManagementName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -17009,21 +17137,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementProductAPIStatus(ref com
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementProductAPISpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementProductAPISpec"},
 	}
 }
 
@@ -17128,6 +17256,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementProductGroupSpec(ref com
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"apiManagementName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -17174,21 +17308,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementProductGroupStatus(ref c
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementProductGroupSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementProductGroupSpec"},
 	}
 }
 
@@ -17340,6 +17474,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementProductPolicySpec(ref co
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"apiManagementName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -17392,21 +17532,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementProductPolicyStatus(ref 
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementProductPolicySpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementProductPolicySpec"},
 	}
 }
 
@@ -17419,6 +17559,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementProductSpec(ref common.R
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"apiManagementName": {
@@ -17503,21 +17649,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementProductStatus(ref common
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementProductSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementProductSpec"},
 	}
 }
 
@@ -17622,6 +17768,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementPropertySpec(ref common.
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"apiManagementName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -17693,21 +17845,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementPropertyStatus(ref commo
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementPropertySpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementPropertySpec"},
 	}
 }
 
@@ -17720,6 +17872,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementSpec(ref common.Referenc
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"secret": {
@@ -17749,6 +17907,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementSpec(ref common.Referenc
 									},
 								},
 							},
+						},
+					},
+					"gatewayRegionalURL": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"gatewayURL": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"hostnameConfiguration": {
@@ -17781,6 +17951,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementSpec(ref common.Referenc
 							Format: "",
 						},
 					},
+					"managementAPIURL": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -17805,6 +17981,25 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementSpec(ref common.Referenc
 							},
 						},
 					},
+					"portalURL": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"publicIPAddresses": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
 					"publisherEmail": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -17818,6 +18013,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementSpec(ref common.Referenc
 						},
 					},
 					"resourceGroupName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"scmURL": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -17900,10 +18101,29 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementSpecAdditionalLocation(r
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"gatewayRegionalURL": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"publicIPAddresses": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
 						},
 					},
 				},
@@ -18019,6 +18239,7 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementSpecHostnameConfiguratio
 						},
 					},
 				},
+				Required: []string{"hostName"},
 			},
 		},
 	}
@@ -18049,6 +18270,7 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementSpecHostnameConfiguratio
 						},
 					},
 				},
+				Required: []string{"hostName"},
 			},
 		},
 	}
@@ -18116,6 +18338,7 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementSpecHostnameConfiguratio
 						},
 					},
 				},
+				Required: []string{"hostName"},
 			},
 		},
 	}
@@ -18127,6 +18350,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementSpecIdentity(ref common.
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"principalID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"tenantID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"type": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -18346,21 +18581,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementStatus(ref common.Refere
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementSpec"},
 	}
 }
 
@@ -18465,6 +18700,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementSubscriptionSpec(ref com
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -18513,7 +18754,7 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementSubscriptionSpec(ref com
 						},
 					},
 				},
-				Required: []string{"providerRef", "apiManagementName", "displayName", "resourceGroupName", "userID"},
+				Required: []string{"providerRef", "apiManagementName", "displayName", "productID", "resourceGroupName", "userID"},
 			},
 		},
 		Dependencies: []string{
@@ -18534,21 +18775,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementSubscriptionStatus(ref c
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementSubscriptionSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementSubscriptionSpec"},
 	}
 }
 
@@ -18653,6 +18894,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementUserSpec(ref common.Refe
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -18713,7 +18960,7 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementUserSpec(ref common.Refe
 						},
 					},
 				},
-				Required: []string{"providerRef", "apiManagementName", "email", "firstName", "lastName", "userID"},
+				Required: []string{"providerRef", "apiManagementName", "email", "firstName", "lastName", "resourceGroupName", "userID"},
 			},
 		},
 		Dependencies: []string{
@@ -18734,21 +18981,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementUserStatus(ref common.Re
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementUserSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApiManagementUserSpec"},
 	}
 }
 
@@ -18896,6 +19143,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServiceActiveSlotSpec(ref common.R
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"appServiceName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -18936,21 +19189,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServiceActiveSlotStatus(ref common
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceActiveSlotSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceActiveSlotSpec"},
 	}
 }
 
@@ -19055,6 +19308,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServiceCustomHostnameBindingSpec(r
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"appServiceName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -19095,21 +19354,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServiceCustomHostnameBindingStatus
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceCustomHostnameBindingSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceCustomHostnameBindingSpec"},
 	}
 }
 
@@ -19261,6 +19520,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServicePlanSpec(ref common.Referen
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"appServiceEnvironmentID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -19286,6 +19551,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServicePlanSpec(ref common.Referen
 						},
 					},
 					"maximumElasticWorkerCount": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"maximumNumberOfWorkers": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
 							Format: "int32",
@@ -19440,21 +19711,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServicePlanStatus(ref common.Refer
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServicePlanSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServicePlanSpec"},
 	}
 }
 
@@ -19559,6 +19830,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServiceSlotSpec(ref common.Referen
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -19606,6 +19883,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServiceSlotSpec(ref common.Referen
 									},
 								},
 							},
+						},
+					},
+					"defaultSiteHostname": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"enabled": {
@@ -19662,6 +19945,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServiceSlotSpec(ref common.Referen
 							},
 						},
 					},
+					"siteCredential": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSlotSpecSiteCredential"),
+									},
+								},
+							},
+						},
+					},
 					"tags": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"object"},
@@ -19681,7 +19976,7 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServiceSlotSpec(ref common.Referen
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSlotSpecConnectionString", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSlotSpecIdentity", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSlotSpecSiteConfig"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSlotSpecConnectionString", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSlotSpecIdentity", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSlotSpecSiteConfig", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSlotSpecSiteCredential"},
 	}
 }
 
@@ -19716,6 +20011,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServiceSlotSpecIdentity(ref common
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"principalID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"tenantID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"type": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -19963,6 +20270,24 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServiceSlotSpecSiteConfigIpRestric
 	}
 }
 
+func schema_kubeform_apis_azurerm_v1alpha1_AppServiceSlotSpecSiteCredential(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"username": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
 func schema_kubeform_apis_azurerm_v1alpha1_AppServiceSlotStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -19976,21 +20301,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServiceSlotStatus(ref common.Refer
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSlotSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSlotSpec"},
 	}
 }
 
@@ -20003,6 +20328,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServiceSpec(ref common.ReferenceCa
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"secret": {
@@ -20066,6 +20397,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServiceSpec(ref common.ReferenceCa
 							},
 						},
 					},
+					"defaultSiteHostname": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"enabled": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -20114,6 +20451,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServiceSpec(ref common.ReferenceCa
 							Format: "",
 						},
 					},
+					"outboundIPAddresses": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"possibleOutboundIPAddresses": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"resourceGroupName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -20127,6 +20476,30 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServiceSpec(ref common.ReferenceCa
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpecSiteConfig"),
+									},
+								},
+							},
+						},
+					},
+					"siteCredential": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpecSiteCredential"),
+									},
+								},
+							},
+						},
+					},
+					"sourceControl": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpecSourceControl"),
 									},
 								},
 							},
@@ -20151,7 +20524,7 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServiceSpec(ref common.ReferenceCa
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpecAuthSettings", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpecConnectionString", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpecIdentity", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpecLogs", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpecSiteConfig"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpecAuthSettings", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpecConnectionString", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpecIdentity", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpecLogs", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpecSiteConfig", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpecSiteCredential", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpecSourceControl"},
 	}
 }
 
@@ -20477,6 +20850,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServiceSpecIdentity(ref common.Ref
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"principalID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"tenantID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"type": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -20801,6 +21186,48 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServiceSpecSiteConfigIpRestriction
 	}
 }
 
+func schema_kubeform_apis_azurerm_v1alpha1_AppServiceSpecSiteCredential(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"username": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_kubeform_apis_azurerm_v1alpha1_AppServiceSpecSourceControl(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"branch": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"repoURL": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
 func schema_kubeform_apis_azurerm_v1alpha1_AppServiceStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -20814,21 +21241,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServiceStatus(ref common.Reference
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AppServiceSpec"},
 	}
 }
 
@@ -20931,6 +21358,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpec(ref common.Ref
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"secret": {
@@ -21234,6 +21667,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecAuthenticationC
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"ID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -21303,6 +21742,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecBackendAddressP
 									},
 								},
 							},
+						},
+					},
+					"ID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"ipAddressList": {
@@ -21393,6 +21838,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecBackendHTTPSett
 							Format: "",
 						},
 					},
+					"ID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -21415,6 +21866,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecBackendHTTPSett
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
 							Format: "int32",
+						},
+					},
+					"probeID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"probeName": {
@@ -21450,6 +21907,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecBackendHTTPSett
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"ID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -21500,6 +21963,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecCustomErrorConf
 							Format: "",
 						},
 					},
+					"ID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"statusCode": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -21519,6 +21988,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecFrontendIPConfi
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"ID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -21562,6 +22037,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecFrontendPort(re
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"ID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -21587,6 +22068,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecGatewayIPConfig
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"ID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -21624,7 +22111,19 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecHttpListener(re
 							},
 						},
 					},
+					"frontendIPConfigurationID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"frontendIPConfigurationName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"frontendPortID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -21637,6 +22136,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecHttpListener(re
 						},
 					},
 					"hostName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"ID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -21657,6 +22162,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecHttpListener(re
 					"requireSni": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"sslCertificateID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
 							Format: "",
 						},
 					},
@@ -21687,6 +22198,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecHttpListenerCus
 							Format: "",
 						},
 					},
+					"ID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"statusCode": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -21707,6 +22224,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecProbe(ref commo
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
 					"host": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"ID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -21818,6 +22341,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecRedirectConfigu
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"ID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"includePath": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -21837,6 +22366,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecRedirectConfigu
 						},
 					},
 					"redirectType": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"targetListenerID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -21867,7 +22402,19 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecRequestRoutingR
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"backendAddressPoolID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"backendAddressPoolName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"backendHTTPSettingsID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -21879,7 +22426,19 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecRequestRoutingR
 							Format: "",
 						},
 					},
+					"httpListenerID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"httpListenerName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"ID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -21891,7 +22450,19 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecRequestRoutingR
 							Format: "",
 						},
 					},
+					"redirectConfigurationID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"redirectConfigurationName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"rewriteRuleSetID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -21904,6 +22475,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecRequestRoutingR
 						},
 					},
 					"ruleType": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"urlPathMapID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -21928,6 +22505,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecRewriteRuleSet(
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"ID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -22142,7 +22725,19 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecSslCertificate(
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"ID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"publicCertData": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -22217,7 +22812,19 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecUrlPathMap(ref 
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"defaultBackendAddressPoolID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"defaultBackendAddressPoolName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"defaultBackendHTTPSettingsID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -22229,13 +22836,31 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecUrlPathMap(ref 
 							Format: "",
 						},
 					},
+					"defaultRedirectConfigurationID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"defaultRedirectConfigurationName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
 						},
 					},
+					"defaultRewriteRuleSetID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"defaultRewriteRuleSetName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"ID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -22274,13 +22899,31 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecUrlPathMapPathR
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"backendAddressPoolID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"backendAddressPoolName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
 						},
 					},
+					"backendHTTPSettingsID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"backendHTTPSettingsName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"ID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -22305,7 +22948,19 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpecUrlPathMapPathR
 							},
 						},
 					},
+					"redirectConfigurationID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"redirectConfigurationName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"rewriteRuleSetID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -22481,21 +23136,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewayStatus(ref common.R
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApplicationGatewaySpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApplicationGatewaySpec"},
 	}
 }
 
@@ -22643,6 +23298,17 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationInsightsAPIKeySpec(ref com
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
 					"applicationInsightsID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -22703,21 +23369,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationInsightsAPIKeyStatus(ref c
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApplicationInsightsAPIKeySpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApplicationInsightsAPIKeySpec"},
 	}
 }
 
@@ -22777,6 +23443,23 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationInsightsSpec(ref common.Re
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"appID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"applicationType": {
@@ -22839,21 +23522,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationInsightsStatus(ref common.
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApplicationInsightsSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApplicationInsightsSpec"},
 	}
 }
 
@@ -22958,6 +23641,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationInsightsWebTestSpec(ref co
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"applicationInsightsID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -23031,6 +23720,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationInsightsWebTestSpec(ref co
 							Format: "",
 						},
 					},
+					"syntheticMonitorID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"tags": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"object"},
@@ -23073,21 +23768,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationInsightsWebTestStatus(ref 
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApplicationInsightsWebTestSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApplicationInsightsWebTestSpec"},
 	}
 }
 
@@ -23192,6 +23887,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationSecurityGroupSpec(ref comm
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -23246,21 +23947,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationSecurityGroupStatus(ref co
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApplicationSecurityGroupSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ApplicationSecurityGroupSpec"},
 	}
 }
 
@@ -23365,6 +24066,30 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationAccountSpec(ref common.Refe
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"dscPrimaryAccessKey": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"dscSecondaryAccessKey": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"dscServerEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -23456,21 +24181,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationAccountStatus(ref common.Re
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationAccountSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationAccountSpec"},
 	}
 }
 
@@ -23575,6 +24300,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationCredentialSpec(ref common.R
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -23632,21 +24363,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationCredentialStatus(ref common
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationCredentialSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationCredentialSpec"},
 	}
 }
 
@@ -23751,6 +24482,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationDscConfigurationSpec(ref co
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"automationAccountName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -23793,6 +24530,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationDscConfigurationSpec(ref co
 							Format: "",
 						},
 					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 				},
 				Required: []string{"providerRef", "automationAccountName", "contentEmbedded", "location", "name", "resourceGroupName"},
 			},
@@ -23815,21 +24558,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationDscConfigurationStatus(ref 
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationDscConfigurationSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationDscConfigurationSpec"},
 	}
 }
 
@@ -23934,7 +24677,19 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationDscNodeconfigurationSpec(re
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"automationAccountName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"configurationName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -23980,21 +24735,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationDscNodeconfigurationStatus(
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationDscNodeconfigurationSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationDscNodeconfigurationSpec"},
 	}
 }
 
@@ -24097,6 +24852,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationModuleSpec(ref common.Refer
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"automationAccountName": {
@@ -24209,21 +24970,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationModuleStatus(ref common.Ref
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationModuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationModuleSpec"},
 	}
 }
 
@@ -24326,6 +25087,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationRunbookSpec(ref common.Refe
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"accountName": {
@@ -24494,21 +25261,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationRunbookStatus(ref common.Re
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationRunbookSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationRunbookSpec"},
 	}
 }
 
@@ -24611,6 +25378,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationScheduleSpec(ref common.Ref
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"accountName": {
@@ -24759,21 +25532,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationScheduleStatus(ref common.R
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationScheduleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationScheduleSpec"},
 	}
 }
 
@@ -24878,6 +25651,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationVariableBoolSpec(ref common
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"automationAccountName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -24936,21 +25715,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationVariableBoolStatus(ref comm
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationVariableBoolSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationVariableBoolSpec"},
 	}
 }
 
@@ -25055,6 +25834,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationVariableDatetimeSpec(ref co
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"automationAccountName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -25113,21 +25898,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationVariableDatetimeStatus(ref 
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationVariableDatetimeSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationVariableDatetimeSpec"},
 	}
 }
 
@@ -25232,6 +26017,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationVariableIntSpec(ref common.
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"automationAccountName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -25290,21 +26081,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationVariableIntStatus(ref commo
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationVariableIntSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationVariableIntSpec"},
 	}
 }
 
@@ -25409,6 +26200,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationVariableStringSpec(ref comm
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"automationAccountName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -25467,21 +26264,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutomationVariableStringStatus(ref co
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationVariableStringSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutomationVariableStringSpec"},
 	}
 }
 
@@ -25584,6 +26381,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutoscaleSettingSpec(ref common.Refer
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"enabled": {
@@ -26110,21 +26913,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_AutoscaleSettingStatus(ref common.Ref
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutoscaleSettingSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AutoscaleSettingSpec"},
 	}
 }
 
@@ -26229,6 +27032,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_AvailabilitySetSpec(ref common.Refere
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -26301,21 +27110,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_AvailabilitySetStatus(ref common.Refe
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AvailabilitySetSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AvailabilitySetSpec"},
 	}
 }
 
@@ -26420,6 +27229,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_AzureadApplicationSpec(ref common.Ref
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"applicationID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"availableToOtherTenants": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -26492,21 +27313,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_AzureadApplicationStatus(ref common.R
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AzureadApplicationSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AzureadApplicationSpec"},
 	}
 }
 
@@ -26701,6 +27522,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_AzureadServicePrincipalPasswordSpec(r
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -26752,21 +27579,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_AzureadServicePrincipalPasswordStatus
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AzureadServicePrincipalPasswordSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AzureadServicePrincipalPasswordSpec"},
 	}
 }
 
@@ -26781,7 +27608,19 @@ func schema_kubeform_apis_azurerm_v1alpha1_AzureadServicePrincipalSpec(ref commo
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"applicationID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"displayName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -26809,21 +27648,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_AzureadServicePrincipalStatus(ref com
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.AzureadServicePrincipalSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.AzureadServicePrincipalSpec"},
 	}
 }
 
@@ -26928,6 +27767,23 @@ func schema_kubeform_apis_azurerm_v1alpha1_BatchAccountSpec(ref common.Reference
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"accountEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -26994,21 +27850,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_BatchAccountStatus(ref common.Referen
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.BatchAccountSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.BatchAccountSpec"},
 	}
 }
 
@@ -27113,6 +27969,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_BatchCertificateSpec(ref common.Refer
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -27125,6 +27987,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_BatchCertificateSpec(ref common.Refer
 						},
 					},
 					"format": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"publicData": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -27149,7 +28023,7 @@ func schema_kubeform_apis_azurerm_v1alpha1_BatchCertificateSpec(ref common.Refer
 						},
 					},
 				},
-				Required: []string{"providerRef", "accountName", "format", "thumbprint", "thumbprintAlgorithm"},
+				Required: []string{"providerRef", "accountName", "format", "resourceGroupName", "thumbprint", "thumbprintAlgorithm"},
 			},
 		},
 		Dependencies: []string{
@@ -27170,21 +28044,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_BatchCertificateStatus(ref common.Ref
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.BatchCertificateSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.BatchCertificateSpec"},
 	}
 }
 
@@ -27287,6 +28161,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_BatchPoolSpec(ref common.ReferenceCal
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"accountName": {
@@ -27766,21 +28646,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_BatchPoolStatus(ref common.ReferenceC
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.BatchPoolSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.BatchPoolSpec"},
 	}
 }
 
@@ -27885,6 +28765,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_CdnEndpointSpec(ref common.ReferenceC
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"contentTypesToCompress": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -27908,6 +28794,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_CdnEndpointSpec(ref common.ReferenceC
 									},
 								},
 							},
+						},
+					},
+					"hostName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"isCompressionEnabled": {
@@ -28105,21 +28997,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_CdnEndpointStatus(ref common.Referenc
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.CdnEndpointSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.CdnEndpointSpec"},
 	}
 }
 
@@ -28224,6 +29116,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_CdnProfileSpec(ref common.ReferenceCa
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -28284,21 +29182,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_CdnProfileStatus(ref common.Reference
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.CdnProfileSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.CdnProfileSpec"},
 	}
 }
 
@@ -28403,6 +29301,23 @@ func schema_kubeform_apis_azurerm_v1alpha1_CognitiveAccountSpec(ref common.Refer
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"endpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"kind": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -28500,21 +29415,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_CognitiveAccountStatus(ref common.Ref
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.CognitiveAccountSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.CognitiveAccountSpec"},
 	}
 }
 
@@ -28617,6 +29532,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ConnectionMonitorSpec(ref common.Refe
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"autoStart": {
@@ -28771,21 +29692,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ConnectionMonitorStatus(ref common.Re
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ConnectionMonitorSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ConnectionMonitorSpec"},
 	}
 }
 
@@ -28890,6 +29811,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ContainerGroupSpec(ref common.Referen
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -28925,6 +29852,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ContainerGroupSpec(ref common.Referen
 							Format: "",
 						},
 					},
+					"fqdn": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"identity": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -28947,6 +29880,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ContainerGroupSpec(ref common.Referen
 									},
 								},
 							},
+						},
+					},
+					"ipAddress": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"ipAddressType": {
@@ -29535,6 +30474,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ContainerGroupSpecIdentity(ref common
 							},
 						},
 					},
+					"principalID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"type": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -29586,21 +30531,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ContainerGroupStatus(ref common.Refer
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ContainerGroupSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ContainerGroupSpec"},
 	}
 }
 
@@ -29705,6 +30650,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ContainerRegistrySpec(ref common.Refe
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -29713,6 +30664,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ContainerRegistrySpec(ref common.Refe
 					"adminEnabled": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"adminUsername": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
 							Format: "",
 						},
 					},
@@ -29730,6 +30687,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ContainerRegistrySpec(ref common.Refe
 						},
 					},
 					"location": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"loginServer": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -29827,21 +30790,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ContainerRegistryStatus(ref common.Re
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ContainerRegistrySpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ContainerRegistrySpec"},
 	}
 }
 
@@ -29944,6 +30907,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ContainerServiceSpec(ref common.Refer
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"secret": {
@@ -30076,6 +31045,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ContainerServiceSpecAgentPoolProfile(
 							Format: "",
 						},
 					},
+					"fqdn": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -30104,6 +31079,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ContainerServiceSpecDiagnosticsProfil
 					"enabled": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"storageURI": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
 							Format: "",
 						},
 					},
@@ -30184,6 +31165,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ContainerServiceSpecMasterProfile(ref
 							Format: "",
 						},
 					},
+					"fqdn": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 				},
 				Required: []string{"dnsPrefix"},
 			},
@@ -30223,21 +31210,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ContainerServiceStatus(ref common.Ref
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ContainerServiceSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ContainerServiceSpec"},
 	}
 }
 
@@ -30342,6 +31329,17 @@ func schema_kubeform_apis_azurerm_v1alpha1_CosmosdbAccountSpec(ref common.Refere
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
 					"capabilities": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -30375,6 +31373,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_CosmosdbAccountSpec(ref common.Refere
 					"enableMultipleWriteLocations": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"endpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
 							Format: "",
 						},
 					},
@@ -30439,6 +31443,19 @@ func schema_kubeform_apis_azurerm_v1alpha1_CosmosdbAccountSpec(ref common.Refere
 							Format: "",
 						},
 					},
+					"readEndpoints": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
 					"resourceGroupName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -30471,8 +31488,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_CosmosdbAccountSpec(ref common.Refere
 							},
 						},
 					},
+					"writeEndpoints": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
 				},
-				Required: []string{"providerRef", "consistencyPolicy", "location", "name", "offerType", "resourceGroupName"},
+				Required: []string{"providerRef", "location", "name", "offerType", "resourceGroupName"},
 			},
 		},
 		Dependencies: []string{
@@ -30573,6 +31603,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_CosmosdbAccountSpecGeoLocation(ref co
 							Format: "int32",
 						},
 					},
+					"ID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -30624,21 +31660,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_CosmosdbAccountStatus(ref common.Refe
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.CosmosdbAccountSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.CosmosdbAccountSpec"},
 	}
 }
 
@@ -30743,6 +31779,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_CosmosdbCassandraKeyspaceSpec(ref com
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"accountName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -30783,21 +31825,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_CosmosdbCassandraKeyspaceStatus(ref c
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.CosmosdbCassandraKeyspaceSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.CosmosdbCassandraKeyspaceSpec"},
 	}
 }
 
@@ -30902,6 +31944,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_CosmosdbMongoCollectionSpec(ref commo
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"accountName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -30997,21 +32045,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_CosmosdbMongoCollectionStatus(ref com
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.CosmosdbMongoCollectionSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.CosmosdbMongoCollectionSpec"},
 	}
 }
 
@@ -31116,6 +32164,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_CosmosdbMongoDatabaseSpec(ref common.
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"accountName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -31156,21 +32210,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_CosmosdbMongoDatabaseStatus(ref commo
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.CosmosdbMongoDatabaseSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.CosmosdbMongoDatabaseSpec"},
 	}
 }
 
@@ -31275,6 +32329,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_CosmosdbSQLDatabaseSpec(ref common.Re
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"accountName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -31315,21 +32375,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_CosmosdbSQLDatabaseStatus(ref common.
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.CosmosdbSQLDatabaseSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.CosmosdbSQLDatabaseSpec"},
 	}
 }
 
@@ -31434,6 +32494,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_CosmosdbTableSpec(ref common.Referenc
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"accountName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -31474,21 +32540,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_CosmosdbTableStatus(ref common.Refere
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.CosmosdbTableSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.CosmosdbTableSpec"},
 	}
 }
 
@@ -31634,6 +32700,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataFactoryDatasetMysqlSpec(ref commo
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"additionalProperties": {
@@ -31784,21 +32856,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataFactoryDatasetMysqlStatus(ref com
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataFactoryDatasetMysqlSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataFactoryDatasetMysqlSpec"},
 	}
 }
 
@@ -31901,6 +32973,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataFactoryDatasetPostgresqlSpec(ref 
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"additionalProperties": {
@@ -32051,21 +33129,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataFactoryDatasetPostgresqlStatus(re
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataFactoryDatasetPostgresqlSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataFactoryDatasetPostgresqlSpec"},
 	}
 }
 
@@ -32168,6 +33246,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataFactoryDatasetSQLServerTableSpec(
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"additionalProperties": {
@@ -32318,21 +33402,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataFactoryDatasetSQLServerTableStatu
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataFactoryDatasetSQLServerTableSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataFactoryDatasetSQLServerTableSpec"},
 	}
 }
 
@@ -32435,6 +33519,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataFactoryLinkedServiceDataLakeStora
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"additionalProperties": {
@@ -32554,21 +33644,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataFactoryLinkedServiceDataLakeStora
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataFactoryLinkedServiceDataLakeStorageGen2Spec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataFactoryLinkedServiceDataLakeStorageGen2Spec"},
 	}
 }
 
@@ -32673,6 +33763,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataFactoryLinkedServiceMysqlSpec(ref
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"additionalProperties": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"object"},
@@ -32772,21 +33868,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataFactoryLinkedServiceMysqlStatus(r
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataFactoryLinkedServiceMysqlSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataFactoryLinkedServiceMysqlSpec"},
 	}
 }
 
@@ -32891,6 +33987,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataFactoryLinkedServicePostgresqlSpe
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"additionalProperties": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"object"},
@@ -32990,21 +34092,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataFactoryLinkedServicePostgresqlSta
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataFactoryLinkedServicePostgresqlSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataFactoryLinkedServicePostgresqlSpec"},
 	}
 }
 
@@ -33109,6 +34211,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataFactoryLinkedServiceSQLServerSpec
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"additionalProperties": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"object"},
@@ -33208,21 +34316,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataFactoryLinkedServiceSQLServerStat
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataFactoryLinkedServiceSQLServerSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataFactoryLinkedServiceSQLServerSpec"},
 	}
 }
 
@@ -33374,6 +34482,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataFactoryPipelineSpec(ref common.Re
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"annotations": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -33461,21 +34575,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataFactoryPipelineStatus(ref common.
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataFactoryPipelineSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataFactoryPipelineSpec"},
 	}
 }
 
@@ -33488,6 +34602,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataFactorySpec(ref common.ReferenceC
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"githubConfiguration": {
@@ -33616,6 +34736,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataFactorySpecIdentity(ref common.Re
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"principalID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"tenantID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"type": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -33691,21 +34823,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataFactoryStatus(ref common.Referenc
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataFactorySpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataFactorySpec"},
 	}
 }
 
@@ -33810,6 +34942,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataLakeAnalyticsAccountSpec(ref comm
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"defaultStoreAccountName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -33876,21 +35014,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataLakeAnalyticsAccountStatus(ref co
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataLakeAnalyticsAccountSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataLakeAnalyticsAccountSpec"},
 	}
 }
 
@@ -33995,6 +35133,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataLakeAnalyticsFirewallRuleSpec(ref
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"accountName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -34047,21 +35191,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataLakeAnalyticsFirewallRuleStatus(r
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataLakeAnalyticsFirewallRuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataLakeAnalyticsFirewallRuleSpec"},
 	}
 }
 
@@ -34209,6 +35353,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataLakeStoreFileSpec(ref common.Refe
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"accountName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -34249,21 +35399,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataLakeStoreFileStatus(ref common.Re
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataLakeStoreFileSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataLakeStoreFileSpec"},
 	}
 }
 
@@ -34368,6 +35518,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataLakeStoreFirewallRuleSpec(ref com
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"accountName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -34420,21 +35576,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataLakeStoreFirewallRuleStatus(ref c
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataLakeStoreFirewallRuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataLakeStoreFirewallRuleSpec"},
 	}
 }
 
@@ -34496,6 +35652,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataLakeStoreSpec(ref common.Referenc
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"encryptionState": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -34503,6 +35665,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataLakeStoreSpec(ref common.Referenc
 						},
 					},
 					"encryptionType": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"endpoint": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -34580,21 +35748,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DataLakeStoreStatus(ref common.Refere
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataLakeStoreSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DataLakeStoreSpec"},
 	}
 }
 
@@ -34699,7 +35867,19 @@ func schema_kubeform_apis_azurerm_v1alpha1_DatabricksWorkspaceSpec(ref common.Re
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"managedResourceGroupID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -34765,21 +35945,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DatabricksWorkspaceStatus(ref common.
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DatabricksWorkspaceSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DatabricksWorkspaceSpec"},
 	}
 }
 
@@ -34884,6 +36064,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DdosProtectionPlanSpec(ref common.Ref
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -34916,6 +36102,19 @@ func schema_kubeform_apis_azurerm_v1alpha1_DdosProtectionPlanSpec(ref common.Ref
 							},
 						},
 					},
+					"virtualNetworkIDS": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
 				},
 				Required: []string{"providerRef", "location", "name", "resourceGroupName"},
 			},
@@ -34938,21 +36137,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DdosProtectionPlanStatus(ref common.R
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DdosProtectionPlanSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DdosProtectionPlanSpec"},
 	}
 }
 
@@ -35057,6 +36256,36 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevTestLabSpec(ref common.ReferenceCa
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"artifactsStorageAccountID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"defaultPremiumStorageAccountID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"defaultStorageAccountID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"keyVaultID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -35064,6 +36293,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevTestLabSpec(ref common.ReferenceCa
 						},
 					},
 					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"premiumDataDiskStorageAccountID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -35095,6 +36330,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevTestLabSpec(ref common.ReferenceCa
 							},
 						},
 					},
+					"uniqueIdentifier": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 				},
 				Required: []string{"providerRef", "location", "name", "resourceGroupName"},
 			},
@@ -35117,21 +36358,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevTestLabStatus(ref common.Reference
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DevTestLabSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DevTestLabSpec"},
 	}
 }
 
@@ -35236,6 +36477,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevTestLinuxVirtualMachineSpec(ref co
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -35250,6 +36497,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevTestLinuxVirtualMachineSpec(ref co
 					"disallowPublicIPAddress": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"fqdn": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
 							Format: "",
 						},
 					},
@@ -35351,6 +36604,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevTestLinuxVirtualMachineSpec(ref co
 							},
 						},
 					},
+					"uniqueIdentifier": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"username": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -35358,7 +36617,7 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevTestLinuxVirtualMachineSpec(ref co
 						},
 					},
 				},
-				Required: []string{"providerRef", "galleryImageReference", "labName", "labSubnetName", "labVirtualNetworkID", "location", "name", "size", "storageType", "username"},
+				Required: []string{"providerRef", "galleryImageReference", "labName", "labSubnetName", "labVirtualNetworkID", "location", "name", "resourceGroupName", "size", "storageType", "username"},
 			},
 		},
 		Dependencies: []string{
@@ -35415,6 +36674,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevTestLinuxVirtualMachineSpecInbound
 							Format: "int32",
 						},
 					},
+					"frontendPort": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
 					"protocol": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -35441,21 +36706,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevTestLinuxVirtualMachineStatus(ref 
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DevTestLinuxVirtualMachineSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DevTestLinuxVirtualMachineSpec"},
 	}
 }
 
@@ -35560,6 +36825,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevTestPolicySpec(ref common.Referenc
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"description": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -35644,21 +36915,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevTestPolicyStatus(ref common.Refere
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DevTestPolicySpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DevTestPolicySpec"},
 	}
 }
 
@@ -35763,6 +37034,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevTestVirtualNetworkSpec(ref common.
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"description": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -35813,6 +37090,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevTestVirtualNetworkSpec(ref common.
 							},
 						},
 					},
+					"uniqueIdentifier": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 				},
 				Required: []string{"providerRef", "labName", "name", "resourceGroupName"},
 			},
@@ -35828,6 +37111,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevTestVirtualNetworkSpecSubnet(ref c
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"useInVirtualMachineCreation": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -35859,21 +37148,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevTestVirtualNetworkStatus(ref commo
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DevTestVirtualNetworkSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DevTestVirtualNetworkSpec"},
 	}
 }
 
@@ -35978,6 +37267,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevTestWindowsVirtualMachineSpec(ref 
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"allowClaim": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -35987,6 +37282,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevTestWindowsVirtualMachineSpec(ref 
 					"disallowPublicIPAddress": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"fqdn": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
 							Format: "",
 						},
 					},
@@ -36088,6 +37389,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevTestWindowsVirtualMachineSpec(ref 
 							},
 						},
 					},
+					"uniqueIdentifier": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"username": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -36152,6 +37459,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevTestWindowsVirtualMachineSpecInbou
 							Format: "int32",
 						},
 					},
+					"frontendPort": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
 					"protocol": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -36178,21 +37491,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevTestWindowsVirtualMachineStatus(re
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DevTestWindowsVirtualMachineSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DevTestWindowsVirtualMachineSpec"},
 	}
 }
 
@@ -36297,9 +37610,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevspaceControllerSpec(ref common.Ref
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"dataPlaneFqdn": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"hostSuffix": {
@@ -36405,21 +37730,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DevspaceControllerStatus(ref common.R
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DevspaceControllerSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DevspaceControllerSpec"},
 	}
 }
 
@@ -36524,6 +37849,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DnsARecordSpec(ref common.ReferenceCa
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -36597,21 +37928,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DnsARecordStatus(ref common.Reference
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DnsARecordSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DnsARecordSpec"},
 	}
 }
 
@@ -36716,6 +38047,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DnsAaaaRecordSpec(ref common.Referenc
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -36789,21 +38126,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DnsAaaaRecordStatus(ref common.Refere
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DnsAaaaRecordSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DnsAaaaRecordSpec"},
 	}
 }
 
@@ -36906,6 +38243,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DnsCaaRecordSpec(ref common.Reference
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"name": {
@@ -37011,21 +38354,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DnsCaaRecordStatus(ref common.Referen
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DnsCaaRecordSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DnsCaaRecordSpec"},
 	}
 }
 
@@ -37130,6 +38473,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DnsCnameRecordSpec(ref common.Referen
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -37196,21 +38545,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DnsCnameRecordStatus(ref common.Refer
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DnsCnameRecordSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DnsCnameRecordSpec"},
 	}
 }
 
@@ -37315,6 +38664,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DnsMxRecordSpec(ref common.ReferenceC
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -37412,21 +38767,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DnsMxRecordStatus(ref common.Referenc
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DnsMxRecordSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DnsMxRecordSpec"},
 	}
 }
 
@@ -37529,6 +38884,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DnsNsRecordSpec(ref common.ReferenceC
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"name": {
@@ -37636,21 +38997,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DnsNsRecordStatus(ref common.Referenc
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DnsNsRecordSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DnsNsRecordSpec"},
 	}
 }
 
@@ -37755,6 +39116,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DnsPtrRecordSpec(ref common.Reference
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -37828,21 +39195,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DnsPtrRecordStatus(ref common.Referen
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DnsPtrRecordSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DnsPtrRecordSpec"},
 	}
 }
 
@@ -37945,6 +39312,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DnsSrvRecordSpec(ref common.Reference
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"name": {
@@ -38056,21 +39429,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DnsSrvRecordStatus(ref common.Referen
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DnsSrvRecordSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DnsSrvRecordSpec"},
 	}
 }
 
@@ -38175,6 +39548,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_DnsTxtRecordSpec(ref common.Reference
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -38266,21 +39645,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DnsTxtRecordStatus(ref common.Referen
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DnsTxtRecordSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DnsTxtRecordSpec"},
 	}
 }
 
@@ -38385,10 +39764,41 @@ func schema_kubeform_apis_azurerm_v1alpha1_DnsZoneSpec(ref common.ReferenceCallb
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"maxNumberOfRecordSets": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"nameServers": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"numberOfRecordSets": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
 						},
 					},
 					"registrationVirtualNetworkIDS": {
@@ -38465,21 +39875,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_DnsZoneStatus(ref common.ReferenceCal
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.DnsZoneSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.DnsZoneSpec"},
 	}
 }
 
@@ -38582,6 +39992,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_EventgridDomainSpec(ref common.Refere
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"endpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"inputMappingDefaultValues": {
@@ -38746,21 +40168,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_EventgridDomainStatus(ref common.Refe
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.EventgridDomainSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.EventgridDomainSpec"},
 	}
 }
 
@@ -38863,6 +40285,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_EventgridEventSubscriptionSpec(ref co
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"eventDeliverySchema": {
@@ -39183,21 +40611,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_EventgridEventSubscriptionStatus(ref 
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.EventgridEventSubscriptionSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.EventgridEventSubscriptionSpec"},
 	}
 }
 
@@ -39302,6 +40730,23 @@ func schema_kubeform_apis_azurerm_v1alpha1_EventgridTopicSpec(ref common.Referen
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"endpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -39356,21 +40801,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_EventgridTopicStatus(ref common.Refer
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.EventgridTopicSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.EventgridTopicSpec"},
 	}
 }
 
@@ -39518,6 +40963,17 @@ func schema_kubeform_apis_azurerm_v1alpha1_EventhubAuthorizationRuleSpec(ref com
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
 					"eventhubName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -39589,21 +41045,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_EventhubAuthorizationRuleStatus(ref c
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.EventhubAuthorizationRuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.EventhubAuthorizationRuleSpec"},
 	}
 }
 
@@ -39708,6 +41164,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_EventhubConsumerGroupSpec(ref common.
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"eventhubName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -39767,21 +41229,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_EventhubConsumerGroupStatus(ref commo
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.EventhubConsumerGroupSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.EventhubConsumerGroupSpec"},
 	}
 }
 
@@ -39976,6 +41438,17 @@ func schema_kubeform_apis_azurerm_v1alpha1_EventhubNamespaceAuthorizationRuleSpe
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
 					"listen": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -40041,21 +41514,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_EventhubNamespaceAuthorizationRuleSta
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.EventhubNamespaceAuthorizationRuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.EventhubNamespaceAuthorizationRuleSpec"},
 	}
 }
 
@@ -40113,6 +41586,17 @@ func schema_kubeform_apis_azurerm_v1alpha1_EventhubNamespaceSpec(ref common.Refe
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
 					"providerRef": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
@@ -40201,21 +41685,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_EventhubNamespaceStatus(ref common.Re
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.EventhubNamespaceSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.EventhubNamespaceSpec"},
 	}
 }
 
@@ -40228,6 +41712,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_EventhubSpec(ref common.ReferenceCall
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"captureDescription": {
@@ -40271,6 +41761,19 @@ func schema_kubeform_apis_azurerm_v1alpha1_EventhubSpec(ref common.ReferenceCall
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
 							Format: "int32",
+						},
+					},
+					"partitionIDS": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
 						},
 					},
 					"resourceGroupName": {
@@ -40395,21 +41898,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_EventhubStatus(ref common.ReferenceCa
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.EventhubSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.EventhubSpec"},
 	}
 }
 
@@ -40557,6 +42060,23 @@ func schema_kubeform_apis_azurerm_v1alpha1_ExpressRouteCircuitAuthorizationSpec(
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"authorizationUseStatus": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"expressRouteCircuitName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -40597,21 +42117,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ExpressRouteCircuitAuthorizationStatu
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ExpressRouteCircuitAuthorizationSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ExpressRouteCircuitAuthorizationSpec"},
 	}
 }
 
@@ -40763,9 +42283,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ExpressRouteCircuitPeeringSpec(ref co
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"azureAsn": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
 						},
 					},
 					"expressRouteCircuitName": {
@@ -40798,6 +42330,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ExpressRouteCircuitPeeringSpec(ref co
 							Format: "",
 						},
 					},
+					"primaryAzurePort": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"primaryPeerAddressPrefix": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -40805,6 +42343,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ExpressRouteCircuitPeeringSpec(ref co
 						},
 					},
 					"resourceGroupName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secondaryAzurePort": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -40823,7 +42367,7 @@ func schema_kubeform_apis_azurerm_v1alpha1_ExpressRouteCircuitPeeringSpec(ref co
 						},
 					},
 				},
-				Required: []string{"providerRef", "expressRouteCircuitName", "peeringType", "primaryPeerAddressPrefix", "resourceGroupName", "secondaryPeerAddressPrefix"},
+				Required: []string{"providerRef", "expressRouteCircuitName", "peeringType", "primaryPeerAddressPrefix", "resourceGroupName", "secondaryPeerAddressPrefix", "vlanID"},
 			},
 		},
 		Dependencies: []string{
@@ -40870,21 +42414,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ExpressRouteCircuitPeeringStatus(ref 
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ExpressRouteCircuitPeeringSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ExpressRouteCircuitPeeringSpec"},
 	}
 }
 
@@ -40895,6 +42439,17 @@ func schema_kubeform_apis_azurerm_v1alpha1_ExpressRouteCircuitSpec(ref common.Re
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
 					"providerRef": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
@@ -40936,6 +42491,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ExpressRouteCircuitSpec(ref common.Re
 						},
 					},
 					"serviceProviderName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"serviceProviderProvisioningState": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -41014,21 +42575,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ExpressRouteCircuitStatus(ref common.
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ExpressRouteCircuitSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ExpressRouteCircuitSpec"},
 	}
 }
 
@@ -41174,6 +42735,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_FirewallApplicationRuleCollectionSpec
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"action": {
@@ -41343,21 +42910,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_FirewallApplicationRuleCollectionStat
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.FirewallApplicationRuleCollectionSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.FirewallApplicationRuleCollectionSpec"},
 	}
 }
 
@@ -41507,6 +43074,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_FirewallNATRuleCollectionSpec(ref com
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"action": {
@@ -41662,21 +43235,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_FirewallNATRuleCollectionStatus(ref c
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.FirewallNATRuleCollectionSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.FirewallNATRuleCollectionSpec"},
 	}
 }
 
@@ -41779,6 +43352,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_FirewallNetworkRuleCollectionSpec(ref
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"action": {
@@ -41922,21 +43501,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_FirewallNetworkRuleCollectionStatus(r
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.FirewallNetworkRuleCollectionSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.FirewallNetworkRuleCollectionSpec"},
 	}
 }
 
@@ -41949,6 +43528,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_FirewallSpec(ref common.ReferenceCall
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"ipConfiguration": {
@@ -42023,6 +43608,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_FirewallSpecIpConfiguration(ref commo
 							Format: "",
 						},
 					},
+					"privateIPAddress": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"publicIPAddressID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -42055,21 +43646,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_FirewallStatus(ref common.ReferenceCa
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.FirewallSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.FirewallSpec"},
 	}
 }
 
@@ -42174,6 +43765,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_FunctionAppSpec(ref common.ReferenceC
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -42217,6 +43814,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_FunctionAppSpec(ref common.ReferenceC
 							},
 						},
 					},
+					"defaultHostname": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"enableBuiltinLogging": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -42247,6 +43850,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_FunctionAppSpec(ref common.ReferenceC
 							},
 						},
 					},
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -42254,6 +43863,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_FunctionAppSpec(ref common.ReferenceC
 						},
 					},
 					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"outboundIPAddresses": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"possibleOutboundIPAddresses": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -42272,6 +43893,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_FunctionAppSpec(ref common.ReferenceC
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.FunctionAppSpecSiteConfig"),
+									},
+								},
+							},
+						},
+					},
+					"siteCredential": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.FunctionAppSpecSiteCredential"),
 									},
 								},
 							},
@@ -42302,7 +43935,7 @@ func schema_kubeform_apis_azurerm_v1alpha1_FunctionAppSpec(ref common.ReferenceC
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.FunctionAppSpecConnectionString", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.FunctionAppSpecIdentity", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.FunctionAppSpecSiteConfig"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.FunctionAppSpecConnectionString", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.FunctionAppSpecIdentity", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.FunctionAppSpecSiteConfig", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.FunctionAppSpecSiteCredential"},
 	}
 }
 
@@ -42337,6 +43970,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_FunctionAppSpecIdentity(ref common.Re
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"principalID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"tenantID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"type": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -42386,6 +44031,24 @@ func schema_kubeform_apis_azurerm_v1alpha1_FunctionAppSpecSiteConfig(ref common.
 	}
 }
 
+func schema_kubeform_apis_azurerm_v1alpha1_FunctionAppSpecSiteCredential(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"username": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
 func schema_kubeform_apis_azurerm_v1alpha1_FunctionAppStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -42399,21 +44062,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_FunctionAppStatus(ref common.Referenc
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.FunctionAppSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.FunctionAppSpec"},
 	}
 }
 
@@ -42518,6 +44181,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightHadoopClusterSpec(ref common
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -42553,6 +44222,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightHadoopClusterSpec(ref common
 							},
 						},
 					},
+					"httpsEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -42581,6 +44256,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightHadoopClusterSpec(ref common
 									},
 								},
 							},
+						},
+					},
+					"sshEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"storageAccount": {
@@ -42919,21 +44600,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightHadoopClusterStatus(ref comm
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.HdinsightHadoopClusterSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.HdinsightHadoopClusterSpec"},
 	}
 }
 
@@ -43038,6 +44719,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightHbaseClusterSpec(ref common.
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -43073,6 +44760,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightHbaseClusterSpec(ref common.
 							},
 						},
 					},
+					"httpsEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -43101,6 +44794,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightHbaseClusterSpec(ref common.
 									},
 								},
 							},
+						},
+					},
+					"sshEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"storageAccount": {
@@ -43439,21 +45138,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightHbaseClusterStatus(ref commo
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.HdinsightHbaseClusterSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.HdinsightHbaseClusterSpec"},
 	}
 }
 
@@ -43558,6 +45257,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightInteractiveQueryClusterSpec(
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -43593,6 +45298,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightInteractiveQueryClusterSpec(
 							},
 						},
 					},
+					"httpsEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -43621,6 +45332,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightInteractiveQueryClusterSpec(
 									},
 								},
 							},
+						},
+					},
+					"sshEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"storageAccount": {
@@ -43959,21 +45676,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightInteractiveQueryClusterStatu
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.HdinsightInteractiveQueryClusterSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.HdinsightInteractiveQueryClusterSpec"},
 	}
 }
 
@@ -44078,6 +45795,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightKafkaClusterSpec(ref common.
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -44113,6 +45836,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightKafkaClusterSpec(ref common.
 							},
 						},
 					},
+					"httpsEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -44141,6 +45870,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightKafkaClusterSpec(ref common.
 									},
 								},
 							},
+						},
+					},
+					"sshEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"storageAccount": {
@@ -44485,21 +46220,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightKafkaClusterStatus(ref commo
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.HdinsightKafkaClusterSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.HdinsightKafkaClusterSpec"},
 	}
 }
 
@@ -44604,12 +46339,24 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightMlServicesClusterSpec(ref co
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
 					"clusterVersion": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"edgeSSHEndpoint": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -44625,6 +46372,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightMlServicesClusterSpec(ref co
 									},
 								},
 							},
+						},
+					},
+					"httpsEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"location": {
@@ -44660,6 +46413,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightMlServicesClusterSpec(ref co
 					"rstudio": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"sshEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
 							Format: "",
 						},
 					},
@@ -45042,21 +46801,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightMlServicesClusterStatus(ref 
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.HdinsightMlServicesClusterSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.HdinsightMlServicesClusterSpec"},
 	}
 }
 
@@ -45161,12 +46920,24 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightRserverClusterSpec(ref commo
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
 					"clusterVersion": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"edgeSSHEndpoint": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -45182,6 +46953,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightRserverClusterSpec(ref commo
 									},
 								},
 							},
+						},
+					},
+					"httpsEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"location": {
@@ -45217,6 +46994,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightRserverClusterSpec(ref commo
 					"rstudio": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"sshEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
 							Format: "",
 						},
 					},
@@ -45599,21 +47382,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightRserverClusterStatus(ref com
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.HdinsightRserverClusterSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.HdinsightRserverClusterSpec"},
 	}
 }
 
@@ -45718,6 +47501,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightSparkClusterSpec(ref common.
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -45753,6 +47542,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightSparkClusterSpec(ref common.
 							},
 						},
 					},
+					"httpsEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -45781,6 +47576,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightSparkClusterSpec(ref common.
 									},
 								},
 							},
+						},
+					},
+					"sshEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"storageAccount": {
@@ -46119,21 +47920,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightSparkClusterStatus(ref commo
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.HdinsightSparkClusterSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.HdinsightSparkClusterSpec"},
 	}
 }
 
@@ -46238,6 +48039,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightStormClusterSpec(ref common.
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -46273,6 +48080,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightStormClusterSpec(ref common.
 							},
 						},
 					},
+					"httpsEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -46301,6 +48114,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightStormClusterSpec(ref common.
 									},
 								},
 							},
+						},
+					},
+					"sshEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"storageAccount": {
@@ -46639,21 +48458,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_HdinsightStormClusterStatus(ref commo
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.HdinsightStormClusterSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.HdinsightStormClusterSpec"},
 	}
 }
 
@@ -46756,6 +48575,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ImageSpec(ref common.ReferenceCallbac
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"dataDisk": {
@@ -46938,21 +48763,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ImageStatus(ref common.ReferenceCallb
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ImageSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ImageSpec"},
 	}
 }
 
@@ -47100,6 +48925,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_IotDpsCertificateSpec(ref common.Refe
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -47145,21 +48976,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_IotDpsCertificateStatus(ref common.Re
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.IotDpsCertificateSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.IotDpsCertificateSpec"},
 	}
 }
 
@@ -47219,6 +49050,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_IotDpsSpec(ref common.ReferenceCallba
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"location": {
@@ -47318,21 +49155,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_IotDpsStatus(ref common.ReferenceCall
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.IotDpsSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.IotDpsSpec"},
 	}
 }
 
@@ -47480,6 +49317,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_IothubConsumerGroupSpec(ref common.Re
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"eventhubEndpointName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -47526,21 +49369,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_IothubConsumerGroupStatus(ref common.
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubConsumerGroupSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubConsumerGroupSpec"},
 	}
 }
 
@@ -47692,6 +49535,17 @@ func schema_kubeform_apis_azurerm_v1alpha1_IothubSharedAccessPolicySpec(ref comm
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
 					"deviceConnect": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -47756,21 +49610,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_IothubSharedAccessPolicyStatus(ref co
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubSharedAccessPolicySpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubSharedAccessPolicySpec"},
 	}
 }
 
@@ -47783,6 +49637,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_IothubSpec(ref common.ReferenceCallba
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"secret": {
@@ -47802,6 +49662,30 @@ func schema_kubeform_apis_azurerm_v1alpha1_IothubSpec(ref common.ReferenceCallba
 							},
 						},
 					},
+					"eventHubEventsEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"eventHubEventsPath": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"eventHubOperationsEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"eventHubOperationsPath": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"fallbackRoute": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -47812,6 +49696,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_IothubSpec(ref common.ReferenceCallba
 									},
 								},
 							},
+						},
+					},
+					"hostname": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"ipFilterRule": {
@@ -47856,6 +49746,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_IothubSpec(ref common.ReferenceCallba
 							},
 						},
 					},
+					"sharedAccessPolicy": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubSpecSharedAccessPolicy"),
+									},
+								},
+							},
+						},
+					},
 					"sku": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -47882,12 +49784,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_IothubSpec(ref common.ReferenceCallba
 							},
 						},
 					},
+					"type": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 				},
 				Required: []string{"providerRef", "location", "name", "resourceGroupName", "sku"},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubSpecEndpoint", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubSpecFallbackRoute", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubSpecIpFilterRule", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubSpecRoute", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubSpecSku"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubSpecEndpoint", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubSpecFallbackRoute", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubSpecIpFilterRule", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubSpecRoute", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubSpecSharedAccessPolicy", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubSpecSku"},
 	}
 }
 
@@ -48070,6 +49978,30 @@ func schema_kubeform_apis_azurerm_v1alpha1_IothubSpecRoute(ref common.ReferenceC
 	}
 }
 
+func schema_kubeform_apis_azurerm_v1alpha1_IothubSpecSharedAccessPolicy(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"keyName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"permissions": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
 func schema_kubeform_apis_azurerm_v1alpha1_IothubSpecSku(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -48114,21 +50046,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_IothubStatus(ref common.ReferenceCall
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.IothubSpec"},
 	}
 }
 
@@ -48276,6 +50208,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_KeyVaultAccessPolicySpec(ref common.R
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"applicationID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -48388,21 +50326,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_KeyVaultAccessPolicyStatus(ref common
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.KeyVaultAccessPolicySpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.KeyVaultAccessPolicySpec"},
 	}
 }
 
@@ -48507,6 +50445,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_KeyVaultCertificateSpec(ref common.Re
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -48522,6 +50466,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_KeyVaultCertificateSpec(ref common.Re
 									},
 								},
 							},
+						},
+					},
+					"certificateData": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"certificatePolicy": {
@@ -48548,6 +50498,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_KeyVaultCertificateSpec(ref common.Re
 							Format: "",
 						},
 					},
+					"secretID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"tags": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"object"},
@@ -48562,11 +50518,23 @@ func schema_kubeform_apis_azurerm_v1alpha1_KeyVaultCertificateSpec(ref common.Re
 							},
 						},
 					},
+					"thumbprint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"vaultURI": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Deprecated",
 							Type:        []string{"string"},
 							Format:      "",
+						},
+					},
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 				},
@@ -48949,21 +50917,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_KeyVaultCertificateStatus(ref common.
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.KeyVaultCertificateSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.KeyVaultCertificateSpec"},
 	}
 }
 
@@ -49068,7 +51036,19 @@ func schema_kubeform_apis_azurerm_v1alpha1_KeyVaultKeySpec(ref common.ReferenceC
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"curve": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"e": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -49105,6 +51085,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_KeyVaultKeySpec(ref common.ReferenceC
 							Format: "",
 						},
 					},
+					"n": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -49132,6 +51118,24 @@ func schema_kubeform_apis_azurerm_v1alpha1_KeyVaultKeySpec(ref common.ReferenceC
 							Format:      "",
 						},
 					},
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"x": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"y": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 				},
 				Required: []string{"providerRef", "keyOpts", "keyType", "name"},
 			},
@@ -49154,21 +51158,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_KeyVaultKeyStatus(ref common.Referenc
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.KeyVaultKeySpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.KeyVaultKeySpec"},
 	}
 }
 
@@ -49320,6 +51324,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_KeyVaultSecretSpec(ref common.Referen
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -49364,6 +51374,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_KeyVaultSecretSpec(ref common.Referen
 							Format:      "",
 						},
 					},
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 				},
 				Required: []string{"providerRef", "name"},
 			},
@@ -49386,21 +51402,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_KeyVaultSecretStatus(ref common.Refer
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.KeyVaultSecretSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.KeyVaultSecretSpec"},
 	}
 }
 
@@ -49413,6 +51429,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_KeyVaultSpec(ref common.ReferenceCall
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"accessPolicy": {
@@ -49509,6 +51531,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_KeyVaultSpec(ref common.ReferenceCall
 						},
 					},
 					"tenantID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"vaultURI": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -49688,21 +51716,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_KeyVaultStatus(ref common.ReferenceCa
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.KeyVaultSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.KeyVaultSpec"},
 	}
 }
 
@@ -49807,6 +51835,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_KubernetesClusterSpec(ref common.Refe
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -49855,6 +51889,36 @@ func schema_kubeform_apis_azurerm_v1alpha1_KubernetesClusterSpec(ref common.Refe
 							Format: "",
 						},
 					},
+					"fqdn": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"kubeAdminConfig": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecKubeAdminConfig"),
+									},
+								},
+							},
+						},
+					},
+					"kubeConfig": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecKubeConfig"),
+									},
+								},
+							},
+						},
+					},
 					"kubernetesVersion": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -49895,6 +51959,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_KubernetesClusterSpec(ref common.Refe
 									},
 								},
 							},
+						},
+					},
+					"nodeResourceGroup": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"resourceGroupName": {
@@ -49946,7 +52016,7 @@ func schema_kubeform_apis_azurerm_v1alpha1_KubernetesClusterSpec(ref common.Refe
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecAddonProfile", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecAgentPoolProfile", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecLinuxProfile", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecNetworkProfile", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecRoleBasedAccessControl", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecServicePrincipal"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecAddonProfile", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecAgentPoolProfile", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecKubeAdminConfig", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecKubeConfig", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecLinuxProfile", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecNetworkProfile", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecRoleBasedAccessControl", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpecServicePrincipal"},
 	}
 }
 
@@ -50037,6 +52107,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_KubernetesClusterSpecAddonProfileHttp
 							Format: "",
 						},
 					},
+					"httpApplicationRoutingZoneName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 				},
 				Required: []string{"enabled"},
 			},
@@ -50079,6 +52155,20 @@ func schema_kubeform_apis_azurerm_v1alpha1_KubernetesClusterSpecAgentPoolProfile
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
 							Format: "int32",
+						},
+					},
+					"dnsPrefix": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Deprecated",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"fqdn": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Deprecated",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 					"maxPods": {
@@ -50125,6 +52215,78 @@ func schema_kubeform_apis_azurerm_v1alpha1_KubernetesClusterSpecAgentPoolProfile
 					},
 				},
 				Required: []string{"name", "vmSize"},
+			},
+		},
+	}
+}
+
+func schema_kubeform_apis_azurerm_v1alpha1_KubernetesClusterSpecKubeAdminConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"clientCertificate": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"clusterCaCertificate": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"host": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"username": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_kubeform_apis_azurerm_v1alpha1_KubernetesClusterSpecKubeConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"clientCertificate": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"clusterCaCertificate": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"host": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"username": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
 			},
 		},
 	}
@@ -50327,21 +52489,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_KubernetesClusterStatus(ref common.Re
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.KubernetesClusterSpec"},
 	}
 }
 
@@ -50489,6 +52651,38 @@ func schema_kubeform_apis_azurerm_v1alpha1_LbBackendAddressPoolSpec(ref common.R
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"backendIPConfigurations": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"loadBalancingRules": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
 					"loadbalancerID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -50536,21 +52730,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_LbBackendAddressPoolStatus(ref common
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.LbBackendAddressPoolSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.LbBackendAddressPoolSpec"},
 	}
 }
 
@@ -50702,10 +52896,22 @@ func schema_kubeform_apis_azurerm_v1alpha1_LbNATPoolSpec(ref common.ReferenceCal
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"backendPort": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
 							Format: "int32",
+						},
+					},
+					"frontendIPConfigurationID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"frontendIPConfigurationName": {
@@ -50779,21 +52985,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_LbNATPoolStatus(ref common.ReferenceC
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.LbNATPoolSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.LbNATPoolSpec"},
 	}
 }
 
@@ -50898,6 +53104,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_LbNATRuleSpec(ref common.ReferenceCal
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"backendIPConfigurationID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"backendPort": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
@@ -50907,6 +53125,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_LbNATRuleSpec(ref common.ReferenceCal
 					"enableFloatingIP": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"frontendIPConfigurationID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
 							Format: "",
 						},
 					},
@@ -50975,21 +53199,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_LbNATRuleStatus(ref common.ReferenceC
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.LbNATRuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.LbNATRuleSpec"},
 	}
 }
 
@@ -51094,6 +53318,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_LbOutboundRuleSpec(ref common.Referen
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"allocatedOutboundPorts": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
@@ -51169,6 +53399,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_LbOutboundRuleSpecFrontendIPConfigura
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"ID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -51195,21 +53431,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_LbOutboundRuleStatus(ref common.Refer
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.LbOutboundRuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.LbOutboundRuleSpec"},
 	}
 }
 
@@ -51314,10 +53550,29 @@ func schema_kubeform_apis_azurerm_v1alpha1_LbProbeSpec(ref common.ReferenceCallb
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"intervalInSeconds": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
 							Format: "int32",
+						},
+					},
+					"loadBalancerRules": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
 						},
 					},
 					"loadbalancerID": {
@@ -51391,21 +53646,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_LbProbeStatus(ref common.ReferenceCal
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.LbProbeSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.LbProbeSpec"},
 	}
 }
 
@@ -51510,6 +53765,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_LbRuleSpec(ref common.ReferenceCallba
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"backendAddressPoolID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -51531,6 +53792,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_LbRuleSpec(ref common.ReferenceCallba
 					"enableFloatingIP": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"frontendIPConfigurationID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
 							Format: "",
 						},
 					},
@@ -51617,21 +53884,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_LbRuleStatus(ref common.ReferenceCall
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.LbRuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.LbRuleSpec"},
 	}
 }
 
@@ -51644,6 +53911,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_LbSpec(ref common.ReferenceCallback) 
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"frontendIPConfiguration": {
@@ -51668,6 +53941,25 @@ func schema_kubeform_apis_azurerm_v1alpha1_LbSpec(ref common.ReferenceCallback) 
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"privateIPAddress": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"privateIPAddresses": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
 						},
 					},
 					"resourceGroupName": {
@@ -51711,10 +54003,49 @@ func schema_kubeform_apis_azurerm_v1alpha1_LbSpecFrontendIPConfiguration(ref com
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"inboundNATRules": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"loadBalancerRules": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"outboundRules": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
 						},
 					},
 					"privateIPAddress": {
@@ -51780,21 +54111,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_LbStatus(ref common.ReferenceCallback
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.LbSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.LbSpec"},
 	}
 }
 
@@ -51897,6 +54228,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_LocalNetworkGatewaySpec(ref common.Re
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"addressSpace": {
@@ -52015,21 +54352,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_LocalNetworkGatewayStatus(ref common.
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.LocalNetworkGatewaySpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.LocalNetworkGatewaySpec"},
 	}
 }
 
@@ -52134,6 +54471,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogAnalyticsLinkedServiceSpec(ref com
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"linkedServiceName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -52150,6 +54493,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogAnalyticsLinkedServiceSpec(ref com
 									},
 								},
 							},
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"resourceGroupName": {
@@ -52225,21 +54574,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogAnalyticsLinkedServiceStatus(ref c
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.LogAnalyticsLinkedServiceSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.LogAnalyticsLinkedServiceSpec"},
 	}
 }
 
@@ -52344,6 +54693,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogAnalyticsSolutionSpec(ref common.R
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -52401,6 +54756,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogAnalyticsSolutionSpecPlan(ref comm
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"product": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -52439,21 +54800,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogAnalyticsSolutionStatus(ref common
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.LogAnalyticsSolutionSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.LogAnalyticsSolutionSpec"},
 	}
 }
 
@@ -52601,6 +54962,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogAnalyticsWorkspaceLinkedServiceSpe
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"linkedServiceName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -52617,6 +54984,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogAnalyticsWorkspaceLinkedServiceSpe
 									},
 								},
 							},
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"resourceGroupName": {
@@ -52692,21 +55065,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogAnalyticsWorkspaceLinkedServiceSta
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.LogAnalyticsWorkspaceLinkedServiceSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.LogAnalyticsWorkspaceLinkedServiceSpec"},
 	}
 }
 
@@ -52768,6 +55141,17 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogAnalyticsWorkspaceSpec(ref common.
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -52775,6 +55159,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogAnalyticsWorkspaceSpec(ref common.
 						},
 					},
 					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"portalURL": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -52812,6 +55202,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogAnalyticsWorkspaceSpec(ref common.
 							},
 						},
 					},
+					"workspaceID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 				},
 				Required: []string{"providerRef", "location", "name", "resourceGroupName", "sku"},
 			},
@@ -52834,21 +55230,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogAnalyticsWorkspaceStatus(ref commo
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.LogAnalyticsWorkspaceSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.LogAnalyticsWorkspaceSpec"},
 	}
 }
 
@@ -52953,6 +55349,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogicAppActionCustomSpec(ref common.R
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"body": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -52993,21 +55395,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogicAppActionCustomStatus(ref common
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.LogicAppActionCustomSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.LogicAppActionCustomSpec"},
 	}
 }
 
@@ -53112,6 +55514,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogicAppActionHTTPSpec(ref common.Ref
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"body": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -53178,21 +55586,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogicAppActionHTTPStatus(ref common.R
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.LogicAppActionHTTPSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.LogicAppActionHTTPSpec"},
 	}
 }
 
@@ -53297,6 +55705,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogicAppTriggerCustomSpec(ref common.
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"body": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -53337,21 +55751,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogicAppTriggerCustomStatus(ref commo
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.LogicAppTriggerCustomSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.LogicAppTriggerCustomSpec"},
 	}
 }
 
@@ -53456,6 +55870,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogicAppTriggerHTTPRequestSpec(ref co
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"logicAppID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -53508,21 +55928,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogicAppTriggerHTTPRequestStatus(ref 
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.LogicAppTriggerHTTPRequestSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.LogicAppTriggerHTTPRequestSpec"},
 	}
 }
 
@@ -53627,6 +56047,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogicAppTriggerRecurrenceSpec(ref com
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"frequency": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -53673,21 +56099,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogicAppTriggerRecurrenceStatus(ref c
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.LogicAppTriggerRecurrenceSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.LogicAppTriggerRecurrenceSpec"},
 	}
 }
 
@@ -53792,6 +56218,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogicAppWorkflowSpec(ref common.Refer
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"accessEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -53872,21 +56310,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_LogicAppWorkflowStatus(ref common.Ref
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.LogicAppWorkflowSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.LogicAppWorkflowSpec"},
 	}
 }
 
@@ -53989,6 +56427,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ManagedDiskSpec(ref common.ReferenceC
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"createOption": {
@@ -54207,21 +56651,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ManagedDiskStatus(ref common.Referenc
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ManagedDiskSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ManagedDiskSpec"},
 	}
 }
 
@@ -54326,6 +56770,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ManagementGroupSpec(ref common.Refere
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"displayName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -54379,21 +56829,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ManagementGroupStatus(ref common.Refe
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ManagementGroupSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ManagementGroupSpec"},
 	}
 }
 
@@ -54498,6 +56948,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ManagementLockSpec(ref common.Referen
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"lockLevel": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -54544,21 +57000,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ManagementLockStatus(ref common.Refer
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ManagementLockSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ManagementLockSpec"},
 	}
 }
 
@@ -54663,6 +57119,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_MariadbDatabaseSpec(ref common.Refere
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"charset": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -54715,21 +57177,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_MariadbDatabaseStatus(ref common.Refe
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.MariadbDatabaseSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MariadbDatabaseSpec"},
 	}
 }
 
@@ -54834,6 +57296,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_MariadbFirewallRuleSpec(ref common.Re
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"endIPAddress": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -54886,21 +57354,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_MariadbFirewallRuleStatus(ref common.
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.MariadbFirewallRuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MariadbFirewallRuleSpec"},
 	}
 }
 
@@ -55005,12 +57473,24 @@ func schema_kubeform_apis_azurerm_v1alpha1_MariadbServerSpec(ref common.Referenc
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
 					"administratorLogin": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"fqdn": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -55174,21 +57654,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_MariadbServerStatus(ref common.Refere
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.MariadbServerSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MariadbServerSpec"},
 	}
 }
 
@@ -55293,6 +57773,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_MediaServicesAccountSpec(ref common.R
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -55370,21 +57856,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_MediaServicesAccountStatus(ref common
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.MediaServicesAccountSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MediaServicesAccountSpec"},
 	}
 }
 
@@ -55487,6 +57973,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_MetricAlertruleSpec(ref common.Refere
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"aggregation": {
@@ -55679,21 +58171,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_MetricAlertruleStatus(ref common.Refe
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.MetricAlertruleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MetricAlertruleSpec"},
 	}
 }
 
@@ -55796,6 +58288,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_MonitorActionGroupSpec(ref common.Ref
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"emailReceiver": {
@@ -55975,21 +58473,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_MonitorActionGroupStatus(ref common.R
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.MonitorActionGroupSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MonitorActionGroupSpec"},
 	}
 }
 
@@ -56092,6 +58590,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_MonitorActivityLogAlertSpec(ref commo
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"action": {
@@ -56297,21 +58801,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_MonitorActivityLogAlertStatus(ref com
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.MonitorActivityLogAlertSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MonitorActivityLogAlertSpec"},
 	}
 }
 
@@ -56414,6 +58918,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_MonitorAutoscaleSettingSpec(ref commo
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"enabled": {
@@ -56940,21 +59450,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_MonitorAutoscaleSettingStatus(ref com
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.MonitorAutoscaleSettingSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MonitorAutoscaleSettingSpec"},
 	}
 }
 
@@ -57057,6 +59567,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_MonitorDiagnosticSettingSpec(ref comm
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"eventhubAuthorizationRuleID": {
@@ -57269,21 +59785,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_MonitorDiagnosticSettingStatus(ref co
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.MonitorDiagnosticSettingSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MonitorDiagnosticSettingSpec"},
 	}
 }
 
@@ -57386,6 +59902,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_MonitorLogProfileSpec(ref common.Refe
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"categories": {
@@ -57491,21 +60013,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_MonitorLogProfileStatus(ref common.Re
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.MonitorLogProfileSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MonitorLogProfileSpec"},
 	}
 }
 
@@ -57608,6 +60130,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_MonitorMetricAlertSpec(ref common.Ref
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"action": {
@@ -57859,21 +60387,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_MonitorMetricAlertStatus(ref common.R
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.MonitorMetricAlertSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MonitorMetricAlertSpec"},
 	}
 }
 
@@ -57976,6 +60504,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_MonitorMetricAlertruleSpec(ref common
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"aggregation": {
@@ -58168,21 +60702,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_MonitorMetricAlertruleStatus(ref comm
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.MonitorMetricAlertruleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MonitorMetricAlertruleSpec"},
 	}
 }
 
@@ -58287,6 +60821,25 @@ func schema_kubeform_apis_azurerm_v1alpha1_MssqlElasticpoolSpec(ref common.Refer
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"elasticPoolProperties": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Deprecated",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.MssqlElasticpoolSpecElasticPoolProperties"),
+									},
+								},
+							},
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -58372,7 +60925,54 @@ func schema_kubeform_apis_azurerm_v1alpha1_MssqlElasticpoolSpec(ref common.Refer
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MssqlElasticpoolSpecPerDatabaseSettings", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MssqlElasticpoolSpecSku"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MssqlElasticpoolSpecElasticPoolProperties", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MssqlElasticpoolSpecPerDatabaseSettings", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MssqlElasticpoolSpecSku"},
+	}
+}
+
+func schema_kubeform_apis_azurerm_v1alpha1_MssqlElasticpoolSpecElasticPoolProperties(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"creationDate": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Deprecated",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"licenseType": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Deprecated",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"maxSizeBytes": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Deprecated",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Deprecated",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"zoneRedundant": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Deprecated",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+				},
+			},
+		},
 	}
 }
 
@@ -58451,21 +61051,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_MssqlElasticpoolStatus(ref common.Ref
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.MssqlElasticpoolSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MssqlElasticpoolSpec"},
 	}
 }
 
@@ -58570,6 +61170,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_MysqlConfigurationSpec(ref common.Ref
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -58616,21 +61222,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_MysqlConfigurationStatus(ref common.R
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.MysqlConfigurationSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MysqlConfigurationSpec"},
 	}
 }
 
@@ -58735,6 +61341,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_MysqlDatabaseSpec(ref common.Referenc
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"charset": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -58787,21 +61399,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_MysqlDatabaseStatus(ref common.Refere
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.MysqlDatabaseSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MysqlDatabaseSpec"},
 	}
 }
 
@@ -58906,6 +61518,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_MysqlFirewallRuleSpec(ref common.Refe
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"endIPAddress": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -58958,21 +61576,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_MysqlFirewallRuleStatus(ref common.Re
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.MysqlFirewallRuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MysqlFirewallRuleSpec"},
 	}
 }
 
@@ -59077,12 +61695,24 @@ func schema_kubeform_apis_azurerm_v1alpha1_MysqlServerSpec(ref common.ReferenceC
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
 					"administratorLogin": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"fqdn": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -59246,21 +61876,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_MysqlServerStatus(ref common.Referenc
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.MysqlServerSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MysqlServerSpec"},
 	}
 }
 
@@ -59365,6 +61995,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_MysqlVirtualNetworkRuleSpec(ref commo
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -59411,21 +62047,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_MysqlVirtualNetworkRuleStatus(ref com
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.MysqlVirtualNetworkRuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.MysqlVirtualNetworkRuleSpec"},
 	}
 }
 
@@ -59528,6 +62164,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkConnectionMonitorSpec(ref comm
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"autoStart": {
@@ -59682,21 +62324,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkConnectionMonitorStatus(ref co
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkConnectionMonitorSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkConnectionMonitorSpec"},
 	}
 }
 
@@ -59801,6 +62443,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkDdosProtectionPlanSpec(ref com
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -59833,6 +62481,19 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkDdosProtectionPlanSpec(ref com
 							},
 						},
 					},
+					"virtualNetworkIDS": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
 				},
 				Required: []string{"providerRef", "location", "name", "resourceGroupName"},
 			},
@@ -59855,21 +62516,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkDdosProtectionPlanStatus(ref c
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkDdosProtectionPlanSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkDdosProtectionPlanSpec"},
 	}
 }
 
@@ -60017,6 +62678,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkInterfaceApplicationGatewayBac
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"backendAddressPoolID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -60057,21 +62724,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkInterfaceApplicationGatewayBac
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkInterfaceApplicationGatewayBackendAddressPoolAssociationSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkInterfaceApplicationGatewayBackendAddressPoolAssociationSpec"},
 	}
 }
 
@@ -60176,6 +62843,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkInterfaceApplicationSecurityGr
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"applicationSecurityGroupID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -60216,21 +62889,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkInterfaceApplicationSecurityGr
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkInterfaceApplicationSecurityGroupAssociationSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkInterfaceApplicationSecurityGroupAssociationSpec"},
 	}
 }
 
@@ -60335,6 +63008,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkInterfaceBackendAddressPoolAss
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"backendAddressPoolID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -60375,21 +63054,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkInterfaceBackendAddressPoolAss
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkInterfaceBackendAddressPoolAssociationSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkInterfaceBackendAddressPoolAssociationSpec"},
 	}
 }
 
@@ -60541,6 +63220,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkInterfaceNATRuleAssociationSpe
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"ipConfigurationName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -60581,21 +63266,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkInterfaceNATRuleAssociationSta
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkInterfaceNATRuleAssociationSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkInterfaceNATRuleAssociationSpec"},
 	}
 }
 
@@ -60608,6 +63293,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkInterfaceSpec(ref common.Refer
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"appliedDNSServers": {
@@ -60695,6 +63386,25 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkInterfaceSpec(ref common.Refer
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"privateIPAddress": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"privateIPAddresses": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
 						},
 					},
 					"resourceGroupName": {
@@ -60856,21 +63566,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkInterfaceStatus(ref common.Ref
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkInterfaceSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkInterfaceSpec"},
 	}
 }
 
@@ -60973,6 +63683,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkPacketCaptureSpec(ref common.R
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"filter": {
@@ -61111,6 +63827,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkPacketCaptureSpecStorageLocati
 							Format: "",
 						},
 					},
+					"storagePath": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 				},
 			},
 		},
@@ -61130,21 +63852,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkPacketCaptureStatus(ref common
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkPacketCaptureSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkPacketCaptureSpec"},
 	}
 }
 
@@ -61249,6 +63971,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkProfileSpec(ref common.Referen
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"containerNetworkInterface": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -61256,6 +63984,19 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkProfileSpec(ref common.Referen
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkProfileSpecContainerNetworkInterface"),
+									},
+								},
+							},
+						},
+					},
+					"containerNetworkInterfaceIDS": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
 									},
 								},
 							},
@@ -61373,21 +64114,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkProfileStatus(ref common.Refer
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkProfileSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkProfileSpec"},
 	}
 }
 
@@ -61490,6 +64231,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkSecurityGroupSpec(ref common.R
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"location": {
@@ -61709,21 +64456,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkSecurityGroupStatus(ref common
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkSecurityGroupSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkSecurityGroupSpec"},
 	}
 }
 
@@ -61826,6 +64573,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkSecurityRuleSpec(ref common.Re
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"access": {
@@ -62000,21 +64753,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkSecurityRuleStatus(ref common.
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkSecurityRuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkSecurityRuleSpec"},
 	}
 }
 
@@ -62119,6 +64872,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkWatcherSpec(ref common.Referen
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -62173,21 +64932,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_NetworkWatcherStatus(ref common.Refer
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkWatcherSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.NetworkWatcherSpec"},
 	}
 }
 
@@ -62335,6 +65094,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_NotificationHubAuthorizationRuleSpec(
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"listen": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -62365,7 +65130,19 @@ func schema_kubeform_apis_azurerm_v1alpha1_NotificationHubAuthorizationRuleSpec(
 							Format: "",
 						},
 					},
+					"primaryAccessKey": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"resourceGroupName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secondaryAccessKey": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -62399,21 +65176,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_NotificationHubAuthorizationRuleStatu
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.NotificationHubAuthorizationRuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.NotificationHubAuthorizationRuleSpec"},
 	}
 }
 
@@ -62565,6 +65342,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_NotificationHubNamespaceSpec(ref comm
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"enabled": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -62590,6 +65373,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_NotificationHubNamespaceSpec(ref comm
 						},
 					},
 					"resourceGroupName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"servicebusEndpoint": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -62655,21 +65444,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_NotificationHubNamespaceStatus(ref co
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.NotificationHubNamespaceSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.NotificationHubNamespaceSpec"},
 	}
 }
 
@@ -62682,6 +65471,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_NotificationHubSpec(ref common.Refere
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"secret": {
@@ -62806,21 +65601,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_NotificationHubStatus(ref common.Refe
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.NotificationHubSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.NotificationHubSpec"},
 	}
 }
 
@@ -62923,6 +65718,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_PacketCaptureSpec(ref common.Referenc
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"filter": {
@@ -63061,6 +65862,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_PacketCaptureSpecStorageLocation(ref 
 							Format: "",
 						},
 					},
+					"storagePath": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 				},
 			},
 		},
@@ -63080,21 +65887,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_PacketCaptureStatus(ref common.Refere
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.PacketCaptureSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.PacketCaptureSpec"},
 	}
 }
 
@@ -63199,6 +66006,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_PolicyAssignmentSpec(ref common.Refer
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"description": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -63281,6 +66094,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_PolicyAssignmentSpecIdentity(ref comm
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"principalID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"tenantID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"type": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -63306,21 +66131,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_PolicyAssignmentStatus(ref common.Ref
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.PolicyAssignmentSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.PolicyAssignmentSpec"},
 	}
 }
 
@@ -63425,6 +66250,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_PolicyDefinitionSpec(ref common.Refer
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"description": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -63501,21 +66332,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_PolicyDefinitionStatus(ref common.Ref
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.PolicyDefinitionSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.PolicyDefinitionSpec"},
 	}
 }
 
@@ -63620,6 +66451,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_PolicySetDefinitionSpec(ref common.Re
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"description": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -63690,21 +66527,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_PolicySetDefinitionStatus(ref common.
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.PolicySetDefinitionSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.PolicySetDefinitionSpec"},
 	}
 }
 
@@ -63809,6 +66646,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_PostgresqlConfigurationSpec(ref commo
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -63855,21 +66698,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_PostgresqlConfigurationStatus(ref com
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.PostgresqlConfigurationSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.PostgresqlConfigurationSpec"},
 	}
 }
 
@@ -63974,6 +66817,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_PostgresqlDatabaseSpec(ref common.Ref
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"charset": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -64026,21 +66875,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_PostgresqlDatabaseStatus(ref common.R
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.PostgresqlDatabaseSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.PostgresqlDatabaseSpec"},
 	}
 }
 
@@ -64145,6 +66994,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_PostgresqlFirewallRuleSpec(ref common
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"endIPAddress": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -64197,21 +67052,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_PostgresqlFirewallRuleStatus(ref comm
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.PostgresqlFirewallRuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.PostgresqlFirewallRuleSpec"},
 	}
 }
 
@@ -64316,12 +67171,24 @@ func schema_kubeform_apis_azurerm_v1alpha1_PostgresqlServerSpec(ref common.Refer
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
 					"administratorLogin": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"fqdn": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -64485,21 +67352,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_PostgresqlServerStatus(ref common.Ref
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.PostgresqlServerSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.PostgresqlServerSpec"},
 	}
 }
 
@@ -64604,6 +67471,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_PostgresqlVirtualNetworkRuleSpec(ref 
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"ignoreMissingVnetServiceEndpoint": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -64656,21 +67529,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_PostgresqlVirtualNetworkRuleStatus(re
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.PostgresqlVirtualNetworkRuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.PostgresqlVirtualNetworkRuleSpec"},
 	}
 }
 
@@ -64775,10 +67648,40 @@ func schema_kubeform_apis_azurerm_v1alpha1_PrivateDNSZoneSpec(ref common.Referen
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"maxNumberOfRecordSets": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"maxNumberOfVirtualNetworkLinks": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"maxNumberOfVirtualNetworkLinksWithRegistration": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"numberOfRecordSets": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
 						},
 					},
 					"resourceGroupName": {
@@ -64823,21 +67726,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_PrivateDNSZoneStatus(ref common.Refer
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.PrivateDNSZoneSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.PrivateDNSZoneSpec"},
 	}
 }
 
@@ -65032,6 +67935,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_PublicIPPrefixSpec(ref common.Referen
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"ipPrefix": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -65111,21 +68026,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_PublicIPPrefixStatus(ref common.Refer
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.PublicIPPrefixSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.PublicIPPrefixSpec"},
 	}
 }
 
@@ -65140,6 +68055,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_PublicIPSpec(ref common.ReferenceCall
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"allocationMethod": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -65152,10 +68073,22 @@ func schema_kubeform_apis_azurerm_v1alpha1_PublicIPSpec(ref common.ReferenceCall
 							Format: "",
 						},
 					},
+					"fqdn": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"idleTimeoutInMinutes": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
 							Format: "int32",
+						},
+					},
+					"ipAddress": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"ipVersion": {
@@ -65256,21 +68189,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_PublicIPStatus(ref common.ReferenceCa
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.PublicIPSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.PublicIPSpec"},
 	}
 }
 
@@ -65375,6 +68308,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_RecoveryServicesProtectedVmSpec(ref c
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"backupPolicyID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -65435,21 +68374,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_RecoveryServicesProtectedVmStatus(ref
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.RecoveryServicesProtectedVmSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.RecoveryServicesProtectedVmSpec"},
 	}
 }
 
@@ -65552,6 +68491,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_RecoveryServicesProtectionPolicyVmSpe
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"backup": {
@@ -65866,21 +68811,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_RecoveryServicesProtectionPolicyVmSta
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.RecoveryServicesProtectionPolicyVmSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.RecoveryServicesProtectionPolicyVmSpec"},
 	}
 }
 
@@ -65985,6 +68930,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_RecoveryServicesVaultSpec(ref common.
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -66045,21 +68996,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_RecoveryServicesVaultStatus(ref commo
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.RecoveryServicesVaultSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.RecoveryServicesVaultSpec"},
 	}
 }
 
@@ -66164,6 +69115,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_RedisCacheSpec(ref common.ReferenceCa
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -66182,6 +69139,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_RedisCacheSpec(ref common.ReferenceCa
 						},
 					},
 					"family": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"hostname": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -66215,6 +69178,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_RedisCacheSpec(ref common.ReferenceCa
 									},
 								},
 							},
+						},
+					},
+					"port": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
 						},
 					},
 					"privateStaticIPAddress": {
@@ -66251,6 +69220,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_RedisCacheSpec(ref common.ReferenceCa
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"sslPort": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
 						},
 					},
 					"subnetID": {
@@ -66338,6 +69313,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_RedisCacheSpecRedisConfiguration(ref 
 							Format: "",
 						},
 					},
+					"maxclients": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
 					"maxfragmentationmemoryReserved": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
@@ -66405,21 +69386,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_RedisCacheStatus(ref common.Reference
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.RedisCacheSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.RedisCacheSpec"},
 	}
 }
 
@@ -66524,6 +69505,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_RedisFirewallRuleSpec(ref common.Refe
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"endIP": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -66576,21 +69563,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_RedisFirewallRuleStatus(ref common.Re
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.RedisFirewallRuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.RedisFirewallRuleSpec"},
 	}
 }
 
@@ -66695,7 +69682,24 @@ func schema_kubeform_apis_azurerm_v1alpha1_RelayNamespaceSpec(ref common.Referen
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
 					"location": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"metricID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -66787,21 +69791,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_RelayNamespaceStatus(ref common.Refer
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.RelayNamespaceSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.RelayNamespaceSpec"},
 	}
 }
 
@@ -66906,6 +69910,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ResourceGroupSpec(ref common.Referenc
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -66954,21 +69964,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ResourceGroupStatus(ref common.Refere
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ResourceGroupSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ResourceGroupSpec"},
 	}
 }
 
@@ -67073,6 +70083,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_RoleAssignmentSpec(ref common.Referen
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -67125,21 +70141,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_RoleAssignmentStatus(ref common.Refer
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.RoleAssignmentSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.RoleAssignmentSpec"},
 	}
 }
 
@@ -67242,6 +70258,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_RoleDefinitionSpec(ref common.Referen
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"assignableScopes": {
@@ -67379,21 +70401,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_RoleDefinitionStatus(ref common.Refer
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.RoleDefinitionSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.RoleDefinitionSpec"},
 	}
 }
 
@@ -67498,6 +70520,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_RouteSpec(ref common.ReferenceCallbac
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"addressPrefix": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -67556,21 +70584,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_RouteStatus(ref common.ReferenceCallb
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.RouteSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.RouteSpec"},
 	}
 }
 
@@ -67675,6 +70703,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_RouteTableSpec(ref common.ReferenceCa
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"disableBGPRoutePropagation": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -67706,6 +70740,19 @@ func schema_kubeform_apis_azurerm_v1alpha1_RouteTableSpec(ref common.ReferenceCa
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.RouteTableSpecRoute"),
+									},
+								},
+							},
+						},
+					},
+					"subnets": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
 									},
 								},
 							},
@@ -67784,21 +70831,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_RouteTableStatus(ref common.Reference
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.RouteTableSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.RouteTableSpec"},
 	}
 }
 
@@ -67946,6 +70993,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_SchedulerJobCollectionSpec(ref common
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -68062,21 +71115,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_SchedulerJobCollectionStatus(ref comm
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.SchedulerJobCollectionSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.SchedulerJobCollectionSpec"},
 	}
 }
 
@@ -68136,6 +71189,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_SchedulerJobSpec(ref common.Reference
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"secret": {
@@ -68429,6 +71488,26 @@ func schema_kubeform_apis_azurerm_v1alpha1_SchedulerJobSpecActionWebAuthenticati
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"expiration": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"subjectName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"thumbprint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
 			},
 		},
 	}
@@ -68609,6 +71688,26 @@ func schema_kubeform_apis_azurerm_v1alpha1_SchedulerJobSpecErrorActionWebAuthent
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"expiration": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"subjectName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"thumbprint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
 			},
 		},
 	}
@@ -68779,21 +71878,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_SchedulerJobStatus(ref common.Referen
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.SchedulerJobSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.SchedulerJobSpec"},
 	}
 }
 
@@ -68898,6 +71997,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_SearchServiceSpec(ref common.Referenc
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -68916,6 +72021,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_SearchServiceSpec(ref common.Referenc
 							Format: "int32",
 						},
 					},
+					"primaryKey": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"replicaCount": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
@@ -68923,6 +72034,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_SearchServiceSpec(ref common.Referenc
 						},
 					},
 					"resourceGroupName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secondaryKey": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -68970,21 +72087,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_SearchServiceStatus(ref common.Refere
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.SearchServiceSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.SearchServiceSpec"},
 	}
 }
 
@@ -69089,6 +72206,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_SecurityCenterContactSpec(ref common.
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"alertNotifications": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -69135,21 +72258,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_SecurityCenterContactStatus(ref commo
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.SecurityCenterContactSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.SecurityCenterContactSpec"},
 	}
 }
 
@@ -69254,6 +72377,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_SecurityCenterSubscriptionPricingSpec
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"tier": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -69282,21 +72411,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_SecurityCenterSubscriptionPricingStat
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.SecurityCenterSubscriptionPricingSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.SecurityCenterSubscriptionPricingSpec"},
 	}
 }
 
@@ -69401,6 +72530,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_SecurityCenterWorkspaceSpec(ref commo
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"scope": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -69435,21 +72570,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_SecurityCenterWorkspaceStatus(ref com
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.SecurityCenterWorkspaceSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.SecurityCenterWorkspaceSpec"},
 	}
 }
 
@@ -69554,6 +72689,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ServiceFabricClusterSpec(ref common.R
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"addOnFeatures": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -69616,6 +72757,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ServiceFabricClusterSpec(ref common.R
 						},
 					},
 					"clusterCodeVersion": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"clusterEndpoint": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -70158,21 +73305,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ServiceFabricClusterStatus(ref common
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ServiceFabricClusterSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ServiceFabricClusterSpec"},
 	}
 }
 
@@ -70320,6 +73467,17 @@ func schema_kubeform_apis_azurerm_v1alpha1_ServicebusNamespaceAuthorizationRuleS
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
 					"listen": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -70378,21 +73536,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ServicebusNamespaceAuthorizationRuleS
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ServicebusNamespaceAuthorizationRuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ServicebusNamespaceAuthorizationRuleSpec"},
 	}
 }
 
@@ -70450,6 +73608,17 @@ func schema_kubeform_apis_azurerm_v1alpha1_ServicebusNamespaceSpec(ref common.Re
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
 					"providerRef": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
@@ -70520,21 +73689,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ServicebusNamespaceStatus(ref common.
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ServicebusNamespaceSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ServicebusNamespaceSpec"},
 	}
 }
 
@@ -70682,6 +73851,17 @@ func schema_kubeform_apis_azurerm_v1alpha1_ServicebusQueueAuthorizationRuleSpec(
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
 					"listen": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -70746,21 +73926,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ServicebusQueueAuthorizationRuleStatu
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ServicebusQueueAuthorizationRuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ServicebusQueueAuthorizationRuleSpec"},
 	}
 }
 
@@ -70820,6 +74000,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ServicebusQueueSpec(ref common.Refere
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"autoDeleteOnIdle": {
@@ -70949,21 +74135,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ServicebusQueueStatus(ref common.Refe
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ServicebusQueueSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ServicebusQueueSpec"},
 	}
 }
 
@@ -71158,6 +74344,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ServicebusSubscriptionRuleSpec(ref co
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"action": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -71300,21 +74492,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ServicebusSubscriptionRuleStatus(ref 
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ServicebusSubscriptionRuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ServicebusSubscriptionRuleSpec"},
 	}
 }
 
@@ -71327,6 +74519,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ServicebusSubscriptionSpec(ref common
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"autoDeleteOnIdle": {
@@ -71437,21 +74635,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ServicebusSubscriptionStatus(ref comm
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ServicebusSubscriptionSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ServicebusSubscriptionSpec"},
 	}
 }
 
@@ -71599,6 +74797,17 @@ func schema_kubeform_apis_azurerm_v1alpha1_ServicebusTopicAuthorizationRuleSpec(
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
 					"listen": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -71663,21 +74872,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ServicebusTopicAuthorizationRuleStatu
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ServicebusTopicAuthorizationRuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ServicebusTopicAuthorizationRuleSpec"},
 	}
 }
 
@@ -71737,6 +74946,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_ServicebusTopicSpec(ref common.Refere
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"autoDeleteOnIdle": {
@@ -71853,21 +75068,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_ServicebusTopicStatus(ref common.Refe
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.ServicebusTopicSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.ServicebusTopicSpec"},
 	}
 }
 
@@ -72015,6 +75230,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_SharedImageGallerySpec(ref common.Ref
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"description": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -72053,6 +75274,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_SharedImageGallerySpec(ref common.Ref
 							},
 						},
 					},
+					"uniqueName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 				},
 				Required: []string{"providerRef", "location", "name", "resourceGroupName"},
 			},
@@ -72075,21 +75302,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_SharedImageGalleryStatus(ref common.R
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.SharedImageGallerySpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.SharedImageGallerySpec"},
 	}
 }
 
@@ -72149,6 +75376,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_SharedImageSpec(ref common.ReferenceC
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"description": {
@@ -72284,21 +75517,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_SharedImageStatus(ref common.Referenc
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.SharedImageSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.SharedImageSpec"},
 	}
 }
 
@@ -72401,6 +75634,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_SharedImageVersionSpec(ref common.Ref
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"excludeFromLatest": {
@@ -72518,21 +75757,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_SharedImageVersionStatus(ref common.R
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.SharedImageVersionSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.SharedImageVersionSpec"},
 	}
 }
 
@@ -72637,6 +75876,29 @@ func schema_kubeform_apis_azurerm_v1alpha1_SignalrServiceSpec(ref common.Referen
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"hostname": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"ipAddress": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -72649,10 +75911,22 @@ func schema_kubeform_apis_azurerm_v1alpha1_SignalrServiceSpec(ref common.Referen
 							Format: "",
 						},
 					},
+					"publicPort": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
 					"resourceGroupName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"serverPort": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
 						},
 					},
 					"sku": {
@@ -72728,21 +76002,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_SignalrServiceStatus(ref common.Refer
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.SignalrServiceSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.SignalrServiceSpec"},
 	}
 }
 
@@ -72845,6 +76119,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_SnapshotSpec(ref common.ReferenceCall
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"createOption": {
@@ -73038,21 +76318,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_SnapshotStatus(ref common.ReferenceCa
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.SnapshotSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.SnapshotSpec"},
 	}
 }
 
@@ -73157,6 +76437,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_SqlActiveDirectoryAdministratorSpec(r
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"login": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -73209,21 +76495,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_SqlActiveDirectoryAdministratorStatus
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.SqlActiveDirectoryAdministratorSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.SqlActiveDirectoryAdministratorSpec"},
 	}
 }
 
@@ -73328,6 +76614,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_SqlDatabaseSpec(ref common.ReferenceC
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -73345,6 +76637,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_SqlDatabaseSpec(ref common.ReferenceC
 							Format: "",
 						},
 					},
+					"creationDate": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"defaultSecondaryLocation": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"edition": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -73352,6 +76656,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_SqlDatabaseSpec(ref common.ReferenceC
 						},
 					},
 					"elasticPoolName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"encryption": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -73594,21 +76904,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_SqlDatabaseStatus(ref common.Referenc
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.SqlDatabaseSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.SqlDatabaseSpec"},
 	}
 }
 
@@ -73713,6 +77023,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_SqlElasticpoolSpec(ref common.Referen
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"creationDate": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"dbDtuMax": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
@@ -73803,21 +77125,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_SqlElasticpoolStatus(ref common.Refer
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.SqlElasticpoolSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.SqlElasticpoolSpec"},
 	}
 }
 
@@ -73922,6 +77244,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_SqlFirewallRuleSpec(ref common.Refere
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"endIPAddress": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -73974,21 +77302,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_SqlFirewallRuleStatus(ref common.Refe
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.SqlFirewallRuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.SqlFirewallRuleSpec"},
 	}
 }
 
@@ -74093,12 +77421,24 @@ func schema_kubeform_apis_azurerm_v1alpha1_SqlServerSpec(ref common.ReferenceCal
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
 					"administratorLogin": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"fullyQualifiedDomainName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -74164,21 +77504,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_SqlServerStatus(ref common.ReferenceC
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.SqlServerSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.SqlServerSpec"},
 	}
 }
 
@@ -74283,6 +77623,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_SqlVirtualNetworkRuleSpec(ref common.
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"ignoreMissingVnetServiceEndpoint": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -74335,21 +77681,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_SqlVirtualNetworkRuleStatus(ref commo
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.SqlVirtualNetworkRuleSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.SqlVirtualNetworkRuleSpec"},
 	}
 }
 
@@ -74450,6 +77796,17 @@ func schema_kubeform_apis_azurerm_v1alpha1_StorageAccountSpec(ref common.Referen
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
 					"providerRef": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
@@ -74563,7 +77920,163 @@ func schema_kubeform_apis_azurerm_v1alpha1_StorageAccountSpec(ref common.Referen
 							},
 						},
 					},
+					"primaryBlobEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"primaryBlobHost": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"primaryDfsEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"primaryDfsHost": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"primaryFileEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"primaryFileHost": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"primaryLocation": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"primaryQueueEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"primaryQueueHost": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"primaryTableEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"primaryTableHost": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"primaryWebEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"primaryWebHost": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"resourceGroupName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secondaryBlobEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secondaryBlobHost": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secondaryDfsEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secondaryDfsHost": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secondaryFileEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secondaryFileHost": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secondaryLocation": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secondaryQueueEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secondaryQueueHost": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secondaryTableEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secondaryTableHost": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secondaryWebEndpoint": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"secondaryWebHost": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -74623,6 +78136,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_StorageAccountSpecIdentity(ref common
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"principalID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"tenantID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"type": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -74706,21 +78231,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_StorageAccountStatus(ref common.Refer
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.StorageAccountSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.StorageAccountSpec"},
 	}
 }
 
@@ -74825,6 +78350,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_StorageBlobSpec(ref common.ReferenceC
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"attempts": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
@@ -74905,6 +78436,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_StorageBlobSpec(ref common.ReferenceC
 							Format: "",
 						},
 					},
+					"url": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 				},
 				Required: []string{"providerRef", "name", "resourceGroupName", "storageAccountName", "storageContainerName"},
 			},
@@ -74927,21 +78464,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_StorageBlobStatus(ref common.Referenc
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.StorageBlobSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.StorageBlobSpec"},
 	}
 }
 
@@ -75046,6 +78583,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_StorageContainerSpec(ref common.Refer
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"containerAccessType": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -75056,6 +78599,20 @@ func schema_kubeform_apis_azurerm_v1alpha1_StorageContainerSpec(ref common.Refer
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"properties": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
 						},
 					},
 					"resourceGroupName": {
@@ -75092,21 +78649,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_StorageContainerStatus(ref common.Ref
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.StorageContainerSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.StorageContainerSpec"},
 	}
 }
 
@@ -75211,6 +78768,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_StorageQueueSpec(ref common.Reference
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -75251,21 +78814,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_StorageQueueStatus(ref common.Referen
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.StorageQueueSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.StorageQueueSpec"},
 	}
 }
 
@@ -75370,6 +78933,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_StorageShareSpec(ref common.Reference
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -75389,6 +78958,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_StorageShareSpec(ref common.Reference
 						},
 					},
 					"storageAccountName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"url": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -75416,21 +78991,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_StorageShareStatus(ref common.Referen
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.StorageShareSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.StorageShareSpec"},
 	}
 }
 
@@ -75535,6 +79110,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_StorageTableSpec(ref common.Reference
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -75575,21 +79156,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_StorageTableStatus(ref common.Referen
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.StorageTableSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.StorageTableSpec"},
 	}
 }
 
@@ -75692,6 +79273,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_StreamAnalyticsFunctionJavascriptUdfS
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"input": {
@@ -75802,21 +79389,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_StreamAnalyticsFunctionJavascriptUdfS
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.StreamAnalyticsFunctionJavascriptUdfSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.StreamAnalyticsFunctionJavascriptUdfSpec"},
 	}
 }
 
@@ -75921,6 +79508,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_StreamAnalyticsJobSpec(ref common.Ref
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"compatibilityLevel": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -75946,6 +79539,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_StreamAnalyticsJobSpec(ref common.Ref
 						},
 					},
 					"eventsOutOfOrderPolicy": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"jobID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -76023,21 +79622,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_StreamAnalyticsJobStatus(ref common.R
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.StreamAnalyticsJobSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.StreamAnalyticsJobSpec"},
 	}
 }
 
@@ -76140,6 +79739,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_StreamAnalyticsOutputBlobSpec(ref com
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"secret": {
@@ -76266,21 +79871,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_StreamAnalyticsOutputBlobStatus(ref c
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.StreamAnalyticsOutputBlobSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.StreamAnalyticsOutputBlobSpec"},
 	}
 }
 
@@ -76383,6 +79988,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_StreamAnalyticsOutputEventhubSpec(ref
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"secret": {
@@ -76497,21 +80108,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_StreamAnalyticsOutputEventhubStatus(r
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.StreamAnalyticsOutputEventhubSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.StreamAnalyticsOutputEventhubSpec"},
 	}
 }
 
@@ -76616,6 +80227,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_StreamAnalyticsOutputMssqlSpec(ref co
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -76685,21 +80302,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_StreamAnalyticsOutputMssqlStatus(ref 
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.StreamAnalyticsOutputMssqlSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.StreamAnalyticsOutputMssqlSpec"},
 	}
 }
 
@@ -76802,6 +80419,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_StreamAnalyticsOutputServicebusQueueS
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"secret": {
@@ -76916,21 +80539,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_StreamAnalyticsOutputServicebusQueueS
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.StreamAnalyticsOutputServicebusQueueSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.StreamAnalyticsOutputServicebusQueueSpec"},
 	}
 }
 
@@ -77033,6 +80656,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_StreamAnalyticsStreamInputBlobSpec(re
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"secret": {
@@ -77153,21 +80782,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_StreamAnalyticsStreamInputBlobStatus(
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.StreamAnalyticsStreamInputBlobSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.StreamAnalyticsStreamInputBlobSpec"},
 	}
 }
 
@@ -77270,6 +80899,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_StreamAnalyticsStreamInputEventhubSpe
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"secret": {
@@ -77384,21 +81019,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_StreamAnalyticsStreamInputEventhubSta
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.StreamAnalyticsStreamInputEventhubSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.StreamAnalyticsStreamInputEventhubSpec"},
 	}
 }
 
@@ -77501,6 +81136,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_StreamAnalyticsStreamInputIothubSpec(
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"secret": {
@@ -77615,21 +81256,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_StreamAnalyticsStreamInputIothubStatu
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.StreamAnalyticsStreamInputIothubSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.StreamAnalyticsStreamInputIothubSpec"},
 	}
 }
 
@@ -77824,6 +81465,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_SubnetNetworkSecurityGroupAssociation
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"networkSecurityGroupID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -77858,21 +81505,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_SubnetNetworkSecurityGroupAssociation
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.SubnetNetworkSecurityGroupAssociationSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.SubnetNetworkSecurityGroupAssociationSpec"},
 	}
 }
 
@@ -77977,6 +81624,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_SubnetRouteTableAssociationSpec(ref c
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"routeTableID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -78011,21 +81664,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_SubnetRouteTableAssociationStatus(ref
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.SubnetRouteTableAssociationSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.SubnetRouteTableAssociationSpec"},
 	}
 }
 
@@ -78038,6 +81691,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_SubnetSpec(ref common.ReferenceCallba
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"addressPrefix": {
@@ -78203,21 +81862,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_SubnetStatus(ref common.ReferenceCall
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.SubnetSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.SubnetSpec"},
 	}
 }
 
@@ -78322,6 +81981,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_TemplateDeploymentSpec(ref common.Ref
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"deploymentMode": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -78332,6 +81997,20 @@ func schema_kubeform_apis_azurerm_v1alpha1_TemplateDeploymentSpec(ref common.Ref
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"outputs": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
 						},
 					},
 					"parameters": {
@@ -78388,21 +82067,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_TemplateDeploymentStatus(ref common.R
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.TemplateDeploymentSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.TemplateDeploymentSpec"},
 	}
 }
 
@@ -78507,7 +82186,19 @@ func schema_kubeform_apis_azurerm_v1alpha1_TrafficManagerEndpointSpec(ref common
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"endpointLocation": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"endpointMonitorStatus": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -78608,21 +82299,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_TrafficManagerEndpointStatus(ref comm
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.TrafficManagerEndpointSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.TrafficManagerEndpointSpec"},
 	}
 }
 
@@ -78727,6 +82418,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_TrafficManagerProfileSpec(ref common.
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"dnsConfig": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -78737,6 +82434,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_TrafficManagerProfileSpec(ref common.
 									},
 								},
 							},
+						},
+					},
+					"fqdn": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"monitorConfig": {
@@ -78867,21 +82570,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_TrafficManagerProfileStatus(ref commo
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.TrafficManagerProfileSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.TrafficManagerProfileSpec"},
 	}
 }
 
@@ -78986,6 +82689,18 @@ func schema_kubeform_apis_azurerm_v1alpha1_UserAssignedIdentitySpec(ref common.R
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"clientID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -78993,6 +82708,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_UserAssignedIdentitySpec(ref common.R
 						},
 					},
 					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"principalID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -79040,21 +82761,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_UserAssignedIdentityStatus(ref common
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.UserAssignedIdentitySpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.UserAssignedIdentitySpec"},
 	}
 }
 
@@ -79202,6 +82923,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualMachineDataDiskAttachmentSpec(
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"caching": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -79260,21 +82987,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualMachineDataDiskAttachmentStatu
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.VirtualMachineDataDiskAttachmentSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.VirtualMachineDataDiskAttachmentSpec"},
 	}
 }
 
@@ -79379,6 +83106,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualMachineExtensionSpec(ref commo
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -79453,7 +83186,7 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualMachineExtensionSpec(ref commo
 						},
 					},
 				},
-				Required: []string{"providerRef", "location", "name", "resourceGroupName", "type", "typeHandlerVersion", "virtualMachineName"},
+				Required: []string{"providerRef", "location", "name", "publisher", "resourceGroupName", "type", "typeHandlerVersion", "virtualMachineName"},
 			},
 		},
 		Dependencies: []string{
@@ -79474,21 +83207,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualMachineExtensionStatus(ref com
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.VirtualMachineExtensionSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.VirtualMachineExtensionSpec"},
 	}
 }
 
@@ -79638,6 +83371,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualMachineScaleSetSpec(ref common
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"secret": {
@@ -80021,6 +83760,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualMachineScaleSetSpecIdentity(re
 							},
 						},
 					},
+					"principalID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"type": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -80282,7 +84027,7 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualMachineScaleSetSpecOsProfile(r
 						},
 					},
 				},
-				Required: []string{"computerNamePrefix"},
+				Required: []string{"adminUsername", "computerNamePrefix"},
 			},
 		},
 	}
@@ -80767,21 +84512,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualMachineScaleSetStatus(ref comm
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.VirtualMachineScaleSetSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.VirtualMachineScaleSetSpec"},
 	}
 }
 
@@ -80794,6 +84539,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualMachineSpec(ref common.Referen
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"secret": {
@@ -81068,6 +84819,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualMachineSpecIdentity(ref common
 							},
 						},
 					},
+					"principalID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"type": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -81106,7 +84863,7 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualMachineSpecOsProfile(ref commo
 						},
 					},
 				},
-				Required: []string{"computerName"},
+				Required: []string{"adminUsername", "computerName"},
 			},
 		},
 	}
@@ -81566,21 +85323,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualMachineStatus(ref common.Refer
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.VirtualMachineSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.VirtualMachineSpec"},
 	}
 }
 
@@ -81771,6 +85528,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualNetworkGatewayConnectionSpec(r
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"secret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -81957,21 +85720,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualNetworkGatewayConnectionStatus
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.VirtualNetworkGatewayConnectionSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.VirtualNetworkGatewayConnectionSpec"},
 	}
 }
 
@@ -82031,6 +85794,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualNetworkGatewaySpec(ref common.
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"activeActive": {
@@ -82353,21 +86122,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualNetworkGatewayStatus(ref commo
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.VirtualNetworkGatewaySpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.VirtualNetworkGatewaySpec"},
 	}
 }
 
@@ -82519,6 +86288,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualNetworkPeeringSpec(ref common.
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"allowForwardedTraffic": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -82589,21 +86364,21 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualNetworkPeeringStatus(ref commo
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.VirtualNetworkPeeringSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.VirtualNetworkPeeringSpec"},
 	}
 }
 
@@ -82616,6 +86391,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualNetworkSpec(ref common.Referen
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 					"addressSpace": {
@@ -82746,6 +86527,12 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualNetworkSpecSubnet(ref common.R
 							Format: "",
 						},
 					},
+					"ID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -82778,20 +86565,20 @@ func schema_kubeform_apis_azurerm_v1alpha1_VirtualNetworkStatus(ref common.Refer
 							Format:      "int64",
 						},
 					},
-					"tfState": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
-						},
-					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+							Ref: ref("kubeform.dev/kubeform/apis/azurerm/v1alpha1.VirtualNetworkSpec"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis.State"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+			"kubeform.dev/kubeform/apis.State", "kubeform.dev/kubeform/apis/azurerm/v1alpha1.VirtualNetworkSpec"},
 	}
 }

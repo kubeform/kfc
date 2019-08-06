@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -56,6 +56,8 @@ type LoadbalancerSpecStickySessions struct {
 type LoadbalancerSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	Algorithm string `json:"algorithm,omitempty" tf:"algorithm,omitempty"`
 	// +optional
@@ -70,22 +72,29 @@ type LoadbalancerSpec struct {
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	Healthcheck []LoadbalancerSpecHealthcheck `json:"healthcheck,omitempty" tf:"healthcheck,omitempty"`
-	Name        string                        `json:"name" tf:"name"`
+	// +optional
+	Ip   string `json:"ip,omitempty" tf:"ip,omitempty"`
+	Name string `json:"name" tf:"name"`
 	// +optional
 	RedirectHTTPToHTTPS bool   `json:"redirectHTTPToHTTPS,omitempty" tf:"redirect_http_to_https,omitempty"`
 	Region              string `json:"region" tf:"region"`
 	// +optional
+	Status string `json:"status,omitempty" tf:"status,omitempty"`
+	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	StickySessions []LoadbalancerSpecStickySessions `json:"stickySessions,omitempty" tf:"sticky_sessions,omitempty"`
+	// +optional
+	Urn string `json:"urn,omitempty" tf:"urn,omitempty"`
 }
 
 type LoadbalancerStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *LoadbalancerSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

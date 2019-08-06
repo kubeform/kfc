@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -31,7 +31,9 @@ type StreamAnalyticsOutputBlobSpecSerialization struct {
 type StreamAnalyticsOutputBlobSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	DateFormat        string `json:"dateFormat" tf:"date_format"`
 	Name              string `json:"name" tf:"name"`
@@ -39,6 +41,7 @@ type StreamAnalyticsOutputBlobSpec struct {
 	ResourceGroupName string `json:"resourceGroupName" tf:"resource_group_name"`
 	// +kubebuilder:validation:MaxItems=1
 	Serialization          []StreamAnalyticsOutputBlobSpecSerialization `json:"serialization" tf:"serialization"`
+	StorageAccountKey      string                                       `json:"-" sensitive:"true" tf:"storage_account_key"`
 	StorageAccountName     string                                       `json:"storageAccountName" tf:"storage_account_name"`
 	StorageContainerName   string                                       `json:"storageContainerName" tf:"storage_container_name"`
 	StreamAnalyticsJobName string                                       `json:"streamAnalyticsJobName" tf:"stream_analytics_job_name"`
@@ -49,9 +52,10 @@ type StreamAnalyticsOutputBlobStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *StreamAnalyticsOutputBlobSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

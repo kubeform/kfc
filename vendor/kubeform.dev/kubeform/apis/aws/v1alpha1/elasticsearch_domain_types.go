@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -75,26 +75,37 @@ type ElasticsearchDomainSpecSnapshotOptions struct {
 type ElasticsearchDomainSpecVpcOptions struct {
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
+	AvailabilityZones []string `json:"availabilityZones,omitempty" tf:"availability_zones,omitempty"`
+	// +optional
+	// +kubebuilder:validation:UniqueItems=true
 	SecurityGroupIDS []string `json:"securityGroupIDS,omitempty" tf:"security_group_ids,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	SubnetIDS []string `json:"subnetIDS,omitempty" tf:"subnet_ids,omitempty"`
+	// +optional
+	VpcID string `json:"vpcID,omitempty" tf:"vpc_id,omitempty"`
 }
 
 type ElasticsearchDomainSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
+
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// +optional
 	AccessPolicies string `json:"accessPolicies,omitempty" tf:"access_policies,omitempty"`
 	// +optional
 	AdvancedOptions map[string]string `json:"advancedOptions,omitempty" tf:"advanced_options,omitempty"`
 	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
+	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	ClusterConfig []ElasticsearchDomainSpecClusterConfig `json:"clusterConfig,omitempty" tf:"cluster_config,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	CognitoOptions []ElasticsearchDomainSpecCognitoOptions `json:"cognitoOptions,omitempty" tf:"cognito_options,omitempty"`
-	DomainName     string                                  `json:"domainName" tf:"domain_name"`
+	// +optional
+	DomainID   string `json:"domainID,omitempty" tf:"domain_id,omitempty"`
+	DomainName string `json:"domainName" tf:"domain_name"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	EbsOptions []ElasticsearchDomainSpecEbsOptions `json:"ebsOptions,omitempty" tf:"ebs_options,omitempty"`
@@ -103,6 +114,10 @@ type ElasticsearchDomainSpec struct {
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	EncryptAtRest []ElasticsearchDomainSpecEncryptAtRest `json:"encryptAtRest,omitempty" tf:"encrypt_at_rest,omitempty"`
+	// +optional
+	Endpoint string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
+	// +optional
+	KibanaEndpoint string `json:"kibanaEndpoint,omitempty" tf:"kibana_endpoint,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	LogPublishingOptions []ElasticsearchDomainSpecLogPublishingOptions `json:"logPublishingOptions,omitempty" tf:"log_publishing_options,omitempty"`
@@ -123,9 +138,10 @@ type ElasticsearchDomainStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ElasticsearchDomainSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -18,9 +18,48 @@ type EndpointsService struct {
 	Status            EndpointsServiceStatus `json:"status,omitempty"`
 }
 
+type EndpointsServiceSpecApisMethods struct {
+	// +optional
+	Name string `json:"name,omitempty" tf:"name,omitempty"`
+	// +optional
+	RequestType string `json:"requestType,omitempty" tf:"request_type,omitempty"`
+	// +optional
+	ResponseType string `json:"responseType,omitempty" tf:"response_type,omitempty"`
+	// +optional
+	Syntax string `json:"syntax,omitempty" tf:"syntax,omitempty"`
+}
+
+type EndpointsServiceSpecApis struct {
+	// +optional
+	Methods []EndpointsServiceSpecApisMethods `json:"methods,omitempty" tf:"methods,omitempty"`
+	// +optional
+	Name string `json:"name,omitempty" tf:"name,omitempty"`
+	// +optional
+	Syntax string `json:"syntax,omitempty" tf:"syntax,omitempty"`
+	// +optional
+	Version string `json:"version,omitempty" tf:"version,omitempty"`
+}
+
+type EndpointsServiceSpecEndpoints struct {
+	// +optional
+	Address string `json:"address,omitempty" tf:"address,omitempty"`
+	// +optional
+	Name string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
 type EndpointsServiceSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	Apis []EndpointsServiceSpecApis `json:"apis,omitempty" tf:"apis,omitempty"`
+	// +optional
+	ConfigID string `json:"configID,omitempty" tf:"config_id,omitempty"`
+	// +optional
+	DnsAddress string `json:"dnsAddress,omitempty" tf:"dns_address,omitempty"`
+	// +optional
+	Endpoints []EndpointsServiceSpecEndpoints `json:"endpoints,omitempty" tf:"endpoints,omitempty"`
 	// +optional
 	GrpcConfig string `json:"grpcConfig,omitempty" tf:"grpc_config,omitempty"`
 	// +optional
@@ -39,9 +78,10 @@ type EndpointsServiceStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *EndpointsServiceSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

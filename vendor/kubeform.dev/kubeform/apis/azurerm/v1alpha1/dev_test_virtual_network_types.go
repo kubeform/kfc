@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -20,6 +20,8 @@ type DevTestVirtualNetwork struct {
 
 type DevTestVirtualNetworkSpecSubnet struct {
 	// +optional
+	Name string `json:"name,omitempty" tf:"name,omitempty"`
+	// +optional
 	UseInVirtualMachineCreation string `json:"useInVirtualMachineCreation,omitempty" tf:"use_in_virtual_machine_creation,omitempty"`
 	// +optional
 	UsePublicIPAddress string `json:"usePublicIPAddress,omitempty" tf:"use_public_ip_address,omitempty"`
@@ -27,6 +29,8 @@ type DevTestVirtualNetworkSpecSubnet struct {
 
 type DevTestVirtualNetworkSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
+
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// +optional
 	Description       string `json:"description,omitempty" tf:"description,omitempty"`
@@ -38,15 +42,18 @@ type DevTestVirtualNetworkSpec struct {
 	Subnet []DevTestVirtualNetworkSpecSubnet `json:"subnet,omitempty" tf:"subnet,omitempty"`
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
+	// +optional
+	UniqueIdentifier string `json:"uniqueIdentifier,omitempty" tf:"unique_identifier,omitempty"`
 }
 
 type DevTestVirtualNetworkStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *DevTestVirtualNetworkSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

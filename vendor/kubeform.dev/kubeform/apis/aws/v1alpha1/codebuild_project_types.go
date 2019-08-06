@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -118,7 +118,8 @@ type CodebuildProjectSpecSecondaryArtifacts struct {
 
 type CodebuildProjectSpecSecondarySourcesAuth struct {
 	// +optional
-	Type string `json:"type" tf:"type"`
+	Resource string `json:"-" sensitive:"true" tf:"resource,omitempty"`
+	Type     string `json:"type" tf:"type"`
 }
 
 type CodebuildProjectSpecSecondarySources struct {
@@ -141,7 +142,8 @@ type CodebuildProjectSpecSecondarySources struct {
 
 type CodebuildProjectSpecSourceAuth struct {
 	// +optional
-	Type string `json:"type" tf:"type"`
+	Resource string `json:"-" sensitive:"true" tf:"resource,omitempty"`
+	Type     string `json:"type" tf:"type"`
 }
 
 type CodebuildProjectSpecSource struct {
@@ -174,13 +176,19 @@ type CodebuildProjectSpecVpcConfig struct {
 type CodebuildProjectSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
 	// +kubebuilder:validation:MaxItems=1
 	// +kubebuilder:validation:UniqueItems=true
 	Artifacts []CodebuildProjectSpecArtifacts `json:"artifacts" tf:"artifacts"`
 	// +optional
 	BadgeEnabled bool `json:"badgeEnabled,omitempty" tf:"badge_enabled,omitempty"`
+	// +optional
+	BadgeURL string `json:"badgeURL,omitempty" tf:"badge_url,omitempty"`
 	// +optional
 	BuildTimeout int `json:"buildTimeout,omitempty" tf:"build_timeout,omitempty"`
 	// +optional
@@ -218,9 +226,10 @@ type CodebuildProjectStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *CodebuildProjectSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -5,7 +5,7 @@ import (
 
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -333,6 +333,7 @@ type KinesisFirehoseDeliveryStreamSpecRedshiftConfiguration struct {
 	// +optional
 	DataTableColumns string `json:"dataTableColumns,omitempty" tf:"data_table_columns,omitempty"`
 	DataTableName    string `json:"dataTableName" tf:"data_table_name"`
+	Password         string `json:"-" sensitive:"true" tf:"password"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	ProcessingConfiguration []KinesisFirehoseDeliveryStreamSpecRedshiftConfigurationProcessingConfiguration `json:"processingConfiguration,omitempty" tf:"processing_configuration,omitempty"`
@@ -425,7 +426,9 @@ type KinesisFirehoseDeliveryStreamSpecSplunkConfiguration struct {
 type KinesisFirehoseDeliveryStreamSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	Arn         string `json:"arn,omitempty" tf:"arn,omitempty"`
@@ -461,9 +464,10 @@ type KinesisFirehoseDeliveryStreamStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *KinesisFirehoseDeliveryStreamSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

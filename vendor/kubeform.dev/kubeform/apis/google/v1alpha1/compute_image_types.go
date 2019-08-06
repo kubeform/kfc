@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -29,6 +29,8 @@ type ComputeImageSpecRawDisk struct {
 type ComputeImageSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	// Deprecated
 	CreateTimeout int `json:"createTimeout,omitempty" tf:"create_timeout,omitempty"`
@@ -36,6 +38,8 @@ type ComputeImageSpec struct {
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
 	// +optional
 	Family string `json:"family,omitempty" tf:"family,omitempty"`
+	// +optional
+	LabelFingerprint string `json:"labelFingerprint,omitempty" tf:"label_fingerprint,omitempty"`
 	// +optional
 	Labels map[string]string `json:"labels,omitempty" tf:"labels,omitempty"`
 	// +optional
@@ -47,6 +51,8 @@ type ComputeImageSpec struct {
 	// +kubebuilder:validation:MaxItems=1
 	RawDisk []ComputeImageSpecRawDisk `json:"rawDisk,omitempty" tf:"raw_disk,omitempty"`
 	// +optional
+	SelfLink string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
+	// +optional
 	SourceDisk string `json:"sourceDisk,omitempty" tf:"source_disk,omitempty"`
 }
 
@@ -54,9 +60,10 @@ type ComputeImageStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ComputeImageSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

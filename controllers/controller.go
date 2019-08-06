@@ -190,14 +190,13 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 	} else {
 		err := addFinalizer(obj, KFCFinalizer)
 		if err != nil {
-			log.Error(err, "failed to add finalizer")
+			return fmt.Errorf("failed to add finalizer : %s", err)
 		}
 	}
 
 	err = createFiles(resPath, providerFile, mainFile)
 	if err != nil {
-		log.Error(err, "failed to create files")
-		return nil
+		return fmt.Errorf("failed to create tf files : %s", err)
 	}
 
 	providerRef, _, err := unstructured.NestedString(obj.Object, "spec", "providerRef", "name")
@@ -208,32 +207,44 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 
 	secret, err := c.kubeclientset.CoreV1().Secrets(namespace).Get(providerRef, metav1.GetOptions{})
 	if err != nil {
-		log.Error(err, "unable to fetch configmap")
+		return fmt.Errorf("unable to fetch secret : %s", err)
 	}
 
 	providerName := strings.Split(gvr.Group, ".")[0]
 	err = secretToTFProvider(secret, providerName, providerFile)
 	if err != nil {
-		log.Error(err, "unable to get configmap")
+		return fmt.Errorf("unable to create provider from secret : %s", err)
 	}
 
-	err = crdToTFResource(gvr.GroupVersion(), obj.GetKind(), namespace, providerName, c.kubeclientset, obj, mainFile)
+	err = crdToTFResource(gvr.GroupVersion(), namespace, providerName, c.kubeclientset, obj, mainFile)
 	if err != nil {
-		log.Error(err, "unable to get crd resource")
+		return fmt.Errorf("unable to get crd resource : %s", err)
 	}
 
 	err = terraformInit(resPath)
 	if err != nil {
-		log.Error(err, "unable to initialize terraform")
+		return fmt.Errorf("unable to initialize terraform : %s", err)
 	}
 
-	createTFState(stateFile, gvr.GroupVersion(), obj)
+	err = createTFState(c.kubeclientset, stateFile, providerName, gvr.GroupVersion(), obj)
+	if err != nil {
+		return fmt.Errorf("unable to create tfstate file : %s", err)
+	}
 
 	err = terraformApply(resPath)
 	if err != nil {
-		log.Error(err, "unable to apply terraform")
+		return fmt.Errorf("unable to apply terraform : %s", err)
 	}
-	updateTFState(stateFile, gvr.GroupVersion(), obj)
+
+	err = updateTFStateFile(stateFile, gvr.GroupVersion(), obj)
+	if err != nil {
+		return fmt.Errorf("unable to update TFState : %s", err)
+	}
+
+	err = updateStateField(c.kubeclientset, namespace, gvr, obj, stateFile)
+	if err != nil {
+		return fmt.Errorf("unable to update resource fields from tfstate : %s", err)
+	}
 
 	//err = updateStatusOut(obj, resPath)
 	//if err != nil {

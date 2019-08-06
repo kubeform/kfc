@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -31,7 +31,9 @@ type StreamAnalyticsOutputServicebusQueueSpecSerialization struct {
 type StreamAnalyticsOutputServicebusQueueSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	Name              string `json:"name" tf:"name"`
 	QueueName         string `json:"queueName" tf:"queue_name"`
@@ -39,6 +41,7 @@ type StreamAnalyticsOutputServicebusQueueSpec struct {
 	// +kubebuilder:validation:MaxItems=1
 	Serialization          []StreamAnalyticsOutputServicebusQueueSpecSerialization `json:"serialization" tf:"serialization"`
 	ServicebusNamespace    string                                                  `json:"servicebusNamespace" tf:"servicebus_namespace"`
+	SharedAccessPolicyKey  string                                                  `json:"-" sensitive:"true" tf:"shared_access_policy_key"`
 	SharedAccessPolicyName string                                                  `json:"sharedAccessPolicyName" tf:"shared_access_policy_name"`
 	StreamAnalyticsJobName string                                                  `json:"streamAnalyticsJobName" tf:"stream_analytics_job_name"`
 }
@@ -47,9 +50,10 @@ type StreamAnalyticsOutputServicebusQueueStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *StreamAnalyticsOutputServicebusQueueSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

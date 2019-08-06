@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -25,6 +25,15 @@ type MqBrokerSpecConfiguration struct {
 	Revision int `json:"revision,omitempty" tf:"revision,omitempty"`
 }
 
+type MqBrokerSpecInstances struct {
+	// +optional
+	ConsoleURL string `json:"consoleURL,omitempty" tf:"console_url,omitempty"`
+	// +optional
+	Endpoints []string `json:"endpoints,omitempty" tf:"endpoints,omitempty"`
+	// +optional
+	IpAddress string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
+}
+
 type MqBrokerSpecLogs struct {
 	// +optional
 	Audit bool `json:"audit,omitempty" tf:"audit,omitempty"`
@@ -44,16 +53,21 @@ type MqBrokerSpecUser struct {
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	Groups   []string `json:"groups,omitempty" tf:"groups,omitempty"`
+	Password string   `json:"-" sensitive:"true" tf:"password"`
 	Username string   `json:"username" tf:"username"`
 }
 
 type MqBrokerSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	ApplyImmediately bool `json:"applyImmediately,omitempty" tf:"apply_immediately,omitempty"`
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
 	// +optional
 	AutoMinorVersionUpgrade bool   `json:"autoMinorVersionUpgrade,omitempty" tf:"auto_minor_version_upgrade,omitempty"`
 	BrokerName              string `json:"brokerName" tf:"broker_name"`
@@ -65,6 +79,8 @@ type MqBrokerSpec struct {
 	EngineType       string `json:"engineType" tf:"engine_type"`
 	EngineVersion    string `json:"engineVersion" tf:"engine_version"`
 	HostInstanceType string `json:"hostInstanceType" tf:"host_instance_type"`
+	// +optional
+	Instances []MqBrokerSpecInstances `json:"instances,omitempty" tf:"instances,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	Logs []MqBrokerSpecLogs `json:"logs,omitempty" tf:"logs,omitempty"`
@@ -88,9 +104,10 @@ type MqBrokerStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *MqBrokerSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

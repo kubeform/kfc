@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,25 +21,40 @@ type LambdaEventSourceMapping struct {
 type LambdaEventSourceMappingSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	BatchSize int `json:"batchSize,omitempty" tf:"batch_size,omitempty"`
 	// +optional
 	Enabled        bool   `json:"enabled,omitempty" tf:"enabled,omitempty"`
 	EventSourceArn string `json:"eventSourceArn" tf:"event_source_arn"`
-	FunctionName   string `json:"functionName" tf:"function_name"`
+	// +optional
+	FunctionArn  string `json:"functionArn,omitempty" tf:"function_arn,omitempty"`
+	FunctionName string `json:"functionName" tf:"function_name"`
+	// +optional
+	LastModified string `json:"lastModified,omitempty" tf:"last_modified,omitempty"`
+	// +optional
+	LastProcessingResult string `json:"lastProcessingResult,omitempty" tf:"last_processing_result,omitempty"`
 	// +optional
 	StartingPosition string `json:"startingPosition,omitempty" tf:"starting_position,omitempty"`
 	// +optional
 	StartingPositionTimestamp string `json:"startingPositionTimestamp,omitempty" tf:"starting_position_timestamp,omitempty"`
+	// +optional
+	State string `json:"state,omitempty" tf:"state,omitempty"`
+	// +optional
+	StateTransitionReason string `json:"stateTransitionReason,omitempty" tf:"state_transition_reason,omitempty"`
+	// +optional
+	Uuid string `json:"uuid,omitempty" tf:"uuid,omitempty"`
 }
 
 type LambdaEventSourceMappingStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *LambdaEventSourceMappingSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

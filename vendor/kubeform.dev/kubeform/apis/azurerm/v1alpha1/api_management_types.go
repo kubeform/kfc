@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -19,17 +19,25 @@ type ApiManagement struct {
 }
 
 type ApiManagementSpecAdditionalLocation struct {
-	Location string `json:"location" tf:"location"`
+	// +optional
+	GatewayRegionalURL string `json:"gatewayRegionalURL,omitempty" tf:"gateway_regional_url,omitempty"`
+	Location           string `json:"location" tf:"location"`
+	// +optional
+	PublicIPAddresses []string `json:"publicIPAddresses,omitempty" tf:"public_ip_addresses,omitempty"`
 }
 
 type ApiManagementSpecCertificate struct {
-	StoreName string `json:"storeName" tf:"store_name"`
+	CertificatePassword string `json:"-" sensitive:"true" tf:"certificate_password"`
+	EncodedCertificate  string `json:"-" sensitive:"true" tf:"encoded_certificate"`
+	StoreName           string `json:"storeName" tf:"store_name"`
 }
 
 type ApiManagementSpecHostnameConfigurationManagement struct {
 	// +optional
+	Certificate string `json:"-" sensitive:"true" tf:"certificate,omitempty"`
 	// +optional
-	HostName string `json:"hostName" tf:"host_name"`
+	CertificatePassword string `json:"-" sensitive:"true" tf:"certificate_password,omitempty"`
+	HostName            string `json:"hostName" tf:"host_name"`
 	// +optional
 	KeyVaultID string `json:"keyVaultID,omitempty" tf:"key_vault_id,omitempty"`
 	// +optional
@@ -38,8 +46,10 @@ type ApiManagementSpecHostnameConfigurationManagement struct {
 
 type ApiManagementSpecHostnameConfigurationPortal struct {
 	// +optional
+	Certificate string `json:"-" sensitive:"true" tf:"certificate,omitempty"`
 	// +optional
-	HostName string `json:"hostName" tf:"host_name"`
+	CertificatePassword string `json:"-" sensitive:"true" tf:"certificate_password,omitempty"`
+	HostName            string `json:"hostName" tf:"host_name"`
 	// +optional
 	KeyVaultID string `json:"keyVaultID,omitempty" tf:"key_vault_id,omitempty"`
 	// +optional
@@ -48,7 +58,9 @@ type ApiManagementSpecHostnameConfigurationPortal struct {
 
 type ApiManagementSpecHostnameConfigurationProxy struct {
 	// +optional
+	Certificate string `json:"-" sensitive:"true" tf:"certificate,omitempty"`
 	// +optional
+	CertificatePassword string `json:"-" sensitive:"true" tf:"certificate_password,omitempty"`
 	// +optional
 	DefaultSslBinding bool   `json:"defaultSslBinding,omitempty" tf:"default_ssl_binding,omitempty"`
 	HostName          string `json:"hostName" tf:"host_name"`
@@ -60,8 +72,10 @@ type ApiManagementSpecHostnameConfigurationProxy struct {
 
 type ApiManagementSpecHostnameConfigurationScm struct {
 	// +optional
+	Certificate string `json:"-" sensitive:"true" tf:"certificate,omitempty"`
 	// +optional
-	HostName string `json:"hostName" tf:"host_name"`
+	CertificatePassword string `json:"-" sensitive:"true" tf:"certificate_password,omitempty"`
+	HostName            string `json:"hostName" tf:"host_name"`
 	// +optional
 	KeyVaultID string `json:"keyVaultID,omitempty" tf:"key_vault_id,omitempty"`
 	// +optional
@@ -80,7 +94,11 @@ type ApiManagementSpecHostnameConfiguration struct {
 }
 
 type ApiManagementSpecIdentity struct {
-	Type string `json:"type" tf:"type"`
+	// +optional
+	PrincipalID string `json:"principalID,omitempty" tf:"principal_id,omitempty"`
+	// +optional
+	TenantID string `json:"tenantID,omitempty" tf:"tenant_id,omitempty"`
+	Type     string `json:"type" tf:"type"`
 }
 
 type ApiManagementSpecPolicy struct {
@@ -135,7 +153,9 @@ type ApiManagementSpecSku struct {
 type ApiManagementSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
@@ -144,21 +164,33 @@ type ApiManagementSpec struct {
 	// +kubebuilder:validation:MaxItems=10
 	Certificate []ApiManagementSpecCertificate `json:"certificate,omitempty" tf:"certificate,omitempty"`
 	// +optional
+	GatewayRegionalURL string `json:"gatewayRegionalURL,omitempty" tf:"gateway_regional_url,omitempty"`
+	// +optional
+	GatewayURL string `json:"gatewayURL,omitempty" tf:"gateway_url,omitempty"`
+	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	HostnameConfiguration []ApiManagementSpecHostnameConfiguration `json:"hostnameConfiguration,omitempty" tf:"hostname_configuration,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	Identity []ApiManagementSpecIdentity `json:"identity,omitempty" tf:"identity,omitempty"`
 	Location string                      `json:"location" tf:"location"`
-	Name     string                      `json:"name" tf:"name"`
+	// +optional
+	ManagementAPIURL string `json:"managementAPIURL,omitempty" tf:"management_api_url,omitempty"`
+	Name             string `json:"name" tf:"name"`
 	// +optional
 	NotificationSenderEmail string `json:"notificationSenderEmail,omitempty" tf:"notification_sender_email,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
-	Policy            []ApiManagementSpecPolicy `json:"policy,omitempty" tf:"policy,omitempty"`
-	PublisherEmail    string                    `json:"publisherEmail" tf:"publisher_email"`
-	PublisherName     string                    `json:"publisherName" tf:"publisher_name"`
-	ResourceGroupName string                    `json:"resourceGroupName" tf:"resource_group_name"`
+	Policy []ApiManagementSpecPolicy `json:"policy,omitempty" tf:"policy,omitempty"`
+	// +optional
+	PortalURL string `json:"portalURL,omitempty" tf:"portal_url,omitempty"`
+	// +optional
+	PublicIPAddresses []string `json:"publicIPAddresses,omitempty" tf:"public_ip_addresses,omitempty"`
+	PublisherEmail    string   `json:"publisherEmail" tf:"publisher_email"`
+	PublisherName     string   `json:"publisherName" tf:"publisher_name"`
+	ResourceGroupName string   `json:"resourceGroupName" tf:"resource_group_name"`
+	// +optional
+	ScmURL string `json:"scmURL,omitempty" tf:"scm_url,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	Security []ApiManagementSpecSecurity `json:"security,omitempty" tf:"security,omitempty"`
@@ -178,9 +210,10 @@ type ApiManagementStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ApiManagementSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

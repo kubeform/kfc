@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -22,12 +22,16 @@ type ContainerServiceSpecAgentPoolProfile struct {
 	// +optional
 	Count     int    `json:"count,omitempty" tf:"count,omitempty"`
 	DnsPrefix string `json:"dnsPrefix" tf:"dns_prefix"`
-	Name      string `json:"name" tf:"name"`
-	VmSize    string `json:"vmSize" tf:"vm_size"`
+	// +optional
+	Fqdn   string `json:"fqdn,omitempty" tf:"fqdn,omitempty"`
+	Name   string `json:"name" tf:"name"`
+	VmSize string `json:"vmSize" tf:"vm_size"`
 }
 
 type ContainerServiceSpecDiagnosticsProfile struct {
 	Enabled bool `json:"enabled" tf:"enabled"`
+	// +optional
+	StorageURI string `json:"storageURI,omitempty" tf:"storage_uri,omitempty"`
 }
 
 type ContainerServiceSpecLinuxProfileSshKey struct {
@@ -45,16 +49,21 @@ type ContainerServiceSpecMasterProfile struct {
 	// +optional
 	Count     int    `json:"count,omitempty" tf:"count,omitempty"`
 	DnsPrefix string `json:"dnsPrefix" tf:"dns_prefix"`
+	// +optional
+	Fqdn string `json:"fqdn,omitempty" tf:"fqdn,omitempty"`
 }
 
 type ContainerServiceSpecServicePrincipal struct {
-	ClientID string `json:"clientID" tf:"client_id"`
+	ClientID     string `json:"clientID" tf:"client_id"`
+	ClientSecret string `json:"-" sensitive:"true" tf:"client_secret"`
 }
 
 type ContainerServiceSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:MaxItems=1
 	// +kubebuilder:validation:UniqueItems=true
@@ -84,9 +93,10 @@ type ContainerServiceStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ContainerServiceSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

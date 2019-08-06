@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,8 +21,19 @@ type IamAccessKey struct {
 type IamAccessKeySpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	EncryptedSecret string `json:"encryptedSecret,omitempty" tf:"encrypted_secret,omitempty"`
+	// +optional
+	KeyFingerprint string `json:"keyFingerprint,omitempty" tf:"key_fingerprint,omitempty"`
 	// +optional
 	PgpKey string `json:"pgpKey,omitempty" tf:"pgp_key,omitempty"`
+	// +optional
+	// Deprecated
+	Secret string `json:"secret,omitempty" tf:"secret,omitempty"`
+	// +optional
+	SesSMTPPassword string `json:"sesSMTPPassword,omitempty" tf:"ses_smtp_password,omitempty"`
 	// +optional
 	Status string `json:"status,omitempty" tf:"status,omitempty"`
 	User   string `json:"user" tf:"user"`
@@ -32,9 +43,10 @@ type IamAccessKeyStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *IamAccessKeySpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

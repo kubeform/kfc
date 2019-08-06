@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -98,8 +98,12 @@ type SpotFleetRequestSpecLaunchSpecification struct {
 type SpotFleetRequestSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	AllocationStrategy string `json:"allocationStrategy,omitempty" tf:"allocation_strategy,omitempty"`
+	// +optional
+	ClientToken string `json:"clientToken,omitempty" tf:"client_token,omitempty"`
 	// +optional
 	ExcessCapacityTerminationPolicy string `json:"excessCapacityTerminationPolicy,omitempty" tf:"excess_capacity_termination_policy,omitempty"`
 	// +optional
@@ -117,8 +121,10 @@ type SpotFleetRequestSpec struct {
 	// +optional
 	ReplaceUnhealthyInstances bool `json:"replaceUnhealthyInstances,omitempty" tf:"replace_unhealthy_instances,omitempty"`
 	// +optional
-	SpotPrice      string `json:"spotPrice,omitempty" tf:"spot_price,omitempty"`
-	TargetCapacity int    `json:"targetCapacity" tf:"target_capacity"`
+	SpotPrice string `json:"spotPrice,omitempty" tf:"spot_price,omitempty"`
+	// +optional
+	SpotRequestState string `json:"spotRequestState,omitempty" tf:"spot_request_state,omitempty"`
+	TargetCapacity   int    `json:"targetCapacity" tf:"target_capacity"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	TargetGroupArns []string `json:"targetGroupArns,omitempty" tf:"target_group_arns,omitempty"`
@@ -136,9 +142,10 @@ type SpotFleetRequestStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *SpotFleetRequestSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

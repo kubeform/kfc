@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,10 +21,14 @@ type Route struct {
 type RouteSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	DestinationCIDRBlock string `json:"destinationCIDRBlock,omitempty" tf:"destination_cidr_block,omitempty"`
 	// +optional
 	DestinationIpv6CIDRBlock string `json:"destinationIpv6CIDRBlock,omitempty" tf:"destination_ipv6_cidr_block,omitempty"`
+	// +optional
+	DestinationPrefixListID string `json:"destinationPrefixListID,omitempty" tf:"destination_prefix_list_id,omitempty"`
 	// +optional
 	EgressOnlyGatewayID string `json:"egressOnlyGatewayID,omitempty" tf:"egress_only_gateway_id,omitempty"`
 	// +optional
@@ -32,10 +36,16 @@ type RouteSpec struct {
 	// +optional
 	InstanceID string `json:"instanceID,omitempty" tf:"instance_id,omitempty"`
 	// +optional
+	InstanceOwnerID string `json:"instanceOwnerID,omitempty" tf:"instance_owner_id,omitempty"`
+	// +optional
 	NatGatewayID string `json:"natGatewayID,omitempty" tf:"nat_gateway_id,omitempty"`
 	// +optional
 	NetworkInterfaceID string `json:"networkInterfaceID,omitempty" tf:"network_interface_id,omitempty"`
-	RouteTableID       string `json:"routeTableID" tf:"route_table_id"`
+	// +optional
+	Origin       string `json:"origin,omitempty" tf:"origin,omitempty"`
+	RouteTableID string `json:"routeTableID" tf:"route_table_id"`
+	// +optional
+	State string `json:"state,omitempty" tf:"state,omitempty"`
 	// +optional
 	TransitGatewayID string `json:"transitGatewayID,omitempty" tf:"transit_gateway_id,omitempty"`
 	// +optional
@@ -46,9 +56,10 @@ type RouteStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *RouteSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

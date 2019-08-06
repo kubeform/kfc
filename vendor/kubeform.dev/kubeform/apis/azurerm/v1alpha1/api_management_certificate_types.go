@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,21 +21,32 @@ type ApiManagementCertificate struct {
 type ApiManagementCertificateSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	ApiManagementName string `json:"apiManagementName" tf:"api_management_name"`
-	Name              string `json:"name" tf:"name"`
+	Data              string `json:"-" sensitive:"true" tf:"data"`
 	// +optional
+	Expiration string `json:"expiration,omitempty" tf:"expiration,omitempty"`
+	Name       string `json:"name" tf:"name"`
+	// +optional
+	Password          string `json:"-" sensitive:"true" tf:"password,omitempty"`
 	ResourceGroupName string `json:"resourceGroupName" tf:"resource_group_name"`
+	// +optional
+	Subject string `json:"subject,omitempty" tf:"subject,omitempty"`
+	// +optional
+	Thumbprint string `json:"thumbprint,omitempty" tf:"thumbprint,omitempty"`
 }
 
 type ApiManagementCertificateStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ApiManagementCertificateSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

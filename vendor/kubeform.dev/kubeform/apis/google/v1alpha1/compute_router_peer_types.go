@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,11 +21,15 @@ type ComputeRouterPeer struct {
 type ComputeRouterPeerSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	AdvertisedRoutePriority int    `json:"advertisedRoutePriority,omitempty" tf:"advertised_route_priority,omitempty"`
 	Interface               string `json:"interface" tf:"interface"`
-	Name                    string `json:"name" tf:"name"`
-	PeerAsn                 int    `json:"peerAsn" tf:"peer_asn"`
+	// +optional
+	IpAddress string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
+	Name      string `json:"name" tf:"name"`
+	PeerAsn   int    `json:"peerAsn" tf:"peer_asn"`
 	// +optional
 	PeerIPAddress string `json:"peerIPAddress,omitempty" tf:"peer_ip_address,omitempty"`
 	// +optional
@@ -39,9 +43,10 @@ type ComputeRouterPeerStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ComputeRouterPeerSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

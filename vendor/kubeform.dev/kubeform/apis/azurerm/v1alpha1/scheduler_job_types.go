@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -29,14 +29,25 @@ type SchedulerJobSpecActionWebAuthenticationActiveDirectory struct {
 	// +optional
 	Audience string `json:"audience,omitempty" tf:"audience,omitempty"`
 	ClientID string `json:"clientID" tf:"client_id"`
+	Secret   string `json:"-" sensitive:"true" tf:"secret"`
 	TenantID string `json:"tenantID" tf:"tenant_id"`
 }
 
 type SchedulerJobSpecActionWebAuthenticationBasic struct {
+	Password string `json:"-" sensitive:"true" tf:"password"`
 	Username string `json:"username" tf:"username"`
 }
 
-type SchedulerJobSpecActionWebAuthenticationCertificate struct{}
+type SchedulerJobSpecActionWebAuthenticationCertificate struct {
+	// +optional
+	Expiration string `json:"expiration,omitempty" tf:"expiration,omitempty"`
+	Password   string `json:"-" sensitive:"true" tf:"password"`
+	Pfx        string `json:"-" sensitive:"true" tf:"pfx"`
+	// +optional
+	SubjectName string `json:"subjectName,omitempty" tf:"subject_name,omitempty"`
+	// +optional
+	Thumbprint string `json:"thumbprint,omitempty" tf:"thumbprint,omitempty"`
+}
 
 type SchedulerJobSpecActionWeb struct {
 	// +optional
@@ -67,14 +78,25 @@ type SchedulerJobSpecErrorActionWebAuthenticationActiveDirectory struct {
 	// +optional
 	Audience string `json:"audience,omitempty" tf:"audience,omitempty"`
 	ClientID string `json:"clientID" tf:"client_id"`
+	Secret   string `json:"-" sensitive:"true" tf:"secret"`
 	TenantID string `json:"tenantID" tf:"tenant_id"`
 }
 
 type SchedulerJobSpecErrorActionWebAuthenticationBasic struct {
+	Password string `json:"-" sensitive:"true" tf:"password"`
 	Username string `json:"username" tf:"username"`
 }
 
-type SchedulerJobSpecErrorActionWebAuthenticationCertificate struct{}
+type SchedulerJobSpecErrorActionWebAuthenticationCertificate struct {
+	// +optional
+	Expiration string `json:"expiration,omitempty" tf:"expiration,omitempty"`
+	Password   string `json:"-" sensitive:"true" tf:"password"`
+	Pfx        string `json:"-" sensitive:"true" tf:"pfx"`
+	// +optional
+	SubjectName string `json:"subjectName,omitempty" tf:"subject_name,omitempty"`
+	// +optional
+	Thumbprint string `json:"thumbprint,omitempty" tf:"thumbprint,omitempty"`
+}
 
 type SchedulerJobSpecErrorActionWeb struct {
 	// +optional
@@ -136,7 +158,9 @@ type SchedulerJobSpecRetry struct {
 type SchedulerJobSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
@@ -170,9 +194,10 @@ type SchedulerJobStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *SchedulerJobSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

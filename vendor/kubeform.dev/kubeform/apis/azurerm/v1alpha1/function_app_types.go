@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -19,12 +19,17 @@ type FunctionApp struct {
 }
 
 type FunctionAppSpecConnectionString struct {
-	Name string `json:"name" tf:"name"`
-	Type string `json:"type" tf:"type"`
+	Name  string `json:"name" tf:"name"`
+	Type  string `json:"type" tf:"type"`
+	Value string `json:"-" sensitive:"true" tf:"value"`
 }
 
 type FunctionAppSpecIdentity struct {
-	Type string `json:"type" tf:"type"`
+	// +optional
+	PrincipalID string `json:"principalID,omitempty" tf:"principal_id,omitempty"`
+	// +optional
+	TenantID string `json:"tenantID,omitempty" tf:"tenant_id,omitempty"`
+	Type     string `json:"type" tf:"type"`
 }
 
 type FunctionAppSpecSiteConfig struct {
@@ -38,10 +43,19 @@ type FunctionAppSpecSiteConfig struct {
 	WebsocketsEnabled bool `json:"websocketsEnabled,omitempty" tf:"websockets_enabled,omitempty"`
 }
 
+type FunctionAppSpecSiteCredential struct {
+	// +optional
+	Password string `json:"-" sensitive:"true" tf:"password,omitempty"`
+	// +optional
+	Username string `json:"username,omitempty" tf:"username,omitempty"`
+}
+
 type FunctionAppSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	AppServicePlanID string `json:"appServicePlanID" tf:"app_service_plan_id"`
 	// +optional
@@ -51,6 +65,8 @@ type FunctionAppSpec struct {
 	// +optional
 	ConnectionString []FunctionAppSpecConnectionString `json:"connectionString,omitempty" tf:"connection_string,omitempty"`
 	// +optional
+	DefaultHostname string `json:"defaultHostname,omitempty" tf:"default_hostname,omitempty"`
+	// +optional
 	EnableBuiltinLogging bool `json:"enableBuiltinLogging,omitempty" tf:"enable_builtin_logging,omitempty"`
 	// +optional
 	Enabled bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
@@ -58,13 +74,23 @@ type FunctionAppSpec struct {
 	HttpsOnly bool `json:"httpsOnly,omitempty" tf:"https_only,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
-	Identity          []FunctionAppSpecIdentity `json:"identity,omitempty" tf:"identity,omitempty"`
-	Location          string                    `json:"location" tf:"location"`
-	Name              string                    `json:"name" tf:"name"`
-	ResourceGroupName string                    `json:"resourceGroupName" tf:"resource_group_name"`
+	Identity []FunctionAppSpecIdentity `json:"identity,omitempty" tf:"identity,omitempty"`
+	// +optional
+	Kind     string `json:"kind,omitempty" tf:"kind,omitempty"`
+	Location string `json:"location" tf:"location"`
+	Name     string `json:"name" tf:"name"`
+	// +optional
+	OutboundIPAddresses string `json:"outboundIPAddresses,omitempty" tf:"outbound_ip_addresses,omitempty"`
+	// +optional
+	PossibleOutboundIPAddresses string `json:"possibleOutboundIPAddresses,omitempty" tf:"possible_outbound_ip_addresses,omitempty"`
+	ResourceGroupName           string `json:"resourceGroupName" tf:"resource_group_name"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	SiteConfig []FunctionAppSpecSiteConfig `json:"siteConfig,omitempty" tf:"site_config,omitempty"`
+	// +optional
+	// +kubebuilder:validation:MaxItems=1
+	SiteCredential          []FunctionAppSpecSiteCredential `json:"siteCredential,omitempty" tf:"site_credential,omitempty"`
+	StorageConnectionString string                          `json:"-" sensitive:"true" tf:"storage_connection_string"`
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 	// +optional
@@ -75,9 +101,10 @@ type FunctionAppStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *FunctionAppSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

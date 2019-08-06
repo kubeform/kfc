@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,13 +21,29 @@ type StoragegatewayCachedIscsiVolume struct {
 type StoragegatewayCachedIscsiVolumeSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	GatewayArn         string `json:"gatewayArn" tf:"gateway_arn"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
+	// +optional
+	ChapEnabled bool   `json:"chapEnabled,omitempty" tf:"chap_enabled,omitempty"`
+	GatewayArn  string `json:"gatewayArn" tf:"gateway_arn"`
+	// +optional
+	LunNumber          int    `json:"lunNumber,omitempty" tf:"lun_number,omitempty"`
 	NetworkInterfaceID string `json:"networkInterfaceID" tf:"network_interface_id"`
+	// +optional
+	NetworkInterfacePort int `json:"networkInterfacePort,omitempty" tf:"network_interface_port,omitempty"`
 	// +optional
 	SnapshotID string `json:"snapshotID,omitempty" tf:"snapshot_id,omitempty"`
 	// +optional
-	SourceVolumeArn   string `json:"sourceVolumeArn,omitempty" tf:"source_volume_arn,omitempty"`
-	TargetName        string `json:"targetName" tf:"target_name"`
+	SourceVolumeArn string `json:"sourceVolumeArn,omitempty" tf:"source_volume_arn,omitempty"`
+	// +optional
+	TargetArn  string `json:"targetArn,omitempty" tf:"target_arn,omitempty"`
+	TargetName string `json:"targetName" tf:"target_name"`
+	// +optional
+	VolumeArn string `json:"volumeArn,omitempty" tf:"volume_arn,omitempty"`
+	// +optional
+	VolumeID          string `json:"volumeID,omitempty" tf:"volume_id,omitempty"`
 	VolumeSizeInBytes int    `json:"volumeSizeInBytes" tf:"volume_size_in_bytes"`
 }
 
@@ -35,9 +51,10 @@ type StoragegatewayCachedIscsiVolumeStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *StoragegatewayCachedIscsiVolumeSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

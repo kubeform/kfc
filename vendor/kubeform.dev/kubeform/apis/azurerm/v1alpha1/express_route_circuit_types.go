@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -26,6 +26,10 @@ type ExpressRouteCircuitSpecSku struct {
 type ExpressRouteCircuitSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+
 	// +optional
 	AllowClassicOperations bool   `json:"allowClassicOperations,omitempty" tf:"allow_classic_operations,omitempty"`
 	BandwidthInMbps        int    `json:"bandwidthInMbps" tf:"bandwidth_in_mbps"`
@@ -33,7 +37,11 @@ type ExpressRouteCircuitSpec struct {
 	Name                   string `json:"name" tf:"name"`
 	PeeringLocation        string `json:"peeringLocation" tf:"peering_location"`
 	ResourceGroupName      string `json:"resourceGroupName" tf:"resource_group_name"`
-	ServiceProviderName    string `json:"serviceProviderName" tf:"service_provider_name"`
+	// +optional
+	ServiceKey          string `json:"-" sensitive:"true" tf:"service_key,omitempty"`
+	ServiceProviderName string `json:"serviceProviderName" tf:"service_provider_name"`
+	// +optional
+	ServiceProviderProvisioningState string `json:"serviceProviderProvisioningState,omitempty" tf:"service_provider_provisioning_state,omitempty"`
 	// +kubebuilder:validation:MaxItems=1
 	Sku []ExpressRouteCircuitSpecSku `json:"sku" tf:"sku"`
 	// +optional
@@ -44,9 +52,10 @@ type ExpressRouteCircuitStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ExpressRouteCircuitSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

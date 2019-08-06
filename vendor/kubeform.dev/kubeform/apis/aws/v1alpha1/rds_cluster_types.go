@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -41,10 +41,14 @@ type RdsClusterSpecScalingConfiguration struct {
 type RdsClusterSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	ApplyImmediately bool `json:"applyImmediately,omitempty" tf:"apply_immediately,omitempty"`
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	AvailabilityZones []string `json:"availabilityZones,omitempty" tf:"availability_zones,omitempty"`
@@ -60,6 +64,8 @@ type RdsClusterSpec struct {
 	// +kubebuilder:validation:UniqueItems=true
 	ClusterMembers []string `json:"clusterMembers,omitempty" tf:"cluster_members,omitempty"`
 	// +optional
+	ClusterResourceID string `json:"clusterResourceID,omitempty" tf:"cluster_resource_id,omitempty"`
+	// +optional
 	CopyTagsToSnapshot bool `json:"copyTagsToSnapshot,omitempty" tf:"copy_tags_to_snapshot,omitempty"`
 	// +optional
 	DatabaseName string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
@@ -72,6 +78,8 @@ type RdsClusterSpec struct {
 	// +optional
 	EnabledCloudwatchLogsExports []string `json:"enabledCloudwatchLogsExports,omitempty" tf:"enabled_cloudwatch_logs_exports,omitempty"`
 	// +optional
+	Endpoint string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
+	// +optional
 	Engine string `json:"engine,omitempty" tf:"engine,omitempty"`
 	// +optional
 	EngineMode string `json:"engineMode,omitempty" tf:"engine_mode,omitempty"`
@@ -82,6 +90,8 @@ type RdsClusterSpec struct {
 	// +optional
 	GlobalClusterIdentifier string `json:"globalClusterIdentifier,omitempty" tf:"global_cluster_identifier,omitempty"`
 	// +optional
+	HostedZoneID string `json:"hostedZoneID,omitempty" tf:"hosted_zone_id,omitempty"`
+	// +optional
 	IamDatabaseAuthenticationEnabled bool `json:"iamDatabaseAuthenticationEnabled,omitempty" tf:"iam_database_authentication_enabled,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
@@ -89,6 +99,7 @@ type RdsClusterSpec struct {
 	// +optional
 	KmsKeyID string `json:"kmsKeyID,omitempty" tf:"kms_key_id,omitempty"`
 	// +optional
+	MasterPassword string `json:"-" sensitive:"true" tf:"master_password,omitempty"`
 	// +optional
 	MasterUsername string `json:"masterUsername,omitempty" tf:"master_username,omitempty"`
 	// +optional
@@ -97,6 +108,8 @@ type RdsClusterSpec struct {
 	PreferredBackupWindow string `json:"preferredBackupWindow,omitempty" tf:"preferred_backup_window,omitempty"`
 	// +optional
 	PreferredMaintenanceWindow string `json:"preferredMaintenanceWindow,omitempty" tf:"preferred_maintenance_window,omitempty"`
+	// +optional
+	ReaderEndpoint string `json:"readerEndpoint,omitempty" tf:"reader_endpoint,omitempty"`
 	// +optional
 	ReplicationSourceIdentifier string `json:"replicationSourceIdentifier,omitempty" tf:"replication_source_identifier,omitempty"`
 	// +optional
@@ -124,9 +137,10 @@ type RdsClusterStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *RdsClusterSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

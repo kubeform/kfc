@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,6 +21,10 @@ type KmsKey struct {
 type KmsKeySpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
 	// +optional
 	DeletionWindowInDays int `json:"deletionWindowInDays,omitempty" tf:"deletion_window_in_days,omitempty"`
 	// +optional
@@ -29,6 +33,8 @@ type KmsKeySpec struct {
 	EnableKeyRotation bool `json:"enableKeyRotation,omitempty" tf:"enable_key_rotation,omitempty"`
 	// +optional
 	IsEnabled bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+	// +optional
+	KeyID string `json:"keyID,omitempty" tf:"key_id,omitempty"`
 	// +optional
 	KeyUsage string `json:"keyUsage,omitempty" tf:"key_usage,omitempty"`
 	// +optional
@@ -41,9 +47,10 @@ type KmsKeyStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *KmsKeySpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

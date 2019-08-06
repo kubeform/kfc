@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -16,6 +16,13 @@ type SqlDatabaseInstance struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Spec              SqlDatabaseInstanceSpec   `json:"spec,omitempty"`
 	Status            SqlDatabaseInstanceStatus `json:"status,omitempty"`
+}
+
+type SqlDatabaseInstanceSpecIpAddress struct {
+	// +optional
+	IpAddress string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
+	// +optional
+	TimeToRetire string `json:"timeToRetire,omitempty" tf:"time_to_retire,omitempty"`
 }
 
 type SqlDatabaseInstanceSpecReplicaConfiguration struct {
@@ -34,12 +41,26 @@ type SqlDatabaseInstanceSpecReplicaConfiguration struct {
 	// +optional
 	MasterHeartbeatPeriod int `json:"masterHeartbeatPeriod,omitempty" tf:"master_heartbeat_period,omitempty"`
 	// +optional
+	Password string `json:"-" sensitive:"true" tf:"password,omitempty"`
 	// +optional
 	SslCipher string `json:"sslCipher,omitempty" tf:"ssl_cipher,omitempty"`
 	// +optional
 	Username string `json:"username,omitempty" tf:"username,omitempty"`
 	// +optional
 	VerifyServerCertificate bool `json:"verifyServerCertificate,omitempty" tf:"verify_server_certificate,omitempty"`
+}
+
+type SqlDatabaseInstanceSpecServerCaCert struct {
+	// +optional
+	Cert string `json:"cert,omitempty" tf:"cert,omitempty"`
+	// +optional
+	CommonName string `json:"commonName,omitempty" tf:"common_name,omitempty"`
+	// +optional
+	CreateTime string `json:"createTime,omitempty" tf:"create_time,omitempty"`
+	// +optional
+	ExpirationTime string `json:"expirationTime,omitempty" tf:"expiration_time,omitempty"`
+	// +optional
+	Sha1Fingerprint string `json:"sha1Fingerprint,omitempty" tf:"sha1_fingerprint,omitempty"`
 }
 
 type SqlDatabaseInstanceSpecSettingsBackupConfiguration struct {
@@ -131,15 +152,25 @@ type SqlDatabaseInstanceSpecSettings struct {
 	Tier            string `json:"tier" tf:"tier"`
 	// +optional
 	UserLabels map[string]string `json:"userLabels,omitempty" tf:"user_labels,omitempty"`
+	// +optional
+	Version int `json:"version,omitempty" tf:"version,omitempty"`
 }
 
 type SqlDatabaseInstanceSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
+	ConnectionName string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+	// +optional
 	DatabaseVersion string `json:"databaseVersion,omitempty" tf:"database_version,omitempty"`
+	// +optional
+	FirstIPAddress string `json:"firstIPAddress,omitempty" tf:"first_ip_address,omitempty"`
+	// +optional
+	IpAddress []SqlDatabaseInstanceSpecIpAddress `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
 	// +optional
 	MasterInstanceName string `json:"masterInstanceName,omitempty" tf:"master_instance_name,omitempty"`
 	// +optional
@@ -151,6 +182,13 @@ type SqlDatabaseInstanceSpec struct {
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	ReplicaConfiguration []SqlDatabaseInstanceSpecReplicaConfiguration `json:"replicaConfiguration,omitempty" tf:"replica_configuration,omitempty"`
+	// +optional
+	SelfLink string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
+	// +optional
+	// +kubebuilder:validation:MaxItems=1
+	ServerCaCert []SqlDatabaseInstanceSpecServerCaCert `json:"serverCaCert,omitempty" tf:"server_ca_cert,omitempty"`
+	// +optional
+	ServiceAccountEmailAddress string `json:"serviceAccountEmailAddress,omitempty" tf:"service_account_email_address,omitempty"`
 	// +kubebuilder:validation:MaxItems=1
 	Settings []SqlDatabaseInstanceSpecSettings `json:"settings" tf:"settings"`
 }
@@ -159,9 +197,10 @@ type SqlDatabaseInstanceStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *SqlDatabaseInstanceSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

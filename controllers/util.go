@@ -22,11 +22,15 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"reflect"
+	"strconv"
 	"strings"
 
-	"k8s.io/client-go/kubernetes"
+	"github.com/appscode/go/log"
 
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
+
+	"k8s.io/client-go/kubernetes"
 
 	"k8s.io/klog"
 
@@ -72,21 +76,21 @@ func secretToTFProvider(secret *corev1.Secret, providerName, providerFile string
 	return nil
 }
 
-func crdToTFResource(gv schema.GroupVersion, kind, namespace, providerName string, kubeclient kubernetes.Interface, obj *unstructured.Unstructured, mainFile string) error {
-	resourceName := providerName + "_" + flect.Underscore(kind)
+func crdToTFResource(gv schema.GroupVersion, namespace, providerName string, kubeclient kubernetes.Interface, obj *unstructured.Unstructured, mainFile string) error {
+	resourceName := providerName + "_" + flect.Underscore(obj.GetKind())
 
 	data, err := meta.MarshalToJson(obj, gv)
 	if err != nil {
 		klog.Error(err)
 	}
+
 	typedObj, err := meta.UnmarshalFromJSON(data, gv)
 	if err != nil {
 		klog.Error(err)
 	}
 
 	typedStruct := structs.New(typedObj)
-	spec := typedStruct.Field("Spec")
-	specValue := spec.Value()
+	specValue := typedStruct.Field("Spec").Value()
 	jsonit := jsoniter.Config{
 		EscapeHTML:             true,
 		SortMapKeys:            true,
@@ -105,18 +109,10 @@ func crdToTFResource(gv schema.GroupVersion, kind, namespace, providerName strin
 		return err
 	}
 
-	fields := typedStruct.Field("Spec").Fields()
+	secretValue := typedStruct.Field("Spec").Field("KubeFormSecret").Value()
 
-	var ok bool
-	for _, field := range fields {
-		if field.Name() == "Secret" {
-			ok = true
-			break
-		}
-	}
-
-	if ok {
-		secretName := typedStruct.Field("Spec").Field("Secret").Field("Name").Value()
+	if secretValue.(*corev1.LocalObjectReference) != nil {
+		secretName := typedStruct.Field("Spec").Field("KubeFormSecret").Field("Name").Value()
 		if secretName != nil {
 			secret, err := kubeclient.CoreV1().Secrets(namespace).Get(secretName.(string), v1.GetOptions{})
 			if err != nil {
@@ -124,6 +120,9 @@ func crdToTFResource(gv schema.GroupVersion, kind, namespace, providerName strin
 			}
 
 			for key := range secret.Data {
+				if strings.Contains(key, "out.") {
+					continue
+				}
 				value := secret.Data[key]
 
 				var tempMap = make(map[string]interface{}, 0)
@@ -166,6 +165,77 @@ func crdToTFResource(gv schema.GroupVersion, kind, namespace, providerName strin
 	}
 
 	err = ioutil.WriteFile(mainFile, prettyData, 0644)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func updateStateField(kc kubernetes.Interface, namespace string, gvr schema.GroupVersionResource, obj *unstructured.Unstructured, filePath string) error {
+	gv := gvr.GroupVersion()
+	stateJson, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		return err
+	}
+
+	var state state
+	err = json.Unmarshal(stateJson, &state)
+	if err != nil {
+		return err
+	}
+
+	data, err := meta.MarshalToJson(obj, gv)
+	if err != nil {
+		return err
+	}
+
+	typedObj, err := meta.UnmarshalFromJSON(data, gv)
+	if err != nil {
+		return err
+	}
+
+	jsonit := jsoniter.Config{
+		EscapeHTML:             true,
+		SortMapKeys:            true,
+		ValidateJsonRawMessage: true,
+		TagKey:                 "tf",
+	}.Froze()
+
+	var raw []byte
+	jsonByte, err := state.Resources[0].Instances[0].AttributesRaw.MarshalJSON()
+	if err != nil {
+		return err
+	}
+
+	raw = append(raw, []byte(`{"spec":`)...)
+	raw = append(raw, jsonByte...)
+	raw = append(raw, []byte(`}`)...)
+
+	err = jsonit.Unmarshal(raw, &typedObj)
+	if err != nil {
+		return err
+	}
+
+	s := structs.New(typedObj)
+	secretData := make(map[string]string, 0)
+	processSensitiveFields(reflect.TypeOf(s.Field("Spec").Value()), reflect.ValueOf(s.Field("Spec").Value()), "", &secretData)
+
+	secret, err := kc.CoreV1().Secrets(namespace).Get(s.Field("Spec").Field("KubeFormSecret").Field("Name").Value().(string), v1.GetOptions{})
+	if err != nil {
+		return err
+	}
+
+	for key, _ := range secretData {
+		secret.Data["out."+key] = []byte(secretData[key])
+	}
+
+	_, err = kc.CoreV1().Secrets(namespace).Update(secret)
+	if err != nil {
+		return err
+	}
+
+	err = setNestedFieldNoCopy(obj.Object, s.Field("Spec").Value(), "status", "output")
 	if err != nil {
 		return err
 	}
@@ -257,68 +327,160 @@ func prettyJSON(byteJson []byte) ([]byte, error) {
 	return prettyJSON.Bytes(), err
 }
 
-func createTFState(filePath string, gv schema.GroupVersion, u *unstructured.Unstructured) {
+func createTFState(kc kubernetes.Interface, filePath, providerName string, gv schema.GroupVersion, u *unstructured.Unstructured) error {
+	resourceName := providerName + "_" + flect.Underscore(u.GetKind())
 	_, existErr := os.Stat(filePath)
 
 	data, err := meta.MarshalToJson(u, gv)
 	if err != nil {
-		klog.Error(err)
+		return err
 	}
 
 	typedObj, err := meta.UnmarshalFromJSON(data, gv)
 	if err != nil {
-		klog.Error(err)
+		return err
 	}
 
 	typedStruct := structs.New(typedObj)
-	spec := typedStruct.Field("Status").Field("TFState")
-	value := spec.Value()
+	stateValue := typedStruct.Field("Status").Field("State").Value()
+	outputValue := reflect.ValueOf(typedStruct.Field("Status").Field("Output").Value())
 
-	if os.IsNotExist(existErr) && value.(*runtime.RawExtension) != nil {
-		err = ioutil.WriteFile(filePath, value.(*runtime.RawExtension).Raw, 0644)
+	if os.IsNotExist(existErr) && stateValue.(*apis.State) != nil {
+		stateData, err := json.Marshal(stateValue)
 		if err != nil {
-			klog.Errorf("failed to write file hash : %s", err.Error())
+			return err
+		}
+
+		jsonit := jsoniter.Config{
+			EscapeHTML:             true,
+			SortMapKeys:            true,
+			ValidateJsonRawMessage: true,
+			TagKey:                 "tf",
+		}.Froze()
+
+		secretValue := typedStruct.Field("Spec").Field("KubeFormSecret").Value()
+
+		if secretValue.(*corev1.LocalObjectReference) != nil {
+			secretName := typedStruct.Field("Spec").Field("KubeFormSecret").Field("Name").Value()
+			if secretName != nil {
+				secret, err := kc.CoreV1().Secrets(u.GetNamespace()).Get(secretName.(string), v1.GetOptions{})
+				if err != nil {
+					return err
+				}
+
+				for key := range secret.Data {
+					if !strings.Contains(key, "out.") {
+						continue
+					}
+
+					value := secret.Data[key]
+
+					var secretData interface{}
+					tempMap := make(map[string]string, 0)
+					buffer := new(bytes.Buffer)
+					if err := json.Compact(buffer, value); err != nil {
+						secretData = strings.ReplaceAll(string(value), "\n", "")
+					} else {
+						err = json.Unmarshal(buffer.Bytes(), &tempMap)
+						if err != nil {
+							return err
+						}
+						secretData = tempMap
+					}
+
+					key = strings.ReplaceAll(key, "out.", "")
+					fieldsName := strings.Split(key, ".")
+
+					field := outputValue.Elem()
+					for _, fieldName := range fieldsName {
+						if index, err := strconv.Atoi(fieldName); err == nil {
+							field = field.Index(index)
+							continue
+						}
+						if field.Kind() == reflect.Ptr {
+							field = field.Elem()
+						}
+						fmt.Println(flect.Capitalize(flect.Camelize(fieldName)))
+						field = field.FieldByName(flect.Capitalize(flect.Camelize(fieldName)))
+					}
+
+					field.Set(reflect.ValueOf(secretData))
+				}
+			}
+		}
+
+		outputData, err := jsonit.Marshal(outputValue.Interface())
+		if err != nil {
+			return err
+		}
+
+		var tfstate state
+		err = json.Unmarshal(stateData, &tfstate)
+		if err != nil {
+			return err
+		}
+
+		tfstate.Resources = []resource{
+			{
+				Mode:           "managed",
+				Type:           resourceName,
+				Name:           u.GetName(),
+				ProviderConfig: "provider." + providerName,
+				Instances: []instance{
+					{
+						SchemaVersion: 0,
+						AttributesRaw: outputData,
+					},
+				},
+			},
+		}
+		tfstateData, err := json.Marshal(tfstate)
+		if err != nil {
+			return err
+		}
+
+		err = ioutil.WriteFile(filePath, tfstateData, 0644)
+		if err != nil {
+			return fmt.Errorf("failed to write file hash : %s", err.Error())
 		}
 	}
+
+	return nil
 }
 
-func updateTFState(filePath string, gv schema.GroupVersion, u *unstructured.Unstructured) {
+func updateTFStateFile(filePath string, gv schema.GroupVersion, u *unstructured.Unstructured) error {
 	data, err := ioutil.ReadFile(filePath)
 	if err != nil {
-		klog.Errorf("failed to read tfstate file : %s", err.Error())
+		return err
+	}
+
+	var tfstate *apis.State
+	err = json.Unmarshal(data, &tfstate)
+	if err != nil {
+		return err
 	}
 
 	jsonData, err := meta.MarshalToJson(u, gv)
 	if err != nil {
-		klog.Error(err)
+		return err
 	}
 	typedObj, err := meta.UnmarshalFromJSON(jsonData, gv)
 	if err != nil {
-		klog.Error(err)
+		return err
 	}
 
 	typedStruct := structs.New(typedObj)
-	spec := typedStruct.Field("Status").Field("TFState")
-	value := spec.Value()
+	stateValue := typedStruct.Field("Status").Field("State").Value()
 
-	rawData := &runtime.RawExtension{
-		Raw: data,
-	}
-
-	if value.(*runtime.RawExtension) == nil {
-		err = setNestedFieldNoCopy(u.Object, rawData, "status", "tfState")
+	if stateValue.(*apis.State) == nil || stateValue.(*apis.State).Serial != tfstate.Serial {
+		err = setNestedFieldNoCopy(u.Object, tfstate, "status", "state")
 		if err != nil {
-			klog.Errorf("failed to update tfstate : %s", err.Error())
+			return err
 		}
-		return
+		return nil
 	}
 
-	if bytes.Compare(data, value.(*runtime.RawExtension).Raw) != 0 {
-		err = setNestedFieldNoCopy(u.Object, rawData, "status", "tfState")
-		if err != nil {
-			klog.Errorf("failed to update tfstate : %s", err.Error())
-		}
-	}
+	return nil
 }
 
 func setNestedFieldNoCopy(obj map[string]interface{}, value interface{}, fields ...string) error {
@@ -345,6 +507,40 @@ func jsonPath(fields []string) string {
 	return "." + strings.Join(fields, ".")
 }
 
-//var sensitiveData = map[string][]string{
-//	"linode_instance": {"Spec.RootPass", ""},
-//}
+func processSensitiveFields(r reflect.Type, v reflect.Value, tfkey string, data *map[string]string) {
+	d := *data
+	n := r.NumField()
+	for i := 0; i < n; i++ {
+		field := r.Field(i)
+		value := v.Field(i)
+		tftag := strings.ReplaceAll(field.Tag.Get("tf"), ",omitempty", "")
+		newtfkey := tftag
+		if tfkey != "" {
+			newtfkey = tfkey + "." + tftag
+		}
+
+		if field.Tag.Get("sensitive") == "true" && value.Kind() == reflect.String && value.Interface().(string) != "" {
+			d[newtfkey] = value.String()
+		} else if field.Tag.Get("sensitive") == "true" && value.Kind() == reflect.Map && value.Interface().(map[string]string) != nil && len(value.Interface().(map[string]string)) != 0 {
+			secretJson, err := json.Marshal(value.Interface())
+			if err != nil {
+				log.Error(err)
+			} else {
+				d[newtfkey] = string(secretJson)
+			}
+		}
+
+		if value.Kind() == reflect.Struct {
+			processSensitiveFields(value.Type(), value, newtfkey, &d)
+		}
+
+		if value.Kind() == reflect.Slice {
+			n := value.Len()
+			for i := 0; i < n; i++ {
+				if value.Index(i).Kind() == reflect.Struct {
+					processSensitiveFields(value.Index(i).Type(), value.Index(i), newtfkey+"."+strconv.FormatInt(int64(i), 10), &d)
+				}
+			}
+		}
+	}
+}

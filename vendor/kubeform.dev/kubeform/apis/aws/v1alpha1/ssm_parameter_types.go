@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -21,7 +21,9 @@ type SsmParameter struct {
 type SsmParameterSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
-	Secret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	KubeFormSecret *core.LocalObjectReference `json:"secret,omitempty" tf:"-"`
 
 	// +optional
 	AllowedPattern string `json:"allowedPattern,omitempty" tf:"allowed_pattern,omitempty"`
@@ -37,17 +39,21 @@ type SsmParameterSpec struct {
 	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 	// +optional
-	Tier string `json:"tier,omitempty" tf:"tier,omitempty"`
-	Type string `json:"type" tf:"type"`
+	Tier  string `json:"tier,omitempty" tf:"tier,omitempty"`
+	Type  string `json:"type" tf:"type"`
+	Value string `json:"-" sensitive:"true" tf:"value"`
+	// +optional
+	Version int `json:"version,omitempty" tf:"version,omitempty"`
 }
 
 type SsmParameterStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *SsmParameterSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

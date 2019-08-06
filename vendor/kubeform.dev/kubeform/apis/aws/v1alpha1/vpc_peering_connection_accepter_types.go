@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -39,6 +39,10 @@ type VpcPeeringConnectionAccepterSpecRequester struct {
 type VpcPeeringConnectionAccepterSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	AcceptStatus string `json:"acceptStatus,omitempty" tf:"accept_status,omitempty"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	// +kubebuilder:validation:UniqueItems=true
@@ -46,21 +50,30 @@ type VpcPeeringConnectionAccepterSpec struct {
 	// +optional
 	AutoAccept bool `json:"autoAccept,omitempty" tf:"auto_accept,omitempty"`
 	// +optional
+	PeerOwnerID string `json:"peerOwnerID,omitempty" tf:"peer_owner_id,omitempty"`
+	// +optional
+	PeerRegion string `json:"peerRegion,omitempty" tf:"peer_region,omitempty"`
+	// +optional
+	PeerVpcID string `json:"peerVpcID,omitempty" tf:"peer_vpc_id,omitempty"`
+	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	// +kubebuilder:validation:UniqueItems=true
 	Requester []VpcPeeringConnectionAccepterSpecRequester `json:"requester,omitempty" tf:"requester,omitempty"`
 	// +optional
-	Tags                   map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
-	VpcPeeringConnectionID string            `json:"vpcPeeringConnectionID" tf:"vpc_peering_connection_id"`
+	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
+	// +optional
+	VpcID                  string `json:"vpcID,omitempty" tf:"vpc_id,omitempty"`
+	VpcPeeringConnectionID string `json:"vpcPeeringConnectionID" tf:"vpc_peering_connection_id"`
 }
 
 type VpcPeeringConnectionAccepterStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *VpcPeeringConnectionAccepterSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

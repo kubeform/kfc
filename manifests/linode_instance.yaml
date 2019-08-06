@@ -1,8 +1,0 @@
-apiVersion: linode.kfc.io/v1alpha1
-kind: LinodeInstance
-metadata:
-  name: linode-test
-spec:
-  region: us-east
-  image: linode/ubuntu18.04
-  label: linode-test-update-label

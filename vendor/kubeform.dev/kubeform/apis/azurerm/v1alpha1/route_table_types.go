@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -29,6 +29,8 @@ type RouteTableSpecRoute struct {
 type RouteTableSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	DisableBGPRoutePropagation bool   `json:"disableBGPRoutePropagation,omitempty" tf:"disable_bgp_route_propagation,omitempty"`
 	Location                   string `json:"location" tf:"location"`
@@ -37,6 +39,9 @@ type RouteTableSpec struct {
 	// +optional
 	Route []RouteTableSpecRoute `json:"route,omitempty" tf:"route,omitempty"`
 	// +optional
+	// +kubebuilder:validation:UniqueItems=true
+	Subnets []string `json:"subnets,omitempty" tf:"subnets,omitempty"`
+	// +optional
 	Tags map[string]string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
@@ -44,9 +49,10 @@ type RouteTableStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *RouteTableSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

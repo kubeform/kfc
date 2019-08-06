@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -61,6 +61,8 @@ type ComputeRegionInstanceGroupManagerSpecVersion struct {
 type ComputeRegionInstanceGroupManagerSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	// Deprecated
@@ -71,6 +73,10 @@ type ComputeRegionInstanceGroupManagerSpec struct {
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	DistributionPolicyZones []string `json:"distributionPolicyZones,omitempty" tf:"distribution_policy_zones,omitempty"`
+	// +optional
+	Fingerprint string `json:"fingerprint,omitempty" tf:"fingerprint,omitempty"`
+	// +optional
+	InstanceGroup string `json:"instanceGroup,omitempty" tf:"instance_group,omitempty"`
 	// +optional
 	InstanceTemplate string `json:"instanceTemplate,omitempty" tf:"instance_template,omitempty"`
 	Name             string `json:"name" tf:"name"`
@@ -83,6 +89,8 @@ type ComputeRegionInstanceGroupManagerSpec struct {
 	// +kubebuilder:validation:MaxItems=1
 	// Deprecated
 	RollingUpdatePolicy []ComputeRegionInstanceGroupManagerSpecRollingUpdatePolicy `json:"rollingUpdatePolicy,omitempty" tf:"rolling_update_policy,omitempty"`
+	// +optional
+	SelfLink string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	TargetPools []string `json:"targetPools,omitempty" tf:"target_pools,omitempty"`
@@ -102,9 +110,10 @@ type ComputeRegionInstanceGroupManagerStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *ComputeRegionInstanceGroupManagerSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	"kubeform.dev/kubeform/apis"
 )
 
 // +genclient
@@ -165,6 +165,10 @@ type LaunchTemplateSpecTagSpecifications struct {
 type LaunchTemplateSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
+	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// +optional
+	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
 	// +optional
 	BlockDeviceMappings []LaunchTemplateSpecBlockDeviceMappings `json:"blockDeviceMappings,omitempty" tf:"block_device_mappings,omitempty"`
 	// +optional
@@ -173,6 +177,8 @@ type LaunchTemplateSpec struct {
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	CreditSpecification []LaunchTemplateSpecCreditSpecification `json:"creditSpecification,omitempty" tf:"credit_specification,omitempty"`
+	// +optional
+	DefaultVersion int `json:"defaultVersion,omitempty" tf:"default_version,omitempty"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
 	// +optional
@@ -200,6 +206,8 @@ type LaunchTemplateSpec struct {
 	KernelID string `json:"kernelID,omitempty" tf:"kernel_id,omitempty"`
 	// +optional
 	KeyName string `json:"keyName,omitempty" tf:"key_name,omitempty"`
+	// +optional
+	LatestVersion int `json:"latestVersion,omitempty" tf:"latest_version,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	LicenseSpecification []LaunchTemplateSpecLicenseSpecification `json:"licenseSpecification,omitempty" tf:"license_specification,omitempty"`
@@ -235,9 +243,10 @@ type LaunchTemplateStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	TFState *runtime.RawExtension `json:"tfState,omitempty"`
-	Output  *runtime.RawExtension `json:"output,omitempty"`
+	// +optional
+	Output *LaunchTemplateSpec `json:"output,omitempty"`
+	// +optional
+	State *apis.State `json:"state,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
