@@ -22,7 +22,7 @@ require (
 	k8s.io/klog v0.3.1
 	k8s.io/kube-openapi v0.0.0-20190502190224-411b2483e503 // indirect
 	kmodules.xyz/client-go v0.0.0-20190715080709-7162a6c90b04
-	kubeform.dev/kubeform v0.0.2-0.20190806045424-034f069bbe93
+	kubeform.dev/kubeform v0.0.2-0.20190807061021-983f5fdecc0e
 	sigs.k8s.io/controller-runtime v0.2.0-beta.4
 )
 

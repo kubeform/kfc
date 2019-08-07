@@ -26,6 +26,8 @@ import (
 	"strconv"
 	"strings"
 
+	"k8s.io/apimachinery/pkg/api/errors"
+
 	"github.com/appscode/go/log"
 
 	"kubeform.dev/kubeform/apis"
@@ -167,7 +169,7 @@ func crdToTFResource(gv schema.GroupVersion, namespace, providerName string, kub
 	return nil
 }
 
-func updateStateField(kc kubernetes.Interface, namespace string, gvr schema.GroupVersionResource, obj *unstructured.Unstructured, filePath string) error {
+func updateStateField(kc kubernetes.Interface, namespace, providerName, filePath string, gvr schema.GroupVersionResource, obj *unstructured.Unstructured) error {
 	gv := gvr.GroupVersion()
 	stateJson, err := ioutil.ReadFile(filePath)
 	if err != nil {
@@ -216,18 +218,41 @@ func updateStateField(kc kubernetes.Interface, namespace string, gvr schema.Grou
 	secretData := make(map[string]string, 0)
 	processSensitiveFields(reflect.TypeOf(s.Field("Spec").Value()), reflect.ValueOf(s.Field("Spec").Value()), "", &secretData)
 
-	secret, err := kc.CoreV1().Secrets(namespace).Get(s.Field("Spec").Field("KubeFormSecret").Field("Name").Value().(string), v1.GetOptions{})
-	if err != nil {
-		return err
-	}
+	if len(secretData) != 0 {
+		var secretName string
 
-	for key, _ := range secretData {
-		secret.Data["out."+key] = []byte(secretData[key])
-	}
+		if s.Field("Spec").Field("KubeFormSecret").Value().(*corev1.LocalObjectReference) != nil {
+			secretName = s.Field("Spec").Field("KubeFormSecret").Field("Name").Value().(string)
+		} else {
+			secretName = obj.GetName() + "-" + obj.GetNamespace() + "-" + "sensitive"
+		}
 
-	_, err = kc.CoreV1().Secrets(namespace).Update(secret)
-	if err != nil {
-		return err
+		var secret *corev1.Secret
+		secret, err = kc.CoreV1().Secrets(namespace).Get(secretName, v1.GetOptions{})
+		if err != nil {
+			if errors.ReasonForError(err) == v1.StatusReasonNotFound {
+				secret, err = kc.CoreV1().Secrets(namespace).Create(&corev1.Secret{
+					ObjectMeta: v1.ObjectMeta{
+						Name:      secretName,
+						Namespace: namespace,
+					},
+					Type: corev1.SecretType("kfc.io/" + providerName),
+				})
+				if err != nil {
+					return err
+				}
+			}
+			return err
+		}
+
+		for key, _ := range secretData {
+			secret.Data["out."+key] = []byte(secretData[key])
+		}
+
+		_, err = kc.CoreV1().Secrets(namespace).Update(secret)
+		if err != nil {
+			return err
+		}
 	}
 
 	err = setNestedFieldNoCopy(obj.Object, s.Field("Spec").Value(), "status", "output")

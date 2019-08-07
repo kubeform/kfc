@@ -43,17 +43,3 @@ func terraformDestroy(resPath string) error {
 
 	return nil
 }
-
-//func updateStatusOut(u *unstructured.Unstructured, resPath string) error {
-//	cmd := exec.Command("terraform", "show")
-//	cmd.Dir = basePath
-//	out, err := cmd.Output()
-//	if err != nil {
-//		return err
-//	}
-//	rawData := &runtime.RawExtension{
-//		Raw: out,
-//	}
-//
-//	return setNestedFieldNoCopy(u.Object, rawData, "status", "output")
-//}
