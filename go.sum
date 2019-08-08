@@ -1178,8 +1178,8 @@ k8s.io/utils v0.0.0-20190221042446-c2654d5206da h1:ElyM7RPonbKnQqOcw7dG2IK5uvQQn
 k8s.io/utils v0.0.0-20190221042446-c2654d5206da/go.mod h1:8k8uAuAQ0rXslZKaEWd0c3oVhZz7sSzSiPnVZayjIX0=
 kmodules.xyz/client-go v0.0.0-20190715080709-7162a6c90b04 h1:17h0mshnlihkZMP6LqMmpliCQIknKasjdNGWyZCCmV4=
 kmodules.xyz/client-go v0.0.0-20190715080709-7162a6c90b04/go.mod h1:3h1/ZglH6fV2uv3p9AB1JnHUknhWniShJ7fBJfSf7Js=
-kubeform.dev/kubeform v0.0.2-0.20190807061021-983f5fdecc0e h1:uGuUYm9zr0eec02BEc54bcvf+P0fVBn6xjHOtJ/zklE=
-kubeform.dev/kubeform v0.0.2-0.20190807061021-983f5fdecc0e/go.mod h1:SaW2rDmbCQsQJWPkPtdIcT2CDNuEDgAtdiACpXQM/P8=
+kubeform.dev/kubeform v0.0.2-0.20190808052318-0ce3c00a760b h1:QYSi9C8v9B3r/v51ZKk3p/oKt1P1asgB7jdKjuBlPmM=
+kubeform.dev/kubeform v0.0.2-0.20190808052318-0ce3c00a760b/go.mod h1:SaW2rDmbCQsQJWPkPtdIcT2CDNuEDgAtdiACpXQM/P8=
 labix.org/v2/mgo v0.0.0-20140701140051-000000000287/go.mod h1:Lg7AYkt1uXJoR9oeSZ3W/8IXLdvOfIITgZnommstyz4=
 launchpad.net/gocheck v0.0.0-20140225173054-000000000087/go.mod h1:hj7XX3B/0A+80Vse0e+BUHsHMTEhd0O4cpUHr/e/BUM=
 mvdan.cc/interfacer v0.0.0-20180901003855-c20040233aed/go.mod h1:Xkxe497xwlCKkIaQYRfC7CSLworTXY9RMqwhhCm+8Nc=

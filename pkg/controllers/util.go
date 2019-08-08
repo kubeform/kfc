@@ -35,7 +35,11 @@ var (
 
 func secretToTFProvider(secret *corev1.Secret, providerName, providerFile string) error {
 	d1 := []byte(`{ "provider": { "` + providerName + `":`)
-	providerJson, err := json.Marshal(secret.Data)
+	tempData := make(map[string]string, 0)
+	for key, val := range secret.Data {
+		tempData[key] = strings.ReplaceAll(string(val), "\n", "")
+	}
+	providerJson, err := json.Marshal(tempData)
 	if err != nil {
 		return err
 	}
