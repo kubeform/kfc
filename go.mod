@@ -1,4 +1,4 @@
-module github.com/appscode-cloud/kfc
+module kubeform.dev/kfc
 
 go 1.12
 
