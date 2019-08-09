@@ -18,17 +18,25 @@ type BatchAccount struct {
 	Status            BatchAccountStatus `json:"status,omitempty"`
 }
 
+type BatchAccountSpecKeyVaultReference struct {
+	ID  string `json:"ID" tf:"id"`
+	Url string `json:"url" tf:"url"`
+}
+
 type BatchAccountSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
-	KubeFormSecret *core.LocalObjectReference `json:"kubeFormSecret,omitempty" tf:"-"`
+	SecretRef *core.LocalObjectReference `json:"secretRef,omitempty" tf:"-"`
 
 	// +optional
 	AccountEndpoint string `json:"accountEndpoint,omitempty" tf:"account_endpoint,omitempty"`
-	Location        string `json:"location" tf:"location"`
-	Name            string `json:"name" tf:"name"`
+	// +optional
+	// +kubebuilder:validation:MaxItems=1
+	KeyVaultReference []BatchAccountSpecKeyVaultReference `json:"keyVaultReference,omitempty" tf:"key_vault_reference,omitempty"`
+	Location          string                              `json:"location" tf:"location"`
+	Name              string                              `json:"name" tf:"name"`
 	// +optional
 	PoolAllocationMode string `json:"poolAllocationMode,omitempty" tf:"pool_allocation_mode,omitempty"`
 	// +optional

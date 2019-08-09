@@ -32,7 +32,7 @@ type DbInstanceSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
-	KubeFormSecret *core.LocalObjectReference `json:"kubeFormSecret,omitempty" tf:"-"`
+	SecretRef *core.LocalObjectReference `json:"secretRef,omitempty" tf:"-"`
 
 	// +optional
 	Address string `json:"address,omitempty" tf:"address,omitempty"`
@@ -94,8 +94,6 @@ type DbInstanceSpec struct {
 	// +optional
 	MaintenanceWindow string `json:"maintenanceWindow,omitempty" tf:"maintenance_window,omitempty"`
 	// +optional
-	MaxAllocatedStorage int `json:"maxAllocatedStorage,omitempty" tf:"max_allocated_storage,omitempty"`
-	// +optional
 	MonitoringInterval int `json:"monitoringInterval,omitempty" tf:"monitoring_interval,omitempty"`
 	// +optional
 	MonitoringRoleArn string `json:"monitoringRoleArn,omitempty" tf:"monitoring_role_arn,omitempty"`
@@ -109,12 +107,6 @@ type DbInstanceSpec struct {
 	ParameterGroupName string `json:"parameterGroupName,omitempty" tf:"parameter_group_name,omitempty"`
 	// +optional
 	Password string `json:"-" sensitive:"true" tf:"password,omitempty"`
-	// +optional
-	PerformanceInsightsEnabled bool `json:"performanceInsightsEnabled,omitempty" tf:"performance_insights_enabled,omitempty"`
-	// +optional
-	PerformanceInsightsKmsKeyID string `json:"performanceInsightsKmsKeyID,omitempty" tf:"performance_insights_kms_key_id,omitempty"`
-	// +optional
-	PerformanceInsightsRetentionPeriod int `json:"performanceInsightsRetentionPeriod,omitempty" tf:"performance_insights_retention_period,omitempty"`
 	// +optional
 	Port int `json:"port,omitempty" tf:"port,omitempty"`
 	// +optional

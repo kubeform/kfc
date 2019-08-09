@@ -23,7 +23,7 @@ type SsmParameterSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
-	KubeFormSecret *core.LocalObjectReference `json:"kubeFormSecret,omitempty" tf:"-"`
+	SecretRef *core.LocalObjectReference `json:"secretRef,omitempty" tf:"-"`
 
 	// +optional
 	AllowedPattern string `json:"allowedPattern,omitempty" tf:"allowed_pattern,omitempty"`
@@ -42,8 +42,6 @@ type SsmParameterSpec struct {
 	Tier  string `json:"tier,omitempty" tf:"tier,omitempty"`
 	Type  string `json:"type" tf:"type"`
 	Value string `json:"-" sensitive:"true" tf:"value"`
-	// +optional
-	Version int `json:"version,omitempty" tf:"version,omitempty"`
 }
 
 type SsmParameterStatus struct {
