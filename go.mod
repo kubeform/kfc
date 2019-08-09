@@ -3,10 +3,13 @@ module kubeform.dev/kfc
 go 1.12
 
 require (
-	github.com/appscode/go v0.0.0-20190621064509-6b292c9166e3
+	github.com/appscode/go v0.0.0-20190808133642-1d4ef1f1c1e0
 	github.com/fatih/structs v1.1.0
 	github.com/gobuffalo/flect v0.1.5
+	github.com/google/martian v2.1.1-0.20190517191504-25dcb96d9e51+incompatible // indirect
+	github.com/gopherjs/gopherjs v0.0.0-20181103185306-d547d1d9531e // indirect
 	github.com/json-iterator/go v1.1.6
+	github.com/lib/pq v1.1.0 // indirect
 	github.com/onsi/ginkgo v1.8.0
 	github.com/onsi/gomega v1.5.0
 	k8s.io/api v0.0.0-20190711103429-37c3b8b1ca65
@@ -15,7 +18,7 @@ require (
 	k8s.io/client-go v11.0.1-0.20190409021438-1a26190bd76a+incompatible
 	k8s.io/klog v0.3.1
 	kmodules.xyz/client-go v0.0.0-20190715080709-7162a6c90b04
-	kubeform.dev/kubeform v0.0.2-0.20190809081807-81cf6b03fd01
+	kubeform.dev/kubeform v0.0.2
 	sigs.k8s.io/controller-runtime v0.2.0-beta.4
 )
 
