@@ -21,7 +21,6 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/kubernetes"
-	"k8s.io/klog"
 	"kmodules.xyz/client-go/meta"
 	"kubeform.dev/kubeform/apis"
 )
@@ -64,12 +63,12 @@ func crdToTFResource(gv schema.GroupVersion, namespace, providerName string, kub
 
 	data, err := meta.MarshalToJson(obj, gv)
 	if err != nil {
-		klog.Error(err)
+		return err
 	}
 
 	typedObj, err := meta.UnmarshalFromJSON(data, gv)
 	if err != nil {
-		klog.Error(err)
+		return err
 	}
 
 	typedStruct := structs.New(typedObj)
@@ -84,10 +83,13 @@ func crdToTFResource(gv schema.GroupVersion, namespace, providerName string, kub
 		TagKey:                 "tf",
 	}.Froze()
 
-	secretValue := typedStruct.Field("Spec").Field("KubeFormSecret").Value()
+	secretRef, _, err := unstructured.NestedFieldNoCopy(obj.Object, "spec", "secretRef")
+	if err != nil {
+		return err
+	}
 
-	if secretValue.(*corev1.LocalObjectReference) != nil {
-		secretName := typedStruct.Field("Spec").Field("KubeFormSecret").Field("Name").Value()
+	if secretRef != nil {
+		secretName := typedStruct.Field("Spec").Field("SecretRef").Field("Name").Value()
 		if secretName != nil {
 			secret, err := kubeclient.CoreV1().Secrets(namespace).Get(secretName.(string), v1.GetOptions{})
 			if err != nil {
@@ -202,8 +204,13 @@ func updateStateField(kc kubernetes.Interface, namespace, providerName, filePath
 	if len(secretData) != 0 {
 		var secretName string
 
-		if s.Field("Spec").Field("KubeFormSecret").Value().(*corev1.LocalObjectReference) != nil {
-			secretName = s.Field("Spec").Field("KubeFormSecret").Field("Name").Value().(string)
+		secretRef, _, err := unstructured.NestedFieldNoCopy(obj.Object, "spec", "secretRef")
+		if err != nil {
+			return err
+		}
+
+		if secretRef != nil {
+			secretName = s.Field("Spec").Field("SecretRef").Field("Name").Value().(string)
 		} else {
 			secretName = obj.GetName() + "-" + obj.GetNamespace() + "-" + "sensitive"
 		}
@@ -224,6 +231,9 @@ func updateStateField(kc kubernetes.Interface, namespace, providerName, filePath
 				}
 			}
 			return err
+		}
+		if secret.Data == nil {
+			secret.Data = make(map[string][]byte, 0)
 		}
 
 		for key := range secretData {
@@ -359,10 +369,13 @@ func createTFState(kc kubernetes.Interface, filePath, providerName string, gv sc
 			TagKey:                 "tf",
 		}.Froze()
 
-		secretValue := typedStruct.Field("Spec").Field("KubeFormSecret").Value()
+		secretRef, _, err := unstructured.NestedFieldNoCopy(u.Object, "spec", "secretRef")
+		if err != nil {
+			return err
+		}
 
-		if secretValue.(*corev1.LocalObjectReference) != nil {
-			secretName := typedStruct.Field("Spec").Field("KubeFormSecret").Field("Name").Value()
+		if secretRef != nil {
+			secretName := typedStruct.Field("Spec").Field("SecretRef").Field("Name").Value()
 			if secretName != nil {
 				secret, err := kc.CoreV1().Secrets(u.GetNamespace()).Get(secretName.(string), v1.GetOptions{})
 				if err != nil {
