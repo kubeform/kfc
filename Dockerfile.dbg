@@ -2,4 +2,11 @@ FROM {ARG_FROM}
 
 ADD bin/{ARG_OS}_{ARG_ARCH}/{ARG_BIN} /{ARG_BIN}
 
+RUN apt-get update \
+  && apt-get -y install curl \
+  && apt-get -y install unzip \
+  && curl -O -L https://releases.hashicorp.com/terraform/0.12.4/terraform_0.12.4_linux_amd64.zip \
+  && unzip terraform_0.12.4_linux_amd64.zip \
+  && mv terraform /bin/terraform
+
 ENTRYPOINT ["/{ARG_BIN}"]
