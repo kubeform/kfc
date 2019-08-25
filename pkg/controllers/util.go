@@ -28,8 +28,7 @@ import (
 const KFCFinalizer = "kfc.io"
 
 var (
-	homePath = os.Getenv("HOME")
-	basePath = filepath.Join(homePath, ".kfc")
+	basePath = filepath.Join("/tmp", ".kfc")
 )
 
 func secretToTFProvider(secret *corev1.Secret, providerName, providerFile string) error {
