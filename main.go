@@ -2,8 +2,6 @@ package main
 
 import (
 	"flag"
-	"os"
-	"path/filepath"
 	"strings"
 	"time"
 
@@ -40,9 +38,18 @@ func main() {
 	// set up signals so we handle the first shutdown signal gracefully
 	stopCh := signals.SetupSignalHandler()
 
-	cfg, err := clientcmd.BuildConfigFromFlags(masterURL, kubeconfig)
-	if err != nil {
-		klog.Fatalf("Error building kubeconfig: %s", err.Error())
+	var cfg *rest.Config
+	var err error
+	if kubeconfig == "" {
+		cfg, err = rest.InClusterConfig()
+		if err != nil {
+			klog.Fatalf("Error building kubeconfig: %s", err.Error())
+		}
+	} else {
+		cfg, err = clientcmd.BuildConfigFromFlags(masterURL, kubeconfig)
+		if err != nil {
+			klog.Fatalf("Error building kubeconfig: %s", err.Error())
+		}
 	}
 
 	kubeClient, err := kubernetes.NewForConfig(cfg)
@@ -71,7 +78,7 @@ func main() {
 }
 
 func init() {
-	flag.StringVar(&kubeconfig, "kubeconfig", filepath.Join(os.Getenv("HOME"), ".kube/config"), "Path to a kubeconfig. Only required if out-of-cluster.")
+	flag.StringVar(&kubeconfig, "kubeconfig", "", "Path to a kubeconfig. Only required if out-of-cluster.")
 	flag.StringVar(&masterURL, "master", "", "The address of the Kubernetes API server. Overrides any value in kubeconfig. Only required if out-of-cluster.")
 }
 
