@@ -38,18 +38,9 @@ func main() {
 	// set up signals so we handle the first shutdown signal gracefully
 	stopCh := signals.SetupSignalHandler()
 
-	var cfg *rest.Config
-	var err error
-	if kubeconfig == "" {
-		cfg, err = rest.InClusterConfig()
-		if err != nil {
-			klog.Fatalf("Error building kubeconfig: %s", err.Error())
-		}
-	} else {
-		cfg, err = clientcmd.BuildConfigFromFlags(masterURL, kubeconfig)
-		if err != nil {
-			klog.Fatalf("Error building kubeconfig: %s", err.Error())
-		}
+	cfg, err := clientcmd.BuildConfigFromFlags(masterURL, kubeconfig)
+	if err != nil {
+		klog.Fatalf("Error building kubeconfig: %s", err.Error())
 	}
 
 	kubeClient, err := kubernetes.NewForConfig(cfg)
