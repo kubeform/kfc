@@ -20,7 +20,7 @@ BIN      := kfc
 COMPRESS ?= no
 
 # Where to push the docker image.
-REGISTRY ?= kubeform
+REGISTRY ?= appscode
 
 # This version-strategy uses git tags to set the version string
 git_branch       := $(shell git rev-parse --abbrev-ref HEAD)
@@ -55,7 +55,7 @@ BIN_PLATFORMS    := $(DOCKER_PLATFORMS)
 OS   := $(if $(GOOS),$(GOOS),$(shell go env GOOS))
 ARCH := $(if $(GOARCH),$(GOARCH),$(shell go env GOARCH))
 
-BASEIMAGE_PROD   ?= debian:stretch
+BASEIMAGE_PROD   ?= gcr.io/distroless/static
 BASEIMAGE_DBG    ?= debian:stretch
 
 IMAGE            := $(REGISTRY)/$(BIN)

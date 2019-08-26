@@ -1,6 +1,4 @@
-FROM {ARG_FROM}
-
-ADD bin/{ARG_OS}_{ARG_ARCH}/{ARG_BIN} /{ARG_BIN}
+FROM debian:stretch
 
 RUN apt-get update \
   && apt-get -y install curl \
@@ -8,6 +6,13 @@ RUN apt-get update \
   && curl -O -L https://releases.hashicorp.com/terraform/0.12.4/terraform_0.12.4_linux_amd64.zip \
   && unzip terraform_0.12.4_linux_amd64.zip \
   && mv terraform /bin/terraform
+
+
+
+FROM {ARG_FROM}
+
+COPY bin/{ARG_OS}_{ARG_ARCH}/{ARG_BIN} /{ARG_BIN}
+COPY --from=0 /bin/terraform /bin/terraform
 
 # This would be nicer as `nobody:nobody` but distroless has no such entries.
 USER 65535:65535
