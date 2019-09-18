@@ -33,7 +33,7 @@ var (
 
 func secretToTFProvider(secret *corev1.Secret, providerName, providerFile string) error {
 	d1 := []byte(`{ "provider": { "` + providerName + `":`)
-	tempData := make(map[string]string, 0)
+	tempData := make(map[string]string)
 	for key, val := range secret.Data {
 		tempData[key] = strings.ReplaceAll(string(val), "\n", "")
 	}
@@ -102,7 +102,7 @@ func crdToTFResource(gv schema.GroupVersion, namespace, providerName string, kub
 				value := secret.Data[key]
 
 				fieldName := strings.Split(key, ".")
-				var tempMap = make(map[string]string, 0)
+				var tempMap = make(map[string]string)
 				buffer := new(bytes.Buffer)
 				var secretData interface{}
 
@@ -197,7 +197,7 @@ func updateStateField(kc kubernetes.Interface, namespace, providerName, filePath
 	}
 
 	s := structs.New(typedObj)
-	secretData := make(map[string]string, 0)
+	secretData := make(map[string]string)
 	processSensitiveFields(reflect.TypeOf(s.Field("Spec").Value()), reflect.ValueOf(s.Field("Spec").Value()), "", &secretData)
 
 	if len(secretData) != 0 {
@@ -218,7 +218,7 @@ func updateStateField(kc kubernetes.Interface, namespace, providerName, filePath
 		secret, err = kc.CoreV1().Secrets(namespace).Get(secretName, v1.GetOptions{})
 		if err != nil {
 			if errors.ReasonForError(err) == v1.StatusReasonNotFound {
-				secret, err = kc.CoreV1().Secrets(namespace).Create(&corev1.Secret{
+				_, err = kc.CoreV1().Secrets(namespace).Create(&corev1.Secret{
 					ObjectMeta: v1.ObjectMeta{
 						Name:      secretName,
 						Namespace: namespace,
@@ -232,7 +232,7 @@ func updateStateField(kc kubernetes.Interface, namespace, providerName, filePath
 			return err
 		}
 		if secret.Data == nil {
-			secret.Data = make(map[string][]byte, 0)
+			secret.Data = make(map[string][]byte)
 		}
 
 		for key := range secretData {
@@ -389,7 +389,7 @@ func createTFState(kc kubernetes.Interface, filePath, providerName string, gv sc
 					value := secret.Data[key]
 
 					var secretData interface{}
-					tempMap := make(map[string]string, 0)
+					tempMap := make(map[string]string)
 					buffer := new(bytes.Buffer)
 
 					if err := json.Compact(buffer, value); err != nil {

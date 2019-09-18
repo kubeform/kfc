@@ -6,13 +6,9 @@ require (
 	github.com/appscode/go v0.0.0-20190808133642-1d4ef1f1c1e0
 	github.com/fatih/structs v1.1.0
 	github.com/gobuffalo/flect v0.1.5
-	github.com/gopherjs/gopherjs v0.0.0-20181103185306-d547d1d9531e // indirect
 	github.com/json-iterator/go v1.1.6
-	github.com/lib/pq v1.1.0 // indirect
 	github.com/onsi/ginkgo v1.8.0
 	github.com/onsi/gomega v1.5.0
-	google.golang.org/api v0.5.0 // indirect
-	google.golang.org/genproto v0.0.0-20190508193815-b515fa19cec8 // indirect
 	k8s.io/api v0.0.0-20190711103429-37c3b8b1ca65
 	k8s.io/apiextensions-apiserver v0.0.0-20190516231611-bf6753f2aa24
 	k8s.io/apimachinery v0.0.0-20190711222657-391ed67afa7b
