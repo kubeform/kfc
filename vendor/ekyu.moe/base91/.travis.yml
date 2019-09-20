@@ -1,0 +1,24 @@
+language: go
+
+sudo: false
+
+go:
+  - 1.8.3
+  - 1.9
+  - tip
+
+go_import_path: ekyu.moe/base91
+
+install:
+  - go get -t ./...
+  - go generate ./...
+
+script:
+  - diff -u <(echo -n) <(gofmt -d .)
+  - go vet $(go list ./... | grep -v /vendor/)
+  - go test -v -bench . -benchmem $(go list ./... | grep -v /vendor/)
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always

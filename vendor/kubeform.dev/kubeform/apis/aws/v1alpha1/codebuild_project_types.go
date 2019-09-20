@@ -94,7 +94,7 @@ type CodebuildProjectSpecSecondarySources struct {
 	// +optional
 	GitCloneDepth int `json:"gitCloneDepth,omitempty" tf:"git_clone_depth,omitempty"`
 	// +optional
-	InsecureSSL bool `json:"insecureSSL,omitempty" tf:"insecure_ssl,omitempty"`
+	InsecureSsl bool `json:"insecureSsl,omitempty" tf:"insecure_ssl,omitempty"`
 	// +optional
 	Location string `json:"location,omitempty" tf:"location,omitempty"`
 	// +optional
@@ -118,7 +118,7 @@ type CodebuildProjectSpecSource struct {
 	// +optional
 	GitCloneDepth int `json:"gitCloneDepth,omitempty" tf:"git_clone_depth,omitempty"`
 	// +optional
-	InsecureSSL bool `json:"insecureSSL,omitempty" tf:"insecure_ssl,omitempty"`
+	InsecureSsl bool `json:"insecureSsl,omitempty" tf:"insecure_ssl,omitempty"`
 	// +optional
 	Location string `json:"location,omitempty" tf:"location,omitempty"`
 	// +optional

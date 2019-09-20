@@ -62,7 +62,7 @@ type ApiManagementSpecHostnameConfigurationProxy struct {
 	// +optional
 	CertificatePassword string `json:"-" sensitive:"true" tf:"certificate_password,omitempty"`
 	// +optional
-	DefaultSSLBinding bool   `json:"defaultSSLBinding,omitempty" tf:"default_ssl_binding,omitempty"`
+	DefaultSslBinding bool   `json:"defaultSslBinding,omitempty" tf:"default_ssl_binding,omitempty"`
 	HostName          string `json:"hostName" tf:"host_name"`
 	// +optional
 	KeyVaultID string `json:"keyVaultID,omitempty" tf:"key_vault_id,omitempty"`
@@ -110,17 +110,17 @@ type ApiManagementSpecPolicy struct {
 
 type ApiManagementSpecSecurity struct {
 	// +optional
-	DisableBackendSSL30 bool `json:"disableBackendSSL30,omitempty" tf:"disable_backend_ssl30,omitempty"`
+	DisableBackendSsl30 bool `json:"disableBackendSsl30,omitempty" tf:"disable_backend_ssl30,omitempty"`
 	// +optional
-	DisableBackendTLS10 bool `json:"disableBackendTLS10,omitempty" tf:"disable_backend_tls10,omitempty"`
+	DisableBackendTls10 bool `json:"disableBackendTls10,omitempty" tf:"disable_backend_tls10,omitempty"`
 	// +optional
-	DisableBackendTLS11 bool `json:"disableBackendTLS11,omitempty" tf:"disable_backend_tls11,omitempty"`
+	DisableBackendTls11 bool `json:"disableBackendTls11,omitempty" tf:"disable_backend_tls11,omitempty"`
 	// +optional
-	DisableFrontendSSL30 bool `json:"disableFrontendSSL30,omitempty" tf:"disable_frontend_ssl30,omitempty"`
+	DisableFrontendSsl30 bool `json:"disableFrontendSsl30,omitempty" tf:"disable_frontend_ssl30,omitempty"`
 	// +optional
-	DisableFrontendTLS10 bool `json:"disableFrontendTLS10,omitempty" tf:"disable_frontend_tls10,omitempty"`
+	DisableFrontendTls10 bool `json:"disableFrontendTls10,omitempty" tf:"disable_frontend_tls10,omitempty"`
 	// +optional
-	DisableFrontendTLS11 bool `json:"disableFrontendTLS11,omitempty" tf:"disable_frontend_tls11,omitempty"`
+	DisableFrontendTls11 bool `json:"disableFrontendTls11,omitempty" tf:"disable_frontend_tls11,omitempty"`
 	// +optional
 	// Deprecated
 	DisableTripleDESChipers bool `json:"disableTripleDESChipers,omitempty" tf:"disable_triple_des_chipers,omitempty"`

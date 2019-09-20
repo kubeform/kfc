@@ -11,37 +11,37 @@ import (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:object:root=true
 
-type LbSSLNegotiationPolicy struct {
+type LbSslNegotiationPolicy struct {
 	metav1.TypeMeta   `json:",inline,omitempty"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              LbSSLNegotiationPolicySpec   `json:"spec,omitempty"`
-	Status            LbSSLNegotiationPolicyStatus `json:"status,omitempty"`
+	Spec              LbSslNegotiationPolicySpec   `json:"spec,omitempty"`
+	Status            LbSslNegotiationPolicyStatus `json:"status,omitempty"`
 }
 
-type LbSSLNegotiationPolicySpecAttribute struct {
+type LbSslNegotiationPolicySpecAttribute struct {
 	Name  string `json:"name" tf:"name"`
 	Value string `json:"value" tf:"value"`
 }
 
-type LbSSLNegotiationPolicySpec struct {
+type LbSslNegotiationPolicySpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
-	Attribute    []LbSSLNegotiationPolicySpecAttribute `json:"attribute,omitempty" tf:"attribute,omitempty"`
+	Attribute    []LbSslNegotiationPolicySpecAttribute `json:"attribute,omitempty" tf:"attribute,omitempty"`
 	LbPort       int                                   `json:"lbPort" tf:"lb_port"`
 	LoadBalancer string                                `json:"loadBalancer" tf:"load_balancer"`
 	Name         string                                `json:"name" tf:"name"`
 }
 
-type LbSSLNegotiationPolicyStatus struct {
+type LbSslNegotiationPolicyStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
 	// +optional
-	Output *LbSSLNegotiationPolicySpec `json:"output,omitempty"`
+	Output *LbSslNegotiationPolicySpec `json:"output,omitempty"`
 	// +optional
 	State *apis.State `json:"state,omitempty"`
 }
@@ -49,10 +49,10 @@ type LbSSLNegotiationPolicyStatus struct {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:object:root=true
 
-// LbSSLNegotiationPolicyList is a list of LbSSLNegotiationPolicys
-type LbSSLNegotiationPolicyList struct {
+// LbSslNegotiationPolicyList is a list of LbSslNegotiationPolicys
+type LbSslNegotiationPolicyList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of LbSSLNegotiationPolicy CRD objects
-	Items []LbSSLNegotiationPolicy `json:"items,omitempty"`
+	// Items is a list of LbSslNegotiationPolicy CRD objects
+	Items []LbSslNegotiationPolicy `json:"items,omitempty"`
 }

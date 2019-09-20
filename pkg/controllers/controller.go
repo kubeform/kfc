@@ -3,7 +3,6 @@ package controllers
 import (
 	"fmt"
 	"path/filepath"
-	"strings"
 	"sync"
 	"time"
 
@@ -159,13 +158,12 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		return err
 	}
 
-	obj.GetKind()
-
 	// TODO: make a namer
 	resPath := filepath.Join(basePath, gvr.Resource+"."+namespace+"."+name)
 	providerFile := filepath.Join(resPath, "provider.tf.json")
 	mainFile := filepath.Join(resPath, "main.tf.json")
 	stateFile := filepath.Join(resPath, "terraform.tfstate")
+	outputFile := filepath.Join(resPath, "output.tf")
 
 	if hasFinalizer(obj.GetFinalizers(), KFCFinalizer) {
 		if obj.GetDeletionTimestamp() != nil {
@@ -210,15 +208,24 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		return fmt.Errorf("unable to fetch secret : %s", err)
 	}
 
-	providerName := strings.Split(gvr.Group, ".")[0]
+	isModule := isModule(gvr.Group)
+
+	providerName := getProviderName(gvr.Group, isModule)
 	err = secretToTFProvider(secret, providerName, providerFile)
 	if err != nil {
 		return fmt.Errorf("unable to create provider from secret : %s", err)
 	}
 
-	err = crdToTFResource(gvr.GroupVersion(), namespace, providerName, c.kubeclientset, obj, mainFile)
-	if err != nil {
-		return fmt.Errorf("unable to get crd resource : %s", err)
+	if isModule {
+		err = crdToModule(gvr.GroupVersion(), obj, mainFile, outputFile)
+		if err != nil {
+			return fmt.Errorf("unable to get crd module : %s", err)
+		}
+	} else {
+		err = crdToTFResource(gvr.GroupVersion(), namespace, providerName, c.kubeclientset, obj, mainFile)
+		if err != nil {
+			return fmt.Errorf("unable to get crd resource : %s", err)
+		}
 	}
 
 	err = terraformInit(resPath)
@@ -226,7 +233,7 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		return fmt.Errorf("unable to initialize terraform : %s", err)
 	}
 
-	err = createTFState(c.kubeclientset, stateFile, providerName, gvr.GroupVersion(), obj)
+	err = createTFState(c.kubeclientset, stateFile, providerName, isModule, gvr.GroupVersion(), obj)
 	if err != nil {
 		return fmt.Errorf("unable to create tfstate file : %s", err)
 	}
@@ -236,14 +243,21 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		return fmt.Errorf("unable to apply terraform : %s", err)
 	}
 
-	err = updateTFStateFile(stateFile, gvr.GroupVersion(), obj)
+	err = updateTFStateFile(stateFile, isModule, gvr.GroupVersion(), obj)
 	if err != nil {
 		return fmt.Errorf("unable to update TFState : %s", err)
 	}
 
-	err = updateStateField(c.kubeclientset, namespace, providerName, stateFile, gvr, obj)
-	if err != nil {
-		return fmt.Errorf("unable to update resource fields from tfstate : %s", err)
+	if !isModule {
+		err = updateStateField(c.kubeclientset, namespace, providerName, stateFile, gvr, obj)
+		if err != nil {
+			return fmt.Errorf("unable to update resource fields from tfstate : %s", err)
+		}
+	} else {
+		err = updateOutputField(resPath, obj)
+		if err != nil {
+			return fmt.Errorf("unable to update output tfstate : %s", err)
+		}
 	}
 
 	c.updateResource(gvr, obj)

@@ -20,10 +20,12 @@ import (
 	"k8s.io/klog"
 	"kubeform.dev/kfc/pkg/controllers"
 	aws "kubeform.dev/kubeform/apis/aws/install"
+
 	azurerm "kubeform.dev/kubeform/apis/azurerm/install"
 	digitalocean "kubeform.dev/kubeform/apis/digitalocean/install"
 	google "kubeform.dev/kubeform/apis/google/install"
 	linode "kubeform.dev/kubeform/apis/linode/install"
+	modules "kubeform.dev/kubeform/apis/modules/install"
 )
 
 var (
@@ -58,6 +60,7 @@ func main() {
 	azurerm.Install(clientsetscheme.Scheme)
 	digitalocean.Install(clientsetscheme.Scheme)
 	google.Install(clientsetscheme.Scheme)
+	modules.Install(clientsetscheme.Scheme)
 
 	controller := controllers.NewController(kubeClient, dynamicClient)
 

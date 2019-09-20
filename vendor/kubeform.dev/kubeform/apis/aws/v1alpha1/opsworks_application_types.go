@@ -72,7 +72,7 @@ type OpsworksApplicationSpec struct {
 	// +optional
 	Domains []string `json:"domains,omitempty" tf:"domains,omitempty"`
 	// +optional
-	EnableSSL bool `json:"enableSSL,omitempty" tf:"enable_ssl,omitempty"`
+	EnableSsl bool `json:"enableSsl,omitempty" tf:"enable_ssl,omitempty"`
 	// +optional
 	// +kubebuilder:validation:UniqueItems=true
 	Environment []OpsworksApplicationSpecEnvironment `json:"environment,omitempty" tf:"environment,omitempty"`

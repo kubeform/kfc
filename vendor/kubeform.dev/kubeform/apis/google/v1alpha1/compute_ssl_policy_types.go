@@ -11,14 +11,14 @@ import (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:object:root=true
 
-type ComputeSSLPolicy struct {
+type ComputeSslPolicy struct {
 	metav1.TypeMeta   `json:",inline,omitempty"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              ComputeSSLPolicySpec   `json:"spec,omitempty"`
-	Status            ComputeSSLPolicyStatus `json:"status,omitempty"`
+	Spec              ComputeSslPolicySpec   `json:"spec,omitempty"`
+	Status            ComputeSslPolicyStatus `json:"status,omitempty"`
 }
 
-type ComputeSSLPolicySpec struct {
+type ComputeSslPolicySpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
@@ -36,7 +36,7 @@ type ComputeSSLPolicySpec struct {
 	// +optional
 	Fingerprint string `json:"fingerprint,omitempty" tf:"fingerprint,omitempty"`
 	// +optional
-	MinTLSVersion string `json:"minTLSVersion,omitempty" tf:"min_tls_version,omitempty"`
+	MinTlsVersion string `json:"minTlsVersion,omitempty" tf:"min_tls_version,omitempty"`
 	Name          string `json:"name" tf:"name"`
 	// +optional
 	Profile string `json:"profile,omitempty" tf:"profile,omitempty"`
@@ -46,12 +46,12 @@ type ComputeSSLPolicySpec struct {
 	SelfLink string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
 }
 
-type ComputeSSLPolicyStatus struct {
+type ComputeSslPolicyStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
 	// +optional
-	Output *ComputeSSLPolicySpec `json:"output,omitempty"`
+	Output *ComputeSslPolicySpec `json:"output,omitempty"`
 	// +optional
 	State *apis.State `json:"state,omitempty"`
 }
@@ -59,10 +59,10 @@ type ComputeSSLPolicyStatus struct {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:object:root=true
 
-// ComputeSSLPolicyList is a list of ComputeSSLPolicys
-type ComputeSSLPolicyList struct {
+// ComputeSslPolicyList is a list of ComputeSslPolicys
+type ComputeSslPolicyList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of ComputeSSLPolicy CRD objects
-	Items []ComputeSSLPolicy `json:"items,omitempty"`
+	// Items is a list of ComputeSslPolicy CRD objects
+	Items []ComputeSslPolicy `json:"items,omitempty"`
 }

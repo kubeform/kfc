@@ -11,14 +11,14 @@ import (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:object:root=true
 
-type ComputeSSLCertificate struct {
+type ComputeSslCertificate struct {
 	metav1.TypeMeta   `json:",inline,omitempty"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              ComputeSSLCertificateSpec   `json:"spec,omitempty"`
-	Status            ComputeSSLCertificateStatus `json:"status,omitempty"`
+	Spec              ComputeSslCertificateSpec   `json:"spec,omitempty"`
+	Status            ComputeSslCertificateStatus `json:"status,omitempty"`
 }
 
-type ComputeSSLCertificateSpec struct {
+type ComputeSslCertificateSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
@@ -43,12 +43,12 @@ type ComputeSSLCertificateSpec struct {
 	SelfLink string `json:"selfLink,omitempty" tf:"self_link,omitempty"`
 }
 
-type ComputeSSLCertificateStatus struct {
+type ComputeSslCertificateStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
 	// +optional
-	Output *ComputeSSLCertificateSpec `json:"output,omitempty"`
+	Output *ComputeSslCertificateSpec `json:"output,omitempty"`
 	// +optional
 	State *apis.State `json:"state,omitempty"`
 }
@@ -56,10 +56,10 @@ type ComputeSSLCertificateStatus struct {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:object:root=true
 
-// ComputeSSLCertificateList is a list of ComputeSSLCertificates
-type ComputeSSLCertificateList struct {
+// ComputeSslCertificateList is a list of ComputeSslCertificates
+type ComputeSslCertificateList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of ComputeSSLCertificate CRD objects
-	Items []ComputeSSLCertificate `json:"items,omitempty"`
+	// Items is a list of ComputeSslCertificate CRD objects
+	Items []ComputeSslCertificate `json:"items,omitempty"`
 }

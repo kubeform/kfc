@@ -159,7 +159,7 @@ type CloudfrontDistributionSpecOriginCustomOriginConfig struct {
 	// +optional
 	OriginReadTimeout int `json:"originReadTimeout,omitempty" tf:"origin_read_timeout,omitempty"`
 	// +kubebuilder:validation:UniqueItems=true
-	OriginSSLProtocols []string `json:"originSSLProtocols" tf:"origin_ssl_protocols"`
+	OriginSslProtocols []string `json:"originSslProtocols" tf:"origin_ssl_protocols"`
 }
 
 type CloudfrontDistributionSpecOriginS3OriginConfig struct {

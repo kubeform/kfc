@@ -39,8 +39,7 @@ type SecurityGroupRuleSpec struct {
 	// +optional
 	SourceSecurityGroupID string `json:"sourceSecurityGroupID,omitempty" tf:"source_security_group_id,omitempty"`
 	ToPort                int    `json:"toPort" tf:"to_port"`
-	// Type of rule, ingress (inbound) or egress (outbound).
-	Type string `json:"type" tf:"type"`
+	Type                  string `json:"type" tf:"type"`
 }
 
 type SecurityGroupRuleStatus struct {

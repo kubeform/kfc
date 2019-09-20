@@ -11,14 +11,14 @@ import (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:object:root=true
 
-type SqlSSLCert struct {
+type SqlSslCert struct {
 	metav1.TypeMeta   `json:",inline,omitempty"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              SqlSSLCertSpec   `json:"spec,omitempty"`
-	Status            SqlSSLCertStatus `json:"status,omitempty"`
+	Spec              SqlSslCertSpec   `json:"spec,omitempty"`
+	Status            SqlSslCertStatus `json:"status,omitempty"`
 }
 
-type SqlSSLCertSpec struct {
+type SqlSslCertSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
@@ -43,12 +43,12 @@ type SqlSSLCertSpec struct {
 	Sha1Fingerprint string `json:"sha1Fingerprint,omitempty" tf:"sha1_fingerprint,omitempty"`
 }
 
-type SqlSSLCertStatus struct {
+type SqlSslCertStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
 	// +optional
-	Output *SqlSSLCertSpec `json:"output,omitempty"`
+	Output *SqlSslCertSpec `json:"output,omitempty"`
 	// +optional
 	State *apis.State `json:"state,omitempty"`
 }
@@ -56,10 +56,10 @@ type SqlSSLCertStatus struct {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:object:root=true
 
-// SqlSSLCertList is a list of SqlSSLCerts
-type SqlSSLCertList struct {
+// SqlSslCertList is a list of SqlSslCerts
+type SqlSslCertList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of SqlSSLCert CRD objects
-	Items []SqlSSLCert `json:"items,omitempty"`
+	// Items is a list of SqlSslCert CRD objects
+	Items []SqlSslCert `json:"items,omitempty"`
 }

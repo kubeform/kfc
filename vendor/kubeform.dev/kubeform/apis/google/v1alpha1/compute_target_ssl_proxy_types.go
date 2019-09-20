@@ -11,14 +11,14 @@ import (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:object:root=true
 
-type ComputeTargetSSLProxy struct {
+type ComputeTargetSslProxy struct {
 	metav1.TypeMeta   `json:",inline,omitempty"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              ComputeTargetSSLProxySpec   `json:"spec,omitempty"`
-	Status            ComputeTargetSSLProxyStatus `json:"status,omitempty"`
+	Spec              ComputeTargetSslProxySpec   `json:"spec,omitempty"`
+	Status            ComputeTargetSslProxyStatus `json:"status,omitempty"`
 }
 
-type ComputeTargetSSLProxySpec struct {
+type ComputeTargetSslProxySpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
@@ -43,12 +43,12 @@ type ComputeTargetSSLProxySpec struct {
 	SslPolicy string `json:"sslPolicy,omitempty" tf:"ssl_policy,omitempty"`
 }
 
-type ComputeTargetSSLProxyStatus struct {
+type ComputeTargetSslProxyStatus struct {
 	// Resource generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
 	// +optional
-	Output *ComputeTargetSSLProxySpec `json:"output,omitempty"`
+	Output *ComputeTargetSslProxySpec `json:"output,omitempty"`
 	// +optional
 	State *apis.State `json:"state,omitempty"`
 }
@@ -56,10 +56,10 @@ type ComputeTargetSSLProxyStatus struct {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:object:root=true
 
-// ComputeTargetSSLProxyList is a list of ComputeTargetSSLProxys
-type ComputeTargetSSLProxyList struct {
+// ComputeTargetSslProxyList is a list of ComputeTargetSslProxys
+type ComputeTargetSslProxyList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of ComputeTargetSSLProxy CRD objects
-	Items []ComputeTargetSSLProxy `json:"items,omitempty"`
+	// Items is a list of ComputeTargetSslProxy CRD objects
+	Items []ComputeTargetSslProxy `json:"items,omitempty"`
 }
