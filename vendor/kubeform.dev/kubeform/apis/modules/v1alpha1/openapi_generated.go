@@ -277,11 +277,11 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"k8s.io/apimachinery/pkg/runtime.TypeMeta":                       schema_k8sio_apimachinery_pkg_runtime_TypeMeta(ref),
 		"k8s.io/apimachinery/pkg/runtime.Unknown":                        schema_k8sio_apimachinery_pkg_runtime_Unknown(ref),
 		"k8s.io/apimachinery/pkg/util/intstr.IntOrString":                schema_apimachinery_pkg_util_intstr_IntOrString(ref),
-		"kubeform.dev/kubeform/apis/modules/v1alpha1.IAmAccount":         schema_kubeform_apis_modules_v1alpha1_IAmAccount(ref),
-		"kubeform.dev/kubeform/apis/modules/v1alpha1.IAmAccountList":     schema_kubeform_apis_modules_v1alpha1_IAmAccountList(ref),
-		"kubeform.dev/kubeform/apis/modules/v1alpha1.IAmAccountOutput":   schema_kubeform_apis_modules_v1alpha1_IAmAccountOutput(ref),
-		"kubeform.dev/kubeform/apis/modules/v1alpha1.IAmAccountSpec":     schema_kubeform_apis_modules_v1alpha1_IAmAccountSpec(ref),
-		"kubeform.dev/kubeform/apis/modules/v1alpha1.IAmAccountStatus":   schema_kubeform_apis_modules_v1alpha1_IAmAccountStatus(ref),
+		"kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccount":         schema_kubeform_apis_modules_v1alpha1_IamAccount(ref),
+		"kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccountList":     schema_kubeform_apis_modules_v1alpha1_IamAccountList(ref),
+		"kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccountOutput":   schema_kubeform_apis_modules_v1alpha1_IamAccountOutput(ref),
+		"kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccountSpec":     schema_kubeform_apis_modules_v1alpha1_IamAccountSpec(ref),
+		"kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccountStatus":   schema_kubeform_apis_modules_v1alpha1_IamAccountStatus(ref),
 	}
 }
 
@@ -12225,7 +12225,7 @@ func schema_apimachinery_pkg_util_intstr_IntOrString(ref common.ReferenceCallbac
 	}
 }
 
-func schema_kubeform_apis_modules_v1alpha1_IAmAccount(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_kubeform_apis_modules_v1alpha1_IamAccount(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -12252,27 +12252,27 @@ func schema_kubeform_apis_modules_v1alpha1_IAmAccount(ref common.ReferenceCallba
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("kubeform.dev/kubeform/apis/modules/v1alpha1.IAmAccountSpec"),
+							Ref: ref("kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccountSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("kubeform.dev/kubeform/apis/modules/v1alpha1.IAmAccountStatus"),
+							Ref: ref("kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccountStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta", "kubeform.dev/kubeform/apis/modules/v1alpha1.IAmAccountSpec", "kubeform.dev/kubeform/apis/modules/v1alpha1.IAmAccountStatus"},
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta", "kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccountSpec", "kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccountStatus"},
 	}
 }
 
-func schema_kubeform_apis_modules_v1alpha1_IAmAccountList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_kubeform_apis_modules_v1alpha1_IamAccountList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "IAmAccountList is a list of IAmAccount",
+				Description: "IamAccountList is a list of IamAccounts",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
@@ -12296,12 +12296,12 @@ func schema_kubeform_apis_modules_v1alpha1_IAmAccountList(ref common.ReferenceCa
 					},
 					"items": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Items is a list of Volume CRD objects",
+							Description: "Items is a list of IamAccount CRD objects",
 							Type:        []string{"array"},
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("kubeform.dev/kubeform/apis/modules/v1alpha1.IAmAccount"),
+										Ref: ref("kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccount"),
 									},
 								},
 							},
@@ -12311,11 +12311,11 @@ func schema_kubeform_apis_modules_v1alpha1_IAmAccountList(ref common.ReferenceCa
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta", "kubeform.dev/kubeform/apis/modules/v1alpha1.IAmAccount"},
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta", "kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccount"},
 	}
 }
 
-func schema_kubeform_apis_modules_v1alpha1_IAmAccountOutput(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_kubeform_apis_modules_v1alpha1_IamAccountOutput(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -12356,12 +12356,17 @@ func schema_kubeform_apis_modules_v1alpha1_IAmAccountOutput(ref common.Reference
 	}
 }
 
-func schema_kubeform_apis_modules_v1alpha1_IAmAccountSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_kubeform_apis_modules_v1alpha1_IamAccountSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"secretRef": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
+						},
+					},
 					"providerRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -12373,20 +12378,6 @@ func schema_kubeform_apis_modules_v1alpha1_IAmAccountSpec(ref common.ReferenceCa
 							Format: "",
 						},
 					},
-					"requireNumbers": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Whether to require numbers for user passwords",
-							Type:        []string{"boolean"},
-							Format:      "",
-						},
-					},
-					"requireSymbols": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Whether to require symbols for user passwords",
-							Type:        []string{"boolean"},
-							Format:      "",
-						},
-					},
 					"accountAlias": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AWS IAM account alias for this account",
@@ -12394,9 +12385,30 @@ func schema_kubeform_apis_modules_v1alpha1_IAmAccountSpec(ref common.ReferenceCa
 							Format:      "",
 						},
 					},
+					"allowUsersToChangePassword": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Whether to allow users to change their own password",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"createAccountPasswordPolicy": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Whether to create AWS IAM account password policy",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"getCallerIdentity": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Whether to get AWS account ID, User ID, and ARN in which Terraform is authorized",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"hardExpiry": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Whether users are prevented from setting a new password after their password has expired (i.e. require administrator reset)",
 							Type:        []string{"boolean"},
 							Format:      "",
 						},
@@ -12415,13 +12427,6 @@ func schema_kubeform_apis_modules_v1alpha1_IAmAccountSpec(ref common.ReferenceCa
 							Format:      "",
 						},
 					},
-					"allowUsersToChangePassword": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Whether to allow users to change their own password",
-							Type:        []string{"boolean"},
-							Format:      "",
-						},
-					},
 					"passwordReusePrevention": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The number of previous passwords that users are prevented from reusing",
@@ -12429,23 +12434,23 @@ func schema_kubeform_apis_modules_v1alpha1_IAmAccountSpec(ref common.ReferenceCa
 							Format:      "",
 						},
 					},
-					"getCallerIdentity": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Whether to get AWS account ID, User ID, and ARN in which Terraform is authorized",
-							Type:        []string{"boolean"},
-							Format:      "",
-						},
-					},
-					"hardExpiry": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Whether users are prevented from setting a new password after their password has expired (i.e. require administrator reset)",
-							Type:        []string{"boolean"},
-							Format:      "",
-						},
-					},
 					"requireLowercaseCharacters": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Whether to require lowercase characters for user passwords",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"requireNumbers": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Whether to require numbers for user passwords",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"requireSymbols": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Whether to require symbols for user passwords",
 							Type:        []string{"boolean"},
 							Format:      "",
 						},
@@ -12458,7 +12463,7 @@ func schema_kubeform_apis_modules_v1alpha1_IAmAccountSpec(ref common.ReferenceCa
 						},
 					},
 				},
-				Required: []string{"providerRef", "source", "requireNumbers", "requireSymbols", "accountAlias", "createAccountPasswordPolicy", "maxPasswordAge", "minimumPasswordLength", "allowUsersToChangePassword", "passwordReusePrevention", "getCallerIdentity", "hardExpiry", "requireLowercaseCharacters", "requireUppercaseCharacters"},
+				Required: []string{"providerRef", "source"},
 			},
 		},
 		Dependencies: []string{
@@ -12466,7 +12471,7 @@ func schema_kubeform_apis_modules_v1alpha1_IAmAccountSpec(ref common.ReferenceCa
 	}
 }
 
-func schema_kubeform_apis_modules_v1alpha1_IAmAccountStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_kubeform_apis_modules_v1alpha1_IamAccountStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -12479,21 +12484,21 @@ func schema_kubeform_apis_modules_v1alpha1_IAmAccountStatus(ref common.Reference
 							Format:      "int64",
 						},
 					},
+					"output": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccountOutput"),
+						},
+					},
 					"state": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
 						},
 					},
-					"output": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("kubeform.dev/kubeform/apis/modules/v1alpha1.IAmAccountOutput"),
-						},
-					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"kubeform.dev/kubeform/apis/modules/v1alpha1.IAmAccountOutput"},
+			"kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccountOutput"},
 	}
 }

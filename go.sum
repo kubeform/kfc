@@ -922,8 +922,8 @@ k8s.io/utils v0.0.0-20190221042446-c2654d5206da h1:ElyM7RPonbKnQqOcw7dG2IK5uvQQn
 k8s.io/utils v0.0.0-20190221042446-c2654d5206da/go.mod h1:8k8uAuAQ0rXslZKaEWd0c3oVhZz7sSzSiPnVZayjIX0=
 kmodules.xyz/client-go v0.0.0-20190715080709-7162a6c90b04 h1:17h0mshnlihkZMP6LqMmpliCQIknKasjdNGWyZCCmV4=
 kmodules.xyz/client-go v0.0.0-20190715080709-7162a6c90b04/go.mod h1:3h1/ZglH6fV2uv3p9AB1JnHUknhWniShJ7fBJfSf7Js=
-kubeform.dev/kubeform v0.0.3-0.20190919055752-2e77da507313 h1:hm4lP/mksriUtXmkzuvy8cC4U7GQyyi4llh2+KDURFQ=
-kubeform.dev/kubeform v0.0.3-0.20190919055752-2e77da507313/go.mod h1:gSNKDwzTyss6+qaHPIoR215xBAqOdIPFKJzjWYXQ8WE=
+kubeform.dev/kubeform v0.0.3-0.20190926104403-a9109847c227 h1:hdK9Jtr9GENeIuVDDmRidrWX9lV474FPaejTLqD9geM=
+kubeform.dev/kubeform v0.0.3-0.20190926104403-a9109847c227/go.mod h1:tpQQGlnaPDe3veCWiXrkuxoQtVVNIyiSKAebnPC6wxc=
 mvdan.cc/interfacer v0.0.0-20180901003855-c20040233aed/go.mod h1:Xkxe497xwlCKkIaQYRfC7CSLworTXY9RMqwhhCm+8Nc=
 mvdan.cc/lint v0.0.0-20170908181259-adc824a0674b/go.mod h1:2odslEg/xrtNQqCYg2/jCoyKnw3vv5biOc3JnIcYfL4=
 mvdan.cc/unparam v0.0.0-20190124213536-fbb59629db34/go.mod h1:H6SUd1XjIs+qQCyskXg5OFSrilMRUkD8ePJpHKDPaeY=

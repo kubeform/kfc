@@ -248,7 +248,6 @@ type InstanceSpec struct {
 	// +optional
 	IpAddress string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
 	// +optional
-	// +kubebuilder:validation:UniqueItems=true
 	Ipv4 []string `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
 	// +optional
 	Ipv6 string `json:"ipv6,omitempty" tf:"ipv6,omitempty"`
@@ -273,7 +272,6 @@ type InstanceSpec struct {
 	// +optional
 	SwapSize int `json:"swapSize,omitempty" tf:"swap_size,omitempty"`
 	// +optional
-	// +kubebuilder:validation:UniqueItems=true
 	Tags []string `json:"tags,omitempty" tf:"tags,omitempty"`
 	// +optional
 	Type string `json:"type,omitempty" tf:"type,omitempty"`

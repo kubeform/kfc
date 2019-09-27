@@ -43,7 +43,7 @@ type MonitoringUptimeCheckConfigSpecHttpCheck struct {
 	// +optional
 	Port int `json:"port,omitempty" tf:"port,omitempty"`
 	// +optional
-	UseSsl bool `json:"useSsl,omitempty" tf:"use_ssl,omitempty"`
+	UseSSL bool `json:"useSSL,omitempty" tf:"use_ssl,omitempty"`
 }
 
 type MonitoringUptimeCheckConfigSpecInternalCheckers struct {

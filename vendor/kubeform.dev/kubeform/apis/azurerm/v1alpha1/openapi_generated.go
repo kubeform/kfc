@@ -19080,7 +19080,7 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApiManagementSpecHostnameConfiguratio
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
-					"defaultSslBinding": {
+					"defaultSSLBinding": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
 							Format: "",
@@ -21259,7 +21259,7 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServiceSlotSpecSiteConfig(ref comm
 							Format: "",
 						},
 					},
-					"minTlsVersion": {
+					"minTLSVersion": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -22294,7 +22294,7 @@ func schema_kubeform_apis_azurerm_v1alpha1_AppServiceSpecSiteConfig(ref common.R
 							Format: "",
 						},
 					},
-					"minTlsVersion": {
+					"minTLSVersion": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
@@ -22707,7 +22707,7 @@ func schema_kubeform_apis_azurerm_v1alpha1_ApplicationGatewaySpec(ref common.Ref
 							},
 						},
 					},
-					"disabledSslProtocols": {
+					"disabledSSLProtocols": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Deprecated",
 							Type:        []string{"array"},
@@ -71573,7 +71573,7 @@ func schema_kubeform_apis_azurerm_v1alpha1_RedisCacheSpec(ref common.ReferenceCa
 							Format: "int32",
 						},
 					},
-					"enableNonSslPort": {
+					"enableNonSSLPort": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
 							Format: "",
@@ -71597,7 +71597,7 @@ func schema_kubeform_apis_azurerm_v1alpha1_RedisCacheSpec(ref common.ReferenceCa
 							Format: "",
 						},
 					},
-					"minimumTlsVersion": {
+					"minimumTLSVersion": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",

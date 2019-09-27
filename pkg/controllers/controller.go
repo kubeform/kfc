@@ -217,7 +217,7 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 	}
 
 	if isModule {
-		err = crdToModule(gvr.GroupVersion(), obj, mainFile, outputFile)
+		err = crdToModule(c.kubeclientset, gvr.GroupVersion(), obj, mainFile, outputFile)
 		if err != nil {
 			return fmt.Errorf("unable to get crd module : %s", err)
 		}
@@ -254,7 +254,7 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 			return fmt.Errorf("unable to update resource fields from tfstate : %s", err)
 		}
 	} else {
-		err = updateOutputField(resPath, obj)
+		err = updateOutputField(c.kubeclientset, resPath, namespace, providerName, obj)
 		if err != nil {
 			return fmt.Errorf("unable to update output tfstate : %s", err)
 		}

@@ -64,13 +64,13 @@ type RedisCacheSpec struct {
 
 	Capacity int `json:"capacity" tf:"capacity"`
 	// +optional
-	EnableNonSslPort bool   `json:"enableNonSslPort,omitempty" tf:"enable_non_ssl_port,omitempty"`
+	EnableNonSSLPort bool   `json:"enableNonSSLPort,omitempty" tf:"enable_non_ssl_port,omitempty"`
 	Family           string `json:"family" tf:"family"`
 	// +optional
 	Hostname string `json:"hostname,omitempty" tf:"hostname,omitempty"`
 	Location string `json:"location" tf:"location"`
 	// +optional
-	MinimumTlsVersion string `json:"minimumTlsVersion,omitempty" tf:"minimum_tls_version,omitempty"`
+	MinimumTLSVersion string `json:"minimumTLSVersion,omitempty" tf:"minimum_tls_version,omitempty"`
 	Name              string `json:"name" tf:"name"`
 	// +optional
 	PatchSchedule []RedisCacheSpecPatchSchedule `json:"patchSchedule,omitempty" tf:"patch_schedule,omitempty"`

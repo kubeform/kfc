@@ -48,7 +48,6 @@ type NodebalancerSpec struct {
 	Label  string `json:"label,omitempty" tf:"label,omitempty"`
 	Region string `json:"region" tf:"region"`
 	// +optional
-	// +kubebuilder:validation:UniqueItems=true
 	Tags []string `json:"tags,omitempty" tf:"tags,omitempty"`
 	// +optional
 	Transfer map[string]NodebalancerSpecTransfer `json:"transfer,omitempty" tf:"transfer,omitempty"`

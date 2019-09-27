@@ -34,7 +34,6 @@ type VolumeSpec struct {
 	// +optional
 	Status string `json:"status,omitempty" tf:"status,omitempty"`
 	// +optional
-	// +kubebuilder:validation:UniqueItems=true
 	Tags []string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 

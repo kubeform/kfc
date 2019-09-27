@@ -62,7 +62,7 @@ type ApiManagementSpecHostnameConfigurationProxy struct {
 	// +optional
 	CertificatePassword string `json:"-" sensitive:"true" tf:"certificate_password,omitempty"`
 	// +optional
-	DefaultSslBinding bool   `json:"defaultSslBinding,omitempty" tf:"default_ssl_binding,omitempty"`
+	DefaultSSLBinding bool   `json:"defaultSSLBinding,omitempty" tf:"default_ssl_binding,omitempty"`
 	HostName          string `json:"hostName" tf:"host_name"`
 	// +optional
 	KeyVaultID string `json:"keyVaultID,omitempty" tf:"key_vault_id,omitempty"`

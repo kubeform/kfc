@@ -37,7 +37,6 @@ type ProjectSpec struct {
 	// +optional
 	Purpose string `json:"purpose,omitempty" tf:"purpose,omitempty"`
 	// +optional
-	// +kubebuilder:validation:UniqueItems=true
 	Resources []string `json:"resources,omitempty" tf:"resources,omitempty"`
 	// +optional
 	UpdatedAt string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`

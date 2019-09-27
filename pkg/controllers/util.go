@@ -157,7 +157,7 @@ func crdToTFResource(gv schema.GroupVersion, namespace, providerName string, kub
 	return nil
 }
 
-func crdToModule(gv schema.GroupVersion, obj *unstructured.Unstructured, mainFile, outputFile string) error {
+func crdToModule(kc kubernetes.Interface, gv schema.GroupVersion, obj *unstructured.Unstructured, mainFile, outputFile string) error {
 	moduleName := obj.GetName()
 
 	err := unstructured.SetNestedField(obj.Object, "terraform-aws-modules/iam/aws//modules/iam-account", "spec", "source")
@@ -187,6 +187,41 @@ func crdToModule(gv schema.GroupVersion, obj *unstructured.Unstructured, mainFil
 		TagKey:                 "tf",
 	}.Froze()
 
+	secretRef, _, err := unstructured.NestedFieldNoCopy(obj.Object, "spec", "secretRef")
+	if err != nil {
+		return err
+	}
+
+	if secretRef != nil {
+		secretName := typedStruct.Field("Spec").Field("SecretRef").Field("Name").Value()
+		if secretName != nil {
+			secret, err := kc.CoreV1().Secrets(obj.GetNamespace()).Get(secretName.(string), v1.GetOptions{})
+			if err != nil {
+				return err
+			}
+
+			for key := range secret.Data {
+				val := secret.Data[key]
+
+				tempMap := make(map[string]string)
+				buffer := new(bytes.Buffer)
+				var secretData interface{}
+
+				if err := json.Compact(buffer, val); err != nil {
+					secretData = strings.ReplaceAll(string(val), "\n", "")
+				} else {
+					err = json.Unmarshal(buffer.Bytes(), &tempMap)
+					if err != nil {
+						return err
+					}
+					secretData = tempMap
+				}
+
+				specValue.Elem().FieldByName(flect.Capitalize(flect.Camelize(key))).Set(reflect.ValueOf(secretData))
+			}
+		}
+	}
+
 	str, err := jsonit.Marshal(specValue.Interface())
 	if err != nil {
 		return err
@@ -207,7 +242,7 @@ func crdToModule(gv schema.GroupVersion, obj *unstructured.Unstructured, mainFil
 	}
 
 	outputData := []byte(``)
-	output := reflect.TypeOf(typedStruct.Field("Status").Field("Output").Value())
+	output := reflect.TypeOf(typedStruct.Field("Status").Field("Output").Value()).Elem()
 
 	for i := 0; i < output.NumField(); i++ {
 		field := output.Field(i).Tag.Get("tf")
@@ -327,13 +362,15 @@ func updateStateField(kc kubernetes.Interface, namespace, providerName, filePath
 	return nil
 }
 
-func updateOutputField(respath string, obj *unstructured.Unstructured) error {
+func updateOutputField(kc kubernetes.Interface, respath, namespace, providerName string, obj *unstructured.Unstructured) error {
 	value, err := terraformOutput(respath)
 	if err != nil {
 		return err
 	}
 
-	outputs := make(map[string]output, 0)
+	secretData := make(map[string][]byte)
+
+	outputs := make(map[string]output)
 
 	err = json.Unmarshal([]byte(value), &outputs)
 	if err != nil {
@@ -345,8 +382,53 @@ func updateOutputField(respath string, obj *unstructured.Unstructured) error {
 		if err != nil {
 			return err
 		}
+		if !output.Sensitive {
+			err = setNestedFieldNoCopy(obj.Object, string(val), "status", "output", flect.Camelize(name))
+			if err != nil {
+				return err
+			}
+		} else {
+			secretData[name] = output.ValueRaw
+		}
+	}
 
-		err = setNestedFieldNoCopy(obj.Object, string(val), "status", "output", flect.Camelize(name))
+	if len(secretData) != 0 {
+		var secretName interface{}
+
+		secretRef, _, err := unstructured.NestedFieldNoCopy(obj.Object, "spec", "secretRef")
+		if err != nil {
+			return err
+		}
+
+		if secretRef != nil {
+			secretName, _, _ = unstructured.NestedFieldNoCopy(obj.Object, "spec", "secretRef", "name")
+		} else {
+			secretName = obj.GetName() + "-" + obj.GetNamespace() + "-" + "sensitive"
+		}
+
+		var secret *corev1.Secret
+		secret, err = kc.CoreV1().Secrets(namespace).Get(secretName.(string), v1.GetOptions{})
+		if err != nil {
+			if errors.ReasonForError(err) == v1.StatusReasonNotFound {
+				_, err = kc.CoreV1().Secrets(namespace).Create(&corev1.Secret{
+					ObjectMeta: v1.ObjectMeta{
+						Name:      secretName.(string),
+						Namespace: namespace,
+					},
+					Type: corev1.SecretType("kubeform.com/" + providerName),
+				})
+				if err != nil {
+					return err
+				}
+			}
+			return err
+		}
+
+		for key := range secretData {
+			secret.Data[key] = secretData[key]
+		}
+
+		_, err = kc.CoreV1().Secrets(namespace).Update(secret)
 		if err != nil {
 			return err
 		}

@@ -402,7 +402,7 @@ type ApplicationGatewaySpec struct {
 	CustomErrorConfiguration []ApplicationGatewaySpecCustomErrorConfiguration `json:"customErrorConfiguration,omitempty" tf:"custom_error_configuration,omitempty"`
 	// +optional
 	// Deprecated
-	DisabledSslProtocols []string `json:"disabledSslProtocols,omitempty" tf:"disabled_ssl_protocols,omitempty"`
+	DisabledSSLProtocols []string `json:"disabledSSLProtocols,omitempty" tf:"disabled_ssl_protocols,omitempty"`
 	// +optional
 	EnableHttp2 bool `json:"enableHttp2,omitempty" tf:"enable_http2,omitempty"`
 	// +kubebuilder:validation:MinItems=1

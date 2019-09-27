@@ -542,7 +542,7 @@ k8s.io/utils/trace
 kmodules.xyz/client-go
 kmodules.xyz/client-go/meta
 kmodules.xyz/client-go/tools/queue
-# kubeform.dev/kubeform v0.0.3-0.20190919055752-2e77da507313
+# kubeform.dev/kubeform v0.0.3-0.20190926104403-a9109847c227
 kubeform.dev/kubeform/apis
 kubeform.dev/kubeform/apis/aws
 kubeform.dev/kubeform/apis/aws/install

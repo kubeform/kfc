@@ -90,14 +90,13 @@ type SqlDatabaseInstanceSpecSettingsIpConfigurationAuthorizedNetworks struct {
 
 type SqlDatabaseInstanceSpecSettingsIpConfiguration struct {
 	// +optional
-	// +kubebuilder:validation:UniqueItems=true
 	AuthorizedNetworks []SqlDatabaseInstanceSpecSettingsIpConfigurationAuthorizedNetworks `json:"authorizedNetworks,omitempty" tf:"authorized_networks,omitempty"`
 	// +optional
 	Ipv4Enabled bool `json:"ipv4Enabled,omitempty" tf:"ipv4_enabled,omitempty"`
 	// +optional
 	PrivateNetwork string `json:"privateNetwork,omitempty" tf:"private_network,omitempty"`
 	// +optional
-	RequireSsl bool `json:"requireSsl,omitempty" tf:"require_ssl,omitempty"`
+	RequireSSL bool `json:"requireSSL,omitempty" tf:"require_ssl,omitempty"`
 }
 
 type SqlDatabaseInstanceSpecSettingsLocationPreference struct {

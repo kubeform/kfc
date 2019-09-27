@@ -24,7 +24,6 @@ type DomainSpec struct {
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// +optional
-	// +kubebuilder:validation:UniqueItems=true
 	AxfrIPS []string `json:"axfrIPS,omitempty" tf:"axfr_ips,omitempty"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
@@ -34,7 +33,6 @@ type DomainSpec struct {
 	// +optional
 	Group string `json:"group,omitempty" tf:"group,omitempty"`
 	// +optional
-	// +kubebuilder:validation:UniqueItems=true
 	MasterIPS []string `json:"masterIPS,omitempty" tf:"master_ips,omitempty"`
 	// +optional
 	RefreshSec int `json:"refreshSec,omitempty" tf:"refresh_sec,omitempty"`
@@ -45,7 +43,6 @@ type DomainSpec struct {
 	// +optional
 	Status string `json:"status,omitempty" tf:"status,omitempty"`
 	// +optional
-	// +kubebuilder:validation:UniqueItems=true
 	Tags []string `json:"tags,omitempty" tf:"tags,omitempty"`
 	// +optional
 	TtlSec int    `json:"ttlSec,omitempty" tf:"ttl_sec,omitempty"`
