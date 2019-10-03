@@ -28,10 +28,10 @@ import (
 	"k8s.io/client-go/kubernetes"
 	"kmodules.xyz/client-go/meta"
 	"kubeform.dev/kubeform/apis"
+	"kubeform.dev/kubeform/data"
 )
 
 const KFCFinalizer = "kfc.io"
-const SecretKey = "smGbjm71Nxd1Ig5FS0wj9SlbzAIrnolCz9bQQ6uAhl4="
 
 var (
 	basePath = filepath.Join("/tmp", ".kfc")
@@ -157,10 +157,9 @@ func crdToTFResource(gv schema.GroupVersion, namespace, providerName string, kub
 	return nil
 }
 
-func crdToModule(kc kubernetes.Interface, gv schema.GroupVersion, obj *unstructured.Unstructured, mainFile, outputFile string) error {
+func crdToModule(kc kubernetes.Interface, gv schema.GroupVersion, obj *unstructured.Unstructured, source, mainFile, outputFile string) error {
 	moduleName := obj.GetName()
-
-	err := unstructured.SetNestedField(obj.Object, "terraform-aws-modules/iam/aws//modules/iam-account", "spec", "source")
+	err := unstructured.SetNestedField(obj.Object, source, "spec", "source")
 	if err != nil {
 		return err
 	}
@@ -227,7 +226,8 @@ func crdToModule(kc kubernetes.Interface, gv schema.GroupVersion, obj *unstructu
 		return err
 	}
 
-	moduleData := []byte(`{"module":{ "` + moduleName + `":`)
+	moduleData :=
+		[]byte(`{"module":{ "` + moduleName + `":`)
 
 	moduleData = append(moduleData, str...)
 	moduleData = append(moduleData, []byte("} }")...)
@@ -778,13 +778,6 @@ func isModule(group string) bool {
 	return s[0] == "modules"
 }
 
-func getProviderName(group string, isModule bool) string {
-	if isModule {
-		return "aws" //strings.Split(group, ".")[1]
-	}
-	return strings.Split(group, ".")[0]
-}
-
 func encodeState(data []byte) (string, error) {
 	// zip
 	var buf bytes.Buffer
@@ -846,4 +839,14 @@ func decodeState(data string) ([]byte, error) {
 	}
 
 	return result, nil
+}
+
+func getModuleProviderAndSource(name string) (string, string) {
+	for _, moduleConfig := range data.ModuleConfig {
+		if moduleConfig.Name == name {
+			return moduleConfig.Provider, moduleConfig.Source
+		}
+	}
+
+	return "", ""
 }

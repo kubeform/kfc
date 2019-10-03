@@ -3,6 +3,7 @@ package controllers
 import (
 	"fmt"
 	"path/filepath"
+	"strings"
 	"sync"
 	"time"
 
@@ -26,6 +27,8 @@ import (
 )
 
 const controllerAgentName = "kfc"
+
+var SecretKey string
 
 const (
 	// SuccessSynced is used as part of the Event 'reason' when a Resource is synced
@@ -110,6 +113,8 @@ func (c *Controller) AddNewCRD(gvr schema.GroupVersionResource, dynamicClient dy
 }
 
 func (c *Controller) GetWorker(gvr schema.GroupVersionResource) *queue.Worker {
+	c.Lock()
+	defer c.Unlock()
 	return c.crdWorkers[gvr]
 }
 
@@ -169,17 +174,17 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		if obj.GetDeletionTimestamp() != nil {
 			err := terraformDestroy(resPath)
 			if err != nil {
-				log.Error(err, "failed to terraform destroy")
+				log.Error("failed to terraform destroy: ", err)
 			}
 
 			err = deleteFiles(resPath)
 			if err != nil {
-				log.Error(err, "failed to delete files")
+				log.Error("failed to delete files: ", err)
 			}
 
 			err = removeFinalizer(obj, KFCFinalizer)
 			if err != nil {
-				log.Error(err, "failed to remove finalizer")
+				log.Error("failed to remove finalizer: ", err)
 			}
 
 			c.updateResource(gvr, obj)
@@ -210,14 +215,20 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 
 	isModule := isModule(gvr.Group)
 
-	providerName := getProviderName(gvr.Group, isModule)
+	var providerName, source string
+	if isModule {
+		providerName, source = getModuleProviderAndSource(obj.GetKind())
+	} else {
+		providerName = strings.Split(gvr.Group, ".")[0]
+	}
+
 	err = secretToTFProvider(secret, providerName, providerFile)
 	if err != nil {
 		return fmt.Errorf("unable to create provider from secret : %s", err)
 	}
 
 	if isModule {
-		err = crdToModule(c.kubeclientset, gvr.GroupVersion(), obj, mainFile, outputFile)
+		err = crdToModule(c.kubeclientset, gvr.GroupVersion(), obj, source, mainFile, outputFile)
 		if err != nil {
 			return fmt.Errorf("unable to get crd module : %s", err)
 		}
@@ -245,6 +256,7 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 
 	err = updateTFStateFile(stateFile, isModule, gvr.GroupVersion(), obj)
 	if err != nil {
+
 		return fmt.Errorf("unable to update TFState : %s", err)
 	}
 

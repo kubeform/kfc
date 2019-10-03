@@ -277,11 +277,11 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"k8s.io/apimachinery/pkg/runtime.TypeMeta":                       schema_k8sio_apimachinery_pkg_runtime_TypeMeta(ref),
 		"k8s.io/apimachinery/pkg/runtime.Unknown":                        schema_k8sio_apimachinery_pkg_runtime_Unknown(ref),
 		"k8s.io/apimachinery/pkg/util/intstr.IntOrString":                schema_apimachinery_pkg_util_intstr_IntOrString(ref),
-		"kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccount":         schema_kubeform_apis_modules_v1alpha1_IamAccount(ref),
-		"kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccountList":     schema_kubeform_apis_modules_v1alpha1_IamAccountList(ref),
-		"kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccountOutput":   schema_kubeform_apis_modules_v1alpha1_IamAccountOutput(ref),
-		"kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccountSpec":     schema_kubeform_apis_modules_v1alpha1_IamAccountSpec(ref),
-		"kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccountStatus":   schema_kubeform_apis_modules_v1alpha1_IamAccountStatus(ref),
+		"kubeform.dev/kubeform/apis/modules/v1alpha1.RDS":                schema_kubeform_apis_modules_v1alpha1_RDS(ref),
+		"kubeform.dev/kubeform/apis/modules/v1alpha1.RDSList":            schema_kubeform_apis_modules_v1alpha1_RDSList(ref),
+		"kubeform.dev/kubeform/apis/modules/v1alpha1.RDSOutput":          schema_kubeform_apis_modules_v1alpha1_RDSOutput(ref),
+		"kubeform.dev/kubeform/apis/modules/v1alpha1.RDSSpec":            schema_kubeform_apis_modules_v1alpha1_RDSSpec(ref),
+		"kubeform.dev/kubeform/apis/modules/v1alpha1.RDSStatus":          schema_kubeform_apis_modules_v1alpha1_RDSStatus(ref),
 	}
 }
 
@@ -12225,7 +12225,7 @@ func schema_apimachinery_pkg_util_intstr_IntOrString(ref common.ReferenceCallbac
 	}
 }
 
-func schema_kubeform_apis_modules_v1alpha1_IamAccount(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_kubeform_apis_modules_v1alpha1_RDS(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -12252,27 +12252,27 @@ func schema_kubeform_apis_modules_v1alpha1_IamAccount(ref common.ReferenceCallba
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccountSpec"),
+							Ref: ref("kubeform.dev/kubeform/apis/modules/v1alpha1.RDSSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccountStatus"),
+							Ref: ref("kubeform.dev/kubeform/apis/modules/v1alpha1.RDSStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta", "kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccountSpec", "kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccountStatus"},
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta", "kubeform.dev/kubeform/apis/modules/v1alpha1.RDSSpec", "kubeform.dev/kubeform/apis/modules/v1alpha1.RDSStatus"},
 	}
 }
 
-func schema_kubeform_apis_modules_v1alpha1_IamAccountList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_kubeform_apis_modules_v1alpha1_RDSList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "IamAccountList is a list of IamAccounts",
+				Description: "RDSList is a list of RDSs",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
@@ -12296,12 +12296,12 @@ func schema_kubeform_apis_modules_v1alpha1_IamAccountList(ref common.ReferenceCa
 					},
 					"items": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Items is a list of IamAccount CRD objects",
+							Description: "Items is a list of RDS CRD objects",
 							Type:        []string{"array"},
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccount"),
+										Ref: ref("kubeform.dev/kubeform/apis/modules/v1alpha1.RDS"),
 									},
 								},
 							},
@@ -12311,52 +12311,150 @@ func schema_kubeform_apis_modules_v1alpha1_IamAccountList(ref common.ReferenceCa
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta", "kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccount"},
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta", "kubeform.dev/kubeform/apis/modules/v1alpha1.RDS"},
 	}
 }
 
-func schema_kubeform_apis_modules_v1alpha1_IamAccountOutput(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_kubeform_apis_modules_v1alpha1_RDSOutput(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
-					"thisCallerIdentityAccountID": {
+					"thisDbInstanceAddress": {
 						SchemaProps: spec.SchemaProps{
-							Description: "The AWS Account ID number of the account that owns or contains the calling entity",
+							Description: "The address of the RDS instance",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
-					"thisCallerIdentityArn": {
+					"thisDbInstanceArn": {
 						SchemaProps: spec.SchemaProps{
-							Description: "The AWS ARN associated with the calling entity",
+							Description: "The ARN of the RDS instance",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
-					"thisCallerIdentityUserID": {
+					"thisDbInstanceAvailabilityZone": {
 						SchemaProps: spec.SchemaProps{
-							Description: "The unique identifier of the calling entity",
+							Description: "The availability zone of the RDS instance",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
-					"thisIamAccountPasswordPolicyExpirePasswords": {
+					"thisDbInstanceEndpoint": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Indicates whether passwords in the account expire. Returns true if max_password_age contains a value greater than 0. Returns false if it is 0 or not present.",
+							Description: "The connection endpoint",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"thisDbInstanceHostedZoneID": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The canonical hosted zone ID of the DB instance (to be used in a Route 53 Alias record)",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"thisDbInstanceID": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The RDS instance ID",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"thisDbInstanceName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The database name",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"thisDbInstancePassword": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The database password (this password may be old, because Terraform doesn't track it after initial creation)",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"thisDbInstancePort": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The database port",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"thisDbInstanceResourceID": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The RDS Resource ID of this instance",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"thisDbInstanceStatus": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The RDS instance status",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"thisDbInstanceUsername": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The master username for the database",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"thisDbOptionGroupArn": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The ARN of the db option group",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"thisDbOptionGroupID": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The db option group id",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"thisDbParameterGroupArn": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The ARN of the db parameter group",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"thisDbParameterGroupID": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The db parameter group id",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"thisDbSubnetGroupArn": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The ARN of the db subnet group",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"thisDbSubnetGroupID": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The db subnet group name",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
 				},
-				Required: []string{"thisCallerIdentityAccountID", "thisCallerIdentityArn", "thisCallerIdentityUserID", "thisIamAccountPasswordPolicyExpirePasswords"},
+				Required: []string{"thisDbInstanceAddress", "thisDbInstanceArn", "thisDbInstanceAvailabilityZone", "thisDbInstanceEndpoint", "thisDbInstanceHostedZoneID", "thisDbInstanceID", "thisDbInstanceName", "thisDbInstancePassword", "thisDbInstancePort", "thisDbInstanceResourceID", "thisDbInstanceStatus", "thisDbInstanceUsername", "thisDbOptionGroupArn", "thisDbOptionGroupID", "thisDbParameterGroupArn", "thisDbParameterGroupID", "thisDbSubnetGroupArn", "thisDbSubnetGroupID"},
 			},
 		},
 	}
 }
 
-func schema_kubeform_apis_modules_v1alpha1_IamAccountSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_kubeform_apis_modules_v1alpha1_RDSSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -12378,92 +12476,451 @@ func schema_kubeform_apis_modules_v1alpha1_IamAccountSpec(ref common.ReferenceCa
 							Format: "",
 						},
 					},
-					"accountAlias": {
+					"allocatedStorage": {
 						SchemaProps: spec.SchemaProps{
-							Description: "AWS IAM account alias for this account",
+							Description: "The allocated storage in gigabytes",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
-					"allowUsersToChangePassword": {
+					"allowMajorVersionUpgrade": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Whether to allow users to change their own password",
+							Description: "Indicates that major version upgrades are allowed. Changing this parameter does not result in an outage and the change is asynchronously applied as soon as possible",
 							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},
-					"createAccountPasswordPolicy": {
+					"applyImmediately": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Whether to create AWS IAM account password policy",
+							Description: "Specifies whether any database modifications are applied immediately, or during the next maintenance window",
 							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},
-					"getCallerIdentity": {
+					"autoMinorVersionUpgrade": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Whether to get AWS account ID, User ID, and ARN in which Terraform is authorized",
+							Description: "Indicates that minor engine upgrades will be applied automatically to the DB instance during the maintenance window",
 							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},
-					"hardExpiry": {
+					"availabilityZone": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Whether users are prevented from setting a new password after their password has expired (i.e. require administrator reset)",
-							Type:        []string{"boolean"},
-							Format:      "",
-						},
-					},
-					"maxPasswordAge": {
-						SchemaProps: spec.SchemaProps{
-							Description: "The number of days that an user password is valid.",
+							Description: "The Availability Zone of the RDS instance",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
-					"minimumPasswordLength": {
+					"backupRetentionPeriod": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Minimum length to require for user passwords",
+							Description: "The days to retain backups for",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
-					"passwordReusePrevention": {
+					"backupWindow": {
 						SchemaProps: spec.SchemaProps{
-							Description: "The number of previous passwords that users are prevented from reusing",
+							Description: "The daily time range (in UTC) during which automated backups are created if they are enabled. Example: '09:46-10:16'. Must not overlap with maintenance_window",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
-					"requireLowercaseCharacters": {
+					"characterSetName": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Whether to require lowercase characters for user passwords",
+							Description: "(Optional) The character set name to use for DB encoding in Oracle instances. This can't be changed. See Oracle Character Sets Supported in Amazon RDS for more information",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"copyTagsToSnapshot": {
+						SchemaProps: spec.SchemaProps{
+							Description: "On delete, copy all Instance tags to the final snapshot (if final_snapshot_identifier is specified)",
 							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},
-					"requireNumbers": {
+					"createDbInstance": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Whether to require numbers for user passwords",
+							Description: "Whether to create a database instance",
 							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},
-					"requireSymbols": {
+					"createDbOptionGroup": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Whether to require symbols for user passwords",
+							Description: "Whether to create a database option group",
 							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},
-					"requireUppercaseCharacters": {
+					"createDbParameterGroup": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Whether to require uppercase characters for user passwords",
+							Description: "Whether to create a database parameter group",
 							Type:        []string{"boolean"},
 							Format:      "",
+						},
+					},
+					"createDbSubnetGroup": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Whether to create a database subnet group",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"createMonitoringRole": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Create IAM role with a defined name that permits RDS to send enhanced monitoring metrics to CloudWatch Logs.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"dbSubnetGroupName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name of DB subnet group. DB instance will be created in the VPC associated with the DB subnet group. If unspecified, will be created in the default VPC",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"deletionProtection": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The database can't be deleted when this value is set to true.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"enabledCloudwatchLogsExports": {
+						SchemaProps: spec.SchemaProps{
+							Description: "List of log types to enable for exporting to CloudWatch logs. If omitted, no logs will be exported. Valid values (depending on engine): alert, audit, error, general, listener, slowquery, trace, postgresql (PostgreSQL), upgrade (PostgreSQL).",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"engine": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The database engine to use",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"engineVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The engine version to use",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"family": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The family of the DB parameter group",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"finalSnapshotIdentifier": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The name of your final DB snapshot when this DB instance is deleted.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"iamDatabaseAuthenticationEnabled": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Specifies whether or mappings of AWS Identity and Access Management (IAM) accounts to database accounts is enabled",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"identifier": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The name of the RDS instance, if omitted, Terraform will assign a random, unique identifier",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"instanceClass": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The instance type of the RDS instance",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"iops": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The amount of provisioned IOPS. Setting this implies a storage_type of 'io1'",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"kmsKeyID": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The ARN for the KMS encryption key. If creating an encrypted replica, set this to the destination KMS ARN. If storage_encrypted is set to true and kms_key_id is not specified the default KMS key created in your account will be used",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"licenseModel": {
+						SchemaProps: spec.SchemaProps{
+							Description: "License model information for this DB instance. Optional, but required for some DB engines, i.e. Oracle SE1",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"maintenanceWindow": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The window to perform maintenance in. Syntax: 'ddd:hh24:mi-ddd:hh24:mi'. Eg: 'Mon:00:00-Mon:03:00'",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"majorEngineVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Specifies the major version of the engine that this option group should be associated with",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"maxAllocatedStorage": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Specifies the value for Storage Autoscaling",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"monitoringInterval": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB instance. To disable collecting Enhanced Monitoring metrics, specify 0. The default is 0. Valid Values: 0, 1, 5, 10, 15, 30, 60.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"monitoringRoleArn": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The ARN for the IAM role that permits RDS to send enhanced monitoring metrics to CloudWatch Logs. Must be specified if monitoring_interval is non-zero.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"monitoringRoleName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name of the IAM role which will be created when create_monitoring_role is enabled.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"multiAz": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Specifies if the RDS instance is multi-AZ",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The DB name to create. If omitted, no database is created initially",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"optionGroupDescription": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The description of the option group",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"optionGroupName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name of the DB option group to associate. Setting this automatically disables option_group creation",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"options": {
+						SchemaProps: spec.SchemaProps{
+							Description: "A list of Options to apply.",
+							Type:        []string{"string"},
+							Format:      "byte",
+						},
+					},
+					"parameterGroupDescription": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Description of the DB parameter group to create",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"parameterGroupName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name of the DB parameter group to associate or create",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"parameters": {
+						SchemaProps: spec.SchemaProps{
+							Description: "A list of DB parameters (map) to apply",
+							Type:        []string{"string"},
+							Format:      "byte",
+						},
+					},
+					"password": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Password for the master DB user. Note that this may show up in logs, and it will be stored in the state file",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"performanceInsightsEnabled": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Specifies whether Performance Insights are enabled",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"performanceInsightsRetentionPeriod": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The amount of time in days to retain Performance Insights data. Either 7 (7 days) or 731 (2 years).",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"port": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The port on which the DB accepts connections",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"publiclyAccessible": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Bool to control if instance is publicly accessible",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"replicateSourceDb": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Specifies that this resource is a Replicate database, and to use this value as the source database. This correlates to the identifier of another Amazon RDS Database to replicate.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"skipFinalSnapshot": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Determines whether a final DB snapshot is created before the DB instance is deleted. If true is specified, no DBSnapshot is created. If false is specified, a DB snapshot is created before the DB instance is deleted, using the value from final_snapshot_identifier",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"snapshotIdentifier": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Specifies whether or not to create this database from a snapshot. This correlates to the snapshot ID you'd find in the RDS console, e.g: rds:production-2015-06-26-06-05.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"storageEncrypted": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Specifies whether the DB instance is encrypted",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"storageType": {
+						SchemaProps: spec.SchemaProps{
+							Description: "One of 'standard' (magnetic), 'gp2' (general purpose SSD), or 'io1' (provisioned IOPS SSD). The default is 'io1' if iops is specified, 'standard' if not. Note that this behaviour is different from the AWS web console, where the default is 'gp2'.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"subnetIDS": {
+						SchemaProps: spec.SchemaProps{
+							Description: "A list of VPC subnet IDs",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"tags": {
+						SchemaProps: spec.SchemaProps{
+							Description: "A mapping of tags to assign to all resources",
+							Type:        []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"timeouts": {
+						SchemaProps: spec.SchemaProps{
+							Description: "(Optional) Updated Terraform resource management timeouts. Applies to `aws_db_instance` in particular to permit resource management times",
+							Type:        []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"timezone": {
+						SchemaProps: spec.SchemaProps{
+							Description: "(Optional) Time zone of the DB instance. timezone is currently only supported by Microsoft SQL Server. The timezone can only be set on creation. See MSSQL User Guide for more information.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"useParameterGroupNamePrefix": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Whether to use the parameter group name prefix or not",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"username": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Username for the master DB user",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"vpcSecurityGroupIDS": {
+						SchemaProps: spec.SchemaProps{
+							Description: "List of VPC security groups to associate",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
 						},
 					},
 				},
-				Required: []string{"providerRef", "source"},
+				Required: []string{"providerRef"},
 			},
 		},
 		Dependencies: []string{
@@ -12471,7 +12928,7 @@ func schema_kubeform_apis_modules_v1alpha1_IamAccountSpec(ref common.ReferenceCa
 	}
 }
 
-func schema_kubeform_apis_modules_v1alpha1_IamAccountStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_kubeform_apis_modules_v1alpha1_RDSStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -12486,7 +12943,7 @@ func schema_kubeform_apis_modules_v1alpha1_IamAccountStatus(ref common.Reference
 					},
 					"output": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccountOutput"),
+							Ref: ref("kubeform.dev/kubeform/apis/modules/v1alpha1.RDSOutput"),
 						},
 					},
 					"state": {
@@ -12499,6 +12956,6 @@ func schema_kubeform_apis_modules_v1alpha1_IamAccountStatus(ref common.Reference
 			},
 		},
 		Dependencies: []string{
-			"kubeform.dev/kubeform/apis/modules/v1alpha1.IamAccountOutput"},
+			"kubeform.dev/kubeform/apis/modules/v1alpha1.RDSOutput"},
 	}
 }

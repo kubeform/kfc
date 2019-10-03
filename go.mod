@@ -8,8 +8,6 @@ require (
 	github.com/fatih/structs v1.1.0
 	github.com/gobuffalo/flect v0.1.5
 	github.com/json-iterator/go v1.1.6
-	github.com/onsi/ginkgo v1.8.0
-	github.com/onsi/gomega v1.5.0
 	gocloud.dev v0.15.0
 	golang.org/x/xerrors v0.0.0-20190717185122-a985d3407aa7 // indirect
 	k8s.io/api v0.0.0-20190711103429-37c3b8b1ca65
@@ -18,8 +16,7 @@ require (
 	k8s.io/client-go v11.0.1-0.20190409021438-1a26190bd76a+incompatible
 	k8s.io/klog v0.3.1
 	kmodules.xyz/client-go v0.0.0-20190715080709-7162a6c90b04
-	kubeform.dev/kubeform v0.0.3-0.20190926104403-a9109847c227i
-	sigs.k8s.io/controller-runtime v0.2.0-beta.4
+	kubeform.dev/kubeform v0.0.4-0.20191004100144-7c0a9242ba4c
 )
 
 replace (

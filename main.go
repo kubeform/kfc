@@ -5,6 +5,11 @@ import (
 	"strings"
 	"time"
 
+	"k8s.io/apimachinery/pkg/api/errors"
+
+	corev1 "k8s.io/api/core/v1"
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
 	"github.com/appscode/go/log"
 	"github.com/appscode/go/signals"
 	"k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
@@ -20,7 +25,6 @@ import (
 	"k8s.io/klog"
 	"kubeform.dev/kfc/pkg/controllers"
 	aws "kubeform.dev/kubeform/apis/aws/install"
-
 	azurerm "kubeform.dev/kubeform/apis/azurerm/install"
 	digitalocean "kubeform.dev/kubeform/apis/digitalocean/install"
 	google "kubeform.dev/kubeform/apis/google/install"
@@ -34,7 +38,6 @@ var (
 )
 
 func main() {
-	//klog.InitFlags(nil)
 	flag.Parse()
 
 	// set up signals so we handle the first shutdown signal gracefully
@@ -48,6 +51,27 @@ func main() {
 	kubeClient, err := kubernetes.NewForConfig(cfg)
 	if err != nil {
 		klog.Fatalf("Error building kubernetes clientset: %s", err.Error())
+	}
+
+	secret, err := kubeClient.CoreV1().Secrets(corev1.NamespaceDefault).Get("kubeform-secret", v1.GetOptions{})
+	if errors.ReasonForError(err) == v1.StatusReasonNotFound && controllers.SecretKey == "" {
+		klog.Fatal(err)
+	} else if controllers.SecretKey == "" {
+		controllers.SecretKey = string(secret.Data["secret-key"])
+	} else if errors.ReasonForError(err) == v1.StatusReasonNotFound {
+		_, err := kubeClient.CoreV1().Secrets(corev1.NamespaceDefault).Create(&corev1.Secret{
+			ObjectMeta: v1.ObjectMeta{
+				Name:      "kubeform-secret",
+				Namespace: corev1.NamespaceDefault,
+			},
+			Type: corev1.SecretType("kubeform.com/modules"),
+			Data: map[string][]byte{
+				"secret-key": []byte(controllers.SecretKey),
+			},
+		})
+		if err != nil {
+			klog.Fatal(err)
+		}
 	}
 
 	dynamicClient, err := dynamic.NewForConfig(cfg)
@@ -74,6 +98,7 @@ func main() {
 func init() {
 	flag.StringVar(&kubeconfig, "kubeconfig", "", "Path to a kubeconfig. Only required if out-of-cluster.")
 	flag.StringVar(&masterURL, "master", "", "The address of the Kubernetes API server. Overrides any value in kubeconfig. Only required if out-of-cluster.")
+	flag.StringVar(&controllers.SecretKey, "secret-key", "", "A base64-encoded key, of length 32 bytes when decoded.")
 }
 
 func watchCRD(cfg *rest.Config, stopCh <-chan struct{}, controller *controllers.Controller, dynamicClient dynamic.Interface) {
