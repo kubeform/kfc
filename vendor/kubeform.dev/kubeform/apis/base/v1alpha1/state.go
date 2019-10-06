@@ -1,6 +1,10 @@
-package apis
+package v1alpha1
 
 import "encoding/json"
+
+// +k8s:openapi-gen=true
+// +k8s:deepcopy-gen:interfaces
+// +kubebuilder:object:root=true
 
 type State struct {
 	Version          json.Number `json:"version"`

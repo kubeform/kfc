@@ -27,7 +27,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/kubernetes"
 	"kmodules.xyz/client-go/meta"
-	"kubeform.dev/kubeform/apis"
+	base "kubeform.dev/kubeform/apis/base/v1alpha1"
 	"kubeform.dev/kubeform/data"
 )
 
@@ -555,7 +555,7 @@ func createTFState(kc kubernetes.Interface, filePath, providerName string, isMod
 	}
 	outputValue := reflect.ValueOf(typedStruct.Field("Status").Field("Output").Value())
 
-	if os.IsNotExist(existErr) && stateValue.(*apis.State) != nil {
+	if os.IsNotExist(existErr) && stateValue.(*base.State) != nil {
 		stateData, err := json.Marshal(stateValue)
 		if err != nil {
 			return err
@@ -693,13 +693,13 @@ func updateTFStateFile(filePath string, isModule bool, gv schema.GroupVersion, u
 		}
 		return nil
 	}
-	var tfstate *apis.State
+	var tfstate *base.State
 	err = json.Unmarshal(data, &tfstate)
 	if err != nil {
 		return err
 	}
 
-	if stateValue.(*apis.State) == nil || stateValue.(*apis.State).Serial != tfstate.Serial {
+	if stateValue.(*base.State) == nil || stateValue.(*base.State).Serial != tfstate.Serial {
 		err = setNestedFieldNoCopy(u.Object, tfstate, "status", "state")
 		if err != nil {
 			return err
