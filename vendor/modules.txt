@@ -470,7 +470,6 @@ kubeform.dev/kubeform/apis/digitalocean/install
 kubeform.dev/kubeform/apis/google/install
 kubeform.dev/kubeform/apis/linode/install
 kubeform.dev/kubeform/apis/modules/install
-kubeform.dev/kubeform/apis
 kubeform.dev/kubeform/apis/base/v1alpha1
 kubeform.dev/kubeform/data
 kubeform.dev/kubeform/apis/aws/v1alpha1
