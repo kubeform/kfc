@@ -40,6 +40,9 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 
 		&RDS{},
 		&RDSList{},
+
+		&GoogleServiceAccount{},
+		&GoogleServiceAccountList{},
 	)
 
 	scheme.AddKnownTypes(SchemeGroupVersion,

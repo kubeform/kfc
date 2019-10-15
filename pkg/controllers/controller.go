@@ -92,7 +92,16 @@ func (c *Controller) AddNewCRD(gvr schema.GroupVersionResource, dynamicClient dy
 		return c.reconcile(gvr, key)
 	})
 
-	i.Informer().AddEventHandler(queue.DefaultEventHandler(q.GetQueue()))
+	i.Informer().AddEventHandler(queue.NewEventHandler(q.GetQueue(), func(old, nu interface{}) bool {
+		newObj := nu.(*unstructured.Unstructured)
+
+		observed, _, err := unstructured.NestedFieldNoCopy(newObj.Object, "status", "observedGeneration")
+		if err != nil {
+			return true
+		}
+
+		return newObj.GetGeneration() != observed
+	}))
 
 	c.crdListers[gvr] = dynamiclister.New(i.Informer().GetIndexer(), gvr)
 	c.crdWorkers[gvr] = q
@@ -272,7 +281,14 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		}
 	}
 
+	err = unstructured.SetNestedField(obj.Object, obj.GetGeneration(), "status", "observedGeneration")
+	if err != nil {
+		log.Error(err, "failed to update observed generation field")
+		return nil
+	}
+
 	c.updateResource(gvr, obj)
+	c.updateStatus(gvr, obj)
 
 	c.recorder.Event(obj, corev1.EventTypeNormal, SuccessSynced, MessageResourceSynced)
 	return nil
@@ -280,6 +296,13 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 
 func (c *Controller) updateResource(gvr schema.GroupVersionResource, u *unstructured.Unstructured) {
 	_, err := c.dynamicclient.Resource(gvr).Namespace(u.GetNamespace()).Update(u, metav1.UpdateOptions{})
+	if err != nil {
+		klog.Errorf("failed to update resource, reason : %s", err.Error())
+	}
+}
+
+func (c *Controller) updateStatus(gvr schema.GroupVersionResource, u *unstructured.Unstructured) {
+	_, err := c.dynamicclient.Resource(gvr).Namespace(u.GetNamespace()).UpdateStatus(u, metav1.UpdateOptions{})
 	if err != nil {
 		klog.Errorf("failed to update resource, reason : %s", err.Error())
 	}
