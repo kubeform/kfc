@@ -8,7 +8,6 @@ require (
 	github.com/fatih/structs v1.1.0
 	github.com/gobuffalo/flect v0.1.5
 	github.com/json-iterator/go v1.1.7
-	github.com/sirupsen/logrus v1.2.0 // indirect
 	gocloud.dev v0.15.0
 	golang.org/x/xerrors v0.0.0-20190717185122-a985d3407aa7 // indirect
 	k8s.io/api v0.0.0-20190711103429-37c3b8b1ca65

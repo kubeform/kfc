@@ -195,6 +195,13 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		if err != nil {
 			return fmt.Errorf("failed to add finalizer : %s", err)
 		}
+		c.updateResource(gvr, obj)
+
+		return nil
+	}
+
+	if obj.GetDeletionTimestamp() != nil {
+		return nil
 	}
 
 	err = createFiles(resPath, providerFile, mainFile)
@@ -278,7 +285,6 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		return nil
 	}
 
-	c.updateResource(gvr, obj)
 	c.updateStatus(gvr, obj)
 
 	c.recorder.Event(obj, corev1.EventTypeNormal, SuccessSynced, MessageResourceSynced)
