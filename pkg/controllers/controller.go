@@ -92,16 +92,7 @@ func (c *Controller) AddNewCRD(gvr schema.GroupVersionResource, dynamicClient dy
 		return c.reconcile(gvr, key)
 	})
 
-	i.Informer().AddEventHandler(queue.NewEventHandler(q.GetQueue(), func(old, nu interface{}) bool {
-		newObj := nu.(*unstructured.Unstructured)
-
-		observed, _, err := unstructured.NestedFieldNoCopy(newObj.Object, "status", "observedGeneration")
-		if err != nil {
-			return true
-		}
-
-		return newObj.GetGeneration() != observed
-	}))
+	i.Informer().AddEventHandler(queue.NewReconcilableHandler(q.GetQueue()))
 
 	c.crdListers[gvr] = dynamiclister.New(i.Informer().GetIndexer(), gvr)
 	c.crdWorkers[gvr] = q
