@@ -83,6 +83,31 @@ func DeepHashObject(hasher hash.Hash, objectToWrite interface{}) {
 	printer.Fprintf(hasher, "%#v", objectToWrite)
 }
 
+func AlreadyReconciled(o interface{}) bool {
+	var generation, observedGeneration *types.IntHash
+	var err error
+
+	switch obj := o.(type) {
+	case *unstructured.Unstructured:
+		generation = types.IntHashForGeneration(obj.GetGeneration())
+		var val interface{}
+		val, _, err = unstructured.NestedFieldNoCopy(obj.Object, "status", "observedGeneration")
+		if err == nil {
+			observedGeneration, err = types.ParseIntHash(val)
+		}
+	case metav1.Object:
+		st := structs.New(o)
+		generation = types.IntHashForGeneration(obj.GetGeneration())
+		observedGeneration, err = types.ParseIntHash(st.Field("Status").Field("ObservedGeneration").Value())
+	default:
+		err = fmt.Errorf("unknown object type %s", reflect.TypeOf(o).String())
+	}
+	if err != nil {
+		panic("failed to extract status.observedGeneration field due to err:" + err.Error())
+	}
+	return observedGeneration.MatchGeneration(generation)
+}
+
 // Deprecated, should not be used after we drop support for Kubernetes 1.10. Use AlreadyReconciled
 func AlreadyObserved(o interface{}, enableStatusSubresource bool) bool {
 	if !enableStatusSubresource {
@@ -100,42 +125,7 @@ func AlreadyObserved(o interface{}, enableStatusSubresource bool) bool {
 	return observed.Equal(cur)
 }
 
-func AlreadyReconciled(o interface{}) bool {
-	var generation, observedGeneration int64
-	var err error
-
-	switch obj := o.(type) {
-	case *unstructured.Unstructured:
-		generation = obj.GetGeneration()
-		observedGeneration, _, err = unstructured.NestedInt64(obj.Object, "status", "observedGeneration")
-	case metav1.Object:
-		st := structs.New(o)
-		generation = obj.GetGeneration()
-		observedGeneration, err = toInt64(st.Field("Status").Field("ObservedGeneration").Value())
-	default:
-		err = fmt.Errorf("unknown object type")
-	}
-	if err != nil {
-		panic("failed to extract status.observedGeneration field due to err:" + err.Error())
-	}
-	return observedGeneration >= generation
-}
-
-func toInt64(v interface{}) (int64, error) {
-	switch m := v.(type) {
-	case nil:
-		return 0, nil
-	case int:
-		return int64(m), nil
-	case int64:
-		return m, nil
-	case *int64:
-		return *m, nil
-	default:
-		return 0, fmt.Errorf("failed to parse type %s into IntHash", reflect.TypeOf(v).String())
-	}
-}
-
+// Deprecated, should not be used after we drop support for Kubernetes 1.10. Use AlreadyReconciled
 func AlreadyObserved2(old, nu interface{}, enableStatusSubresource bool) bool {
 	if old == nil {
 		return nu == nil
