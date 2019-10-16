@@ -7,11 +7,8 @@ import (
 
 	"github.com/appscode/go/log"
 	"github.com/appscode/go/signals"
-	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
 	informers "k8s.io/apiextensions-apiserver/pkg/client/informers/externalversions"
-	"k8s.io/apimachinery/pkg/api/errors"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/kubernetes"
@@ -49,27 +46,6 @@ func main() {
 	kubeClient, err := kubernetes.NewForConfig(cfg)
 	if err != nil {
 		klog.Fatalf("Error building kubernetes clientset: %s", err.Error())
-	}
-
-	secret, err := kubeClient.CoreV1().Secrets(corev1.NamespaceDefault).Get("kubeform-secret", v1.GetOptions{})
-	if errors.ReasonForError(err) == v1.StatusReasonNotFound && controllers.SecretKey == "" {
-		klog.Fatal(err)
-	} else if controllers.SecretKey == "" {
-		controllers.SecretKey = string(secret.Data["secret-key"])
-	} else if errors.ReasonForError(err) == v1.StatusReasonNotFound {
-		_, err := kubeClient.CoreV1().Secrets(corev1.NamespaceDefault).Create(&corev1.Secret{
-			ObjectMeta: v1.ObjectMeta{
-				Name:      "kubeform-secret",
-				Namespace: corev1.NamespaceDefault,
-			},
-			Type: corev1.SecretType("kubeform.com/modules"),
-			Data: map[string][]byte{
-				"secret-key": []byte(controllers.SecretKey),
-			},
-		})
-		if err != nil {
-			klog.Fatal(err)
-		}
 	}
 
 	dynamicClient, err := dynamic.NewForConfig(cfg)
