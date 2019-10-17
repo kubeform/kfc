@@ -300,23 +300,46 @@ ADDTL_LINTERS   := goconst,gofmt,goimports,unparam
 lint: $(BUILD_DIRS)
 	@echo "running linter"
 	@docker run                                                 \
-	    -i                                                      \
-	    --rm                                                    \
-	    -u $$(id -u):$$(id -g)                                  \
-	    -v $$(pwd):/src                                         \
-	    -w /src                                                 \
-	    -v $$(pwd)/.go/bin/$(OS)_$(ARCH):/go/bin                \
-	    -v $$(pwd)/.go/bin/$(OS)_$(ARCH):/go/bin/$(OS)_$(ARCH)  \
-	    -v $$(pwd)/.go/cache:/.cache                            \
-	    --env HTTP_PROXY=$(HTTP_PROXY)                          \
-	    --env HTTPS_PROXY=$(HTTPS_PROXY)                        \
-	    --env GO111MODULE=on                                    \
-	    --env GOFLAGS="-mod=vendor"                             \
-	    $(BUILD_IMAGE)                                          \
-	    golangci-lint run --enable $(ADDTL_LINTERS)
+		-i                                                      \
+		--rm                                                    \
+		-u $$(id -u):$$(id -g)                                  \
+		-v $$(pwd):/src                                         \
+		-w /src                                                 \
+		-v $$(pwd)/.go/bin/$(OS)_$(ARCH):/go/bin                \
+		-v $$(pwd)/.go/bin/$(OS)_$(ARCH):/go/bin/$(OS)_$(ARCH)  \
+		-v $$(pwd)/.go/cache:/.cache                            \
+		--env HTTP_PROXY=$(HTTP_PROXY)                          \
+		--env HTTPS_PROXY=$(HTTPS_PROXY)                        \
+		--env GO111MODULE=on                                    \
+		--env GOFLAGS="-mod=vendor"                             \
+		$(BUILD_IMAGE)                                          \
+		golangci-lint run --enable $(ADDTL_LINTERS) --deadline=10m --skip-files="generated.*\.go$\" --skip-dirs-use-default
 
 $(BUILD_DIRS):
 	@mkdir -p $@
+
+.PHONY: install
+install:
+	@cd ../installer; \
+	helm init --client-only; \
+	helm install ./chart/kubeform \
+		--name kfc \
+		--namespace kube-system \
+		--set operator.registry=$(REGISTRY) \
+		--set operator.tag=$(TAG) \
+		--set secretKey="$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 31 | head -n 1 | base64)"
+
+.PHONY: uninstall
+uninstall:
+	@cd ../installer; \
+	helm init --client-only; \
+	helm delete kfc
+
+.PHONY: purge
+purge:
+	@cd ../installer; \
+	helm init --client-only; \
+	helm delete kfc --purge
 
 .PHONY: dev
 dev: gen fmt push
