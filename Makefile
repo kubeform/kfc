@@ -322,24 +322,23 @@ $(BUILD_DIRS):
 install:
 	@cd ../installer; \
 	helm init --client-only; \
-	helm install ./chart/kubeform \
+	helm template ./chart/kubeform \
 		--name kfc \
 		--namespace kube-system \
 		--set operator.registry=$(REGISTRY) \
 		--set operator.tag=$(TAG) \
-		--set secretKey="$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 31 | head -n 1 | base64)"
+		--set secretKey="$$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 31 | head -n 1 | base64)" | kubectl apply -f -
 
 .PHONY: uninstall
 uninstall:
 	@cd ../installer; \
 	helm init --client-only; \
-	helm delete kfc
+	helm template ./chart/kubeform \
+		--name kfc \
+		--namespace kube-system | kubectl delete -f -
 
 .PHONY: purge
-purge:
-	@cd ../installer; \
-	helm init --client-only; \
-	helm delete kfc --purge
+purge: uninstall
 
 .PHONY: dev
 dev: gen fmt push
