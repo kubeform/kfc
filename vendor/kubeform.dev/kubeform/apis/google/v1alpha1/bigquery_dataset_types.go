@@ -79,6 +79,8 @@ type BigqueryDatasetStatus struct {
 	Output *BigqueryDatasetSpec `json:"output,omitempty"`
 	// +optional
 	State *base.State `json:"state,omitempty"`
+	// +optional
+	Phase base.Phase `json:"phase,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
