@@ -27,6 +27,9 @@ jobs:
       run: echo ${{ steps.buildx.outputs.platforms }}
 
     - name: Build
+      run: make ci
+
+    - name: Build
       env:
         REGISTRY: appscodeci
         DOCKER_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
