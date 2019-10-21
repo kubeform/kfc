@@ -15,7 +15,7 @@ require (
 	k8s.io/apimachinery v0.0.0-20190711222657-391ed67afa7b
 	k8s.io/client-go v11.0.1-0.20190409021438-1a26190bd76a+incompatible
 	k8s.io/klog v0.3.1
-	kmodules.xyz/client-go v0.0.0-20191016085444-3044854ca625
+	kmodules.xyz/client-go v0.0.0-20191021061812-f373e4190940
 	kubeform.dev/kubeform v0.0.4-0.20191021053533-2e3dae6b835b
 )
 

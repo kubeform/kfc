@@ -23,6 +23,7 @@ import (
 	"k8s.io/client-go/tools/cache"
 	"k8s.io/client-go/tools/record"
 	"k8s.io/klog"
+	du "kmodules.xyz/client-go/dynamic"
 	"kmodules.xyz/client-go/tools/queue"
 	base "kubeform.dev/kubeform/apis/base/v1alpha1"
 )
@@ -173,7 +174,8 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 
 	if hasFinalizer(obj.GetFinalizers(), KFCFinalizer) {
 		if obj.GetDeletionTimestamp() != nil {
-			c.updatePhase(gvr, obj, base.PhaseDeleting)
+
+			du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseDeleting))
 
 			err := terraformDestroy(resPath)
 			if err != nil {
@@ -207,7 +209,7 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		return nil
 	}
 
-	c.updatePhase(gvr, obj, base.PhaseInitializing)
+	du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseInitializing))
 
 	err = createFiles(resPath, providerFile, mainFile)
 	if err != nil {
@@ -253,7 +255,7 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 
 	err = terraformInit(resPath)
 	if err != nil {
-		c.updatePhase(gvr, obj, base.PhaseFailed)
+		du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed))
 		return fmt.Errorf("unable to initialize terraform : %s", err)
 	}
 
@@ -262,30 +264,30 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		return fmt.Errorf("unable to create tfstate file : %s", err)
 	}
 
-	c.updatePhase(gvr, obj, base.PhaseApplying)
+	du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseApplying))
 
 	err = terraformApply(resPath)
 	if err != nil {
-		c.updatePhase(gvr, obj, base.PhaseFailed)
+		du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed))
 		return fmt.Errorf("unable to apply terraform : %s", err)
 	}
 
 	err = updateTFStateFile(stateFile, isModule, gvr.GroupVersion(), obj)
 	if err != nil {
-		c.updatePhase(gvr, obj, base.PhaseFailed)
+		du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed))
 		return fmt.Errorf("unable to update TFState : %s", err)
 	}
 
 	if !isModule {
 		err = updateStateField(c.kubeclientset, namespace, providerName, stateFile, gvr, obj)
 		if err != nil {
-			c.updatePhase(gvr, obj, base.PhaseFailed)
+			du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed))
 			return fmt.Errorf("unable to update resource fields from tfstate : %s", err)
 		}
 	} else {
 		err = updateOutputField(c.kubeclientset, resPath, namespace, providerName, obj)
 		if err != nil {
-			c.updatePhase(gvr, obj, base.PhaseFailed)
+			du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed))
 			return fmt.Errorf("unable to update output tfstate : %s", err)
 		}
 	}
@@ -296,9 +298,7 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		return nil
 	}
 
-	c.updatePhase(gvr, obj, base.PhaseRunning)
-
-	c.updateStatus(gvr, obj)
+	du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseRunning))
 
 	c.recorder.Event(obj, corev1.EventTypeNormal, SuccessSynced, MessageResourceSynced)
 	return nil
@@ -311,20 +311,12 @@ func (c *Controller) updateResource(gvr schema.GroupVersionResource, u *unstruct
 	}
 }
 
-func (c *Controller) updateStatus(gvr schema.GroupVersionResource, u *unstructured.Unstructured) {
-	obj, err := c.dynamicclient.Resource(gvr).Namespace(u.GetNamespace()).UpdateStatus(u, metav1.UpdateOptions{})
-	if err != nil {
-		klog.Errorf("failed to update resource, reason : %s", err.Error())
-	} else {
-		u.SetResourceVersion(obj.GetResourceVersion())
+func setPhase(phase base.Phase) func(*unstructured.Unstructured) *unstructured.Unstructured {
+	return func(in *unstructured.Unstructured) *unstructured.Unstructured {
+		err := setNestedFieldNoCopy(in.Object, phase, "status", "phase")
+		if err != nil {
+			klog.Errorf("failed to update phase, reason : %s", err.Error())
+		}
+		return in
 	}
-}
-
-func (c *Controller) updatePhase(gvr schema.GroupVersionResource, u *unstructured.Unstructured, phase base.Phase) {
-	err := setNestedFieldNoCopy(u.Object, phase, "status", "phase")
-	if err != nil {
-		klog.Errorf("failed to update phase, reason : %s", err.Error())
-	}
-
-	c.updateStatus(gvr, u)
 }
