@@ -7,8 +7,6 @@ import (
 	"sync"
 	"time"
 
-	base "kubeform.dev/kubeform/apis/base/v1alpha1"
-
 	"github.com/appscode/go/log"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
@@ -26,6 +24,7 @@ import (
 	"k8s.io/client-go/tools/record"
 	"k8s.io/klog"
 	"kmodules.xyz/client-go/tools/queue"
+	base "kubeform.dev/kubeform/apis/base/v1alpha1"
 )
 
 const controllerAgentName = "kfc"

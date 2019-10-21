@@ -47,7 +47,7 @@ endif
 ###
 
 SRC_PKGS := pkg
-SRC_DIRS := $(SRC_PKGS) *.go hack/gendocs # directories which hold app source (not vendored)
+SRC_DIRS := $(SRC_PKGS) *.go # directories which hold app source (not vendored)
 
 DOCKER_PLATFORMS := linux/amd64 linux/arm linux/arm64
 BIN_PLATFORMS    := $(DOCKER_PLATFORMS)
