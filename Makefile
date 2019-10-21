@@ -77,7 +77,11 @@ endif
 # Directories that we need created to build/test.
 BUILD_DIRS  := bin/$(OS)_$(ARCH)     \
                .go/bin/$(OS)_$(ARCH) \
-               .go/cache
+               .go/cache             \
+               hack/config           \
+               $(HOME)/.credentials  \
+               $(HOME)/.kube         \
+               $(HOME)/.minikube
 
 DOCKERFILE_PROD  = Dockerfile.in
 DOCKERFILE_DBG   = Dockerfile.dbg
@@ -344,7 +348,7 @@ purge: uninstall
 dev: gen fmt push
 
 .PHONY: ci
-ci: lint test build #cover
+ci: lint build unit-tests #cover
 
 .PHONY: qa
 qa:
