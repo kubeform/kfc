@@ -5,6 +5,14 @@ import (
 	"strings"
 	"time"
 
+	"kubeform.dev/kfc/pkg/controllers"
+	aws "kubeform.dev/kubeform/apis/aws/install"
+	azurerm "kubeform.dev/kubeform/apis/azurerm/install"
+	digitalocean "kubeform.dev/kubeform/apis/digitalocean/install"
+	google "kubeform.dev/kubeform/apis/google/install"
+	linode "kubeform.dev/kubeform/apis/linode/install"
+	modules "kubeform.dev/kubeform/apis/modules/install"
+
 	"github.com/appscode/go/log"
 	"github.com/appscode/go/signals"
 	"k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
@@ -18,13 +26,6 @@ import (
 	"k8s.io/client-go/tools/cache"
 	"k8s.io/client-go/tools/clientcmd"
 	"k8s.io/klog"
-	"kubeform.dev/kfc/pkg/controllers"
-	aws "kubeform.dev/kubeform/apis/aws/install"
-	azurerm "kubeform.dev/kubeform/apis/azurerm/install"
-	digitalocean "kubeform.dev/kubeform/apis/digitalocean/install"
-	google "kubeform.dev/kubeform/apis/google/install"
-	linode "kubeform.dev/kubeform/apis/linode/install"
-	modules "kubeform.dev/kubeform/apis/modules/install"
 )
 
 var (

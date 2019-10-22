@@ -16,7 +16,7 @@ require (
 	k8s.io/client-go v11.0.1-0.20190409021438-1a26190bd76a+incompatible
 	k8s.io/klog v0.3.1
 	kmodules.xyz/client-go v0.0.0-20191021061812-f373e4190940
-	kubeform.dev/kubeform v0.0.4-0.20191022064520-3ed7d1facf20
+	kubeform.dev/kubeform v0.0.4-0.20191022190859-68a209f1f56c
 )
 
 replace (
