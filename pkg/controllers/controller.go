@@ -174,8 +174,10 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 
 	if hasFinalizer(obj.GetFinalizers(), KFCFinalizer) {
 		if obj.GetDeletionTimestamp() != nil {
-
-			du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseDeleting))
+			_, err = du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseDeleting))
+			if err != nil {
+				return fmt.Errorf("failed to update status phase : %s", err)
+			}
 
 			err := terraformDestroy(resPath)
 			if err != nil {
@@ -187,20 +189,18 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 				log.Error("failed to delete files: ", err)
 			}
 
-			err = removeFinalizer(obj, KFCFinalizer)
+			err = removeFinalizer(c.dynamicclient, gvr, obj, KFCFinalizer)
 			if err != nil {
 				log.Error("failed to remove finalizer: ", err)
 			}
 
-			c.updateResource(gvr, obj)
 			return nil
 		}
 	} else {
-		err := addFinalizer(obj, KFCFinalizer)
+		err := addFinalizer(c.dynamicclient, gvr, obj, KFCFinalizer)
 		if err != nil {
 			return fmt.Errorf("failed to add finalizer : %s", err)
 		}
-		c.updateResource(gvr, obj)
 
 		return nil
 	}
@@ -209,7 +209,10 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		return nil
 	}
 
-	du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseInitializing))
+	_, err = du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseInitializing))
+	if err != nil {
+		return fmt.Errorf("failed to update status phase : %s", err)
+	}
 
 	err = createFiles(resPath, providerFile, mainFile)
 	if err != nil {
@@ -255,7 +258,11 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 
 	err = terraformInit(resPath)
 	if err != nil {
-		du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed))
+		_, err2 := du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed))
+		if err2 != nil {
+			log.Errorf("failed to update status phase : %s", err)
+		}
+
 		return fmt.Errorf("unable to initialize terraform : %s", err)
 	}
 
@@ -264,51 +271,65 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		return fmt.Errorf("unable to create tfstate file : %s", err)
 	}
 
-	du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseApplying))
+	_, err = du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseApplying))
+	if err != nil {
+		return fmt.Errorf("failed to update status phase : %s", err)
+	}
 
 	err = terraformApply(resPath)
 	if err != nil {
-		du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed))
+		_, err2 := du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed))
+		if err2 != nil {
+			log.Errorf("failed to update status phase : %s", err)
+		}
+
 		return fmt.Errorf("unable to apply terraform : %s", err)
 	}
 
-	err = updateTFStateFile(stateFile, isModule, gvr.GroupVersion(), obj)
+	err = updateTFStateFile(c, stateFile, isModule, gvr, obj)
 	if err != nil {
-		du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed))
+		_, err2 := du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed))
+		if err2 != nil {
+			log.Errorf("failed to update status phase : %s", err)
+		}
+
 		return fmt.Errorf("unable to update TFState : %s", err)
 	}
 
 	if !isModule {
-		err = updateStateField(c.kubeclientset, namespace, providerName, stateFile, gvr, obj)
+		err = updateStateField(c, namespace, providerName, stateFile, gvr, obj)
 		if err != nil {
-			du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed))
+			_, err2 := du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed))
+			if err2 != nil {
+				log.Errorf("failed to update status phase : %s", err)
+			}
+
 			return fmt.Errorf("unable to update resource fields from tfstate : %s", err)
 		}
 	} else {
-		err = updateOutputField(c.kubeclientset, resPath, namespace, providerName, obj)
+		err = updateOutputField(c, resPath, namespace, providerName, gvr, obj)
 		if err != nil {
-			du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed))
+			_, err2 := du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed))
+			if err2 != nil {
+				log.Errorf("failed to update status phase : %s", err)
+			}
+
 			return fmt.Errorf("unable to update output tfstate : %s", err)
 		}
 	}
 
-	err = unstructured.SetNestedField(obj.Object, obj.GetGeneration(), "status", "observedGeneration")
+	_, err = du.UpdateStatus(c.dynamicclient, gvr, obj, setObservedGeneration())
 	if err != nil {
-		log.Error(err, "failed to update observed generation field")
-		return nil
+		return fmt.Errorf("failed to update status phase : %s", err)
 	}
 
-	du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseRunning))
+	_, err = du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseRunning))
+	if err != nil {
+		return fmt.Errorf("failed to update status phase : %s", err)
+	}
 
 	c.recorder.Event(obj, corev1.EventTypeNormal, SuccessSynced, MessageResourceSynced)
 	return nil
-}
-
-func (c *Controller) updateResource(gvr schema.GroupVersionResource, u *unstructured.Unstructured) {
-	_, err := c.dynamicclient.Resource(gvr).Namespace(u.GetNamespace()).Update(u, metav1.UpdateOptions{})
-	if err != nil {
-		klog.Errorf("failed to update resource, reason : %s", err.Error())
-	}
 }
 
 func setPhase(phase base.Phase) func(*unstructured.Unstructured) *unstructured.Unstructured {
@@ -316,6 +337,16 @@ func setPhase(phase base.Phase) func(*unstructured.Unstructured) *unstructured.U
 		err := setNestedFieldNoCopy(in.Object, phase, "status", "phase")
 		if err != nil {
 			klog.Errorf("failed to update phase, reason : %s", err.Error())
+		}
+		return in
+	}
+}
+
+func setObservedGeneration() func(*unstructured.Unstructured) *unstructured.Unstructured {
+	return func(in *unstructured.Unstructured) *unstructured.Unstructured {
+		err := unstructured.SetNestedField(in.Object, in.GetGeneration(), "status", "observedGeneration")
+		if err != nil {
+			log.Error(err, "failed to update observed generation field")
 		}
 		return in
 	}

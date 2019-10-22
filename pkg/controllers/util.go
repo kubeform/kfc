@@ -13,8 +13,12 @@ import (
 	"strconv"
 	"strings"
 
+	"k8s.io/client-go/dynamic"
+
 	"ekyu.moe/base91"
 	"github.com/appscode/go/log"
+	du "kmodules.xyz/client-go/dynamic"
+
 	"github.com/fatih/structs"
 	"github.com/gobuffalo/flect"
 	jsoniter "github.com/json-iterator/go"
@@ -260,7 +264,8 @@ value = module.`+moduleName+`.`+field+`
 	return nil
 }
 
-func updateStateField(kc kubernetes.Interface, namespace, providerName, filePath string, gvr schema.GroupVersionResource, obj *unstructured.Unstructured) error {
+func updateStateField(c *Controller, namespace, providerName, filePath string, gvr schema.GroupVersionResource, obj *unstructured.Unstructured) error {
+	kc := c.kubeclientset
 	gv := gvr.GroupVersion()
 	stateJson, err := ioutil.ReadFile(filePath)
 	if err != nil {
@@ -354,7 +359,26 @@ func updateStateField(kc kubernetes.Interface, namespace, providerName, filePath
 		}
 	}
 
-	err = setNestedFieldNoCopy(obj.Object, s.Field("Spec").Value(), "status", "output")
+	output := s.Field("Spec").Value()
+	specByte, err := json.Marshal(output)
+	if err != nil {
+		return err
+	}
+
+	var specMap map[string]interface{}
+	err = json.Unmarshal(specByte, &specMap)
+	if err != nil {
+		return err
+	}
+
+	_, err = du.UpdateStatus(c.dynamicclient, gvr, obj, func(in *unstructured.Unstructured) *unstructured.Unstructured {
+		err := unstructured.SetNestedField(in.Object, specMap, "status", "output")
+		if err != nil {
+			log.Error("failed to update status output")
+		}
+
+		return in
+	})
 	if err != nil {
 		return err
 	}
@@ -362,7 +386,8 @@ func updateStateField(kc kubernetes.Interface, namespace, providerName, filePath
 	return nil
 }
 
-func updateOutputField(kc kubernetes.Interface, respath, namespace, providerName string, obj *unstructured.Unstructured) error {
+func updateOutputField(c *Controller, respath, namespace, providerName string, gvr schema.GroupVersionResource, obj *unstructured.Unstructured) error {
+	kc := c.kubeclientset
 	value, err := terraformOutput(respath)
 	if err != nil {
 		return err
@@ -383,7 +408,14 @@ func updateOutputField(kc kubernetes.Interface, respath, namespace, providerName
 			return err
 		}
 		if !output.Sensitive {
-			err = setNestedFieldNoCopy(obj.Object, string(val), "status", "output", flect.Camelize(name))
+			_, err = du.UpdateStatus(c.dynamicclient, gvr, obj, func(in *unstructured.Unstructured) *unstructured.Unstructured {
+				err := unstructured.SetNestedField(in.Object, string(val), "status", "output", flect.Camelize(name))
+				if err != nil {
+					log.Error("failed to update status output")
+				}
+
+				return in
+			})
 			if err != nil {
 				return err
 			}
@@ -447,7 +479,8 @@ func hasFinalizer(finalizers []string, finalizer string) bool {
 	return false
 }
 
-func addFinalizer(u *unstructured.Unstructured, finalizer string) error {
+func addFinalizer(dynamicclient dynamic.Interface, gvr schema.GroupVersionResource, u *unstructured.Unstructured, finalizer string) error {
+
 	finalizers := u.GetFinalizers()
 	for _, v := range finalizers {
 		if v == finalizer {
@@ -456,15 +489,20 @@ func addFinalizer(u *unstructured.Unstructured, finalizer string) error {
 	}
 
 	finalizers = append(finalizers, finalizer)
-	err := unstructured.SetNestedStringSlice(u.Object, finalizers, "metadata", "finalizers")
-	if err != nil {
-		return err
-	}
 
-	return nil
+	_, err := du.TryUpdate(dynamicclient, gvr, v1.ObjectMeta{Name: u.GetName(), Namespace: u.GetNamespace()}, func(in *unstructured.Unstructured) *unstructured.Unstructured {
+		err := unstructured.SetNestedStringSlice(in.Object, finalizers, "metadata", "finalizers")
+		if err != nil {
+			log.Error(err)
+		}
+
+		return in
+	})
+
+	return err
 }
 
-func removeFinalizer(u *unstructured.Unstructured, finalizer string) error {
+func removeFinalizer(dynamicclient dynamic.Interface, gvr schema.GroupVersionResource, u *unstructured.Unstructured, finalizer string) error {
 	finalizers := u.GetFinalizers()
 	for i, v := range finalizers {
 		if v == finalizer {
@@ -473,12 +511,16 @@ func removeFinalizer(u *unstructured.Unstructured, finalizer string) error {
 		}
 	}
 
-	err := unstructured.SetNestedStringSlice(u.Object, finalizers, "metadata", "finalizers")
-	if err != nil {
-		return err
-	}
+	_, err := du.TryUpdate(dynamicclient, gvr, v1.ObjectMeta{Name: u.GetName(), Namespace: u.GetNamespace()}, func(in *unstructured.Unstructured) *unstructured.Unstructured {
+		err := unstructured.SetNestedStringSlice(in.Object, finalizers, "metadata", "finalizers")
+		if err != nil {
+			log.Error(err)
+		}
 
-	return nil
+		return in
+	})
+
+	return err
 }
 
 func createFiles(resPath, providerFile, mainFile string) error {
@@ -661,7 +703,8 @@ func createTFState(kc kubernetes.Interface, filePath, providerName string, isMod
 	return nil
 }
 
-func updateTFStateFile(filePath string, isModule bool, gv schema.GroupVersion, u *unstructured.Unstructured) error {
+func updateTFStateFile(c *Controller, filePath string, isModule bool, gvr schema.GroupVersionResource, u *unstructured.Unstructured) error {
+	gv := gvr.GroupVersion()
 	data, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		return err
@@ -686,7 +729,14 @@ func updateTFStateFile(filePath string, isModule bool, gv schema.GroupVersion, u
 				return err
 			}
 
-			err = setNestedFieldNoCopy(u.Object, processedData, "status", "state")
+			_, err = du.UpdateStatus(c.dynamicclient, gvr, u, func(in *unstructured.Unstructured) *unstructured.Unstructured {
+				err := unstructured.SetNestedField(in.Object, processedData, "status", "state")
+				if err != nil {
+					log.Error("failed to update status state")
+				}
+
+				return in
+			})
 			if err != nil {
 				return err
 			}
@@ -700,11 +750,27 @@ func updateTFStateFile(filePath string, isModule bool, gv schema.GroupVersion, u
 	}
 
 	if stateValue.(*base.State) == nil || stateValue.(*base.State).Serial != tfstate.Serial {
-		err = setNestedFieldNoCopy(u.Object, tfstate, "status", "state")
+		tfstateByte, err := json.Marshal(tfstate)
 		if err != nil {
 			return err
 		}
-		return nil
+		var tfstateMap map[string]interface{}
+		err = json.Unmarshal(tfstateByte, &tfstateMap)
+		if err != nil {
+			return err
+		}
+
+		_, err = du.UpdateStatus(c.dynamicclient, gvr, u, func(in *unstructured.Unstructured) *unstructured.Unstructured {
+			err := unstructured.SetNestedField(in.Object, tfstateMap, "status", "state")
+			if err != nil {
+				log.Error("failed to update status state")
+			}
+
+			return in
+		})
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
