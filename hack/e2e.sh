@@ -25,5 +25,5 @@ TEST_ARGS=${TEST_ARGS:-}
 DOCKER_REGISTRY=${DOCKER_REGISTRY:-}
 
 echo "Running e2e tests:"
-cmd="ginkgo -r --v --progress --trace ${GINKGO_ARGS} test -- --docker-registry=${DOCKER_REGISTRY} ${TEST_ARGS}"
+cmd="ginkgo -r --v --progress --trace ${GINKGO_ARGS} test -- ${TEST_ARGS}"
 echo $cmd; $cmd

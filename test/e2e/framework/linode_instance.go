@@ -1,0 +1,71 @@
+package framework
+
+import (
+	"time"
+
+	base "kubeform.dev/kubeform/apis/base/v1alpha1"
+	"kubeform.dev/kubeform/apis/linode/v1alpha1"
+
+	. "github.com/onsi/gomega"
+	corev1 "k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/api/errors"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
+
+func (i *Invocation) Instance(name string) *v1alpha1.Instance {
+	return &v1alpha1.Instance{
+		ObjectMeta: v1.ObjectMeta{
+			Name:      name,
+			Namespace: i.Namespace(),
+			Labels: map[string]string{
+				"app": i.app,
+			},
+		},
+		Spec: v1alpha1.InstanceSpec{
+			ProviderRef: corev1.LocalObjectReference{
+				Name: LinodeProviderRef,
+			},
+			SecretRef: &corev1.LocalObjectReference{
+				Name: InstanceSecretName,
+			},
+			Image: "linode/ubuntu18.04",
+
+			Label:         name,
+			Region:        "us-east",
+			StackscriptID: 553057,
+		},
+	}
+}
+
+func (f *Framework) CreateInstance(obj *v1alpha1.Instance) error {
+	_, err := f.kubeformClient.LinodeV1alpha1().Instances(obj.Namespace).Create(obj)
+	return err
+}
+
+func (f *Framework) DeleteInstance(meta metav1.ObjectMeta) error {
+	return f.kubeformClient.LinodeV1alpha1().Instances(meta.Namespace).Delete(meta.Name, deleteInForeground())
+}
+
+func (f *Framework) EventuallyInstanceRunning(meta metav1.ObjectMeta) GomegaAsyncAssertion {
+	return Eventually(
+		func() bool {
+			instance, err := f.kubeformClient.LinodeV1alpha1().Instances(meta.Namespace).Get(meta.Name, metav1.GetOptions{})
+			Expect(err).NotTo(HaveOccurred())
+			return instance.Status.Phase == base.PhaseRunning
+		},
+		time.Minute*15,
+		time.Second*10,
+	)
+}
+
+func (f *Framework) EventuallyInstanceDeleted(meta metav1.ObjectMeta) GomegaAsyncAssertion {
+	return Eventually(
+		func() bool {
+			_, err := f.kubeformClient.LinodeV1alpha1().Instances(meta.Namespace).Get(meta.Name, metav1.GetOptions{})
+			return errors.IsNotFound(err)
+		},
+		time.Minute*15,
+		time.Second*10,
+	)
+}

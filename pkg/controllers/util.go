@@ -402,13 +402,14 @@ func updateOutputField(c *Controller, respath, namespace, providerName string, g
 	}
 
 	for name, output := range outputs {
-		val, err := output.ValueRaw.MarshalJSON()
-		if err != nil {
-			return err
-		}
 		if !output.Sensitive {
+			val, err := output.ValueRaw.MarshalJSON()
+			if err != nil {
+				return err
+			}
+
 			_, err = du.UpdateStatus(c.dynamicclient, gvr, obj, func(in *unstructured.Unstructured) *unstructured.Unstructured {
-				err := unstructured.SetNestedField(in.Object, string(val), "status", "output", flect.Camelize(name))
+				err := setNestedFieldNoCopy(in.Object, string(val), "status", "output", flect.Camelize(name))
 				if err != nil {
 					log.Error("failed to update status output")
 				}
@@ -416,7 +417,7 @@ func updateOutputField(c *Controller, respath, namespace, providerName string, g
 				return in
 			})
 			if err != nil {
-				return err
+				log.Error(err)
 			}
 		} else {
 			secretData[name] = output.ValueRaw

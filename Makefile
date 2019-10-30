@@ -47,8 +47,8 @@ endif
 ### These variables should not need tweaking.
 ###
 
-SRC_PKGS := pkg
-SRC_DIRS := $(SRC_PKGS) *.go # directories which hold app source (not vendored)
+SRC_PKGS := pkg *.go
+SRC_DIRS := $(SRC_PKGS) test # directories which hold app source (not vendored)
 
 DOCKER_PLATFORMS := linux/amd64 linux/arm linux/arm64
 BIN_PLATFORMS    := $(DOCKER_PLATFORMS)
@@ -333,12 +333,18 @@ $(BUILD_DIRS):
 install:
 	@cd ../installer; \
 	helm init --client-only; \
+	kubectl apply -f https://raw.githubusercontent.com/kubeform/kubeform/master/api/crds/google.kubeform.com_serviceaccounts.yaml; \
+	kubectl apply -f https://raw.githubusercontent.com/kubeform/kubeform/master/api/crds/aws.kubeform.com_dbinstances.yaml; \
+	kubectl apply -f https://raw.githubusercontent.com/kubeform/kubeform/master/api/crds/digitalocean.kubeform.com_databaseclusters.yaml; \
+	kubectl apply -f https://raw.githubusercontent.com/kubeform/kubeform/master/api/crds/linode.kubeform.com_instances.yaml; \
+	kubectl apply -f https://raw.githubusercontent.com/kubeform/kubeform/master/api/crds/azurerm.kubeform.com_rediscaches.yaml; \
+	kubectl apply -f https://raw.githubusercontent.com/kubeform/kubeform/master/api/crds/modules.kubeform.com_googleserviceaccounts.yaml; \
 	helm template ./chart/kubeform \
 		--name kfc \
 		--namespace kube-system \
 		--set operator.registry=$(REGISTRY) \
 		--set operator.tag=$(TAG) \
-		--set secretKey="$$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 31 | head -n 1 | base64)" | kubectl apply -f -
+		--set secretKey=MUViUENaR3ZKVm9TSEMxVFVob0ZnRDZnWjk2R1FNTgo= | kubectl apply -f -
 
 .PHONY: uninstall
 uninstall:
