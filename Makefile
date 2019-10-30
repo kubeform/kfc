@@ -333,14 +333,16 @@ $(BUILD_DIRS):
 
 .PHONY: install
 install:
+	@echo "register Kubeform crds"
+	@kubectl apply -f https://github.com/kubeform/kubeform/raw/master/api/crds/google.kubeform.com_serviceaccounts.yaml
+	@kubectl apply -f https://github.com/kubeform/kubeform/raw/master/api/crds/aws.kubeform.com_dbinstances.yaml
+	@kubectl apply -f https://github.com/kubeform/kubeform/raw/master/api/crds/digitalocean.kubeform.com_databaseclusters.yaml
+	@kubectl apply -f https://github.com/kubeform/kubeform/raw/master/api/crds/linode.kubeform.com_instances.yaml
+	@kubectl apply -f https://github.com/kubeform/kubeform/raw/master/api/crds/azurerm.kubeform.com_rediscaches.yaml
+	@kubectl apply -f https://github.com/kubeform/kubeform/raw/master/api/crds/modules.kubeform.com_googleserviceaccounts.yaml
+	@echo "install Kubeform controller"
 	@cd ../installer; \
 	helm init --client-only; \
-	kubectl apply -f https://raw.githubusercontent.com/kubeform/kubeform/master/api/crds/google.kubeform.com_serviceaccounts.yaml; \
-	kubectl apply -f https://raw.githubusercontent.com/kubeform/kubeform/master/api/crds/aws.kubeform.com_dbinstances.yaml; \
-	kubectl apply -f https://raw.githubusercontent.com/kubeform/kubeform/master/api/crds/digitalocean.kubeform.com_databaseclusters.yaml; \
-	kubectl apply -f https://raw.githubusercontent.com/kubeform/kubeform/master/api/crds/linode.kubeform.com_instances.yaml; \
-	kubectl apply -f https://raw.githubusercontent.com/kubeform/kubeform/master/api/crds/azurerm.kubeform.com_rediscaches.yaml; \
-	kubectl apply -f https://raw.githubusercontent.com/kubeform/kubeform/master/api/crds/modules.kubeform.com_googleserviceaccounts.yaml; \
 	helm template ./chart/kubeform \
 		--name kfc \
 		--namespace kube-system \
