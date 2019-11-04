@@ -343,18 +343,17 @@ install:
 	@echo "install Kubeform controller"
 	@cd ../installer; \
 	helm init --client-only; \
-	helm template ./chart/kubeform \
+	helm template ./charts/kubeform \
 		--name kfc \
 		--namespace kube-system \
 		--set operator.registry=$(REGISTRY) \
-		--set operator.tag=$(TAG) \
-		--set secretKey=MUViUENaR3ZKVm9TSEMxVFVob0ZnRDZnWjk2R1FNTgo= | kubectl apply -f -
+		--set operator.tag=$(TAG) | kubectl apply -f -
 
 .PHONY: uninstall
 uninstall:
 	@cd ../installer; \
 	helm init --client-only; \
-	helm template ./chart/kubeform \
+	helm template ./charts/kubeform \
 		--name kfc \
 		--namespace kube-system | kubectl delete -f -
 
