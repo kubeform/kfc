@@ -24,6 +24,7 @@ import (
 	linode "kubeform.dev/kubeform/apis/linode/v1alpha1"
 	modules "kubeform.dev/kubeform/apis/modules/v1alpha1"
 
+	"github.com/appscode/go/crypto/rand"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	core "k8s.io/api/core/v1"
@@ -41,7 +42,7 @@ var _ = Describe("KFC", func() {
 		Context("Google", func() {
 			var (
 				providerRef        *core.Secret
-				serviceAccountName = "kfc-e2e-test"
+				serviceAccountName = rand.WithUniqSuffix("kfctesting")
 				serviceAccount     *google.ServiceAccount
 			)
 
@@ -77,39 +78,33 @@ var _ = Describe("KFC", func() {
 		Context("AWS", func() {
 			var (
 				providerRef    *core.Secret
-				sensitiveData  *core.Secret
-				dbInstanceName = "kfctesting"
-				dbInstance     *aws.DbInstance
+				dbInstanceName = rand.WithUniqSuffix("kfctesting")
+				s3Bucket       *aws.S3Bucket
 			)
 
 			BeforeEach(func() {
 				providerRef = f.AwsProviderRef()
-				sensitiveData = f.DBInstanceSensitiveData()
-				dbInstance = f.DBInstance(dbInstanceName)
+				s3Bucket = f.S3Bucket(dbInstanceName)
 			})
 
-			It("should create and delete database instance successfully", func() {
+			It("should create and delete s3 bucket successfully", func() {
 				By("Creating AwsProviderRef")
 				err = f.CreateSecret(providerRef)
 				Expect(err).NotTo(HaveOccurred())
 
-				By("Creating Secret")
-				err = f.CreateSecret(sensitiveData)
+				By("Creating S3Bucket")
+				err = f.CreateS3Bucket(s3Bucket)
 				Expect(err).NotTo(HaveOccurred())
 
-				By("Creating DBInstance")
-				err = f.CreateDBInstance(dbInstance)
+				By("Waiting for Running S3 Bucket")
+				f.EventuallyS3BucketRunning(s3Bucket.ObjectMeta).Should(BeTrue())
+
+				By("Deleting S3 Bucket")
+				err = f.DeleteS3Bucket(s3Bucket.ObjectMeta)
 				Expect(err).NotTo(HaveOccurred())
 
-				By("Waiting for Running DBInstance")
-				f.EventuallyDbInstanceRunning(dbInstance.ObjectMeta).Should(BeTrue())
-
-				By("Deleting DB Instance")
-				err = f.DeleteDBInstance(dbInstance.ObjectMeta)
-				Expect(err).NotTo(HaveOccurred())
-
-				By("Wait for Deleting db instance")
-				f.EventuallyDbInstanceDeleted(dbInstance.ObjectMeta).Should(BeTrue())
+				By("Wait for Deleting S3 Bucket")
+				f.EventuallyS3BucketDeleted(s3Bucket.ObjectMeta).Should(BeTrue())
 
 				By("Deleting secret")
 				err = f.DeleteSecret(providerRef.ObjectMeta)
@@ -118,34 +113,34 @@ var _ = Describe("KFC", func() {
 
 		Context("DigitalOcean", func() {
 			var (
-				providerRef         *core.Secret
-				databaseClusterName = "kfctesting"
-				databaseCluster     *digitalocean.DatabaseCluster
+				providerRef *core.Secret
+				dropletName = rand.WithUniqSuffix("kfctesting")
+				droplet     *digitalocean.Droplet
 			)
 
 			BeforeEach(func() {
 				providerRef = f.DigitalOceanProviderRef()
-				databaseCluster = f.DatabaseCluster(databaseClusterName)
+				droplet = f.Droplets(dropletName)
 			})
 
-			It("should create and delete database cluster successfully", func() {
+			It("should create and delete Droplet successfully", func() {
 				By("Creating DigitalOceanProviderRef")
 				err = f.CreateSecret(providerRef)
 				Expect(err).NotTo(HaveOccurred())
 
-				By("Creating database cluster")
-				err = f.CreateDatabaseCluster(databaseCluster)
+				By("Creating droplet")
+				err = f.CreateDroplet(droplet)
 				Expect(err).NotTo(HaveOccurred())
 
-				By("Wait for Running database cluster")
-				f.EventuallyDatabaseClusterRunning(databaseCluster.ObjectMeta).Should(BeTrue())
+				By("Wait for Running droplet")
+				f.EventuallyDropletRunning(droplet.ObjectMeta).Should(BeTrue())
 
-				By("Deleting database cluster")
-				err = f.DeleteDatabaseCluster(databaseCluster.ObjectMeta)
+				By("Deleting droplet")
+				err = f.DeleteDroplet(droplet.ObjectMeta)
 				Expect(err).NotTo(HaveOccurred())
 
-				By("Wait for Deleting database cluster")
-				f.EventuallyDatabaseClusterDeleted(databaseCluster.ObjectMeta).Should(BeTrue())
+				By("Wait for Deleting droplet")
+				f.EventuallyDropletDeleted(droplet.ObjectMeta).Should(BeTrue())
 
 				By("Deleting secret")
 				err = f.DeleteSecret(providerRef.ObjectMeta)
@@ -156,7 +151,7 @@ var _ = Describe("KFC", func() {
 			var (
 				providerRef   *core.Secret
 				sensitiveData *core.Secret
-				instanceName  = "kfctesting"
+				instanceName  = rand.WithUniqSuffix("kfctesting")
 				instance      *linode.Instance
 			)
 
@@ -196,34 +191,34 @@ var _ = Describe("KFC", func() {
 
 		Context("Azure", func() {
 			var (
-				providerRef    *core.Secret
-				redisCacheName = "kfctesting"
-				redisCache     *azure.RedisCache
+				providerRef       *core.Secret
+				resourceGroupName = rand.WithUniqSuffix("kfctesting")
+				resourceGroup     *azure.ResourceGroup
 			)
 
 			BeforeEach(func() {
 				providerRef = f.AzureProviderRef()
-				redisCache = f.RedisCache(redisCacheName)
+				resourceGroup = f.ResourceGroup(resourceGroupName)
 			})
 
-			It("should create and delete redis cache successfully", func() {
+			It("should create and delete ResourceGroup successfully", func() {
 				By("Creating AzureProviderRef")
 				err = f.CreateSecret(providerRef)
 				Expect(err).NotTo(HaveOccurred())
 
-				By("Creating Redis Cache")
-				err = f.CreateRedisCache(redisCache)
+				By("Creating ResourceGroup")
+				err = f.CreateResourceGroup(resourceGroup)
 				Expect(err).NotTo(HaveOccurred())
 
-				By("Wait for Running Redis Cache")
-				f.EventuallyRedisCacheRunning(redisCache.ObjectMeta).Should(BeTrue())
+				By("Wait for Running ResourceGroup")
+				f.EventuallyResourceGroupRunning(resourceGroup.ObjectMeta).Should(BeTrue())
 
-				By("Deleting Redis Cache")
-				err = f.DeleteRedisCache(redisCache.ObjectMeta)
+				By("Deleting ResourceGroup")
+				err = f.DeleteResourceGroup(resourceGroup.ObjectMeta)
 				Expect(err).NotTo(HaveOccurred())
 
-				By("Wait for Deleting redis cache")
-				f.EventuallyRedisCacheDeleted(redisCache.ObjectMeta).Should(BeTrue())
+				By("Wait for Deleting ResourceGroup")
+				f.EventuallyResourceGroupDeleted(resourceGroup.ObjectMeta).Should(BeTrue())
 
 				By("Deleting secret")
 				err = f.DeleteSecret(providerRef.ObjectMeta)
@@ -233,7 +228,7 @@ var _ = Describe("KFC", func() {
 		Context("Modules", func() {
 			var (
 				providerRef        *core.Secret
-				serviceAccountName = "kfc-e2e-test2"
+				serviceAccountName = rand.WithUniqSuffix("kfctesting")
 				serviceAccount     *modules.GoogleServiceAccount
 			)
 

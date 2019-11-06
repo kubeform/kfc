@@ -28,8 +28,8 @@ import (
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func (i *Invocation) RedisCache(name string) *v1alpha1.RedisCache {
-	return &v1alpha1.RedisCache{
+func (i *Invocation) ResourceGroup(name string) *v1alpha1.ResourceGroup {
+	return &v1alpha1.ResourceGroup{
 		ObjectMeta: v1.ObjectMeta{
 			Name:      name,
 			Namespace: i.Namespace(),
@@ -37,47 +37,44 @@ func (i *Invocation) RedisCache(name string) *v1alpha1.RedisCache {
 				"app": i.app,
 			},
 		},
-		Spec: v1alpha1.RedisCacheSpec{
+		Spec: v1alpha1.ResourceGroupSpec{
 			ProviderRef: corev1.LocalObjectReference{
 				Name: AzureProviderRef,
 			},
-			Name:              "example-cache",
-			ResourceGroupName: "dev",
-			Location:          "East US",
-			Capacity:          2,
-			Family:            "C",
-			SkuName:           "Standard",
-			EnableNonSSLPort:  false,
-			MinimumTLSVersion: "1.2",
+			Name:     name,
+			Location: "East US",
+			Tags: map[string]string{
+				"env": "testing",
+			},
 		},
 	}
 }
 
-func (f *Framework) CreateRedisCache(obj *v1alpha1.RedisCache) error {
-	_, err := f.kubeformClient.AzurermV1alpha1().RedisCaches(obj.Namespace).Create(obj)
+func (f *Framework) CreateResourceGroup(obj *v1alpha1.ResourceGroup) error {
+	_, err := f.kubeformClient.AzurermV1alpha1().ResourceGroups(obj.Namespace).Create(obj)
 	return err
 }
 
-func (f *Framework) DeleteRedisCache(meta metav1.ObjectMeta) error {
-	return f.kubeformClient.AzurermV1alpha1().RedisCaches(meta.Namespace).Delete(meta.Name, deleteInForeground())
+func (f *Framework) DeleteResourceGroup(meta metav1.ObjectMeta) error {
+	return f.kubeformClient.AzurermV1alpha1().ResourceGroups(meta.Namespace).Delete(meta.Name, deleteInForeground())
 }
 
-func (f *Framework) EventuallyRedisCacheRunning(meta metav1.ObjectMeta) GomegaAsyncAssertion {
+func (f *Framework) EventuallyResourceGroupRunning(meta metav1.ObjectMeta) GomegaAsyncAssertion {
 	return Eventually(
 		func() bool {
-			redisCache, err := f.kubeformClient.AzurermV1alpha1().RedisCaches(meta.Namespace).Get(meta.Name, metav1.GetOptions{})
+			resourceGroup, err := f.kubeformClient.AzurermV1alpha1().ResourceGroups(meta.Namespace).Get(meta.Name, metav1.GetOptions{})
 			Expect(err).NotTo(HaveOccurred())
-			return redisCache.Status.Phase == base.PhaseRunning
+			return resourceGroup.Status.Phase == base.PhaseRunning
 		},
 		time.Minute*30,
 		time.Second*10,
 	)
 }
 
-func (f *Framework) EventuallyRedisCacheDeleted(meta metav1.ObjectMeta) GomegaAsyncAssertion {
+func (f *Framework) EventuallyResourceGroupDeleted(meta metav1.ObjectMeta) GomegaAsyncAssertion {
 	return Eventually(
 		func() bool {
-			_, err := f.kubeformClient.AzurermV1alpha1().RedisCaches(meta.Namespace).Get(meta.Name, metav1.GetOptions{})
+			_, err := f.kubeformClient.AzurermV1alpha1().ResourceGroups(meta.Namespace).Get(meta.Name, metav1.GetOptions{})
 			return errors.IsNotFound(err)
 		},
 		time.Minute*30,

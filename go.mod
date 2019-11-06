@@ -20,7 +20,7 @@ require (
 	k8s.io/klog v0.3.1
 	kmodules.xyz/client-go v0.0.0-20191101042247-ee9566c9ac7f
 	kmodules.xyz/constants v0.0.0-20191024095500-cd4313df4aa6
-	kubeform.dev/kubeform v0.0.5
+	kubeform.dev/kubeform v0.0.6
 )
 
 replace (

@@ -625,7 +625,7 @@ kmodules.xyz/constants/azure
 kmodules.xyz/constants/digitalocean
 kmodules.xyz/constants/google
 kmodules.xyz/constants/linode
-# kubeform.dev/kubeform v0.0.5
+# kubeform.dev/kubeform v0.0.6
 kubeform.dev/kubeform/apis/aws/install
 kubeform.dev/kubeform/apis/azurerm/install
 kubeform.dev/kubeform/apis/digitalocean/install

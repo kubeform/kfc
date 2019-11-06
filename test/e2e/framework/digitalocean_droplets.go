@@ -28,8 +28,8 @@ import (
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func (i *Invocation) DatabaseCluster(name string) *v1alpha1.DatabaseCluster {
-	return &v1alpha1.DatabaseCluster{
+func (i *Invocation) Droplets(name string) *v1alpha1.Droplet {
+	return &v1alpha1.Droplet{
 		ObjectMeta: v1.ObjectMeta{
 			Name:      name,
 			Namespace: i.Namespace(),
@@ -37,45 +37,43 @@ func (i *Invocation) DatabaseCluster(name string) *v1alpha1.DatabaseCluster {
 				"app": i.app,
 			},
 		},
-		Spec: v1alpha1.DatabaseClusterSpec{
+		Spec: v1alpha1.DropletSpec{
 			ProviderRef: corev1.LocalObjectReference{
 				Name: DigitalOceanProviderRef,
 			},
-			Engine:    "pg",
-			Name:      name,
-			NodeCount: 1,
-			Region:    "nyc1",
-			Size:      "db-s-1vcpu-1gb",
-			Version:   "11",
+			Name:   name,
+			Region: "nyc1",
+			Size:   "s-1vcpu-1gb",
+			Image:  "ubuntu-18-04-x64",
 		},
 	}
 }
 
-func (f *Framework) CreateDatabaseCluster(obj *v1alpha1.DatabaseCluster) error {
-	_, err := f.kubeformClient.DigitaloceanV1alpha1().DatabaseClusters(obj.Namespace).Create(obj)
+func (f *Framework) CreateDroplet(obj *v1alpha1.Droplet) error {
+	_, err := f.kubeformClient.DigitaloceanV1alpha1().Droplets(obj.Namespace).Create(obj)
 	return err
 }
 
-func (f *Framework) DeleteDatabaseCluster(meta metav1.ObjectMeta) error {
-	return f.kubeformClient.DigitaloceanV1alpha1().DatabaseClusters(meta.Namespace).Delete(meta.Name, deleteInForeground())
+func (f *Framework) DeleteDroplet(meta metav1.ObjectMeta) error {
+	return f.kubeformClient.DigitaloceanV1alpha1().Droplets(meta.Namespace).Delete(meta.Name, deleteInForeground())
 }
 
-func (f *Framework) EventuallyDatabaseClusterRunning(meta metav1.ObjectMeta) GomegaAsyncAssertion {
+func (f *Framework) EventuallyDropletRunning(meta metav1.ObjectMeta) GomegaAsyncAssertion {
 	return Eventually(
 		func() bool {
-			databaseCluster, err := f.kubeformClient.DigitaloceanV1alpha1().DatabaseClusters(meta.Namespace).Get(meta.Name, metav1.GetOptions{})
+			droplet, err := f.kubeformClient.DigitaloceanV1alpha1().Droplets(meta.Namespace).Get(meta.Name, metav1.GetOptions{})
 			Expect(err).NotTo(HaveOccurred())
-			return databaseCluster.Status.Phase == base.PhaseRunning
+			return droplet.Status.Phase == base.PhaseRunning
 		},
 		time.Minute*15,
 		time.Second*10,
 	)
 }
 
-func (f *Framework) EventuallyDatabaseClusterDeleted(meta metav1.ObjectMeta) GomegaAsyncAssertion {
+func (f *Framework) EventuallyDropletDeleted(meta metav1.ObjectMeta) GomegaAsyncAssertion {
 	return Eventually(
 		func() bool {
-			_, err := f.kubeformClient.DigitaloceanV1alpha1().DatabaseClusters(meta.Namespace).Get(meta.Name, metav1.GetOptions{})
+			_, err := f.kubeformClient.DigitaloceanV1alpha1().Droplets(meta.Namespace).Get(meta.Name, metav1.GetOptions{})
 			return errors.IsNotFound(err)
 		},
 		time.Minute*15,

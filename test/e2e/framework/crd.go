@@ -32,29 +32,29 @@ func (f *Framework) EventuallyCRD() GomegaAsyncAssertion {
 				return errors.New("CRD ServiceAccount is not ready")
 			}
 
-			// Check RedisCache CRD
-			if _, err := f.kubeformClient.AzurermV1alpha1().RedisCaches(core.NamespaceAll).List(metav1.ListOptions{}); err != nil {
-				return errors.New("CRD ServiceAccount is not ready")
+			// Check ResourceGroup CRD
+			if _, err := f.kubeformClient.AzurermV1alpha1().ResourceGroups(core.NamespaceAll).List(metav1.ListOptions{}); err != nil {
+				return errors.New("CRD ResourceGroup is not ready")
 			}
 
 			// Check DbInstance CRD
-			if _, err := f.kubeformClient.AwsV1alpha1().DbInstances(core.NamespaceAll).List(metav1.ListOptions{}); err != nil {
-				return errors.New("CRD ServiceAccount is not ready")
+			if _, err := f.kubeformClient.AwsV1alpha1().S3Buckets(core.NamespaceAll).List(metav1.ListOptions{}); err != nil {
+				return errors.New("CRD S3Buckets is not ready")
 			}
 
 			// Check Instances CRD
 			if _, err := f.kubeformClient.LinodeV1alpha1().Instances(core.NamespaceAll).List(metav1.ListOptions{}); err != nil {
-				return errors.New("CRD ServiceAccount is not ready")
+				return errors.New("CRD Instances is not ready")
 			}
 
-			// Check DatabaseCluster CRD
-			if _, err := f.kubeformClient.DigitaloceanV1alpha1().DatabaseClusters(core.NamespaceAll).List(metav1.ListOptions{}); err != nil {
-				return errors.New("CRD ServiceAccount is not ready")
+			// Check Droplets CRD
+			if _, err := f.kubeformClient.DigitaloceanV1alpha1().Droplets(core.NamespaceAll).List(metav1.ListOptions{}); err != nil {
+				return errors.New("CRD Droplets is not ready")
 			}
 
 			// Check GoogleServiceAccount CRD
 			if _, err := f.kubeformClient.ModulesV1alpha1().GoogleServiceAccounts(core.NamespaceAll).List(metav1.ListOptions{}); err != nil {
-				return errors.New("CRD ServiceAccount is not ready")
+				return errors.New("CRD GoogleServiceAccount is not ready")
 			}
 			return nil
 		},
