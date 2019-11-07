@@ -334,12 +334,12 @@ $(BUILD_DIRS):
 .PHONY: install
 install:
 	@echo "register Kubeform crds"; \
-	kubectl apply -f https://github.com/kubeform/kubeform/raw/master/api/crds/google.kubeform.com_serviceaccounts.yaml; \
-	kubectl apply -f https://github.com/kubeform/kubeform/raw/master/api/crds/aws.kubeform.com_s3buckets.yaml; \
-	kubectl apply -f https://github.com/kubeform/kubeform/raw/master/api/crds/digitalocean.kubeform.com_droplets.yaml; \
-	kubectl apply -f https://github.com/kubeform/kubeform/raw/master/api/crds/linode.kubeform.com_instances.yaml; \
-	kubectl apply -f https://github.com/kubeform/kubeform/raw/master/api/crds/azurerm.kubeform.com_resourcegroups.yaml; \
-	kubectl apply -f https://github.com/kubeform/kubeform/raw/master/api/crds/modules.kubeform.com_googleserviceaccounts.yaml; \
+	kubectl apply -f https://github.com/kubeform/kubeform/raw/v0.1.0/api/crds/google.kubeform.com_serviceaccounts.yaml; \
+	kubectl apply -f https://github.com/kubeform/kubeform/raw/v0.1.0/api/crds/aws.kubeform.com_s3buckets.yaml; \
+	kubectl apply -f https://github.com/kubeform/kubeform/raw/v0.1.0/api/crds/digitalocean.kubeform.com_droplets.yaml; \
+	kubectl apply -f https://github.com/kubeform/kubeform/raw/v0.1.0/api/crds/linode.kubeform.com_instances.yaml; \
+	kubectl apply -f https://github.com/kubeform/kubeform/raw/v0.1.0/api/crds/azurerm.kubeform.com_resourcegroups.yaml; \
+	kubectl apply -f https://github.com/kubeform/kubeform/raw/v0.1.0/api/crds/modules.kubeform.com_googleserviceaccounts.yaml; \
 	echo "install Kubeform controller"; \
 	cd ../installer; \
 	helm init --client-only; \

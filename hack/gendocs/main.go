@@ -74,7 +74,7 @@ aliases:
 // ref: https://github.com/spf13/cobra/blob/master/doc/md_docs.md
 func main() {
 	rootCmd := cmds.NewRootCmd()
-	dir := runtime.GOPath() + "/src/kubevault.dev/docs/docs/reference/kfc"
+	dir := runtime.GOPath() + "/src/kubeform.dev/docs/docs/reference/kfc"
 	fmt.Printf("Generating cli markdown tree in: %v\n", dir)
 	err := os.RemoveAll(dir)
 	if err != nil {
