@@ -10,7 +10,7 @@ require (
 	github.com/json-iterator/go v1.1.7
 	github.com/onsi/ginkgo v1.8.0
 	github.com/onsi/gomega v1.5.0
-	github.com/spf13/cobra v0.0.5 // indirect
+	github.com/spf13/cobra v0.0.5
 	gocloud.dev v0.15.0
 	golang.org/x/xerrors v0.0.0-20190717185122-a985d3407aa7 // indirect
 	k8s.io/api v0.0.0-20190503110853-61630f889b3c
