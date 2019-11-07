@@ -4,7 +4,7 @@
 [![Slack](https://slack.appscode.com/badge.svg)](https://slack.appscode.com)
 [![Twitter](https://img.shields.io/twitter/follow/kubeform.svg?style=social&logo=twitter&label=Follow)](https://twitter.com/intent/follow?screen_name=Kubeform)
 
-# KFC (KubeForm Controller)
+# KFC (Kubeform Controller)
 
 Kubernetes Controller for [Kubeform](https://kubeform.com)
 
