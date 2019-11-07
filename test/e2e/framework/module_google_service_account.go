@@ -44,7 +44,7 @@ func (i *Invocation) ModuleServiceAccount(name string) *v1alpha1.GoogleServiceAc
 				Name: GoogleProviderRef,
 			},
 			Names:        []string{"single-account"},
-			Prefix:       "kfc-e2e-testing",
+			Prefix:       name,
 			ProjectID:    os.Getenv(google.GOOGLE_PROJECT_ID),
 			ProjectRoles: []string{os.Getenv(google.GOOGLE_PROJECT_ID) + "=>roles/viewer"},
 		},

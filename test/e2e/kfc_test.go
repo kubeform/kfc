@@ -228,7 +228,7 @@ var _ = Describe("KFC", func() {
 		Context("Modules", func() {
 			var (
 				providerRef        *core.Secret
-				serviceAccountName = rand.WithUniqSuffix("kfctesting")
+				serviceAccountName = rand.WithUniqSuffix("kfctest")
 				serviceAccount     *modules.GoogleServiceAccount
 			)
 

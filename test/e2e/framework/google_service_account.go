@@ -38,11 +38,11 @@ func (i *Invocation) ServiceAccount(name string) *v1alpha1.ServiceAccount {
 			},
 		},
 		Spec: v1alpha1.ServiceAccountSpec{
-			AccountID: "test-account",
+			AccountID: name,
 			ProviderRef: v12.LocalObjectReference{
 				Name: GoogleProviderRef,
 			},
-			DisplayName: "kfc-e2e-test",
+			DisplayName: name,
 			Project:     "appscode-testing",
 		},
 	}
