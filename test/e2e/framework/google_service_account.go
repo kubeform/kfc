@@ -29,7 +29,7 @@ import (
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func (i *Invocation) ServiceAccount(name string) *v1alpha1.ServiceAccount {
+func (i *Invocation) ServiceAccount(name string, secretName string) *v1alpha1.ServiceAccount {
 	return &v1alpha1.ServiceAccount{
 		ObjectMeta: v1.ObjectMeta{
 			Name:      name,
@@ -41,7 +41,7 @@ func (i *Invocation) ServiceAccount(name string) *v1alpha1.ServiceAccount {
 		Spec: v1alpha1.ServiceAccountSpec{
 			AccountID: name,
 			ProviderRef: v12.LocalObjectReference{
-				Name: GoogleProviderRef,
+				Name: secretName,
 			},
 			DisplayName: name,
 			Project:     "appscode-testing",

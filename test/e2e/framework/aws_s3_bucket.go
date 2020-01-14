@@ -29,7 +29,7 @@ import (
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func (i *Invocation) S3Bucket(name string) *v1alpha1.S3Bucket {
+func (i *Invocation) S3Bucket(name, secretName string) *v1alpha1.S3Bucket {
 	return &v1alpha1.S3Bucket{
 		ObjectMeta: v1.ObjectMeta{
 			Name:      name,
@@ -40,7 +40,7 @@ func (i *Invocation) S3Bucket(name string) *v1alpha1.S3Bucket {
 		},
 		Spec: v1alpha1.S3BucketSpec{
 			ProviderRef: corev1.LocalObjectReference{
-				Name: AwsProviderRef,
+				Name: secretName,
 			},
 			Acl:    "private",
 			Bucket: name,

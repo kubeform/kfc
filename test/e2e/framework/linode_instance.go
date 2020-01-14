@@ -29,7 +29,7 @@ import (
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func (i *Invocation) Instance(name string) *v1alpha1.Instance {
+func (i *Invocation) Instance(name string, secretName string) *v1alpha1.Instance {
 	return &v1alpha1.Instance{
 		ObjectMeta: v1.ObjectMeta{
 			Name:      name,
@@ -40,7 +40,7 @@ func (i *Invocation) Instance(name string) *v1alpha1.Instance {
 		},
 		Spec: v1alpha1.InstanceSpec{
 			ProviderRef: corev1.LocalObjectReference{
-				Name: LinodeProviderRef,
+				Name: secretName,
 			},
 			SecretRef: &corev1.LocalObjectReference{
 				Name: InstanceSecretName,

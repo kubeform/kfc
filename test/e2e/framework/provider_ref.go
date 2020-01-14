@@ -28,18 +28,10 @@ import (
 	"kmodules.xyz/constants/linode"
 )
 
-const (
-	GoogleProviderRef       = "google"
-	AwsProviderRef          = "aws"
-	DigitalOceanProviderRef = "digitalocean"
-	LinodeProviderRef       = "linode"
-	AzureProviderRef        = "azure"
-)
-
-func (i *Invocation) GoogleProviderRef() *core.Secret {
+func (i *Invocation) GoogleProviderRef(name string) *core.Secret {
 	return &core.Secret{
 		ObjectMeta: metav1.ObjectMeta{
-			Name:      GoogleProviderRef,
+			Name:      name,
 			Namespace: i.Namespace(),
 		},
 		Data: map[string][]byte{
@@ -50,10 +42,10 @@ func (i *Invocation) GoogleProviderRef() *core.Secret {
 	}
 }
 
-func (i *Invocation) AwsProviderRef() *core.Secret {
+func (i *Invocation) AwsProviderRef(name string) *core.Secret {
 	return &core.Secret{
 		ObjectMeta: metav1.ObjectMeta{
-			Name:      AwsProviderRef,
+			Name:      name,
 			Namespace: i.Namespace(),
 		},
 		Data: map[string][]byte{
@@ -64,10 +56,10 @@ func (i *Invocation) AwsProviderRef() *core.Secret {
 	}
 }
 
-func (i *Invocation) DigitalOceanProviderRef() *core.Secret {
+func (i *Invocation) DigitalOceanProviderRef(name string) *core.Secret {
 	return &core.Secret{
 		ObjectMeta: metav1.ObjectMeta{
-			Name:      DigitalOceanProviderRef,
+			Name:      name,
 			Namespace: i.Namespace(),
 		},
 		Data: map[string][]byte{
@@ -76,10 +68,10 @@ func (i *Invocation) DigitalOceanProviderRef() *core.Secret {
 	}
 }
 
-func (i *Invocation) LinodeProviderRef() *core.Secret {
+func (i *Invocation) LinodeProviderRef(name string) *core.Secret {
 	return &core.Secret{
 		ObjectMeta: metav1.ObjectMeta{
-			Name:      LinodeProviderRef,
+			Name:      name,
 			Namespace: i.Namespace(),
 		},
 		Data: map[string][]byte{
@@ -88,10 +80,10 @@ func (i *Invocation) LinodeProviderRef() *core.Secret {
 	}
 }
 
-func (i *Invocation) AzureProviderRef() *core.Secret {
+func (i *Invocation) AzureProviderRef(name string) *core.Secret {
 	return &core.Secret{
 		ObjectMeta: metav1.ObjectMeta{
-			Name:      AzureProviderRef,
+			Name:      name,
 			Namespace: i.Namespace(),
 		},
 		Data: map[string][]byte{

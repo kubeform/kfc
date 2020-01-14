@@ -31,7 +31,7 @@ import (
 	"kmodules.xyz/constants/google"
 )
 
-func (i *Invocation) ModuleServiceAccount(name string) *v1alpha1.GoogleServiceAccount {
+func (i *Invocation) ModuleServiceAccount(name string, secretName string) *v1alpha1.GoogleServiceAccount {
 	return &v1alpha1.GoogleServiceAccount{
 		ObjectMeta: v1.ObjectMeta{
 			Name:      name,
@@ -42,7 +42,7 @@ func (i *Invocation) ModuleServiceAccount(name string) *v1alpha1.GoogleServiceAc
 		},
 		Spec: v1alpha1.GoogleServiceAccountSpec{
 			ProviderRef: v12.LocalObjectReference{
-				Name: GoogleProviderRef,
+				Name: secretName,
 			},
 			Names:        []string{"single-account"},
 			Prefix:       name,

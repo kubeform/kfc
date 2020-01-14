@@ -65,6 +65,10 @@ func (fi *Invocation) KubeformClient() kfclient.Interface {
 	return fi.kubeformClient
 }
 
+func (fi *Invocation) GetRandomName(extraSuffix string) string {
+	return rand.WithUniqSuffix(fi.name + extraSuffix)
+}
+
 type Invocation struct {
 	*Framework
 	app string

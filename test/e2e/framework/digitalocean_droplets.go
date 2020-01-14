@@ -29,7 +29,7 @@ import (
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func (i *Invocation) Droplets(name string) *v1alpha1.Droplet {
+func (i *Invocation) Droplets(name string, secretName string) *v1alpha1.Droplet {
 	return &v1alpha1.Droplet{
 		ObjectMeta: v1.ObjectMeta{
 			Name:      name,
@@ -40,7 +40,7 @@ func (i *Invocation) Droplets(name string) *v1alpha1.Droplet {
 		},
 		Spec: v1alpha1.DropletSpec{
 			ProviderRef: corev1.LocalObjectReference{
-				Name: DigitalOceanProviderRef,
+				Name: secretName,
 			},
 			Name:   name,
 			Region: "nyc1",

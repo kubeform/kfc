@@ -29,7 +29,7 @@ import (
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func (i *Invocation) ResourceGroup(name string) *v1alpha1.ResourceGroup {
+func (i *Invocation) ResourceGroup(name string, secretName string) *v1alpha1.ResourceGroup {
 	return &v1alpha1.ResourceGroup{
 		ObjectMeta: v1.ObjectMeta{
 			Name:      name,
@@ -40,7 +40,7 @@ func (i *Invocation) ResourceGroup(name string) *v1alpha1.ResourceGroup {
 		},
 		Spec: v1alpha1.ResourceGroupSpec{
 			ProviderRef: corev1.LocalObjectReference{
-				Name: AzureProviderRef,
+				Name: secretName,
 			},
 			Name:     name,
 			Location: "East US",

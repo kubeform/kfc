@@ -25,7 +25,6 @@ import (
 	linode "kubeform.dev/kubeform/apis/linode/v1alpha1"
 	modules "kubeform.dev/kubeform/apis/modules/v1alpha1"
 
-	"github.com/appscode/go/crypto/rand"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	core "k8s.io/api/core/v1"
@@ -43,13 +42,16 @@ var _ = Describe("KFC", func() {
 		Context("Google", func() {
 			var (
 				providerRef        *core.Secret
-				serviceAccountName = rand.WithUniqSuffix("kfctesting")
+				serviceAccountName string
+				secretName         string
 				serviceAccount     *google.ServiceAccount
 			)
 
 			BeforeEach(func() {
-				providerRef = f.GoogleProviderRef()
-				serviceAccount = f.ServiceAccount(serviceAccountName)
+				serviceAccountName = f.GetRandomName("")
+				secretName = f.GetRandomName("secret")
+				providerRef = f.GoogleProviderRef(secretName)
+				serviceAccount = f.ServiceAccount(serviceAccountName, secretName)
 			})
 
 			It("should create and delete service account successfully", func() {
@@ -79,13 +81,16 @@ var _ = Describe("KFC", func() {
 		Context("AWS", func() {
 			var (
 				providerRef    *core.Secret
-				dbInstanceName = rand.WithUniqSuffix("kfctesting")
+				secretName     string
+				dbInstanceName string
 				s3Bucket       *aws.S3Bucket
 			)
 
 			BeforeEach(func() {
-				providerRef = f.AwsProviderRef()
-				s3Bucket = f.S3Bucket(dbInstanceName)
+				secretName = f.GetRandomName("secret")
+				dbInstanceName = f.GetRandomName("")
+				providerRef = f.AwsProviderRef(secretName)
+				s3Bucket = f.S3Bucket(dbInstanceName, secretName)
 			})
 
 			It("should create and delete s3 bucket successfully", func() {
@@ -115,13 +120,16 @@ var _ = Describe("KFC", func() {
 		Context("DigitalOcean", func() {
 			var (
 				providerRef *core.Secret
-				dropletName = rand.WithUniqSuffix("kfctesting")
+				secretName  string
+				dropletName string
 				droplet     *digitalocean.Droplet
 			)
 
 			BeforeEach(func() {
-				providerRef = f.DigitalOceanProviderRef()
-				droplet = f.Droplets(dropletName)
+				secretName = f.GetRandomName("secret")
+				dropletName = f.GetRandomName("")
+				providerRef = f.DigitalOceanProviderRef(secretName)
+				droplet = f.Droplets(dropletName, secretName)
 			})
 
 			It("should create and delete Droplet successfully", func() {
@@ -152,14 +160,17 @@ var _ = Describe("KFC", func() {
 			var (
 				providerRef   *core.Secret
 				sensitiveData *core.Secret
-				instanceName  = rand.WithUniqSuffix("kfctesting")
+				secretName    string
+				instanceName  string
 				instance      *linode.Instance
 			)
 
 			BeforeEach(func() {
-				providerRef = f.LinodeProviderRef()
+				secretName = f.GetRandomName("secret")
+				instanceName = f.GetRandomName("")
+				providerRef = f.LinodeProviderRef(secretName)
 				sensitiveData = f.InstanceSensitiveData()
-				instance = f.Instance(instanceName)
+				instance = f.Instance(instanceName, secretName)
 			})
 
 			It("should create and delete instance successfully", func() {
@@ -193,13 +204,16 @@ var _ = Describe("KFC", func() {
 		Context("Azure", func() {
 			var (
 				providerRef       *core.Secret
-				resourceGroupName = rand.WithUniqSuffix("kfctesting")
+				resourceGroupName string
+				secretName        string
 				resourceGroup     *azure.ResourceGroup
 			)
 
 			BeforeEach(func() {
-				providerRef = f.AzureProviderRef()
-				resourceGroup = f.ResourceGroup(resourceGroupName)
+				resourceGroupName = f.GetRandomName("")
+				secretName = f.GetRandomName("secret")
+				providerRef = f.AzureProviderRef(secretName)
+				resourceGroup = f.ResourceGroup(resourceGroupName, secretName)
 			})
 
 			It("should create and delete ResourceGroup successfully", func() {
@@ -229,13 +243,16 @@ var _ = Describe("KFC", func() {
 		Context("Modules", func() {
 			var (
 				providerRef        *core.Secret
-				serviceAccountName = rand.WithUniqSuffix("kfctest")
+				serviceAccountName string
+				secretName         string
 				serviceAccount     *modules.GoogleServiceAccount
 			)
 
 			BeforeEach(func() {
-				providerRef = f.GoogleProviderRef()
-				serviceAccount = f.ModuleServiceAccount(serviceAccountName)
+				serviceAccountName = f.GetRandomName("")
+				secretName = f.GetRandomName("secret")
+				providerRef = f.GoogleProviderRef(secretName)
+				serviceAccount = f.ModuleServiceAccount(serviceAccountName, secretName)
 			})
 
 			It("should create and delete service account successfully", func() {
