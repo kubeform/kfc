@@ -25,10 +25,17 @@ RUN apt-get update \
 
 FROM {ARG_FROM}
 
+RUN set -x \
+  && apk update \
+  && apk add --update --no-cache ca-certificates tzdata git \
+  && echo 'Etc/UTC' > /etc/timezone
+ENV TZ     :/etc/localtime
+ENV LANG   en_US.utf8
+
 COPY bin/{ARG_OS}_{ARG_ARCH}/{ARG_BIN} /{ARG_BIN}
 COPY --from=0 /bin/terraform /bin/terraform
 
 # This would be nicer as `nobody:nobody` but distroless has no such entries.
-USER 65535:65535
+# USER 65535:65535
 
 ENTRYPOINT ["/{ARG_BIN}"]

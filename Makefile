@@ -57,7 +57,7 @@ BIN_PLATFORMS    := $(DOCKER_PLATFORMS)
 OS   := $(if $(GOOS),$(GOOS),$(shell go env GOOS))
 ARCH := $(if $(GOARCH),$(GOARCH),$(shell go env GOARCH))
 
-BASEIMAGE_PROD   ?= gcr.io/distroless/static
+BASEIMAGE_PROD   ?= alpine:3.11
 BASEIMAGE_DBG    ?= debian:stretch
 
 IMAGE            := $(REGISTRY)/$(BIN)
