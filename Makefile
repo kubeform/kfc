@@ -268,7 +268,7 @@ unit-tests: $(BUILD_DIRS)
 #
 # NB: -t is used to catch ctrl-c interrupt from keyboard and -t will be problematic for CI.
 
-GINKGO_ARGS ?=
+GINKGO_ARGS ?= "--flakeAttempts=2"
 TEST_ARGS   ?=
 
 .PHONY: e2e-tests
@@ -305,7 +305,7 @@ e2e-tests: $(BUILD_DIRS)
 
 .PHONY: e2e-parallel
 e2e-parallel:
-	@$(MAKE) e2e-tests GINKGO_ARGS="-p -stream" --no-print-directory
+	@$(MAKE) e2e-tests GINKGO_ARGS="-p -stream --flakeAttempts=2" --no-print-directory
 
 ADDTL_LINTERS   := goconst,gofmt,goimports,unparam
 
@@ -342,20 +342,16 @@ install:
 	kubectl apply -f https://github.com/kubeform/kubeform/raw/v0.1.0/api/crds/modules.kubeform.com_googleserviceaccounts.yaml; \
 	echo "install Kubeform controller"; \
 	cd ../installer; \
-	helm init --client-only; \
-	helm template ./charts/kubeform \
-		--name kfc \
+	helm install kfc ./charts/kubeform \
 		--namespace kube-system \
 		--set operator.registry=$(REGISTRY) \
-		--set operator.tag=$(TAG) | kubectl apply -f -
+		--set operator.tag=$(TAG)
 
 .PHONY: uninstall
 uninstall:
 	@cd ../installer; \
-	helm init --client-only; \
-	helm template ./charts/kubeform \
-		--name kfc \
-		--namespace kube-system | kubectl delete -f -
+	helm uninstall kfc ./charts/kubeform \
+		--namespace kube-system
 
 .PHONY: purge
 purge: uninstall
