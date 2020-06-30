@@ -13,27 +13,10 @@
 // limitations under the License.
 
 // Package secrets provides an easy and portable way to encrypt and decrypt
-// messages.
+// messages. Subpackages contain driver implementations of
+// secrets for supported services.
 //
-// Subpackages contain distinct implementations of secrets for various
-// providers, including Cloud and on-premise solutions. For example, "localsecrets"
-// supports encryption/decryption using a locally provided key. Your application
-// should import one of these provider-specific subpackages and use its exported
-// function(s) to create a *Keeper; do not use the NewKeeper function in this
-// package. For example:
-//
-//  keeper := localsecrets.NewKeeper(myKey)
-//  encrypted, err := keeper.Encrypt(ctx.Background(), []byte("text"))
-//  ...
-//
-// Then, write your application code using the *Keeper type. You can easily
-// reconfigure your initialization code to choose a different provider.
-// You can develop your application locally using localsecrets, or deploy it to
-// multiple Cloud providers. You may find http://github.com/google/wire useful
-// for managing your initialization code.
-//
-// Alternatively, you can construct a *Keeper via a URL and OpenKeeper.
-// See https://gocloud.dev/concepts/urls/ for more information.
+// See https://gocloud.dev/howto/secrets/ for a detailed how-to guide.
 //
 //
 // OpenCensus Integration
@@ -47,9 +30,9 @@
 // All trace and metric names begin with the package import path.
 // The traces add the method name.
 // For example, "gocloud.dev/secrets/Encrypt".
-// The metrics are "completed_calls", a count of completed method calls by provider,
+// The metrics are "completed_calls", a count of completed method calls by driver,
 // method and status (error code); and "latency", a distribution of method latency
-// by provider and method.
+// by driver and method.
 // For example, "gocloud.dev/secrets/latency".
 //
 // To enable trace collection in your application, see "Configure Exporter" at
@@ -70,7 +53,7 @@ import (
 )
 
 // Keeper does encryption and decryption. To create a Keeper, use constructors
-// found in provider-specific subpackages.
+// found in driver subpackages.
 type Keeper struct {
 	k      driver.Keeper
 	tracer *oc.Tracer
@@ -82,7 +65,7 @@ type Keeper struct {
 	closed bool
 }
 
-// NewKeeper is intended for use by provider implementations.
+// NewKeeper is intended for use by drivers only. Do not use in application code.
 var NewKeeper = newKeeper
 
 // newKeeper creates a Keeper.
@@ -158,10 +141,10 @@ func (k *Keeper) Close() error {
 	return wrapError(k, k.k.Close())
 }
 
-// ErrorAs converts i to provider-specific types. See
+// ErrorAs converts i to driver-specific types. See
 // https://gocloud.dev/concepts/as/ for background information and the
-// provider-specific package documentation for the specific types supported for
-// that provider.
+// driver package documentation for the specific types supported for
+// that driver.
 //
 // ErrorAs panics if i is nil or not a pointer.
 // ErrorAs returns false if err == nil.
@@ -240,7 +223,7 @@ func DefaultURLMux() *URLMux {
 }
 
 // OpenKeeper opens the Keeper identified by the URL given.
-// See the URLOpener documentation in provider-specific subpackages for
+// See the URLOpener documentation in driver subpackages for
 // details on supported URL formats, and https://gocloud.dev/concepts/urls
 // for more information.
 func OpenKeeper(ctx context.Context, urlstr string) (*Keeper, error) {

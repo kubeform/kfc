@@ -17,6 +17,7 @@ limitations under the License.
 package framework
 
 import (
+	"context"
 	"time"
 
 	base "kubeform.dev/kubeform/apis/base/v1alpha1"
@@ -27,6 +28,7 @@ import (
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	meta_util "kmodules.xyz/client-go/meta"
 )
 
 func (i *Invocation) Droplets(name string, secretName string) *v1alpha1.Droplet {
@@ -51,18 +53,18 @@ func (i *Invocation) Droplets(name string, secretName string) *v1alpha1.Droplet 
 }
 
 func (f *Framework) CreateDroplet(obj *v1alpha1.Droplet) error {
-	_, err := f.kubeformClient.DigitaloceanV1alpha1().Droplets(obj.Namespace).Create(obj)
+	_, err := f.kubeformClient.DigitaloceanV1alpha1().Droplets(obj.Namespace).Create(context.TODO(), obj, metav1.CreateOptions{})
 	return err
 }
 
 func (f *Framework) DeleteDroplet(meta metav1.ObjectMeta) error {
-	return f.kubeformClient.DigitaloceanV1alpha1().Droplets(meta.Namespace).Delete(meta.Name, deleteInForeground())
+	return f.kubeformClient.DigitaloceanV1alpha1().Droplets(meta.Namespace).Delete(context.TODO(), meta.Name, meta_util.DeleteInForeground())
 }
 
 func (f *Framework) EventuallyDropletRunning(meta metav1.ObjectMeta) GomegaAsyncAssertion {
 	return Eventually(
 		func() bool {
-			droplet, err := f.kubeformClient.DigitaloceanV1alpha1().Droplets(meta.Namespace).Get(meta.Name, metav1.GetOptions{})
+			droplet, err := f.kubeformClient.DigitaloceanV1alpha1().Droplets(meta.Namespace).Get(context.TODO(), meta.Name, metav1.GetOptions{})
 			Expect(err).NotTo(HaveOccurred())
 			return droplet.Status.Phase == base.PhaseRunning
 		},
@@ -74,7 +76,7 @@ func (f *Framework) EventuallyDropletRunning(meta metav1.ObjectMeta) GomegaAsync
 func (f *Framework) EventuallyDropletDeleted(meta metav1.ObjectMeta) GomegaAsyncAssertion {
 	return Eventually(
 		func() bool {
-			_, err := f.kubeformClient.DigitaloceanV1alpha1().Droplets(meta.Namespace).Get(meta.Name, metav1.GetOptions{})
+			_, err := f.kubeformClient.DigitaloceanV1alpha1().Droplets(meta.Namespace).Get(context.TODO(), meta.Name, metav1.GetOptions{})
 			return errors.IsNotFound(err)
 		},
 		time.Minute*15,

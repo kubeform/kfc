@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
 package dynamic
 
 import (
@@ -24,7 +25,6 @@ import (
 	discovery_util "kmodules.xyz/client-go/discovery"
 
 	"github.com/pkg/errors"
-	core "k8s.io/api/core/v1"
 	kerr "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -45,7 +45,7 @@ import (
 )
 
 func WaitUntilDeleted(ri dynamic.ResourceInterface, stopCh <-chan struct{}, name string, subresources ...string) error {
-	err := ri.Delete(name, &metav1.DeleteOptions{}, subresources...)
+	err := ri.Delete(context.TODO(), name, metav1.DeleteOptions{}, subresources...)
 	if kerr.IsNotFound(err) {
 		return nil
 	} else if err != nil {
@@ -53,7 +53,7 @@ func WaitUntilDeleted(ri dynamic.ResourceInterface, stopCh <-chan struct{}, name
 	}
 	// delete operation was successful, now wait for obj to be removed(eg: objects with finalizers)
 	return wait.PollImmediateUntil(kutil.RetryInterval, func() (bool, error) {
-		_, e2 := ri.Get(name, metav1.GetOptions{}, subresources...)
+		_, e2 := ri.Get(context.TODO(), name, metav1.GetOptions{}, subresources...)
 		if kerr.IsNotFound(e2) {
 			return true, nil
 		} else if e2 != nil && !kutil.IsRequestRetryable(e2) {
@@ -107,11 +107,11 @@ func untilHasKey(
 	lw := &cache.ListWatch{
 		ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
 			options.FieldSelector = fields.OneTermEqualSelector(kutil.ObjectNameField, name).String()
-			return ri.List(options)
+			return ri.List(ctx, options)
 		},
 		WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 			options.FieldSelector = fields.OneTermEqualSelector(kutil.ObjectNameField, name).String()
-			return ri.Watch(options)
+			return ri.Watch(ctx, options)
 		},
 	}
 
@@ -143,7 +143,7 @@ func untilHasKey(
 	return
 }
 
-func DetectWorkload(config *rest.Config, resource schema.GroupVersionResource, namespace, name string) (*unstructured.Unstructured, schema.GroupVersionResource, error) {
+func DetectWorkload(ctx context.Context, config *rest.Config, resource schema.GroupVersionResource, namespace, name string) (*unstructured.Unstructured, schema.GroupVersionResource, error) {
 	kc := kubernetes.NewForConfigOrDie(config)
 	dc, err := dynamic.NewForConfig(config)
 	if err != nil {
@@ -157,14 +157,14 @@ func DetectWorkload(config *rest.Config, resource schema.GroupVersionResource, n
 		ri = dc.Resource(resource)
 	}
 
-	obj, err := ri.Get(name, metav1.GetOptions{})
+	obj, err := ri.Get(ctx, name, metav1.GetOptions{})
 	if err != nil {
 		return nil, resource, err
 	}
-	return findWorkload(kc, dc, resource, obj)
+	return findWorkload(ctx, kc, dc, resource, obj)
 }
 
-func findWorkload(kc kubernetes.Interface, dc dynamic.Interface, resource schema.GroupVersionResource, obj *unstructured.Unstructured) (*unstructured.Unstructured, schema.GroupVersionResource, error) {
+func findWorkload(ctx context.Context, kc kubernetes.Interface, dc dynamic.Interface, resource schema.GroupVersionResource, obj *unstructured.Unstructured) (*unstructured.Unstructured, schema.GroupVersionResource, error) {
 	m, err := meta.Accessor(obj)
 	if err != nil {
 		return nil, resource, err
@@ -187,22 +187,23 @@ func findWorkload(kc kubernetes.Interface, dc dynamic.Interface, resource schema
 			} else {
 				ri = dc.Resource(gvr)
 			}
-			parent, err := ri.Get(ref.Name, metav1.GetOptions{})
+			parent, err := ri.Get(ctx, ref.Name, metav1.GetOptions{})
 			if err != nil {
 				return nil, schema.GroupVersionResource{}, err
 			}
-			return findWorkload(kc, dc, gvr, parent)
+			return findWorkload(ctx, kc, dc, gvr, parent)
 		}
 	}
 	return obj, resource, nil
 }
 
 func RemoveOwnerReferenceForItems(
+	ctx context.Context,
 	c dynamic.Interface,
 	gvr schema.GroupVersionResource,
 	namespace string,
 	items []string,
-	ref *core.ObjectReference,
+	owner metav1.Object,
 ) error {
 	var ri dynamic.ResourceInterface
 	if namespace == "" {
@@ -213,17 +214,17 @@ func RemoveOwnerReferenceForItems(
 
 	var errs []error
 	for _, name := range items {
-		item, err := ri.Get(name, metav1.GetOptions{})
+		item, err := ri.Get(ctx, name, metav1.GetOptions{})
 		if err != nil {
 			if !kerr.IsNotFound(err) {
 				errs = append(errs, err)
 			}
 			continue
 		}
-		if _, _, err := Patch(c, gvr, item, func(in *unstructured.Unstructured) *unstructured.Unstructured {
-			v1.RemoveOwnerReference(in, ref)
+		if _, _, err := Patch(ctx, c, gvr, item, func(in *unstructured.Unstructured) *unstructured.Unstructured {
+			v1.RemoveOwnerReference(in, owner)
 			return in
-		}); err != nil && !kerr.IsNotFound(err) {
+		}, metav1.PatchOptions{}); err != nil && !kerr.IsNotFound(err) {
 			errs = append(errs, err)
 		}
 	}
@@ -231,11 +232,12 @@ func RemoveOwnerReferenceForItems(
 }
 
 func RemoveOwnerReferenceForSelector(
+	ctx context.Context,
 	c dynamic.Interface,
 	gvr schema.GroupVersionResource,
 	namespace string,
 	selector labels.Selector,
-	ref *core.ObjectReference,
+	owner metav1.Object,
 ) error {
 	var ri dynamic.ResourceInterface
 	if namespace == "" {
@@ -244,17 +246,17 @@ func RemoveOwnerReferenceForSelector(
 		ri = c.Resource(gvr).Namespace(namespace)
 	}
 
-	list, err := ri.List(metav1.ListOptions{LabelSelector: selector.String()})
+	list, err := ri.List(ctx, metav1.ListOptions{LabelSelector: selector.String()})
 	if err != nil {
 		return err
 	}
 
 	var errs []error
 	for _, item := range list.Items {
-		if _, _, err := Patch(c, gvr, &item, func(in *unstructured.Unstructured) *unstructured.Unstructured {
-			v1.RemoveOwnerReference(in, ref)
+		if _, _, err := Patch(ctx, c, gvr, &item, func(in *unstructured.Unstructured) *unstructured.Unstructured {
+			v1.RemoveOwnerReference(in, owner)
 			return in
-		}); err != nil && !kerr.IsNotFound(err) {
+		}, metav1.PatchOptions{}); err != nil && !kerr.IsNotFound(err) {
 			errs = append(errs, err)
 		}
 	}
@@ -262,11 +264,12 @@ func RemoveOwnerReferenceForSelector(
 }
 
 func EnsureOwnerReferenceForItems(
+	ctx context.Context,
 	c dynamic.Interface,
 	gvr schema.GroupVersionResource,
 	namespace string,
 	items []string,
-	ref *core.ObjectReference,
+	owner *metav1.OwnerReference,
 ) error {
 	var ri dynamic.ResourceInterface
 	if namespace == "" {
@@ -277,17 +280,17 @@ func EnsureOwnerReferenceForItems(
 
 	var errs []error
 	for _, name := range items {
-		item, err := ri.Get(name, metav1.GetOptions{})
+		item, err := ri.Get(ctx, name, metav1.GetOptions{})
 		if err != nil {
 			if !kerr.IsNotFound(err) {
 				errs = append(errs, err)
 			}
 			continue
 		}
-		if _, _, err := Patch(c, gvr, item, func(in *unstructured.Unstructured) *unstructured.Unstructured {
-			v1.EnsureOwnerReference(in, ref)
+		if _, _, err := Patch(ctx, c, gvr, item, func(in *unstructured.Unstructured) *unstructured.Unstructured {
+			v1.EnsureOwnerReference(in, owner)
 			return in
-		}); err != nil && !kerr.IsNotFound(err) {
+		}, metav1.PatchOptions{}); err != nil && !kerr.IsNotFound(err) {
 			errs = append(errs, err)
 		}
 	}
@@ -295,11 +298,12 @@ func EnsureOwnerReferenceForItems(
 }
 
 func EnsureOwnerReferenceForSelector(
+	ctx context.Context,
 	c dynamic.Interface,
 	gvr schema.GroupVersionResource,
 	namespace string,
 	selector labels.Selector,
-	ref *core.ObjectReference,
+	owner *metav1.OwnerReference,
 ) error {
 	var ri dynamic.ResourceInterface
 	if namespace == "" {
@@ -307,17 +311,17 @@ func EnsureOwnerReferenceForSelector(
 	} else {
 		ri = c.Resource(gvr).Namespace(namespace)
 	}
-	list, err := ri.List(metav1.ListOptions{LabelSelector: selector.String()})
+	list, err := ri.List(ctx, metav1.ListOptions{LabelSelector: selector.String()})
 	if err != nil {
 		return err
 	}
 
 	var errs []error
 	for _, item := range list.Items {
-		if _, _, err := Patch(c, gvr, &item, func(in *unstructured.Unstructured) *unstructured.Unstructured {
-			v1.EnsureOwnerReference(in, ref)
+		if _, _, err := Patch(ctx, c, gvr, &item, func(in *unstructured.Unstructured) *unstructured.Unstructured {
+			v1.EnsureOwnerReference(in, owner)
 			return in
-		}); err != nil && !kerr.IsNotFound(err) {
+		}, metav1.PatchOptions{}); err != nil && !kerr.IsNotFound(err) {
 			errs = append(errs, err)
 		}
 	}

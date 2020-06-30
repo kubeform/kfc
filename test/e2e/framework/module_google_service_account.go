@@ -17,6 +17,7 @@ limitations under the License.
 package framework
 
 import (
+	"context"
 	"os"
 	"time"
 
@@ -28,6 +29,7 @@ import (
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	meta_util "kmodules.xyz/client-go/meta"
 	"kmodules.xyz/constants/google"
 )
 
@@ -53,18 +55,18 @@ func (i *Invocation) ModuleServiceAccount(name string, secretName string) *v1alp
 }
 
 func (f *Framework) CreateModuleServiceAccount(obj *v1alpha1.GoogleServiceAccount) error {
-	_, err := f.kubeformClient.ModulesV1alpha1().GoogleServiceAccounts(obj.Namespace).Create(obj)
+	_, err := f.kubeformClient.ModulesV1alpha1().GoogleServiceAccounts(obj.Namespace).Create(context.TODO(), obj, metav1.CreateOptions{})
 	return err
 }
 
 func (f *Framework) DeleteModuleServiceAccount(meta metav1.ObjectMeta) error {
-	return f.kubeformClient.ModulesV1alpha1().GoogleServiceAccounts(meta.Namespace).Delete(meta.Name, deleteInForeground())
+	return f.kubeformClient.ModulesV1alpha1().GoogleServiceAccounts(meta.Namespace).Delete(context.TODO(), meta.Name, meta_util.DeleteInForeground())
 }
 
 func (f *Framework) EventuallyModuleServiceAccountRunning(meta metav1.ObjectMeta) GomegaAsyncAssertion {
 	return Eventually(
 		func() bool {
-			serviceAccount, err := f.kubeformClient.ModulesV1alpha1().GoogleServiceAccounts(meta.Namespace).Get(meta.Name, metav1.GetOptions{})
+			serviceAccount, err := f.kubeformClient.ModulesV1alpha1().GoogleServiceAccounts(meta.Namespace).Get(context.TODO(), meta.Name, metav1.GetOptions{})
 			Expect(err).NotTo(HaveOccurred())
 			return serviceAccount.Status.Phase == base.PhaseRunning
 		},
@@ -76,7 +78,7 @@ func (f *Framework) EventuallyModuleServiceAccountRunning(meta metav1.ObjectMeta
 func (f *Framework) EventuallyModuleServiceAccountDeleted(meta metav1.ObjectMeta) GomegaAsyncAssertion {
 	return Eventually(
 		func() bool {
-			_, err := f.kubeformClient.ModulesV1alpha1().GoogleServiceAccounts(meta.Namespace).Get(meta.Name, metav1.GetOptions{})
+			_, err := f.kubeformClient.ModulesV1alpha1().GoogleServiceAccounts(meta.Namespace).Get(context.TODO(), meta.Name, metav1.GetOptions{})
 			return errors.IsNotFound(err)
 		},
 		time.Minute*15,

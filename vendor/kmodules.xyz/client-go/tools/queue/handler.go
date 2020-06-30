@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
 package queue
 
 import (
@@ -78,38 +79,10 @@ func NewReconcilableHandler(queue workqueue.RateLimitingInterface) cache.Resourc
 	return &QueueingEventHandler{
 		queue: queue,
 		enqueueAdd: func(o interface{}) bool {
-			return !meta_util.AlreadyReconciled(o)
+			return !meta_util.MustAlreadyReconciled(o)
 		},
 		enqueueUpdate: func(old, nu interface{}) bool {
-			return (nu.(metav1.Object)).GetDeletionTimestamp() != nil || !meta_util.AlreadyReconciled(nu)
-		},
-		enqueueDelete: true,
-	}
-}
-
-// Deprecated, should not be used after we drop support for Kubernetes 1.10. Use NewReconcilableHandler
-func NewObservableHandler(queue workqueue.RateLimitingInterface, enableStatusSubresource bool) cache.ResourceEventHandler {
-	return &QueueingEventHandler{
-		queue: queue,
-		enqueueAdd: func(o interface{}) bool {
-			return !meta_util.AlreadyObserved(o, enableStatusSubresource)
-		},
-		enqueueUpdate: func(old, nu interface{}) bool {
-			return (nu.(metav1.Object)).GetDeletionTimestamp() != nil ||
-				!meta_util.AlreadyObserved2(old, nu, enableStatusSubresource)
-		},
-		enqueueDelete: true,
-	}
-}
-
-// Deprecated, should not be used after we drop support for Kubernetes 1.10. Use NewReconcilableHandler
-func NewObservableUpdateHandler(queue workqueue.RateLimitingInterface, enableStatusSubresource bool) cache.ResourceEventHandler {
-	return &QueueingEventHandler{
-		queue:      queue,
-		enqueueAdd: nil,
-		enqueueUpdate: func(old, nu interface{}) bool {
-			return (nu.(metav1.Object)).GetDeletionTimestamp() != nil ||
-				!meta_util.AlreadyObserved2(old, nu, enableStatusSubresource)
+			return (nu.(metav1.Object)).GetDeletionTimestamp() != nil || !meta_util.MustAlreadyReconciled(nu)
 		},
 		enqueueDelete: true,
 	}

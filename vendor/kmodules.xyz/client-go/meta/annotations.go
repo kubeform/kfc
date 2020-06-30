@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
 package meta
 
 import (
@@ -172,4 +173,17 @@ func ParseFor(key string, fn ParserFunc) GetFunc {
 	return func(m map[string]string) (interface{}, error) {
 		return fn(m, key)
 	}
+}
+
+func GetStringValueForKeys(m map[string]string, key string, alts ...string) (string, error) {
+	if m == nil {
+		return "", kutil.ErrNotFound
+	}
+	keys := append([]string{key}, alts...)
+	for _, k := range keys {
+		if v, ok := m[k]; ok {
+			return v, nil
+		}
+	}
+	return "", kutil.ErrNotFound
 }

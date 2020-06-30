@@ -22,7 +22,6 @@ import (
 	v1alpha1 "kubeform.dev/kubeform/apis/linode/v1alpha1"
 	"kubeform.dev/kubeform/client/clientset/versioned/scheme"
 
-	serializer "k8s.io/apimachinery/pkg/runtime/serializer"
 	rest "k8s.io/client-go/rest"
 )
 
@@ -30,11 +29,15 @@ type LinodeV1alpha1Interface interface {
 	RESTClient() rest.Interface
 	DomainsGetter
 	DomainRecordsGetter
+	FirewallsGetter
 	ImagesGetter
 	InstancesGetter
+	LkeClustersGetter
 	NodebalancersGetter
 	NodebalancerConfigsGetter
 	NodebalancerNodesGetter
+	ObjectStorageBucketsGetter
+	ObjectStorageKeysGetter
 	RdnsesGetter
 	SshkeysGetter
 	StackscriptsGetter
@@ -55,12 +58,20 @@ func (c *LinodeV1alpha1Client) DomainRecords(namespace string) DomainRecordInter
 	return newDomainRecords(c, namespace)
 }
 
+func (c *LinodeV1alpha1Client) Firewalls(namespace string) FirewallInterface {
+	return newFirewalls(c, namespace)
+}
+
 func (c *LinodeV1alpha1Client) Images(namespace string) ImageInterface {
 	return newImages(c, namespace)
 }
 
 func (c *LinodeV1alpha1Client) Instances(namespace string) InstanceInterface {
 	return newInstances(c, namespace)
+}
+
+func (c *LinodeV1alpha1Client) LkeClusters(namespace string) LkeClusterInterface {
+	return newLkeClusters(c, namespace)
 }
 
 func (c *LinodeV1alpha1Client) Nodebalancers(namespace string) NodebalancerInterface {
@@ -73,6 +84,14 @@ func (c *LinodeV1alpha1Client) NodebalancerConfigs(namespace string) Nodebalance
 
 func (c *LinodeV1alpha1Client) NodebalancerNodes(namespace string) NodebalancerNodeInterface {
 	return newNodebalancerNodes(c, namespace)
+}
+
+func (c *LinodeV1alpha1Client) ObjectStorageBuckets(namespace string) ObjectStorageBucketInterface {
+	return newObjectStorageBuckets(c, namespace)
+}
+
+func (c *LinodeV1alpha1Client) ObjectStorageKeys(namespace string) ObjectStorageKeyInterface {
+	return newObjectStorageKeys(c, namespace)
 }
 
 func (c *LinodeV1alpha1Client) Rdnses(namespace string) RdnsInterface {
@@ -127,7 +146,7 @@ func setConfigDefaults(config *rest.Config) error {
 	gv := v1alpha1.SchemeGroupVersion
 	config.GroupVersion = &gv
 	config.APIPath = "/apis"
-	config.NegotiatedSerializer = serializer.DirectCodecFactory{CodecFactory: scheme.Codecs}
+	config.NegotiatedSerializer = scheme.Codecs.WithoutConversion()
 
 	if config.UserAgent == "" {
 		config.UserAgent = rest.DefaultKubernetesUserAgent()

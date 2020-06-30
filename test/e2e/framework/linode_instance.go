@@ -17,6 +17,7 @@ limitations under the License.
 package framework
 
 import (
+	"context"
 	"time"
 
 	base "kubeform.dev/kubeform/apis/base/v1alpha1"
@@ -27,6 +28,7 @@ import (
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	meta_util "kmodules.xyz/client-go/meta"
 )
 
 func (i *Invocation) Instance(name string, secretName string) *v1alpha1.Instance {
@@ -55,18 +57,18 @@ func (i *Invocation) Instance(name string, secretName string) *v1alpha1.Instance
 }
 
 func (f *Framework) CreateInstance(obj *v1alpha1.Instance) error {
-	_, err := f.kubeformClient.LinodeV1alpha1().Instances(obj.Namespace).Create(obj)
+	_, err := f.kubeformClient.LinodeV1alpha1().Instances(obj.Namespace).Create(context.TODO(), obj, metav1.CreateOptions{})
 	return err
 }
 
 func (f *Framework) DeleteInstance(meta metav1.ObjectMeta) error {
-	return f.kubeformClient.LinodeV1alpha1().Instances(meta.Namespace).Delete(meta.Name, deleteInForeground())
+	return f.kubeformClient.LinodeV1alpha1().Instances(meta.Namespace).Delete(context.TODO(), meta.Name, meta_util.DeleteInForeground())
 }
 
 func (f *Framework) EventuallyInstanceRunning(meta metav1.ObjectMeta) GomegaAsyncAssertion {
 	return Eventually(
 		func() bool {
-			instance, err := f.kubeformClient.LinodeV1alpha1().Instances(meta.Namespace).Get(meta.Name, metav1.GetOptions{})
+			instance, err := f.kubeformClient.LinodeV1alpha1().Instances(meta.Namespace).Get(context.TODO(), meta.Name, metav1.GetOptions{})
 			Expect(err).NotTo(HaveOccurred())
 			return instance.Status.Phase == base.PhaseRunning
 		},
@@ -78,7 +80,7 @@ func (f *Framework) EventuallyInstanceRunning(meta metav1.ObjectMeta) GomegaAsyn
 func (f *Framework) EventuallyInstanceDeleted(meta metav1.ObjectMeta) GomegaAsyncAssertion {
 	return Eventually(
 		func() bool {
-			_, err := f.kubeformClient.LinodeV1alpha1().Instances(meta.Namespace).Get(meta.Name, metav1.GetOptions{})
+			_, err := f.kubeformClient.LinodeV1alpha1().Instances(meta.Namespace).Get(context.TODO(), meta.Name, metav1.GetOptions{})
 			return errors.IsNotFound(err)
 		},
 		time.Minute*15,

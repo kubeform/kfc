@@ -17,6 +17,7 @@ limitations under the License.
 package framework
 
 import (
+	"context"
 	"time"
 
 	"kubeform.dev/kubeform/apis/aws/v1alpha1"
@@ -27,6 +28,7 @@ import (
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	meta_util "kmodules.xyz/client-go/meta"
 )
 
 func (i *Invocation) S3Bucket(name, secretName string) *v1alpha1.S3Bucket {
@@ -52,18 +54,18 @@ func (i *Invocation) S3Bucket(name, secretName string) *v1alpha1.S3Bucket {
 }
 
 func (f *Framework) CreateS3Bucket(obj *v1alpha1.S3Bucket) error {
-	_, err := f.kubeformClient.AwsV1alpha1().S3Buckets(obj.Namespace).Create(obj)
+	_, err := f.kubeformClient.AwsV1alpha1().S3Buckets(obj.Namespace).Create(context.TODO(), obj, metav1.CreateOptions{})
 	return err
 }
 
 func (f *Framework) DeleteS3Bucket(meta metav1.ObjectMeta) error {
-	return f.kubeformClient.AwsV1alpha1().S3Buckets(meta.Namespace).Delete(meta.Name, deleteInForeground())
+	return f.kubeformClient.AwsV1alpha1().S3Buckets(meta.Namespace).Delete(context.TODO(), meta.Name, meta_util.DeleteInForeground())
 }
 
 func (f *Framework) EventuallyS3BucketRunning(meta metav1.ObjectMeta) GomegaAsyncAssertion {
 	return Eventually(
 		func() bool {
-			s3Bucket, err := f.kubeformClient.AwsV1alpha1().S3Buckets(meta.Namespace).Get(meta.Name, metav1.GetOptions{})
+			s3Bucket, err := f.kubeformClient.AwsV1alpha1().S3Buckets(meta.Namespace).Get(context.TODO(), meta.Name, metav1.GetOptions{})
 			Expect(err).NotTo(HaveOccurred())
 			return s3Bucket.Status.Phase == base.PhaseRunning
 		},
@@ -75,7 +77,7 @@ func (f *Framework) EventuallyS3BucketRunning(meta metav1.ObjectMeta) GomegaAsyn
 func (f *Framework) EventuallyS3BucketDeleted(meta metav1.ObjectMeta) GomegaAsyncAssertion {
 	return Eventually(
 		func() bool {
-			_, err := f.kubeformClient.AwsV1alpha1().S3Buckets(meta.Namespace).Get(meta.Name, metav1.GetOptions{})
+			_, err := f.kubeformClient.AwsV1alpha1().S3Buckets(meta.Namespace).Get(context.TODO(), meta.Name, metav1.GetOptions{})
 			return errors.IsNotFound(err)
 		},
 		time.Minute*15,

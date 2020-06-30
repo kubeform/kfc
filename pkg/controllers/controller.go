@@ -17,6 +17,7 @@ limitations under the License.
 package controllers
 
 import (
+	"context"
 	"fmt"
 	"path/filepath"
 	"strings"
@@ -191,7 +192,7 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 
 	if hasFinalizer(obj.GetFinalizers(), KFCFinalizer) {
 		if obj.GetDeletionTimestamp() != nil {
-			_, err = du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseDeleting))
+			_, err = du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, obj, setPhase(base.PhaseDeleting), metav1.UpdateOptions{})
 			if err != nil {
 				return fmt.Errorf("failed to update status phase : %s", err)
 			}
@@ -226,7 +227,7 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		return nil
 	}
 
-	_, err = du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseInitializing))
+	_, err = du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, obj, setPhase(base.PhaseInitializing), metav1.UpdateOptions{})
 	if err != nil {
 		return fmt.Errorf("failed to update status phase : %s", err)
 	}
@@ -242,7 +243,7 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		return nil
 	}
 
-	secret, err := c.kubeclientset.CoreV1().Secrets(namespace).Get(providerRef, metav1.GetOptions{})
+	secret, err := c.kubeclientset.CoreV1().Secrets(namespace).Get(context.TODO(), providerRef, metav1.GetOptions{})
 	if err != nil {
 		return fmt.Errorf("unable to fetch secret : %s", err)
 	}
@@ -275,7 +276,7 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 
 	err = terraformInit(resPath)
 	if err != nil {
-		_, err2 := du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed))
+		_, err2 := du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed), metav1.UpdateOptions{})
 		if err2 != nil {
 			log.Errorf("failed to update status phase : %s", err)
 		}
@@ -288,14 +289,14 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		return fmt.Errorf("unable to create tfstate file : %s", err)
 	}
 
-	_, err = du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseApplying))
+	_, err = du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, obj, setPhase(base.PhaseApplying), metav1.UpdateOptions{})
 	if err != nil {
 		return fmt.Errorf("failed to update status phase : %s", err)
 	}
 
 	err = terraformApply(resPath)
 	if err != nil {
-		_, err2 := du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed))
+		_, err2 := du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed), metav1.UpdateOptions{})
 		if err2 != nil {
 			log.Errorf("failed to update status phase : %s", err)
 		}
@@ -305,7 +306,7 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 
 	err = updateTFStateFile(c, stateFile, isModule, gvr, obj)
 	if err != nil {
-		_, err2 := du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed))
+		_, err2 := du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed), metav1.UpdateOptions{})
 		if err2 != nil {
 			log.Errorf("failed to update status phase : %s", err)
 		}
@@ -316,7 +317,7 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 	if !isModule {
 		err = updateStateField(c, namespace, providerName, stateFile, gvr, obj)
 		if err != nil {
-			_, err2 := du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed))
+			_, err2 := du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed), metav1.UpdateOptions{})
 			if err2 != nil {
 				log.Errorf("failed to update status phase : %s", err)
 			}
@@ -326,7 +327,7 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 	} else {
 		err = updateOutputField(c, resPath, namespace, providerName, gvr, obj)
 		if err != nil {
-			_, err2 := du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed))
+			_, err2 := du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed), metav1.UpdateOptions{})
 			if err2 != nil {
 				log.Errorf("failed to update status phase : %s", err)
 			}
@@ -335,12 +336,12 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		}
 	}
 
-	_, err = du.UpdateStatus(c.dynamicclient, gvr, obj, setObservedGeneration())
+	_, err = du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, obj, setObservedGeneration(), metav1.UpdateOptions{})
 	if err != nil {
 		return fmt.Errorf("failed to update status phase : %s", err)
 	}
 
-	_, err = du.UpdateStatus(c.dynamicclient, gvr, obj, setPhase(base.PhaseRunning))
+	_, err = du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, obj, setPhase(base.PhaseRunning), metav1.UpdateOptions{})
 	if err != nil {
 		return fmt.Errorf("failed to update status phase : %s", err)
 	}

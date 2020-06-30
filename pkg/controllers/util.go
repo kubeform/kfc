@@ -41,6 +41,7 @@ import (
 	_ "gocloud.dev/secrets/localsecrets"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -115,7 +116,7 @@ func crdToTFResource(gv schema.GroupVersion, namespace, providerName string, kub
 	if secretRef != nil {
 		secretName := typedStruct.Field("Spec").Field("SecretRef").Field("Name").Value()
 		if secretName != nil {
-			secret, err := kubeclient.CoreV1().Secrets(namespace).Get(secretName.(string), v1.GetOptions{})
+			secret, err := kubeclient.CoreV1().Secrets(namespace).Get(context.TODO(), secretName.(string), v1.GetOptions{})
 			if err != nil {
 				return err
 			}
@@ -213,7 +214,7 @@ func crdToModule(kc kubernetes.Interface, gv schema.GroupVersion, obj *unstructu
 	if secretRef != nil {
 		secretName := typedStruct.Field("Spec").Field("SecretRef").Field("Name").Value()
 		if secretName != nil {
-			secret, err := kc.CoreV1().Secrets(obj.GetNamespace()).Get(secretName.(string), v1.GetOptions{})
+			secret, err := kc.CoreV1().Secrets(obj.GetNamespace()).Get(context.TODO(), secretName.(string), v1.GetOptions{})
 			if err != nil {
 				return err
 			}
@@ -344,16 +345,16 @@ func updateStateField(c *Controller, namespace, providerName, filePath string, g
 		}
 
 		var secret *corev1.Secret
-		secret, err = kc.CoreV1().Secrets(namespace).Get(secretName, v1.GetOptions{})
+		secret, err = kc.CoreV1().Secrets(namespace).Get(context.TODO(), secretName, v1.GetOptions{})
 		if err != nil {
 			if errors.ReasonForError(err) == v1.StatusReasonNotFound {
-				_, err = kc.CoreV1().Secrets(namespace).Create(&corev1.Secret{
+				_, err = kc.CoreV1().Secrets(namespace).Create(context.TODO(), &corev1.Secret{
 					ObjectMeta: v1.ObjectMeta{
 						Name:      secretName,
 						Namespace: namespace,
 					},
 					Type: corev1.SecretType("kubeform.com/" + providerName),
-				})
+				}, v1.CreateOptions{})
 				if err != nil {
 					return err
 				}
@@ -368,7 +369,7 @@ func updateStateField(c *Controller, namespace, providerName, filePath string, g
 			secret.Data["out."+key] = []byte(secretData[key])
 		}
 
-		_, err = kc.CoreV1().Secrets(namespace).Update(secret)
+		_, err = kc.CoreV1().Secrets(namespace).Update(context.TODO(), secret, v1.UpdateOptions{})
 		if err != nil {
 			return err
 		}
@@ -386,14 +387,14 @@ func updateStateField(c *Controller, namespace, providerName, filePath string, g
 		return err
 	}
 
-	_, err = du.UpdateStatus(c.dynamicclient, gvr, obj, func(in *unstructured.Unstructured) *unstructured.Unstructured {
+	_, err = du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, obj, func(in *unstructured.Unstructured) *unstructured.Unstructured {
 		err := unstructured.SetNestedField(in.Object, specMap, "status", "output")
 		if err != nil {
 			log.Error("failed to update status output")
 		}
 
 		return in
-	})
+	}, metav1.UpdateOptions{})
 	if err != nil {
 		return err
 	}
@@ -424,14 +425,14 @@ func updateOutputField(c *Controller, respath, namespace, providerName string, g
 				return err
 			}
 
-			_, err = du.UpdateStatus(c.dynamicclient, gvr, obj, func(in *unstructured.Unstructured) *unstructured.Unstructured {
+			_, err = du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, obj, func(in *unstructured.Unstructured) *unstructured.Unstructured {
 				err := setNestedFieldNoCopy(in.Object, string(val), "status", "output", flect.Camelize(name))
 				if err != nil {
 					log.Error("failed to update status output")
 				}
 
 				return in
-			})
+			}, metav1.UpdateOptions{})
 			if err != nil {
 				log.Error(err)
 			}
@@ -455,16 +456,16 @@ func updateOutputField(c *Controller, respath, namespace, providerName string, g
 		}
 
 		var secret *corev1.Secret
-		secret, err = kc.CoreV1().Secrets(namespace).Get(secretName.(string), v1.GetOptions{})
+		secret, err = kc.CoreV1().Secrets(namespace).Get(context.TODO(), secretName.(string), v1.GetOptions{})
 		if err != nil {
 			if errors.ReasonForError(err) == v1.StatusReasonNotFound {
-				_, err = kc.CoreV1().Secrets(namespace).Create(&corev1.Secret{
+				_, err = kc.CoreV1().Secrets(namespace).Create(context.TODO(), &corev1.Secret{
 					ObjectMeta: v1.ObjectMeta{
 						Name:      secretName.(string),
 						Namespace: namespace,
 					},
 					Type: corev1.SecretType("kubeform.com/" + providerName),
-				})
+				}, v1.CreateOptions{})
 				if err != nil {
 					return err
 				}
@@ -476,7 +477,7 @@ func updateOutputField(c *Controller, respath, namespace, providerName string, g
 			secret.Data[key] = secretData[key]
 		}
 
-		_, err = kc.CoreV1().Secrets(namespace).Update(secret)
+		_, err = kc.CoreV1().Secrets(namespace).Update(context.TODO(), secret, v1.UpdateOptions{})
 		if err != nil {
 			return err
 		}
@@ -506,14 +507,14 @@ func addFinalizer(dynamicclient dynamic.Interface, gvr schema.GroupVersionResour
 
 	finalizers = append(finalizers, finalizer)
 
-	_, err := du.TryUpdate(dynamicclient, gvr, v1.ObjectMeta{Name: u.GetName(), Namespace: u.GetNamespace()}, func(in *unstructured.Unstructured) *unstructured.Unstructured {
+	_, err := du.TryUpdate(context.TODO(), dynamicclient, gvr, v1.ObjectMeta{Name: u.GetName(), Namespace: u.GetNamespace()}, func(in *unstructured.Unstructured) *unstructured.Unstructured {
 		err := unstructured.SetNestedStringSlice(in.Object, finalizers, "metadata", "finalizers")
 		if err != nil {
 			log.Error(err)
 		}
 
 		return in
-	})
+	}, metav1.UpdateOptions{})
 
 	return err
 }
@@ -527,14 +528,14 @@ func removeFinalizer(dynamicclient dynamic.Interface, gvr schema.GroupVersionRes
 		}
 	}
 
-	_, err := du.TryUpdate(dynamicclient, gvr, v1.ObjectMeta{Name: u.GetName(), Namespace: u.GetNamespace()}, func(in *unstructured.Unstructured) *unstructured.Unstructured {
+	_, err := du.TryUpdate(context.TODO(), dynamicclient, gvr, v1.ObjectMeta{Name: u.GetName(), Namespace: u.GetNamespace()}, func(in *unstructured.Unstructured) *unstructured.Unstructured {
 		err := unstructured.SetNestedStringSlice(in.Object, finalizers, "metadata", "finalizers")
 		if err != nil {
 			log.Error(err)
 		}
 
 		return in
-	})
+	}, metav1.UpdateOptions{})
 
 	return err
 }
@@ -634,7 +635,7 @@ func createTFState(kc kubernetes.Interface, filePath, providerName string, isMod
 		if secretRef != nil {
 			secretName := typedStruct.Field("Spec").Field("SecretRef").Field("Name").Value()
 			if secretName != nil {
-				secret, err := kc.CoreV1().Secrets(u.GetNamespace()).Get(secretName.(string), v1.GetOptions{})
+				secret, err := kc.CoreV1().Secrets(u.GetNamespace()).Get(context.TODO(), secretName.(string), v1.GetOptions{})
 				if err != nil {
 					return err
 				}
@@ -745,14 +746,14 @@ func updateTFStateFile(c *Controller, filePath string, isModule bool, gvr schema
 				return err
 			}
 
-			_, err = du.UpdateStatus(c.dynamicclient, gvr, u, func(in *unstructured.Unstructured) *unstructured.Unstructured {
+			_, err = du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, u, func(in *unstructured.Unstructured) *unstructured.Unstructured {
 				err := unstructured.SetNestedField(in.Object, processedData, "status", "state")
 				if err != nil {
 					log.Error("failed to update status state")
 				}
 
 				return in
-			})
+			}, metav1.UpdateOptions{})
 			if err != nil {
 				return err
 			}
@@ -776,14 +777,14 @@ func updateTFStateFile(c *Controller, filePath string, isModule bool, gvr schema
 			return err
 		}
 
-		_, err = du.UpdateStatus(c.dynamicclient, gvr, u, func(in *unstructured.Unstructured) *unstructured.Unstructured {
+		_, err = du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, u, func(in *unstructured.Unstructured) *unstructured.Unstructured {
 			err := unstructured.SetNestedField(in.Object, tfstateMap, "status", "state")
 			if err != nil {
 				log.Error("failed to update status state")
 			}
 
 			return in
-		})
+		}, metav1.UpdateOptions{})
 		if err != nil {
 			return err
 		}

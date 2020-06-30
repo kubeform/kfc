@@ -17,6 +17,7 @@ limitations under the License.
 package framework
 
 import (
+	"context"
 	"time"
 
 	"kubeform.dev/kubeform/apis/azurerm/v1alpha1"
@@ -27,6 +28,7 @@ import (
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	meta_util "kmodules.xyz/client-go/meta"
 )
 
 func (i *Invocation) ResourceGroup(name string, secretName string) *v1alpha1.ResourceGroup {
@@ -52,18 +54,18 @@ func (i *Invocation) ResourceGroup(name string, secretName string) *v1alpha1.Res
 }
 
 func (f *Framework) CreateResourceGroup(obj *v1alpha1.ResourceGroup) error {
-	_, err := f.kubeformClient.AzurermV1alpha1().ResourceGroups(obj.Namespace).Create(obj)
+	_, err := f.kubeformClient.AzurermV1alpha1().ResourceGroups(obj.Namespace).Create(context.TODO(), obj, metav1.CreateOptions{})
 	return err
 }
 
 func (f *Framework) DeleteResourceGroup(meta metav1.ObjectMeta) error {
-	return f.kubeformClient.AzurermV1alpha1().ResourceGroups(meta.Namespace).Delete(meta.Name, deleteInForeground())
+	return f.kubeformClient.AzurermV1alpha1().ResourceGroups(meta.Namespace).Delete(context.TODO(), meta.Name, meta_util.DeleteInForeground())
 }
 
 func (f *Framework) EventuallyResourceGroupRunning(meta metav1.ObjectMeta) GomegaAsyncAssertion {
 	return Eventually(
 		func() bool {
-			resourceGroup, err := f.kubeformClient.AzurermV1alpha1().ResourceGroups(meta.Namespace).Get(meta.Name, metav1.GetOptions{})
+			resourceGroup, err := f.kubeformClient.AzurermV1alpha1().ResourceGroups(meta.Namespace).Get(context.TODO(), meta.Name, metav1.GetOptions{})
 			Expect(err).NotTo(HaveOccurred())
 			return resourceGroup.Status.Phase == base.PhaseRunning
 		},
@@ -75,7 +77,7 @@ func (f *Framework) EventuallyResourceGroupRunning(meta metav1.ObjectMeta) Gomeg
 func (f *Framework) EventuallyResourceGroupDeleted(meta metav1.ObjectMeta) GomegaAsyncAssertion {
 	return Eventually(
 		func() bool {
-			_, err := f.kubeformClient.AzurermV1alpha1().ResourceGroups(meta.Namespace).Get(meta.Name, metav1.GetOptions{})
+			_, err := f.kubeformClient.AzurermV1alpha1().ResourceGroups(meta.Namespace).Get(context.TODO(), meta.Name, metav1.GetOptions{})
 			return errors.IsNotFound(err)
 		},
 		time.Minute*30,

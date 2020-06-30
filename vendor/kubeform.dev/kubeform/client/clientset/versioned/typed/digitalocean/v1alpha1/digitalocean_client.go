@@ -22,7 +22,6 @@ import (
 	v1alpha1 "kubeform.dev/kubeform/apis/digitalocean/v1alpha1"
 	"kubeform.dev/kubeform/client/clientset/versioned/scheme"
 
-	serializer "k8s.io/apimachinery/pkg/runtime/serializer"
 	rest "k8s.io/client-go/rest"
 )
 
@@ -30,7 +29,14 @@ type DigitaloceanV1alpha1Interface interface {
 	RESTClient() rest.Interface
 	CdnsGetter
 	CertificatesGetter
+	ContainerRegistriesGetter
+	ContainerRegistryDockerCredentialsesGetter
 	DatabaseClustersGetter
+	DatabaseConnectionPoolsGetter
+	DatabaseDbsGetter
+	DatabaseFirewallsGetter
+	DatabaseReplicasGetter
+	DatabaseUsersGetter
 	DomainsGetter
 	DropletsGetter
 	DropletSnapshotsGetter
@@ -41,13 +47,16 @@ type DigitaloceanV1alpha1Interface interface {
 	KubernetesNodePoolsGetter
 	LoadbalancersGetter
 	ProjectsGetter
+	ProjectResourcesesGetter
 	RecordsGetter
 	SpacesBucketsGetter
+	SpacesBucketObjectsGetter
 	SshKeysGetter
 	TagsGetter
 	VolumesGetter
 	VolumeAttachmentsGetter
 	VolumeSnapshotsGetter
+	VpcsGetter
 }
 
 // DigitaloceanV1alpha1Client is used to interact with features provided by the digitalocean.kubeform.com group.
@@ -63,8 +72,36 @@ func (c *DigitaloceanV1alpha1Client) Certificates(namespace string) CertificateI
 	return newCertificates(c, namespace)
 }
 
+func (c *DigitaloceanV1alpha1Client) ContainerRegistries(namespace string) ContainerRegistryInterface {
+	return newContainerRegistries(c, namespace)
+}
+
+func (c *DigitaloceanV1alpha1Client) ContainerRegistryDockerCredentialses(namespace string) ContainerRegistryDockerCredentialsInterface {
+	return newContainerRegistryDockerCredentialses(c, namespace)
+}
+
 func (c *DigitaloceanV1alpha1Client) DatabaseClusters(namespace string) DatabaseClusterInterface {
 	return newDatabaseClusters(c, namespace)
+}
+
+func (c *DigitaloceanV1alpha1Client) DatabaseConnectionPools(namespace string) DatabaseConnectionPoolInterface {
+	return newDatabaseConnectionPools(c, namespace)
+}
+
+func (c *DigitaloceanV1alpha1Client) DatabaseDbs(namespace string) DatabaseDbInterface {
+	return newDatabaseDbs(c, namespace)
+}
+
+func (c *DigitaloceanV1alpha1Client) DatabaseFirewalls(namespace string) DatabaseFirewallInterface {
+	return newDatabaseFirewalls(c, namespace)
+}
+
+func (c *DigitaloceanV1alpha1Client) DatabaseReplicas(namespace string) DatabaseReplicaInterface {
+	return newDatabaseReplicas(c, namespace)
+}
+
+func (c *DigitaloceanV1alpha1Client) DatabaseUsers(namespace string) DatabaseUserInterface {
+	return newDatabaseUsers(c, namespace)
 }
 
 func (c *DigitaloceanV1alpha1Client) Domains(namespace string) DomainInterface {
@@ -107,12 +144,20 @@ func (c *DigitaloceanV1alpha1Client) Projects(namespace string) ProjectInterface
 	return newProjects(c, namespace)
 }
 
+func (c *DigitaloceanV1alpha1Client) ProjectResourceses(namespace string) ProjectResourcesInterface {
+	return newProjectResourceses(c, namespace)
+}
+
 func (c *DigitaloceanV1alpha1Client) Records(namespace string) RecordInterface {
 	return newRecords(c, namespace)
 }
 
 func (c *DigitaloceanV1alpha1Client) SpacesBuckets(namespace string) SpacesBucketInterface {
 	return newSpacesBuckets(c, namespace)
+}
+
+func (c *DigitaloceanV1alpha1Client) SpacesBucketObjects(namespace string) SpacesBucketObjectInterface {
+	return newSpacesBucketObjects(c, namespace)
 }
 
 func (c *DigitaloceanV1alpha1Client) SshKeys(namespace string) SshKeyInterface {
@@ -133,6 +178,10 @@ func (c *DigitaloceanV1alpha1Client) VolumeAttachments(namespace string) VolumeA
 
 func (c *DigitaloceanV1alpha1Client) VolumeSnapshots(namespace string) VolumeSnapshotInterface {
 	return newVolumeSnapshots(c, namespace)
+}
+
+func (c *DigitaloceanV1alpha1Client) Vpcs(namespace string) VpcInterface {
+	return newVpcs(c, namespace)
 }
 
 // NewForConfig creates a new DigitaloceanV1alpha1Client for the given config.
@@ -167,7 +216,7 @@ func setConfigDefaults(config *rest.Config) error {
 	gv := v1alpha1.SchemeGroupVersion
 	config.GroupVersion = &gv
 	config.APIPath = "/apis"
-	config.NegotiatedSerializer = serializer.DirectCodecFactory{CodecFactory: scheme.Codecs}
+	config.NegotiatedSerializer = scheme.Codecs.WithoutConversion()
 
 	if config.UserAgent == "" {
 		config.UserAgent = rest.DefaultKubernetesUserAgent()
