@@ -1,5 +1,5 @@
 /*
-Copyright The Kmodules Authors.
+Copyright AppsCode Inc. and Contributors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,11 +17,17 @@ limitations under the License.
 package queue
 
 import (
+	"fmt"
+	"reflect"
+	"time"
+
 	meta_util "kmodules.xyz/client-go/meta"
 
+	"github.com/fatih/structs"
 	"github.com/golang/glog"
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -88,6 +94,19 @@ func NewReconcilableHandler(queue workqueue.RateLimitingInterface) cache.Resourc
 	}
 }
 
+func NewChangeHandler(queue workqueue.RateLimitingInterface) cache.ResourceEventHandler {
+	return &QueueingEventHandler{
+		queue:      queue,
+		enqueueAdd: nil,
+		enqueueUpdate: func(old, nu interface{}) bool {
+			return (nu.(metav1.Object)).GetDeletionTimestamp() != nil ||
+				!meta_util.MustAlreadyReconciled(nu) ||
+				!statusEqual(old, nu)
+		},
+		enqueueDelete: true,
+	}
+}
+
 func Enqueue(queue workqueue.RateLimitingInterface, obj interface{}) {
 	key, err := cache.DeletionHandlingMetaNamespaceKeyFunc(obj)
 	if err != nil {
@@ -95,6 +114,15 @@ func Enqueue(queue workqueue.RateLimitingInterface, obj interface{}) {
 		return
 	}
 	queue.Add(key)
+}
+
+func EnqueueAfter(queue workqueue.RateLimitingInterface, obj interface{}, duration time.Duration) {
+	key, err := cache.DeletionHandlingMetaNamespaceKeyFunc(obj)
+	if err != nil {
+		glog.Errorf("Couldn't get key for object %+v: %v", obj, err)
+		return
+	}
+	queue.AddAfter(key, duration)
 }
 
 func (h *QueueingEventHandler) OnAdd(obj interface{}) {
@@ -182,4 +210,29 @@ func (w filteredEventHandler) OnDelete(obj interface{}) {
 	if w.matches(obj) {
 		w.inner.OnDelete(obj)
 	}
+}
+
+func statusEqual(old, new interface{}) bool {
+	oldStatus, oldExists := extractStatusFromObject(old)
+	newStatus, newExists := extractStatusFromObject(new)
+	if oldExists && newExists {
+		return reflect.DeepEqual(oldStatus, newStatus)
+	}
+	return !oldExists && !newExists
+}
+
+func extractStatusFromObject(o interface{}) (interface{}, bool) {
+	switch obj := o.(type) {
+	case *unstructured.Unstructured:
+		v, ok, _ := unstructured.NestedFieldNoCopy(obj.Object, "status")
+		return v, ok
+	case metav1.Object:
+		st := structs.New(obj)
+		field, ok := st.FieldOk("Status")
+		if !ok {
+			return nil, ok
+		}
+		return field.Value(), true
+	}
+	panic(fmt.Errorf("unknown object %v", reflect.TypeOf(o)))
 }
