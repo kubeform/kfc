@@ -25,6 +25,8 @@ RUN apt-get update \
 
 FROM {ARG_FROM}
 
+LABEL org.opencontainers.image.source https://github.com/kubeform/kfc
+
 RUN set -x \
   && apk update \
   && apk add --update --no-cache ca-certificates tzdata git \
