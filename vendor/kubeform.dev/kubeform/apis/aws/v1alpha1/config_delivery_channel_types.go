@@ -49,6 +49,8 @@ type ConfigDeliveryChannelSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Name         string `json:"name,omitempty" tf:"name,omitempty"`
 	S3BucketName string `json:"s3BucketName" tf:"s3_bucket_name"`

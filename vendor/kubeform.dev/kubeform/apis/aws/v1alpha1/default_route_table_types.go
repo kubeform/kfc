@@ -65,6 +65,8 @@ type DefaultRouteTableSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	DefaultRouteTableID string `json:"defaultRouteTableID" tf:"default_route_table_id"`
 	// +optional
 	OwnerID string `json:"ownerID,omitempty" tf:"owner_id,omitempty"`

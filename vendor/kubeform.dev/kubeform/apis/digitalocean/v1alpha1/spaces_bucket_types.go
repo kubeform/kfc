@@ -91,6 +91,8 @@ type SpacesBucketSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// Canned ACL applied on bucket creation
 	// +optional
 	Acl string `json:"acl,omitempty" tf:"acl,omitempty"`

@@ -44,6 +44,8 @@ type VpcEndpointRouteTableAssociationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	RouteTableID  string `json:"routeTableID" tf:"route_table_id"`
 	VpcEndpointID string `json:"vpcEndpointID" tf:"vpc_endpoint_id"`
 }

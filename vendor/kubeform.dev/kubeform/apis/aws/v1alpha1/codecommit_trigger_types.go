@@ -54,6 +54,8 @@ type CodecommitTriggerSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ConfigurationID string `json:"configurationID,omitempty" tf:"configuration_id,omitempty"`
 	RepositoryName  string `json:"repositoryName" tf:"repository_name"`

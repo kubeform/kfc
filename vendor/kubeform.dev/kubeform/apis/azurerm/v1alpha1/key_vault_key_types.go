@@ -44,6 +44,8 @@ type KeyVaultKeySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Curve string `json:"curve,omitempty" tf:"curve,omitempty"`
 	// +optional

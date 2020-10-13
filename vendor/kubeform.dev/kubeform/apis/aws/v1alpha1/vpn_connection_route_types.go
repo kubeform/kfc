@@ -44,6 +44,8 @@ type VpnConnectionRouteSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	DestinationCIDRBlock string `json:"destinationCIDRBlock" tf:"destination_cidr_block"`
 	VpnConnectionID      string `json:"vpnConnectionID" tf:"vpn_connection_id"`
 }

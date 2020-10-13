@@ -44,6 +44,8 @@ type LoggingBillingAccountExclusionSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	BillingAccount string `json:"billingAccount" tf:"billing_account"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`

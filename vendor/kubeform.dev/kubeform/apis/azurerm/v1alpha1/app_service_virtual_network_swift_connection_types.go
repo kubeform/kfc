@@ -44,6 +44,8 @@ type AppServiceVirtualNetworkSwiftConnectionSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	AppServiceID string `json:"appServiceID" tf:"app_service_id"`
 	SubnetID     string `json:"subnetID" tf:"subnet_id"`
 }

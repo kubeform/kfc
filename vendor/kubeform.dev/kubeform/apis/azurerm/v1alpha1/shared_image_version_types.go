@@ -51,6 +51,8 @@ type SharedImageVersionSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ExcludeFromLatest bool   `json:"excludeFromLatest,omitempty" tf:"exclude_from_latest,omitempty"`
 	GalleryName       string `json:"galleryName" tf:"gallery_name"`

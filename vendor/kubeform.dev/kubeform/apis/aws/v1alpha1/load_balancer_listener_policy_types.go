@@ -44,6 +44,8 @@ type LoadBalancerListenerPolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	LoadBalancerName string `json:"loadBalancerName" tf:"load_balancer_name"`
 	LoadBalancerPort int64  `json:"loadBalancerPort" tf:"load_balancer_port"`
 	// +optional

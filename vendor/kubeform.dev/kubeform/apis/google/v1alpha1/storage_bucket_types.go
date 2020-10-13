@@ -115,6 +115,8 @@ type StorageBucketSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	BucketPolicyOnly bool `json:"bucketPolicyOnly,omitempty" tf:"bucket_policy_only,omitempty"`
 	// +optional

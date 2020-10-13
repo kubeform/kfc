@@ -51,6 +51,8 @@ type GlobalacceleratorListenerSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	AcceleratorArn string `json:"acceleratorArn" tf:"accelerator_arn"`
 	// +optional
 	ClientAffinity string `json:"clientAffinity,omitempty" tf:"client_affinity,omitempty"`

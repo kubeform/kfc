@@ -44,6 +44,8 @@ type Ec2CapacityReservationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	AvailabilityZone string `json:"availabilityZone" tf:"availability_zone"`
 	// +optional
 	EbsOptimized bool `json:"ebsOptimized,omitempty" tf:"ebs_optimized,omitempty"`

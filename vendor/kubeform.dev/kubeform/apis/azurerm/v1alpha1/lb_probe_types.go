@@ -44,6 +44,8 @@ type LbProbeSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	IntervalInSeconds int64 `json:"intervalInSeconds,omitempty" tf:"interval_in_seconds,omitempty"`
 	// +optional

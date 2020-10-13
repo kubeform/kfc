@@ -68,6 +68,8 @@ type CognitoIdentityPoolRolesAttachmentSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	IdentityPoolID string `json:"identityPoolID" tf:"identity_pool_id"`
 	// +optional
 	RoleMapping []CognitoIdentityPoolRolesAttachmentSpecRoleMapping    `json:"roleMapping,omitempty" tf:"role_mapping,omitempty"`

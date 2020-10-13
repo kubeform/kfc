@@ -84,6 +84,8 @@ type FirewallSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// The devices associated with this firewall.
 	// +optional
 	Devices []FirewallSpecDevices `json:"devices,omitempty" tf:"devices,omitempty"`

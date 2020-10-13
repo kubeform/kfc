@@ -66,6 +66,8 @@ type CosmosdbGremlinGraphSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	AccountName              string                                             `json:"accountName" tf:"account_name"`
 	ConflictResolutionPolicy []CosmosdbGremlinGraphSpecConflictResolutionPolicy `json:"conflictResolutionPolicy" tf:"conflict_resolution_policy"`
 	DatabaseName             string                                             `json:"databaseName" tf:"database_name"`

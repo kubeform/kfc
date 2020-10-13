@@ -56,6 +56,8 @@ type WafXssMatchSetSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Name string `json:"name" tf:"name"`
 	// +optional
 	XssMatchTuples []WafXssMatchSetSpecXssMatchTuples `json:"xssMatchTuples,omitempty" tf:"xss_match_tuples,omitempty"`

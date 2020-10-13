@@ -83,6 +83,33 @@ func secretToTFProvider(secret *corev1.Secret, providerName, providerFile string
 	return nil
 }
 
+func secretToBackend(secret *corev1.Secret, backendFile, typ string) error {
+	d1 := []byte(`{ "terraform": { "backend": { "` + typ + `": `)
+	tempData := make(map[string]string)
+	for key, val := range secret.Data {
+		tempData[key] = strings.ReplaceAll(string(val), "\n", "")
+	}
+
+	providerJson, err := json.Marshal(tempData)
+	if err != nil {
+		return err
+	}
+	d1 = append(d1, providerJson...)
+	d1 = append(d1, []byte("} } }")...)
+
+	prettyData, err := prettyJSON(d1)
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile(backendFile, prettyData, 0644)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func crdToTFResource(gv schema.GroupVersion, namespace, providerName string, kubeclient kubernetes.Interface, obj *unstructured.Unstructured, mainFile string) error {
 	resourceName := providerName + "_" + flect.Underscore(obj.GetKind())
 

@@ -44,6 +44,8 @@ type ProxyProtocolPolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	InstancePorts []string `json:"instancePorts" tf:"instance_ports"`
 	LoadBalancer  string   `json:"loadBalancer" tf:"load_balancer"`
 }

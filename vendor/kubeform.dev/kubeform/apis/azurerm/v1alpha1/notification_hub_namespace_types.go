@@ -48,6 +48,8 @@ type NotificationHubNamespace_Spec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Enabled           bool   `json:"enabled,omitempty" tf:"enabled,omitempty"`
 	Location          string `json:"location" tf:"location"`

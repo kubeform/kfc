@@ -44,6 +44,8 @@ type SpannerInstanceSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Config      string `json:"config" tf:"config"`
 	DisplayName string `json:"displayName" tf:"display_name"`
 	// +optional

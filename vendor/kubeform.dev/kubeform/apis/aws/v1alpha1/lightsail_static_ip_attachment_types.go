@@ -44,6 +44,8 @@ type LightsailStaticIPAttachmentSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	InstanceName string `json:"instanceName" tf:"instance_name"`
 	// +optional
 	IpAddress    string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`

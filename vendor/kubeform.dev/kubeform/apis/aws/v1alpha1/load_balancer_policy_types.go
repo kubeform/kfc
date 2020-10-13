@@ -51,6 +51,8 @@ type LoadBalancerPolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	LoadBalancerName string `json:"loadBalancerName" tf:"load_balancer_name"`
 	// +optional
 	PolicyAttribute []LoadBalancerPolicySpecPolicyAttribute `json:"policyAttribute,omitempty" tf:"policy_attribute,omitempty"`

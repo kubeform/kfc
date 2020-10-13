@@ -44,6 +44,8 @@ type OrganizationIamPolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Etag       string `json:"etag,omitempty" tf:"etag,omitempty"`
 	OrgID      string `json:"orgID" tf:"org_id"`

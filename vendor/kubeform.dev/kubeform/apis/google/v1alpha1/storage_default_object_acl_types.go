@@ -44,6 +44,8 @@ type StorageDefaultObjectACLSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Bucket string `json:"bucket" tf:"bucket"`
 	// +optional
 	RoleEntity []string `json:"roleEntity,omitempty" tf:"role_entity,omitempty"`

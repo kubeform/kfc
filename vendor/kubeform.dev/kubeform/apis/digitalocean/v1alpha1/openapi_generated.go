@@ -13636,6 +13636,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_CdnSpec(ref common.ReferenceCall
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"certificateID": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ID of a DigitalOcean managed TLS certificate for use with custom domains",
@@ -13683,7 +13688,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_CdnSpec(ref common.ReferenceCall
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -13831,6 +13836,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_CertificateSpec(ref common.Refer
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -13896,7 +13906,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_CertificateSpec(ref common.Refer
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -14087,6 +14097,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_ContainerRegistryDockerCredentia
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -14121,7 +14136,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_ContainerRegistryDockerCredentia
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -14226,6 +14241,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_ContainerRegistrySpec(ref common
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"endpoint": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -14249,7 +14269,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_ContainerRegistrySpec(ref common
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -14397,6 +14417,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_DatabaseClusterSpec(ref common.R
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -14522,7 +14547,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_DatabaseClusterSpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.DatabaseClusterSpecMaintenanceWindow"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.DatabaseClusterSpecMaintenanceWindow"},
 	}
 }
 
@@ -14695,6 +14720,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_DatabaseConnectionPoolSpec(ref c
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -14759,7 +14789,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_DatabaseConnectionPoolSpec(ref c
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -14907,6 +14937,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_DatabaseDbSpec(ref common.Refere
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"clusterID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -14924,7 +14959,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_DatabaseDbSpec(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -15072,6 +15107,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_DatabaseFirewallSpec(ref common.
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"clusterID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -15095,7 +15135,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_DatabaseFirewallSpec(ref common.
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.DatabaseFirewallSpecRule"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.DatabaseFirewallSpecRule"},
 	}
 }
 
@@ -15280,6 +15320,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_DatabaseReplicaSpec(ref common.R
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -15363,7 +15408,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_DatabaseReplicaSpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -15511,6 +15556,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_DatabaseUserSpec(ref common.Refe
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -15545,7 +15595,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_DatabaseUserSpec(ref common.Refe
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -15693,6 +15743,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_DomainSpec(ref common.ReferenceC
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"ipAddress": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -15716,7 +15771,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_DomainSpec(ref common.ReferenceC
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -15954,6 +16009,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_DropletSnapshotSpec(ref common.R
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"createdAt": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -16002,7 +16062,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_DropletSnapshotSpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -16058,6 +16118,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_DropletSpec(ref common.Reference
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
 						},
 					},
 					"backups": {
@@ -16242,7 +16307,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_DropletSpec(ref common.Reference
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -16390,6 +16455,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_FirewallSpec(ref common.Referenc
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"createdAt": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -16475,7 +16545,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_FirewallSpec(ref common.Referenc
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.FirewallSpecInboundRule", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.FirewallSpecOutboundRule", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.FirewallSpecPendingChanges"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.FirewallSpecInboundRule", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.FirewallSpecOutboundRule", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.FirewallSpecPendingChanges"},
 	}
 }
 
@@ -16850,6 +16920,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_FloatingIPAssignmentSpec(ref com
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"dropletID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
@@ -16867,7 +16942,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_FloatingIPAssignmentSpec(ref com
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -16972,6 +17047,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_FloatingIPSpec(ref common.Refere
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"dropletID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
@@ -17002,7 +17082,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_FloatingIPSpec(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -17150,6 +17230,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_KubernetesClusterSpec(ref common
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -17251,7 +17336,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_KubernetesClusterSpec(ref common
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.KubernetesClusterSpecNodePool"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.KubernetesClusterSpecNodePool"},
 	}
 }
 
@@ -17549,6 +17634,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_KubernetesNodePoolSpec(ref commo
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"actualNodeCount": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
@@ -17641,7 +17731,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_KubernetesNodePoolSpec(ref commo
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.KubernetesNodePoolSpecNodes"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.KubernetesNodePoolSpecNodes"},
 	}
 }
 
@@ -17837,6 +17927,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_LoadbalancerSpec(ref common.Refe
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"algorithm": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -17958,7 +18053,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_LoadbalancerSpec(ref common.Refe
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.LoadbalancerSpecForwardingRule", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.LoadbalancerSpecHealthcheck", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.LoadbalancerSpecStickySessions"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.LoadbalancerSpecForwardingRule", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.LoadbalancerSpecHealthcheck", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.LoadbalancerSpecStickySessions"},
 	}
 }
 
@@ -18330,6 +18425,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_ProjectResourcesSpec(ref common.
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"project": {
 						SchemaProps: spec.SchemaProps{
 							Description: "project ID",
@@ -18356,7 +18456,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_ProjectResourcesSpec(ref common.
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -18412,6 +18512,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_ProjectSpec(ref common.Reference
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
 						},
 					},
 					"createdAt": {
@@ -18495,7 +18600,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_ProjectSpec(ref common.Reference
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -18643,6 +18748,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_RecordSpec(ref common.ReferenceC
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"domain": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -18714,7 +18824,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_RecordSpec(ref common.ReferenceC
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -18952,6 +19062,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_SpacesBucketObjectSpec(ref commo
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"acl": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -19067,7 +19182,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_SpacesBucketObjectSpec(ref commo
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -19123,6 +19238,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_SpacesBucketSpec(ref common.Refe
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
 						},
 					},
 					"acl": {
@@ -19209,7 +19329,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_SpacesBucketSpec(ref common.Refe
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.SpacesBucketSpecCorsRule", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.SpacesBucketSpecLifecycleRule", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.SpacesBucketSpecVersioning"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.SpacesBucketSpecCorsRule", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.SpacesBucketSpecLifecycleRule", "kubeform.dev/kubeform/apis/digitalocean/v1alpha1.SpacesBucketSpecVersioning"},
 	}
 }
 
@@ -19547,6 +19667,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_SshKeySpec(ref common.ReferenceC
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"fingerprint": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -19570,7 +19695,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_SshKeySpec(ref common.ReferenceC
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -19718,6 +19843,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_TagSpec(ref common.ReferenceCall
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"databasesCount": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
@@ -19765,7 +19895,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_TagSpec(ref common.ReferenceCall
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -19956,6 +20086,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_VolumeAttachmentSpec(ref common.
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"dropletID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
@@ -19973,7 +20108,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_VolumeAttachmentSpec(ref common.
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -20168,6 +20303,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_VolumeSnapshotSpec(ref common.Re
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"createdAt": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -20229,7 +20369,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_VolumeSnapshotSpec(ref common.Re
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -20285,6 +20425,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_VolumeSpec(ref common.ReferenceC
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
 						},
 					},
 					"description": {
@@ -20380,7 +20525,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_VolumeSpec(ref common.ReferenceC
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -20528,6 +20673,11 @@ func schema_kubeform_apis_digitalocean_v1alpha1_VpcSpec(ref common.ReferenceCall
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"createdAt": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The date and time of when the VPC was created",
@@ -20582,7 +20732,7 @@ func schema_kubeform_apis_digitalocean_v1alpha1_VpcSpec(ref common.ReferenceCall
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 

@@ -44,6 +44,8 @@ type AutoscalingLifecycleHookSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	AutoscalingGroupName string `json:"autoscalingGroupName" tf:"autoscaling_group_name"`
 	// +optional
 	DefaultResult string `json:"defaultResult,omitempty" tf:"default_result,omitempty"`

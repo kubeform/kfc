@@ -44,6 +44,8 @@ type MarketplaceAgreementSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	LicenseTextLink string `json:"licenseTextLink,omitempty" tf:"license_text_link,omitempty"`
 	Offer           string `json:"offer" tf:"offer"`

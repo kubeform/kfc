@@ -44,6 +44,8 @@ type RecoveryServicesProtectionContainerSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Name               string `json:"name" tf:"name"`
 	RecoveryFabricName string `json:"recoveryFabricName" tf:"recovery_fabric_name"`
 	RecoveryVaultName  string `json:"recoveryVaultName" tf:"recovery_vault_name"`

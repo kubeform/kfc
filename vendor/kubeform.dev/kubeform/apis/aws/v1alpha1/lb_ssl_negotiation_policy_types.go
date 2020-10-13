@@ -49,6 +49,8 @@ type LbSSLNegotiationPolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Attribute    []LbSSLNegotiationPolicySpecAttribute `json:"attribute,omitempty" tf:"attribute,omitempty"`
 	LbPort       int64                                 `json:"lbPort" tf:"lb_port"`

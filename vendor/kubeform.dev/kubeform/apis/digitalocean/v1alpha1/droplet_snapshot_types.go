@@ -44,6 +44,8 @@ type DropletSnapshotSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	CreatedAt string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 	DropletID string `json:"dropletID" tf:"droplet_id"`

@@ -44,6 +44,8 @@ type GuarddutyDetectorSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AccountID string `json:"accountID,omitempty" tf:"account_id,omitempty"`
 	// +optional

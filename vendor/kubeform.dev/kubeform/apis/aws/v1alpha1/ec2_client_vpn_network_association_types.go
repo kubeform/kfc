@@ -44,6 +44,8 @@ type Ec2ClientVPNNetworkAssociationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	ClientVPNEndpointID string `json:"clientVPNEndpointID" tf:"client_vpn_endpoint_id"`
 	// +optional
 	SecurityGroups []string `json:"securityGroups,omitempty" tf:"security_groups,omitempty"`

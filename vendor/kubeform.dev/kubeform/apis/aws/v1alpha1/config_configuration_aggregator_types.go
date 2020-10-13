@@ -63,6 +63,8 @@ type ConfigConfigurationAggregatorSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	AccountAggregationSource []ConfigConfigurationAggregatorSpecAccountAggregationSource `json:"accountAggregationSource,omitempty" tf:"account_aggregation_source,omitempty"`

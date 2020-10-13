@@ -44,6 +44,8 @@ type PrivateDNSZoneVirtualNetworkLinkSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Name               string `json:"name" tf:"name"`
 	PrivateDNSZoneName string `json:"privateDNSZoneName" tf:"private_dns_zone_name"`
 	// +optional

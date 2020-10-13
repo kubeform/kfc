@@ -44,6 +44,8 @@ type MacieMemberAccountAssociationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	MemberAccountID string `json:"memberAccountID" tf:"member_account_id"`
 }
 

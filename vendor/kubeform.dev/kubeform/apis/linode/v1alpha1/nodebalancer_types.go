@@ -56,6 +56,8 @@ type NodebalancerSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// Throttle connections per second (0-20). Set to 0 (zero) to disable throttling.
 	// +optional
 	ClientConnThrottle int64 `json:"clientConnThrottle,omitempty" tf:"client_conn_throttle,omitempty"`

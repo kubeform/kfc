@@ -44,6 +44,8 @@ type RedisFirewallRuleSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	EndIP             string `json:"endIP" tf:"end_ip"`
 	Name              string `json:"name" tf:"name"`
 	RedisCacheName    string `json:"redisCacheName" tf:"redis_cache_name"`

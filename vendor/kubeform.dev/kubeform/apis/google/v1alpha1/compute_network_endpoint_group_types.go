@@ -44,6 +44,8 @@ type ComputeNetworkEndpointGroupSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	DefaultPort int64 `json:"defaultPort,omitempty" tf:"default_port,omitempty"`
 	// +optional

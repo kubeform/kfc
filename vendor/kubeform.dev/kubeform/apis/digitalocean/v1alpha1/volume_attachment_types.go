@@ -44,6 +44,8 @@ type VolumeAttachmentSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	DropletID int64  `json:"dropletID" tf:"droplet_id"`
 	VolumeID  string `json:"volumeID" tf:"volume_id"`
 }

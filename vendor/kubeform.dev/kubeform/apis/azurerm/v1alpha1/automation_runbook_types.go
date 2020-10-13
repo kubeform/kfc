@@ -58,6 +58,8 @@ type AutomationRunbookSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	AccountName string `json:"accountName" tf:"account_name"`
 	// +optional
 	Content string `json:"content,omitempty" tf:"content,omitempty"`

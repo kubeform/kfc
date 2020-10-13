@@ -57,6 +57,8 @@ type GlueJobSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	// Deprecated
 	AllocatedCapacity int64 `json:"allocatedCapacity,omitempty" tf:"allocated_capacity,omitempty"`

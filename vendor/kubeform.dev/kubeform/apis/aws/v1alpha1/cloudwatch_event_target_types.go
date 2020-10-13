@@ -97,6 +97,8 @@ type CloudwatchEventTargetSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Arn string `json:"arn" tf:"arn"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1

@@ -44,6 +44,8 @@ type SecurityCenterWorkspaceSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Scope       string `json:"scope" tf:"scope"`
 	WorkspaceID string `json:"workspaceID" tf:"workspace_id"`
 }

@@ -56,6 +56,8 @@ type NetworkWatcherFlowLogSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Enabled                bool   `json:"enabled" tf:"enabled"`
 	NetworkSecurityGroupID string `json:"networkSecurityGroupID" tf:"network_security_group_id"`
 	NetworkWatcherName     string `json:"networkWatcherName" tf:"network_watcher_name"`

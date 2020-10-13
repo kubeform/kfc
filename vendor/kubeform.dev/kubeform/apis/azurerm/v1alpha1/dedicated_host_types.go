@@ -44,6 +44,8 @@ type DedicatedHostSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AutoReplaceOnFailure bool   `json:"autoReplaceOnFailure,omitempty" tf:"auto_replace_on_failure,omitempty"`
 	DedicatedHostGroupID string `json:"dedicatedHostGroupID" tf:"dedicated_host_group_id"`

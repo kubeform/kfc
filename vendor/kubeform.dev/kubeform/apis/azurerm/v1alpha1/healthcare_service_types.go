@@ -69,6 +69,8 @@ type HealthcareServiceSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +kubebuilder:validation:MinItems=1
 	AccessPolicyObjectIDS []string `json:"accessPolicyObjectIDS" tf:"access_policy_object_ids"`
 	// +optional

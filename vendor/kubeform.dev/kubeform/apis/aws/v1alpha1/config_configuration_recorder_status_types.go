@@ -44,6 +44,8 @@ type ConfigConfigurationRecorderStatus_Spec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	IsEnabled bool   `json:"isEnabled" tf:"is_enabled"`
 	Name      string `json:"name" tf:"name"`
 }

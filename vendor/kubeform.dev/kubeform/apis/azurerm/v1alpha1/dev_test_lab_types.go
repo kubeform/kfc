@@ -44,6 +44,8 @@ type DevTestLabSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ArtifactsStorageAccountID string `json:"artifactsStorageAccountID,omitempty" tf:"artifacts_storage_account_id,omitempty"`
 	// +optional

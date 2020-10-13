@@ -74,6 +74,8 @@ type OpsworksInstanceSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AgentVersion string `json:"agentVersion,omitempty" tf:"agent_version,omitempty"`
 	// +optional

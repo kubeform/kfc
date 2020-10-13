@@ -58,6 +58,8 @@ type AlbSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	AccessLogs []AlbSpecAccessLogs `json:"accessLogs,omitempty" tf:"access_logs,omitempty"`

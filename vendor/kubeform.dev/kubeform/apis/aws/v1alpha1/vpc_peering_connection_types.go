@@ -62,6 +62,8 @@ type VpcPeeringConnectionSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AcceptStatus string `json:"acceptStatus,omitempty" tf:"accept_status,omitempty"`
 	// +optional

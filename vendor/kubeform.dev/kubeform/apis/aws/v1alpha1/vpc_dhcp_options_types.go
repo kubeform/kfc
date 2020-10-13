@@ -44,6 +44,8 @@ type VpcDHCPOptionsSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	DomainName string `json:"domainName,omitempty" tf:"domain_name,omitempty"`
 	// +optional

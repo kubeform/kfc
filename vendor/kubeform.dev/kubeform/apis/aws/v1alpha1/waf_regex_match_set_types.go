@@ -57,6 +57,8 @@ type WafRegexMatchSetSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Name string `json:"name" tf:"name"`
 	// +optional
 	RegexMatchTuple []WafRegexMatchSetSpecRegexMatchTuple `json:"regexMatchTuple,omitempty" tf:"regex_match_tuple,omitempty"`

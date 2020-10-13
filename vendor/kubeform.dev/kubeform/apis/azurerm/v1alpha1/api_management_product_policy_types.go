@@ -44,6 +44,8 @@ type ApiManagementProductPolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	ApiManagementName string `json:"apiManagementName" tf:"api_management_name"`
 	ProductID         string `json:"productID" tf:"product_id"`
 	ResourceGroupName string `json:"resourceGroupName" tf:"resource_group_name"`

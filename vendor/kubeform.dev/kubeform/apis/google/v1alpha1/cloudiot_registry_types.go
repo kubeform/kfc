@@ -76,6 +76,8 @@ type CloudiotRegistrySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	// +kubebuilder:validation:MaxItems=10
 	Credentials []CloudiotRegistrySpecCredentials `json:"credentials,omitempty" tf:"credentials,omitempty"`

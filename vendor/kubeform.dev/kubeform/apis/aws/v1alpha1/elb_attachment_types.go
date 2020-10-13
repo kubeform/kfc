@@ -44,6 +44,8 @@ type ElbAttachmentSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Elb      string `json:"elb" tf:"elb"`
 	Instance string `json:"instance" tf:"instance"`
 }

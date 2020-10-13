@@ -44,6 +44,8 @@ type MediaStoreContainerPolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	ContainerName string `json:"containerName" tf:"container_name"`
 	Policy        string `json:"policy" tf:"policy"`
 }

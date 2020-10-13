@@ -44,6 +44,8 @@ type DataprocClusterIamBindingSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Cluster string `json:"cluster" tf:"cluster"`
 	// +optional
 	Etag    string   `json:"etag,omitempty" tf:"etag,omitempty"`

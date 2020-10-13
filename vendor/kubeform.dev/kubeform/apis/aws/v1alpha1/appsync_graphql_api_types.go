@@ -96,6 +96,8 @@ type AppsyncGraphqlAPISpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AdditionalAuthenticationProvider []AppsyncGraphqlAPISpecAdditionalAuthenticationProvider `json:"additionalAuthenticationProvider,omitempty" tf:"additional_authentication_provider,omitempty"`
 	// +optional

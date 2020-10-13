@@ -44,6 +44,8 @@ type FlowLogSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	EniID string `json:"eniID,omitempty" tf:"eni_id,omitempty"`
 	// +optional

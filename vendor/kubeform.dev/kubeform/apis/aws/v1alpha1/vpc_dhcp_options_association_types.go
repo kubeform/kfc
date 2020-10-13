@@ -44,6 +44,8 @@ type VpcDHCPOptionsAssociationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	DhcpOptionsID string `json:"dhcpOptionsID" tf:"dhcp_options_id"`
 	VpcID         string `json:"vpcID" tf:"vpc_id"`
 }

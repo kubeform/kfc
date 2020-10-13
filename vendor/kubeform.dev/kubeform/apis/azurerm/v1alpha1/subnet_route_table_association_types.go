@@ -44,6 +44,8 @@ type SubnetRouteTableAssociationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	RouteTableID string `json:"routeTableID" tf:"route_table_id"`
 	SubnetID     string `json:"subnetID" tf:"subnet_id"`
 }

@@ -55,6 +55,8 @@ type OrganizationsOrganizationalUnitSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Accounts []OrganizationsOrganizationalUnitSpecAccounts `json:"accounts,omitempty" tf:"accounts,omitempty"`
 	// +optional

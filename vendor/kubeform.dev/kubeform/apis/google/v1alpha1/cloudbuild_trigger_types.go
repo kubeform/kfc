@@ -100,6 +100,8 @@ type CloudbuildTriggerSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	Build []CloudbuildTriggerSpecBuild `json:"build,omitempty" tf:"build,omitempty"`

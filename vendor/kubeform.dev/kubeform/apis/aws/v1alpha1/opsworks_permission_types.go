@@ -44,6 +44,8 @@ type OpsworksPermissionSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AllowSSH bool `json:"allowSSH,omitempty" tf:"allow_ssh,omitempty"`
 	// +optional

@@ -44,6 +44,8 @@ type RdnsSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// The public Linode IPv4 or IPv6 address to operate on.
 	Address string `json:"address" tf:"address"`
 	// The reverse DNS assigned to this address. For public IPv4 addresses, this will be set to a default value provided by Linode if not explicitly set.

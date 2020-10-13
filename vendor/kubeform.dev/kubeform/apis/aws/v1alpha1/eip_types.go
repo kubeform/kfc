@@ -44,6 +44,8 @@ type EipSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AllocationID string `json:"allocationID,omitempty" tf:"allocation_id,omitempty"`
 	// +optional

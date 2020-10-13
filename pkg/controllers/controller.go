@@ -183,12 +183,105 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		return err
 	}
 
+	_, err = du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, obj, setPhase(base.PhaseInitializing), metav1.UpdateOptions{})
+	if err != nil {
+		return fmt.Errorf("failed to update status phase : %s", err)
+	}
+
 	// TODO: make a namer
 	resPath := filepath.Join(basePath, gvr.Resource+"."+namespace+"."+name)
 	providerFile := filepath.Join(resPath, "provider.tf.json")
+	backendFile := filepath.Join(resPath, "backend.tf.json")
 	mainFile := filepath.Join(resPath, "main.tf.json")
 	stateFile := filepath.Join(resPath, "terraform.tfstate")
 	outputFile := filepath.Join(resPath, "output.tf")
+
+	err = createFiles(resPath, providerFile, mainFile)
+	if err != nil {
+		return fmt.Errorf("failed to create tf files : %s", err)
+	}
+
+	providerRef, _, err := unstructured.NestedString(obj.Object, "spec", "providerRef", "name")
+	if err != nil {
+		log.Error(err, "failed to get providerRef")
+		return nil
+	}
+
+	secret, err := c.kubeclientset.CoreV1().Secrets(namespace).Get(context.TODO(), providerRef, metav1.GetOptions{})
+	if err != nil {
+		return fmt.Errorf("unable to fetch secret : %s", err)
+	}
+
+	isModule := isModule(gvr.Group)
+
+	var providerName, source string
+	if isModule {
+		providerName, source = getModuleProviderAndSource(obj.GetKind())
+	} else {
+		providerName = strings.Split(gvr.Group, ".")[0]
+	}
+
+	err = secretToTFProvider(secret, providerName, providerFile)
+	if err != nil {
+		return fmt.Errorf("unable to create provider from secret : %s", err)
+	}
+
+	_, backendFound, err := unstructured.NestedFieldNoCopy(obj.Object, "spec", "remoteBackend")
+	if err != nil {
+		log.Error(err, "failed to get remotebackend")
+		return nil
+	}
+
+	if backendFound {
+		secretName, _, err := unstructured.NestedString(obj.Object, "spec", "remoteBackend", "ref", "name")
+		if err != nil {
+			log.Error(err, "failed to get remote backend ref")
+			return nil
+		}
+		backendSecret, err := c.kubeclientset.CoreV1().Secrets(namespace).Get(context.TODO(), secretName, metav1.GetOptions{})
+		if err != nil {
+			return fmt.Errorf("unable to fetch backend secret: %s", err)
+		}
+
+		typ, _, err := unstructured.NestedString(obj.Object, "spec", "remoteBackend", "type")
+		if err != nil {
+			log.Error(err, "failed to get remote backend type")
+			return nil
+		}
+		err = secretToBackend(backendSecret, backendFile, typ)
+		if err != nil {
+			return fmt.Errorf("unable to create backend from secret : %s", err)
+		}
+	}
+
+	if isModule {
+		err = crdToModule(c.kubeclientset, gvr.GroupVersion(), obj, source, mainFile, outputFile)
+		if err != nil {
+			return fmt.Errorf("unable to get crd module : %s", err)
+		}
+	} else {
+		err = crdToTFResource(gvr.GroupVersion(), namespace, providerName, c.kubeclientset, obj, mainFile)
+		if err != nil {
+			return fmt.Errorf("unable to get crd resource : %s", err)
+		}
+	}
+
+	err = terraformInit(resPath)
+	if err != nil {
+		_, err2 := du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed), metav1.UpdateOptions{})
+		if err2 != nil {
+			log.Errorf("failed to update status phase : %s", err)
+		}
+
+		return fmt.Errorf("unable to initialize terraform : %s", err)
+	}
+
+	if !backendFound {
+		err = createTFState(c.kubeclientset, stateFile, providerName, isModule, gvr.GroupVersion(), obj)
+		if err != nil {
+			return fmt.Errorf("unable to create tfstate file : %s", err)
+		}
+	}
 
 	if hasFinalizer(obj.GetFinalizers(), KFCFinalizer) {
 		if obj.GetDeletionTimestamp() != nil {
@@ -227,68 +320,6 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		return nil
 	}
 
-	_, err = du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, obj, setPhase(base.PhaseInitializing), metav1.UpdateOptions{})
-	if err != nil {
-		return fmt.Errorf("failed to update status phase : %s", err)
-	}
-
-	err = createFiles(resPath, providerFile, mainFile)
-	if err != nil {
-		return fmt.Errorf("failed to create tf files : %s", err)
-	}
-
-	providerRef, _, err := unstructured.NestedString(obj.Object, "spec", "providerRef", "name")
-	if err != nil {
-		log.Error(err, "failed to get providerRef")
-		return nil
-	}
-
-	secret, err := c.kubeclientset.CoreV1().Secrets(namespace).Get(context.TODO(), providerRef, metav1.GetOptions{})
-	if err != nil {
-		return fmt.Errorf("unable to fetch secret : %s", err)
-	}
-
-	isModule := isModule(gvr.Group)
-
-	var providerName, source string
-	if isModule {
-		providerName, source = getModuleProviderAndSource(obj.GetKind())
-	} else {
-		providerName = strings.Split(gvr.Group, ".")[0]
-	}
-
-	err = secretToTFProvider(secret, providerName, providerFile)
-	if err != nil {
-		return fmt.Errorf("unable to create provider from secret : %s", err)
-	}
-
-	if isModule {
-		err = crdToModule(c.kubeclientset, gvr.GroupVersion(), obj, source, mainFile, outputFile)
-		if err != nil {
-			return fmt.Errorf("unable to get crd module : %s", err)
-		}
-	} else {
-		err = crdToTFResource(gvr.GroupVersion(), namespace, providerName, c.kubeclientset, obj, mainFile)
-		if err != nil {
-			return fmt.Errorf("unable to get crd resource : %s", err)
-		}
-	}
-
-	err = terraformInit(resPath)
-	if err != nil {
-		_, err2 := du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed), metav1.UpdateOptions{})
-		if err2 != nil {
-			log.Errorf("failed to update status phase : %s", err)
-		}
-
-		return fmt.Errorf("unable to initialize terraform : %s", err)
-	}
-
-	err = createTFState(c.kubeclientset, stateFile, providerName, isModule, gvr.GroupVersion(), obj)
-	if err != nil {
-		return fmt.Errorf("unable to create tfstate file : %s", err)
-	}
-
 	_, err = du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, obj, setPhase(base.PhaseApplying), metav1.UpdateOptions{})
 	if err != nil {
 		return fmt.Errorf("failed to update status phase : %s", err)
@@ -304,17 +335,19 @@ func (c *Controller) reconcile(gvr schema.GroupVersionResource, key string) erro
 		return fmt.Errorf("unable to apply terraform : %s", err)
 	}
 
-	err = updateTFStateFile(c, stateFile, isModule, gvr, obj)
-	if err != nil {
-		_, err2 := du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed), metav1.UpdateOptions{})
-		if err2 != nil {
-			log.Errorf("failed to update status phase : %s", err)
-		}
+	if !backendFound {
+		err = updateTFStateFile(c, stateFile, isModule, gvr, obj)
+		if err != nil {
+			_, err2 := du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed), metav1.UpdateOptions{})
+			if err2 != nil {
+				log.Errorf("failed to update status phase : %s", err)
+			}
 
-		return fmt.Errorf("unable to update TFState : %s", err)
+			return fmt.Errorf("unable to update TFState : %s", err)
+		}
 	}
 
-	if !isModule {
+	if !isModule && !backendFound {
 		err = updateStateField(c, namespace, providerName, stateFile, gvr, obj)
 		if err != nil {
 			_, err2 := du.UpdateStatus(context.TODO(), c.dynamicclient, gvr, obj, setPhase(base.PhaseFailed), metav1.UpdateOptions{})

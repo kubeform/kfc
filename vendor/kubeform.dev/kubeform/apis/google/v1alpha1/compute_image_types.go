@@ -57,6 +57,8 @@ type ComputeImageSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ArchiveSizeBytes int64 `json:"archiveSizeBytes,omitempty" tf:"archive_size_bytes,omitempty"`
 	// +optional

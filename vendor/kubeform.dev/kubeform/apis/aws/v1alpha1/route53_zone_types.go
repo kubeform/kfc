@@ -50,6 +50,8 @@ type Route53ZoneSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Comment string `json:"comment,omitempty" tf:"comment,omitempty"`
 	// +optional

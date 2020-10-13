@@ -59,6 +59,8 @@ type SesEventDestinationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	CloudwatchDestination []SesEventDestinationSpecCloudwatchDestination `json:"cloudwatchDestination,omitempty" tf:"cloudwatch_destination,omitempty"`
 	ConfigurationSetName  string                                         `json:"configurationSetName" tf:"configuration_set_name"`

@@ -44,6 +44,8 @@ type TagSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	DatabasesCount int64 `json:"databasesCount,omitempty" tf:"databases_count,omitempty"`
 	// +optional

@@ -44,6 +44,8 @@ type PinpointEmailChannelSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	ApplicationID string `json:"applicationID" tf:"application_id"`
 	// +optional
 	Enabled     bool   `json:"enabled,omitempty" tf:"enabled,omitempty"`

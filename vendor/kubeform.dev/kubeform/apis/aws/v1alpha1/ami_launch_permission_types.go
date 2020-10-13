@@ -44,6 +44,8 @@ type AmiLaunchPermissionSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	AccountID string `json:"accountID" tf:"account_id"`
 	ImageID   string `json:"imageID" tf:"image_id"`
 }

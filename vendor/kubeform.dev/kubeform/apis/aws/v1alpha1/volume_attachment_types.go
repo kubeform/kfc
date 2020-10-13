@@ -44,6 +44,8 @@ type VolumeAttachmentSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	DeviceName string `json:"deviceName" tf:"device_name"`
 	// +optional
 	ForceDetach bool   `json:"forceDetach,omitempty" tf:"force_detach,omitempty"`

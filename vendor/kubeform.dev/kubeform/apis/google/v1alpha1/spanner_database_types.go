@@ -44,6 +44,8 @@ type SpannerDatabaseSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Ddl      []string `json:"ddl,omitempty" tf:"ddl,omitempty"`
 	Instance string   `json:"instance" tf:"instance"`

@@ -44,6 +44,8 @@ type ApiGatewayClientCertificateSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	CreatedDate string `json:"createdDate,omitempty" tf:"created_date,omitempty"`
 	// +optional

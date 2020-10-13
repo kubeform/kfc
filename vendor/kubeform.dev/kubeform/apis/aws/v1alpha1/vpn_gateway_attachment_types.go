@@ -44,6 +44,8 @@ type VpnGatewayAttachmentSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	VpcID        string `json:"vpcID" tf:"vpc_id"`
 	VpnGatewayID string `json:"vpnGatewayID" tf:"vpn_gateway_id"`
 }

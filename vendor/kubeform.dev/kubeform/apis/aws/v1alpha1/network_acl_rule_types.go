@@ -44,6 +44,8 @@ type NetworkACLRuleSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	CidrBlock string `json:"cidrBlock,omitempty" tf:"cidr_block,omitempty"`
 	// +optional

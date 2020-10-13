@@ -44,6 +44,8 @@ type SqsQueuePolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Policy   string `json:"policy" tf:"policy"`
 	QueueURL string `json:"queueURL" tf:"queue_url"`
 }

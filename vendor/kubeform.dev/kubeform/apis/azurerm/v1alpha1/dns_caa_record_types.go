@@ -50,6 +50,8 @@ type DnsCaaRecordSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Fqdn              string                   `json:"fqdn,omitempty" tf:"fqdn,omitempty"`
 	Name              string                   `json:"name" tf:"name"`

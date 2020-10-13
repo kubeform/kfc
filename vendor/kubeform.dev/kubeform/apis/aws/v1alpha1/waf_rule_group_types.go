@@ -57,6 +57,8 @@ type WafRuleGroupSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ActivatedRule []WafRuleGroupSpecActivatedRule `json:"activatedRule,omitempty" tf:"activated_rule,omitempty"`
 	MetricName    string                          `json:"metricName" tf:"metric_name"`

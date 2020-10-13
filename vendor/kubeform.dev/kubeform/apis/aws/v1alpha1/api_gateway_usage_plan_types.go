@@ -63,6 +63,8 @@ type ApiGatewayUsagePlanSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ApiStages []ApiGatewayUsagePlanSpecApiStages `json:"apiStages,omitempty" tf:"api_stages,omitempty"`
 	// +optional

@@ -44,6 +44,8 @@ type StreamAnalyticsJobSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	CompatibilityLevel string `json:"compatibilityLevel,omitempty" tf:"compatibility_level,omitempty"`
 	// +optional

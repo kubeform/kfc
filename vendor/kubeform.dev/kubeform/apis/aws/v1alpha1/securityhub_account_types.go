@@ -43,6 +43,8 @@ type SecurityhubAccountSpec struct {
 	ProviderRef core.LocalObjectReference `json:"providerRef" tf:"-"`
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
+
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
 }
 
 type SecurityhubAccountStatus struct {

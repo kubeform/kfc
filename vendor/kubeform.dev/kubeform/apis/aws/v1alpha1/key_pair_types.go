@@ -44,6 +44,8 @@ type KeyPairSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Fingerprint string `json:"fingerprint,omitempty" tf:"fingerprint,omitempty"`
 	// +optional

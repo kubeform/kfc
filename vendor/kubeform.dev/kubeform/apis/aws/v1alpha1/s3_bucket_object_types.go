@@ -44,6 +44,8 @@ type S3BucketObjectSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Acl    string `json:"acl,omitempty" tf:"acl,omitempty"`
 	Bucket string `json:"bucket" tf:"bucket"`

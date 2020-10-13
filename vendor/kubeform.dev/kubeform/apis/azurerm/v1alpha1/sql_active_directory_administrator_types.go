@@ -44,6 +44,8 @@ type SqlActiveDirectoryAdministratorSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Login             string `json:"login" tf:"login"`
 	ObjectID          string `json:"objectID" tf:"object_id"`
 	ResourceGroupName string `json:"resourceGroupName" tf:"resource_group_name"`

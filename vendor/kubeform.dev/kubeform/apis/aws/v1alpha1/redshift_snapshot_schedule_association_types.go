@@ -44,6 +44,8 @@ type RedshiftSnapshotScheduleAssociationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	ClusterIdentifier  string `json:"clusterIdentifier" tf:"cluster_identifier"`
 	ScheduleIdentifier string `json:"scheduleIdentifier" tf:"schedule_identifier"`
 }

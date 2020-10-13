@@ -44,6 +44,8 @@ type StorageAccountNetworkRulesSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Bypass        []string `json:"bypass,omitempty" tf:"bypass,omitempty"`
 	DefaultAction string   `json:"defaultAction" tf:"default_action"`

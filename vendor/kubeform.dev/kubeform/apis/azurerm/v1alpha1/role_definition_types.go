@@ -55,6 +55,8 @@ type RoleDefinitionSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	AssignableScopes []string `json:"assignableScopes" tf:"assignable_scopes"`
 	// +optional
 	Description string                          `json:"description,omitempty" tf:"description,omitempty"`

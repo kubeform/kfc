@@ -44,6 +44,8 @@ type RamPrincipalAssociationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Principal        string `json:"principal" tf:"principal"`
 	ResourceShareArn string `json:"resourceShareArn" tf:"resource_share_arn"`
 }

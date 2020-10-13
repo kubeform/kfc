@@ -44,6 +44,8 @@ type ComputeNetworkEndpointSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Instance             string `json:"instance" tf:"instance"`
 	IpAddress            string `json:"ipAddress" tf:"ip_address"`
 	NetworkEndpointGroup string `json:"networkEndpointGroup" tf:"network_endpoint_group"`

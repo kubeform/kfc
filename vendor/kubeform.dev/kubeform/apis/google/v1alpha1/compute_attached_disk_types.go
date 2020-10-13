@@ -44,6 +44,8 @@ type ComputeAttachedDiskSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	DeviceName string `json:"deviceName,omitempty" tf:"device_name,omitempty"`
 	Disk       string `json:"disk" tf:"disk"`

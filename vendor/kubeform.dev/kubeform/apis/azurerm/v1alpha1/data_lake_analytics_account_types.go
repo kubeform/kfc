@@ -44,6 +44,8 @@ type DataLakeAnalyticsAccountSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	DefaultStoreAccountName string `json:"defaultStoreAccountName" tf:"default_store_account_name"`
 	Location                string `json:"location" tf:"location"`
 	Name                    string `json:"name" tf:"name"`

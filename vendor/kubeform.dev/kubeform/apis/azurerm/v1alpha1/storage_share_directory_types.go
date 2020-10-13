@@ -44,6 +44,8 @@ type StorageShareDirectorySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Metadata           map[string]string `json:"metadata,omitempty" tf:"metadata,omitempty"`
 	Name               string            `json:"name" tf:"name"`

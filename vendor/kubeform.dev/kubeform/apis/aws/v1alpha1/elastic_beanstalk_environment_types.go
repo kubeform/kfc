@@ -60,6 +60,8 @@ type ElasticBeanstalkEnvironmentSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AllSettings []ElasticBeanstalkEnvironmentSpecAllSettings `json:"allSettings,omitempty" tf:"all_settings,omitempty"`
 	Application string                                       `json:"application" tf:"application"`

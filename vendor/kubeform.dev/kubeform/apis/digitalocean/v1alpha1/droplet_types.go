@@ -44,6 +44,8 @@ type DropletSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Backups bool `json:"backups,omitempty" tf:"backups,omitempty"`
 	// +optional

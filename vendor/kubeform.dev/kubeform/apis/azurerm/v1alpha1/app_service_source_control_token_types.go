@@ -44,6 +44,8 @@ type AppServiceSourceControlTokenSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	SecretRef *core.LocalObjectReference `json:"secretRef,omitempty" tf:"-"`
 
 	Token string `json:"-" sensitive:"true" tf:"token"`

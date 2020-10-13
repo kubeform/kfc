@@ -58,6 +58,8 @@ type NetworkConnectionMonitorSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AutoStart bool `json:"autoStart,omitempty" tf:"auto_start,omitempty"`
 	// +kubebuilder:validation:MaxItems=1

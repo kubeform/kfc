@@ -44,6 +44,8 @@ type LambdaPermissionSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Action string `json:"action" tf:"action"`
 	// +optional
 	EventSourceToken string `json:"eventSourceToken,omitempty" tf:"event_source_token,omitempty"`

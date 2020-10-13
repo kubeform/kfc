@@ -44,6 +44,8 @@ type StorageBlobSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AccessTier string `json:"accessTier,omitempty" tf:"access_tier,omitempty"`
 	// +optional

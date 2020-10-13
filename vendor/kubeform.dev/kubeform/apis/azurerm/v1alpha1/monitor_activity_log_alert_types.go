@@ -72,6 +72,8 @@ type MonitorActivityLogAlertSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Action []MonitorActivityLogAlertSpecAction `json:"action,omitempty" tf:"action,omitempty"`
 	// +kubebuilder:validation:MaxItems=1

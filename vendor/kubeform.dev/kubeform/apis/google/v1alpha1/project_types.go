@@ -44,6 +44,8 @@ type ProjectSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AutoCreateNetwork bool `json:"autoCreateNetwork,omitempty" tf:"auto_create_network,omitempty"`
 	// +optional

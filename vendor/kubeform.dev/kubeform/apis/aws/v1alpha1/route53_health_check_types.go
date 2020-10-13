@@ -44,6 +44,8 @@ type Route53HealthCheckSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ChildHealthThreshold int64 `json:"childHealthThreshold,omitempty" tf:"child_health_threshold,omitempty"`
 	// +optional

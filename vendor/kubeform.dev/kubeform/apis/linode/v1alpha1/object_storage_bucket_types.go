@@ -44,6 +44,8 @@ type ObjectStorageBucketSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// The cluster of the Linode Object Storage Bucket.
 	Cluster string `json:"cluster" tf:"cluster"`
 	// The label of the Linode Object Storage Bucket.

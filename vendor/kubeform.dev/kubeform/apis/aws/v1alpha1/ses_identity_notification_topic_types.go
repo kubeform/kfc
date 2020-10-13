@@ -44,6 +44,8 @@ type SesIdentityNotificationTopicSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Identity string `json:"identity" tf:"identity"`
 	// +optional
 	IncludeOriginalHeaders bool   `json:"includeOriginalHeaders,omitempty" tf:"include_original_headers,omitempty"`

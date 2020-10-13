@@ -56,6 +56,8 @@ type TpuNodeSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	AcceleratorType string `json:"acceleratorType" tf:"accelerator_type"`
 	CidrBlock       string `json:"cidrBlock" tf:"cidr_block"`
 	// +optional

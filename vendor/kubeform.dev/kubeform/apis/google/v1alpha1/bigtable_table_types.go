@@ -48,6 +48,8 @@ type BigtableTableSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ColumnFamily []BigtableTableSpecColumnFamily `json:"columnFamily,omitempty" tf:"column_family,omitempty"`
 	InstanceName string                          `json:"instanceName" tf:"instance_name"`

@@ -44,6 +44,8 @@ type ProjectResourcesSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// project ID
 	Project string `json:"project" tf:"project"`
 	// the resources associated with the project

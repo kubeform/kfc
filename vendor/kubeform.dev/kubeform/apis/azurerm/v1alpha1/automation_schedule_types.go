@@ -49,6 +49,8 @@ type AutomationScheduleSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	// Deprecated
 	AccountName string `json:"accountName,omitempty" tf:"account_name,omitempty"`

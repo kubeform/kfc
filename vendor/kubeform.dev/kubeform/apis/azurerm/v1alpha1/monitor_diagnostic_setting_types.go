@@ -72,6 +72,8 @@ type MonitorDiagnosticSettingSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	EventhubAuthorizationRuleID string `json:"eventhubAuthorizationRuleID,omitempty" tf:"eventhub_authorization_rule_id,omitempty"`
 	// +optional

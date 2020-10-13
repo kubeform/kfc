@@ -161,6 +161,8 @@ type ApiManagementAPIOperationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	ApiManagementName string `json:"apiManagementName" tf:"api_management_name"`
 	ApiName           string `json:"apiName" tf:"api_name"`
 	// +optional

@@ -58,6 +58,8 @@ type AppEngineApplicationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AppID string `json:"appID,omitempty" tf:"app_id,omitempty"`
 	// +optional

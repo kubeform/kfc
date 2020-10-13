@@ -44,6 +44,8 @@ type DmsReplicationTaskSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	CdcStartTime           string `json:"cdcStartTime,omitempty" tf:"cdc_start_time,omitempty"`
 	MigrationType          string `json:"migrationType" tf:"migration_type"`

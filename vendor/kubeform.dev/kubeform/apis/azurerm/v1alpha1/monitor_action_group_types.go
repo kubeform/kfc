@@ -118,6 +118,8 @@ type MonitorActionGroupSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ArmRoleReceiver []MonitorActionGroupSpecArmRoleReceiver `json:"armRoleReceiver,omitempty" tf:"arm_role_receiver,omitempty"`
 	// +optional

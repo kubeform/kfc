@@ -57,6 +57,8 @@ type FirewallSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	IpConfiguration   []FirewallSpecIpConfiguration `json:"ipConfiguration" tf:"ip_configuration"`
 	Location          string                        `json:"location" tf:"location"`
 	Name              string                        `json:"name" tf:"name"`

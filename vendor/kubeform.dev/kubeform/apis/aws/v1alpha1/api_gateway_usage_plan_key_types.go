@@ -44,6 +44,8 @@ type ApiGatewayUsagePlanKeySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	KeyID   string `json:"keyID" tf:"key_id"`
 	KeyType string `json:"keyType" tf:"key_type"`
 	// +optional

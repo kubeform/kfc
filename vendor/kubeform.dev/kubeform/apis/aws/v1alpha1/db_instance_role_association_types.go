@@ -44,6 +44,8 @@ type DbInstanceRoleAssociationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	DbInstanceIdentifier string `json:"dbInstanceIdentifier" tf:"db_instance_identifier"`
 	FeatureName          string `json:"featureName" tf:"feature_name"`
 	RoleArn              string `json:"roleArn" tf:"role_arn"`

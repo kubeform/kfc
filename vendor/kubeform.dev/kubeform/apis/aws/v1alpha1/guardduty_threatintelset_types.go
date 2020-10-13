@@ -44,6 +44,8 @@ type GuarddutyThreatintelsetSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Activate   bool   `json:"activate" tf:"activate"`
 	DetectorID string `json:"detectorID" tf:"detector_id"`
 	Format     string `json:"format" tf:"format"`

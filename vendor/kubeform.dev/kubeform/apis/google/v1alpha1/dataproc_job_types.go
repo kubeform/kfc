@@ -229,6 +229,8 @@ type DataprocJobSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// Output-only. If present, the location of miscellaneous control files which may be used as part of job setup and handling. If not present, control files may be placed in the same location as driver_output_uri.
 	// +optional
 	DriverControlsFilesURI string `json:"driverControlsFilesURI,omitempty" tf:"driver_controls_files_uri,omitempty"`

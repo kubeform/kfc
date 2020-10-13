@@ -124,6 +124,8 @@ type FrontdoorFirewallPolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	CustomBlockResponseBody string `json:"customBlockResponseBody,omitempty" tf:"custom_block_response_body,omitempty"`
 	// +optional

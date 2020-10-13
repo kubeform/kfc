@@ -44,6 +44,8 @@ type DirectoryServiceLogSubscriptionSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	DirectoryID  string `json:"directoryID" tf:"directory_id"`
 	LogGroupName string `json:"logGroupName" tf:"log_group_name"`
 }

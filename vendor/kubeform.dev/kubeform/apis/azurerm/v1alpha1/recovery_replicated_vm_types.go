@@ -52,6 +52,8 @@ type RecoveryReplicatedVmSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ManagedDisk                           []RecoveryReplicatedVmSpecManagedDisk `json:"managedDisk,omitempty" tf:"managed_disk,omitempty"`
 	Name                                  string                                `json:"name" tf:"name"`

@@ -44,6 +44,8 @@ type BigqueryDataTransferConfigSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	DataRefreshWindowDays int64  `json:"dataRefreshWindowDays,omitempty" tf:"data_refresh_window_days,omitempty"`
 	DataSourceID          string `json:"dataSourceID" tf:"data_source_id"`

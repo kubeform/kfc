@@ -44,6 +44,8 @@ type CloudwatchLogResourcePolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	PolicyDocument string `json:"policyDocument" tf:"policy_document"`
 	PolicyName     string `json:"policyName" tf:"policy_name"`
 }

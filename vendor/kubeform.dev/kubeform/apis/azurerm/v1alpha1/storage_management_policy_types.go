@@ -84,6 +84,8 @@ type StorageManagementPolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	// +kubebuilder:validation:MinItems=1
 	Rule             []StorageManagementPolicySpecRule `json:"rule,omitempty" tf:"rule,omitempty"`

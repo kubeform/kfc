@@ -117,6 +117,8 @@ type ElasticsearchDomainSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AccessPolicies string `json:"accessPolicies,omitempty" tf:"access_policies,omitempty"`
 	// +optional

@@ -52,6 +52,8 @@ type BigtableGcPolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	ColumnFamily string `json:"columnFamily" tf:"column_family"`
 	InstanceName string `json:"instanceName" tf:"instance_name"`
 	// +optional

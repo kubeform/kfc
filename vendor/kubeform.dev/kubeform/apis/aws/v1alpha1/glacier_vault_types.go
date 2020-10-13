@@ -49,6 +49,8 @@ type GlacierVaultSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AccessPolicy string `json:"accessPolicy,omitempty" tf:"access_policy,omitempty"`
 	// +optional

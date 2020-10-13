@@ -44,6 +44,8 @@ type SsmPatchGroupSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	BaselineID string `json:"baselineID" tf:"baseline_id"`
 	PatchGroup string `json:"patchGroup" tf:"patch_group"`
 }

@@ -56,6 +56,8 @@ type OpsworksRailsAppLayerSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AppServer string `json:"appServer,omitempty" tf:"app_server,omitempty"`
 	// +optional

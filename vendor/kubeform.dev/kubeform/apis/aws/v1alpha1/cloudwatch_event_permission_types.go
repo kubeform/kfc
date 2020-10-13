@@ -50,6 +50,8 @@ type CloudwatchEventPermissionSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Action string `json:"action,omitempty" tf:"action,omitempty"`
 	// +optional

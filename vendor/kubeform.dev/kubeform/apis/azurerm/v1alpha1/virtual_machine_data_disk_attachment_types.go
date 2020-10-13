@@ -44,6 +44,8 @@ type VirtualMachineDataDiskAttachmentSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Caching string `json:"caching" tf:"caching"`
 	// +optional
 	CreateOption     string `json:"createOption,omitempty" tf:"create_option,omitempty"`

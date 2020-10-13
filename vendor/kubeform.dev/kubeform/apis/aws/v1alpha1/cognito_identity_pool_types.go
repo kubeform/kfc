@@ -53,6 +53,8 @@ type CognitoIdentityPoolSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AllowUnauthenticatedIdentities bool `json:"allowUnauthenticatedIdentities,omitempty" tf:"allow_unauthenticated_identities,omitempty"`
 	// +optional

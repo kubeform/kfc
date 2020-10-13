@@ -78,6 +78,8 @@ type S3BucketNotificationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Bucket string `json:"bucket" tf:"bucket"`
 	// +optional
 	LambdaFunction []S3BucketNotificationSpecLambdaFunction `json:"lambdaFunction,omitempty" tf:"lambda_function,omitempty"`

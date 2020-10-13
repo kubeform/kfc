@@ -44,6 +44,8 @@ type LbBackendAddressPoolSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	BackendIPConfigurations []string `json:"backendIPConfigurations,omitempty" tf:"backend_ip_configurations,omitempty"`
 	// +optional

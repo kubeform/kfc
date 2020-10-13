@@ -44,6 +44,8 @@ type SsmActivationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ActivationCode string `json:"activationCode,omitempty" tf:"activation_code,omitempty"`
 	// +optional

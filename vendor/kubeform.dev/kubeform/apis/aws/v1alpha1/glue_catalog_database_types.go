@@ -44,6 +44,8 @@ type GlueCatalogDatabaseSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	CatalogID string `json:"catalogID,omitempty" tf:"catalog_id,omitempty"`
 	// +optional

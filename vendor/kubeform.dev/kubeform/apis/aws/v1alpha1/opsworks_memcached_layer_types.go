@@ -56,6 +56,8 @@ type OpsworksMemcachedLayerSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AllocatedMemory int64 `json:"allocatedMemory,omitempty" tf:"allocated_memory,omitempty"`
 	// +optional

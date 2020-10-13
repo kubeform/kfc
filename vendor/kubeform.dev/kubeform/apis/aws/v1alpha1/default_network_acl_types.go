@@ -76,6 +76,8 @@ type DefaultNetworkACLSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	DefaultNetworkACLID string `json:"defaultNetworkACLID" tf:"default_network_acl_id"`
 	// +optional
 	Egress []DefaultNetworkACLSpecEgress `json:"egress,omitempty" tf:"egress,omitempty"`

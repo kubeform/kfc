@@ -102,6 +102,8 @@ type AppautoscalingPolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Alarms []string `json:"alarms,omitempty" tf:"alarms,omitempty"`
 	// +optional

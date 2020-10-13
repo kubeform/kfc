@@ -44,6 +44,8 @@ type ComputeDiskResourcePolicyAttachmentSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Disk string `json:"disk" tf:"disk"`
 	Name string `json:"name" tf:"name"`
 	// +optional

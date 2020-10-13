@@ -44,6 +44,8 @@ type IothubFallbackRouteSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Condition string `json:"condition,omitempty" tf:"condition,omitempty"`
 	Enabled   bool   `json:"enabled" tf:"enabled"`

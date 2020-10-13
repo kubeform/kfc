@@ -44,6 +44,8 @@ type LbNATRuleSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	BackendIPConfigurationID string `json:"backendIPConfigurationID,omitempty" tf:"backend_ip_configuration_id,omitempty"`
 	BackendPort              int64  `json:"backendPort" tf:"backend_port"`

@@ -44,6 +44,8 @@ type NetworkInterfaceNATRuleAssociationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	IpConfigurationName string `json:"ipConfigurationName" tf:"ip_configuration_name"`
 	NatRuleID           string `json:"natRuleID" tf:"nat_rule_id"`
 	NetworkInterfaceID  string `json:"networkInterfaceID" tf:"network_interface_id"`

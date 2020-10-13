@@ -44,6 +44,8 @@ type AvailabilitySetSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Location string `json:"location" tf:"location"`
 	// +optional
 	Managed bool   `json:"managed,omitempty" tf:"managed,omitempty"`

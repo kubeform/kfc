@@ -56,6 +56,8 @@ type WafSQLInjectionMatchSetSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Name string `json:"name" tf:"name"`
 	// +optional
 	SqlInjectionMatchTuples []WafSQLInjectionMatchSetSpecSqlInjectionMatchTuples `json:"sqlInjectionMatchTuples,omitempty" tf:"sql_injection_match_tuples,omitempty"`

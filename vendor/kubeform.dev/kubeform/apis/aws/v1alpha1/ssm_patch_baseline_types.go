@@ -64,6 +64,8 @@ type SsmPatchBaselineSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ApprovalRule []SsmPatchBaselineSpecApprovalRule `json:"approvalRule,omitempty" tf:"approval_rule,omitempty"`
 	// +optional

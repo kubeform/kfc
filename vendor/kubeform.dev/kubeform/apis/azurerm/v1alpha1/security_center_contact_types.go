@@ -44,6 +44,8 @@ type SecurityCenterContactSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	AlertNotifications bool   `json:"alertNotifications" tf:"alert_notifications"`
 	AlertsToAdmins     bool   `json:"alertsToAdmins" tf:"alerts_to_admins"`
 	Email              string `json:"email" tf:"email"`

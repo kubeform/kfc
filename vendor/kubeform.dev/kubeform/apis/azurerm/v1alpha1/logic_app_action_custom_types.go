@@ -44,6 +44,8 @@ type LogicAppActionCustomSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Body       string `json:"body" tf:"body"`
 	LogicAppID string `json:"logicAppID" tf:"logic_app_id"`
 	Name       string `json:"name" tf:"name"`

@@ -44,6 +44,8 @@ type StoragegatewayWorkingStorageSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	DiskID     string `json:"diskID" tf:"disk_id"`
 	GatewayArn string `json:"gatewayArn" tf:"gateway_arn"`
 }

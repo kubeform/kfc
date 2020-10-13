@@ -44,6 +44,8 @@ type DedicatedHostGroupSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Location                 string `json:"location" tf:"location"`
 	Name                     string `json:"name" tf:"name"`
 	PlatformFaultDomainCount int64  `json:"platformFaultDomainCount" tf:"platform_fault_domain_count"`

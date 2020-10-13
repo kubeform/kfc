@@ -44,6 +44,8 @@ type StorageTableEntitySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Entity             map[string]string `json:"entity" tf:"entity"`
 	PartitionKey       string            `json:"partitionKey" tf:"partition_key"`
 	RowKey             string            `json:"rowKey" tf:"row_key"`

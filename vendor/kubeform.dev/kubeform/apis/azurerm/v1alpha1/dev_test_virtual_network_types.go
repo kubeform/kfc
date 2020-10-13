@@ -53,6 +53,8 @@ type DevTestVirtualNetworkSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Description       string `json:"description,omitempty" tf:"description,omitempty"`
 	LabName           string `json:"labName" tf:"lab_name"`

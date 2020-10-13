@@ -172,6 +172,8 @@ type FrontdoorSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +kubebuilder:validation:MaxItems=50
 	BackendPool []FrontdoorSpecBackendPool `json:"backendPool" tf:"backend_pool"`
 	// +kubebuilder:validation:MaxItems=5000

@@ -44,6 +44,8 @@ type LogicAppTriggerHTTPRequestSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	LogicAppID string `json:"logicAppID" tf:"logic_app_id"`
 	// +optional
 	Method string `json:"method,omitempty" tf:"method,omitempty"`

@@ -44,6 +44,8 @@ type AppautoscalingTargetSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	MaxCapacity int64  `json:"maxCapacity" tf:"max_capacity"`
 	MinCapacity int64  `json:"minCapacity" tf:"min_capacity"`
 	ResourceID  string `json:"resourceID" tf:"resource_id"`

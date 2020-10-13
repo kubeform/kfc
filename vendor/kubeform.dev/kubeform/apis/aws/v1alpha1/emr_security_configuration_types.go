@@ -44,6 +44,8 @@ type EmrSecurityConfigurationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Configuration string `json:"configuration" tf:"configuration"`
 	// +optional
 	CreationDate string `json:"creationDate,omitempty" tf:"creation_date,omitempty"`

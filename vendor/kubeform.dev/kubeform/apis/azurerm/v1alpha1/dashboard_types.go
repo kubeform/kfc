@@ -44,6 +44,8 @@ type DashboardSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	DashboardProperties string `json:"dashboardProperties,omitempty" tf:"dashboard_properties,omitempty"`
 	Location            string `json:"location" tf:"location"`

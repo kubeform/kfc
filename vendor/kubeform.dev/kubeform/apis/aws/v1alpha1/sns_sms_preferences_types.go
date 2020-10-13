@@ -44,6 +44,8 @@ type SnsSmsPreferencesSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	DefaultSenderID string `json:"defaultSenderID,omitempty" tf:"default_sender_id,omitempty"`
 	// +optional

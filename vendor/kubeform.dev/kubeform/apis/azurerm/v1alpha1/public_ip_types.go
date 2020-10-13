@@ -44,6 +44,8 @@ type PublicIPSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AllocationMethod string `json:"allocationMethod,omitempty" tf:"allocation_method,omitempty"`
 	// +optional

@@ -186,6 +186,8 @@ type CodedeployDeploymentGroupSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	AlarmConfiguration []CodedeployDeploymentGroupSpecAlarmConfiguration `json:"alarmConfiguration,omitempty" tf:"alarm_configuration,omitempty"`

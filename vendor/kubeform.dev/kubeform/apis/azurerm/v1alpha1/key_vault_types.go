@@ -73,6 +73,8 @@ type KeyVaultSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	// +kubebuilder:validation:MaxItems=1024
 	AccessPolicy []KeyVaultSpecAccessPolicy `json:"accessPolicy,omitempty" tf:"access_policy,omitempty"`

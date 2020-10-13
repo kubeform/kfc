@@ -44,6 +44,8 @@ type NatGatewaySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	IdleTimeoutInMinutes int64  `json:"idleTimeoutInMinutes,omitempty" tf:"idle_timeout_in_minutes,omitempty"`
 	Location             string `json:"location" tf:"location"`

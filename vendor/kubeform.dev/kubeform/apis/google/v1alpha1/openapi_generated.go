@@ -14706,6 +14706,11 @@ func schema_kubeform_apis_google_v1alpha1_AccessContextManagerAccessLevelSpec(re
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"basic": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -14747,7 +14752,7 @@ func schema_kubeform_apis_google_v1alpha1_AccessContextManagerAccessLevelSpec(re
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.AccessContextManagerAccessLevelSpecBasic"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.AccessContextManagerAccessLevelSpecBasic"},
 	}
 }
 
@@ -15081,6 +15086,11 @@ func schema_kubeform_apis_google_v1alpha1_AccessContextManagerAccessPolicySpec(r
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"createTime": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -15116,7 +15126,7 @@ func schema_kubeform_apis_google_v1alpha1_AccessContextManagerAccessPolicySpec(r
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -15264,6 +15274,11 @@ func schema_kubeform_apis_google_v1alpha1_AccessContextManagerServicePerimeterSp
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"createTime": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -15323,7 +15338,7 @@ func schema_kubeform_apis_google_v1alpha1_AccessContextManagerServicePerimeterSp
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.AccessContextManagerServicePerimeterSpecStatus"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.AccessContextManagerServicePerimeterSpecStatus"},
 	}
 }
 
@@ -15522,6 +15537,11 @@ func schema_kubeform_apis_google_v1alpha1_AppEngineApplicationSpec(ref common.Re
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"appID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -15611,7 +15631,7 @@ func schema_kubeform_apis_google_v1alpha1_AppEngineApplicationSpec(ref common.Re
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.AppEngineApplicationSpecFeatureSettings", "kubeform.dev/kubeform/apis/google/v1alpha1.AppEngineApplicationSpecUrlDispatchRule"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.AppEngineApplicationSpecFeatureSettings", "kubeform.dev/kubeform/apis/google/v1alpha1.AppEngineApplicationSpecUrlDispatchRule"},
 	}
 }
 
@@ -15807,6 +15827,11 @@ func schema_kubeform_apis_google_v1alpha1_AppEngineDomainMappingSpec(ref common.
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"domainName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -15860,7 +15885,7 @@ func schema_kubeform_apis_google_v1alpha1_AppEngineDomainMappingSpec(ref common.
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.AppEngineDomainMappingSpecResourceRecords", "kubeform.dev/kubeform/apis/google/v1alpha1.AppEngineDomainMappingSpecSslSettings"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.AppEngineDomainMappingSpecResourceRecords", "kubeform.dev/kubeform/apis/google/v1alpha1.AppEngineDomainMappingSpecSslSettings"},
 	}
 }
 
@@ -16068,6 +16093,11 @@ func schema_kubeform_apis_google_v1alpha1_AppEngineFirewallRuleSpec(ref common.R
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"action": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -16103,7 +16133,7 @@ func schema_kubeform_apis_google_v1alpha1_AppEngineFirewallRuleSpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -16251,6 +16281,11 @@ func schema_kubeform_apis_google_v1alpha1_AppEngineStandardAppVersionSpec(ref co
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"deployment": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -16366,7 +16401,7 @@ func schema_kubeform_apis_google_v1alpha1_AppEngineStandardAppVersionSpec(ref co
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.AppEngineStandardAppVersionSpecDeployment", "kubeform.dev/kubeform/apis/google/v1alpha1.AppEngineStandardAppVersionSpecEntrypoint", "kubeform.dev/kubeform/apis/google/v1alpha1.AppEngineStandardAppVersionSpecHandlers", "kubeform.dev/kubeform/apis/google/v1alpha1.AppEngineStandardAppVersionSpecLibraries"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.AppEngineStandardAppVersionSpecDeployment", "kubeform.dev/kubeform/apis/google/v1alpha1.AppEngineStandardAppVersionSpecEntrypoint", "kubeform.dev/kubeform/apis/google/v1alpha1.AppEngineStandardAppVersionSpecHandlers", "kubeform.dev/kubeform/apis/google/v1alpha1.AppEngineStandardAppVersionSpecLibraries"},
 	}
 }
 
@@ -16797,6 +16832,11 @@ func schema_kubeform_apis_google_v1alpha1_BigqueryDataTransferConfigSpec(ref com
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"dataRefreshWindowDays": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
@@ -16870,7 +16910,7 @@ func schema_kubeform_apis_google_v1alpha1_BigqueryDataTransferConfigSpec(ref com
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -17018,6 +17058,11 @@ func schema_kubeform_apis_google_v1alpha1_BigqueryDatasetSpec(ref common.Referen
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"access": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -17133,7 +17178,7 @@ func schema_kubeform_apis_google_v1alpha1_BigqueryDatasetSpec(ref common.Referen
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.BigqueryDatasetSpecAccess", "kubeform.dev/kubeform/apis/google/v1alpha1.BigqueryDatasetSpecDefaultEncryptionConfiguration"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.BigqueryDatasetSpecAccess", "kubeform.dev/kubeform/apis/google/v1alpha1.BigqueryDatasetSpecDefaultEncryptionConfiguration"},
 	}
 }
 
@@ -17387,6 +17432,11 @@ func schema_kubeform_apis_google_v1alpha1_BigqueryTableSpec(ref common.Reference
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"clustering": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -17551,7 +17601,7 @@ func schema_kubeform_apis_google_v1alpha1_BigqueryTableSpec(ref common.Reference
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.BigqueryTableSpecExternalDataConfiguration", "kubeform.dev/kubeform/apis/google/v1alpha1.BigqueryTableSpecTimePartitioning", "kubeform.dev/kubeform/apis/google/v1alpha1.BigqueryTableSpecView"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.BigqueryTableSpecExternalDataConfiguration", "kubeform.dev/kubeform/apis/google/v1alpha1.BigqueryTableSpecTimePartitioning", "kubeform.dev/kubeform/apis/google/v1alpha1.BigqueryTableSpecView"},
 	}
 }
 
@@ -17910,6 +17960,11 @@ func schema_kubeform_apis_google_v1alpha1_BigtableAppProfileSpec(ref common.Refe
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"appProfileID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -17969,7 +18024,7 @@ func schema_kubeform_apis_google_v1alpha1_BigtableAppProfileSpec(ref common.Refe
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.BigtableAppProfileSpecSingleClusterRouting"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.BigtableAppProfileSpecSingleClusterRouting"},
 	}
 }
 
@@ -18141,6 +18196,11 @@ func schema_kubeform_apis_google_v1alpha1_BigtableGcPolicySpec(ref common.Refere
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"columnFamily": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -18200,7 +18260,7 @@ func schema_kubeform_apis_google_v1alpha1_BigtableGcPolicySpec(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.BigtableGcPolicySpecMaxAge", "kubeform.dev/kubeform/apis/google/v1alpha1.BigtableGcPolicySpecMaxVersion"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.BigtableGcPolicySpecMaxAge", "kubeform.dev/kubeform/apis/google/v1alpha1.BigtableGcPolicySpecMaxVersion"},
 	}
 }
 
@@ -18429,6 +18489,11 @@ func schema_kubeform_apis_google_v1alpha1_BigtableInstanceIamBindingSpec(ref com
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -18471,7 +18536,7 @@ func schema_kubeform_apis_google_v1alpha1_BigtableInstanceIamBindingSpec(ref com
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -18619,6 +18684,11 @@ func schema_kubeform_apis_google_v1alpha1_BigtableInstanceIamMemberSpec(ref comm
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -18654,7 +18724,7 @@ func schema_kubeform_apis_google_v1alpha1_BigtableInstanceIamMemberSpec(ref comm
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -18802,6 +18872,11 @@ func schema_kubeform_apis_google_v1alpha1_BigtableInstanceIamPolicySpec(ref comm
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -18831,7 +18906,7 @@ func schema_kubeform_apis_google_v1alpha1_BigtableInstanceIamPolicySpec(ref comm
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -18936,6 +19011,11 @@ func schema_kubeform_apis_google_v1alpha1_BigtableInstanceSpec(ref common.Refere
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"cluster": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -18977,7 +19057,7 @@ func schema_kubeform_apis_google_v1alpha1_BigtableInstanceSpec(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.BigtableInstanceSpecCluster"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.BigtableInstanceSpecCluster"},
 	}
 }
 
@@ -19162,6 +19242,11 @@ func schema_kubeform_apis_google_v1alpha1_BigtableTableSpec(ref common.Reference
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"columnFamily": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -19210,7 +19295,7 @@ func schema_kubeform_apis_google_v1alpha1_BigtableTableSpec(ref common.Reference
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.BigtableTableSpecColumnFamily"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.BigtableTableSpecColumnFamily"},
 	}
 }
 
@@ -19377,6 +19462,11 @@ func schema_kubeform_apis_google_v1alpha1_BillingAccountIamBindingSpec(ref commo
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"billingAccountID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -19413,7 +19503,7 @@ func schema_kubeform_apis_google_v1alpha1_BillingAccountIamBindingSpec(ref commo
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -19561,6 +19651,11 @@ func schema_kubeform_apis_google_v1alpha1_BillingAccountIamMemberSpec(ref common
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"billingAccountID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -19590,7 +19685,7 @@ func schema_kubeform_apis_google_v1alpha1_BillingAccountIamMemberSpec(ref common
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -19738,6 +19833,11 @@ func schema_kubeform_apis_google_v1alpha1_BillingAccountIamPolicySpec(ref common
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"billingAccountID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -19761,7 +19861,7 @@ func schema_kubeform_apis_google_v1alpha1_BillingAccountIamPolicySpec(ref common
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -19952,6 +20052,11 @@ func schema_kubeform_apis_google_v1alpha1_BinaryAuthorizationAttestorIamBindingS
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"attestor": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -19994,7 +20099,7 @@ func schema_kubeform_apis_google_v1alpha1_BinaryAuthorizationAttestorIamBindingS
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -20142,6 +20247,11 @@ func schema_kubeform_apis_google_v1alpha1_BinaryAuthorizationAttestorIamMemberSp
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"attestor": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -20177,7 +20287,7 @@ func schema_kubeform_apis_google_v1alpha1_BinaryAuthorizationAttestorIamMemberSp
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -20325,6 +20435,11 @@ func schema_kubeform_apis_google_v1alpha1_BinaryAuthorizationAttestorIamPolicySp
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"attestor": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -20354,7 +20469,7 @@ func schema_kubeform_apis_google_v1alpha1_BinaryAuthorizationAttestorIamPolicySp
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -20459,6 +20574,11 @@ func schema_kubeform_apis_google_v1alpha1_BinaryAuthorizationAttestorSpec(ref co
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"attestationAuthorityNote": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -20494,7 +20614,7 @@ func schema_kubeform_apis_google_v1alpha1_BinaryAuthorizationAttestorSpec(ref co
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.BinaryAuthorizationAttestorSpecAttestationAuthorityNote"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.BinaryAuthorizationAttestorSpecAttestationAuthorityNote"},
 	}
 }
 
@@ -20749,6 +20869,11 @@ func schema_kubeform_apis_google_v1alpha1_BinaryAuthorizationPolicySpec(ref comm
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"admissionWhitelistPatterns": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -20808,7 +20933,7 @@ func schema_kubeform_apis_google_v1alpha1_BinaryAuthorizationPolicySpec(ref comm
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.BinaryAuthorizationPolicySpecAdmissionWhitelistPatterns", "kubeform.dev/kubeform/apis/google/v1alpha1.BinaryAuthorizationPolicySpecClusterAdmissionRules", "kubeform.dev/kubeform/apis/google/v1alpha1.BinaryAuthorizationPolicySpecDefaultAdmissionRule"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.BinaryAuthorizationPolicySpecAdmissionWhitelistPatterns", "kubeform.dev/kubeform/apis/google/v1alpha1.BinaryAuthorizationPolicySpecClusterAdmissionRules", "kubeform.dev/kubeform/apis/google/v1alpha1.BinaryAuthorizationPolicySpecDefaultAdmissionRule"},
 	}
 }
 
@@ -21056,6 +21181,11 @@ func schema_kubeform_apis_google_v1alpha1_CloudSchedulerJobSpec(ref common.Refer
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"appEngineHTTPTarget": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -21145,7 +21275,7 @@ func schema_kubeform_apis_google_v1alpha1_CloudSchedulerJobSpec(ref common.Refer
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudSchedulerJobSpecAppEngineHTTPTarget", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudSchedulerJobSpecHttpTarget", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudSchedulerJobSpecPubsubTarget", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudSchedulerJobSpecRetryConfig"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudSchedulerJobSpecAppEngineHTTPTarget", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudSchedulerJobSpecHttpTarget", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudSchedulerJobSpecPubsubTarget", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudSchedulerJobSpecRetryConfig"},
 	}
 }
 
@@ -21582,6 +21712,11 @@ func schema_kubeform_apis_google_v1alpha1_CloudbuildTriggerSpec(ref common.Refer
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"build": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -21687,7 +21822,7 @@ func schema_kubeform_apis_google_v1alpha1_CloudbuildTriggerSpec(ref common.Refer
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudbuildTriggerSpecBuild", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudbuildTriggerSpecTriggerTemplate"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudbuildTriggerSpecBuild", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudbuildTriggerSpecTriggerTemplate"},
 	}
 }
 
@@ -22116,6 +22251,11 @@ func schema_kubeform_apis_google_v1alpha1_CloudfunctionsFunctionIamBindingSpec(r
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"cloudFunction": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -22164,7 +22304,7 @@ func schema_kubeform_apis_google_v1alpha1_CloudfunctionsFunctionIamBindingSpec(r
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -22312,6 +22452,11 @@ func schema_kubeform_apis_google_v1alpha1_CloudfunctionsFunctionIamMemberSpec(re
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"cloudFunction": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -22353,7 +22498,7 @@ func schema_kubeform_apis_google_v1alpha1_CloudfunctionsFunctionIamMemberSpec(re
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -22501,6 +22646,11 @@ func schema_kubeform_apis_google_v1alpha1_CloudfunctionsFunctionIamPolicySpec(re
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"cloudFunction": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -22536,7 +22686,7 @@ func schema_kubeform_apis_google_v1alpha1_CloudfunctionsFunctionIamPolicySpec(re
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -22639,6 +22789,11 @@ func schema_kubeform_apis_google_v1alpha1_CloudfunctionsFunctionSpec(ref common.
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
 						},
 					},
 					"availableMemoryMb": {
@@ -22788,7 +22943,7 @@ func schema_kubeform_apis_google_v1alpha1_CloudfunctionsFunctionSpec(ref common.
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudfunctionsFunctionSpecEventTrigger", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudfunctionsFunctionSpecSourceRepository"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudfunctionsFunctionSpecEventTrigger", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudfunctionsFunctionSpecSourceRepository"},
 	}
 }
 
@@ -23019,6 +23174,11 @@ func schema_kubeform_apis_google_v1alpha1_CloudiotRegistrySpec(ref common.Refere
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"credentials": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -23125,7 +23285,7 @@ func schema_kubeform_apis_google_v1alpha1_CloudiotRegistrySpec(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudiotRegistrySpecCredentials", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudiotRegistrySpecEventNotificationConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudiotRegistrySpecEventNotificationConfigs", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudiotRegistrySpecHttpConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudiotRegistrySpecMqttConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudiotRegistrySpecStateNotificationConfig"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudiotRegistrySpecCredentials", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudiotRegistrySpecEventNotificationConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudiotRegistrySpecEventNotificationConfigs", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudiotRegistrySpecHttpConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudiotRegistrySpecMqttConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.CloudiotRegistrySpecStateNotificationConfig"},
 	}
 }
 
@@ -23426,6 +23586,11 @@ func schema_kubeform_apis_google_v1alpha1_ComposerEnvironmentSpec(ref common.Ref
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"config": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -23475,7 +23640,7 @@ func schema_kubeform_apis_google_v1alpha1_ComposerEnvironmentSpec(ref common.Ref
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComposerEnvironmentSpecConfig"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComposerEnvironmentSpecConfig"},
 	}
 }
 
@@ -23918,6 +24083,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeAddressSpec(ref common.Referenc
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"address": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -24002,7 +24172,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeAddressSpec(ref common.Referenc
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -24150,6 +24320,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeAttachedDiskSpec(ref common.Ref
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"deviceName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -24191,7 +24366,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeAttachedDiskSpec(ref common.Ref
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -24339,6 +24514,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeAutoscalerSpec(ref common.Refer
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"autoscalingPolicy": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -24398,7 +24578,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeAutoscalerSpec(ref common.Refer
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeAutoscalerSpecAutoscalingPolicy"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeAutoscalerSpecAutoscalingPolicy"},
 	}
 }
 
@@ -24774,6 +24954,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeBackendBucketSignedURLKeySpec(r
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -24802,7 +24987,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeBackendBucketSignedURLKeySpec(r
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -24858,6 +25043,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeBackendBucketSpec(ref common.Re
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
 						},
 					},
 					"bucketName": {
@@ -24919,7 +25109,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeBackendBucketSpec(ref common.Re
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeBackendBucketSpecCdnPolicy"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeBackendBucketSpecCdnPolicy"},
 	}
 }
 
@@ -25175,6 +25365,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeBackendServiceSignedURLKeySpec(
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -25203,7 +25398,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeBackendServiceSignedURLKeySpec(
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -25259,6 +25454,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeBackendServiceSpec(ref common.R
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
 						},
 					},
 					"secretRef": {
@@ -25410,7 +25610,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeBackendServiceSpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeBackendServiceSpecBackend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeBackendServiceSpecCdnPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeBackendServiceSpecIap"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeBackendServiceSpecBackend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeBackendServiceSpecCdnPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeBackendServiceSpecIap"},
 	}
 }
 
@@ -25833,6 +26033,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeDiskResourcePolicyAttachmentSpe
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"disk": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -25862,7 +26067,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeDiskResourcePolicyAttachmentSpe
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -25918,6 +26123,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeDiskSpec(ref common.ReferenceCa
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
 						},
 					},
 					"creationTimestamp": {
@@ -26084,7 +26294,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeDiskSpec(ref common.ReferenceCa
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeDiskSpecDiskEncryptionKey", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeDiskSpecSourceImageEncryptionKey", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeDiskSpecSourceSnapshotEncryptionKey"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeDiskSpecDiskEncryptionKey", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeDiskSpecSourceImageEncryptionKey", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeDiskSpecSourceSnapshotEncryptionKey"},
 	}
 }
 
@@ -26322,6 +26532,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeFirewallSpec(ref common.Referen
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"allow": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -26483,7 +26698,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeFirewallSpec(ref common.Referen
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeFirewallSpecAllow", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeFirewallSpecDeny"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeFirewallSpecAllow", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeFirewallSpecDeny"},
 	}
 }
 
@@ -26695,6 +26910,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeForwardingRuleSpec(ref common.R
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"allPorts": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -26828,7 +27048,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeForwardingRuleSpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -26976,6 +27196,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeGlobalAddressSpec(ref common.Re
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"address": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -27047,7 +27272,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeGlobalAddressSpec(ref common.Re
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -27195,6 +27420,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeGlobalForwardingRuleSpec(ref co
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"description": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -27272,7 +27502,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeGlobalForwardingRuleSpec(ref co
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeGlobalForwardingRuleSpecMetadataFilters"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeGlobalForwardingRuleSpecMetadataFilters"},
 	}
 }
 
@@ -27478,6 +27708,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeHTTPHealthCheckSpec(ref common.
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"checkIntervalSec": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
@@ -27555,7 +27790,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeHTTPHealthCheckSpec(ref common.
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -27703,6 +27938,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeHTTPSHealthCheckSpec(ref common
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"checkIntervalSec": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
@@ -27780,7 +28020,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeHTTPSHealthCheckSpec(ref common
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -27928,6 +28168,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeHealthCheckSpec(ref common.Refe
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"checkIntervalSec": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
@@ -28053,7 +28298,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeHealthCheckSpec(ref common.Refe
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeHealthCheckSpecHttp2HealthCheck", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeHealthCheckSpecHttpHealthCheck", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeHealthCheckSpecHttpsHealthCheck", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeHealthCheckSpecSslHealthCheck", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeHealthCheckSpecTcpHealthCheck"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeHealthCheckSpecHttp2HealthCheck", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeHealthCheckSpecHttpHealthCheck", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeHealthCheckSpecHttpsHealthCheck", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeHealthCheckSpecSslHealthCheck", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeHealthCheckSpecTcpHealthCheck"},
 	}
 }
 
@@ -28459,6 +28704,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeImageSpec(ref common.ReferenceC
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"archiveSizeBytes": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
@@ -28575,7 +28825,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeImageSpec(ref common.ReferenceC
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeImageSpecGuestOsFeatures", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeImageSpecRawDisk"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeImageSpecGuestOsFeatures", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeImageSpecRawDisk"},
 	}
 }
 
@@ -28813,6 +29063,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeInstanceFromTemplateSpec(ref co
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
 						},
 					},
 					"secretRef": {
@@ -29070,7 +29325,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeInstanceFromTemplateSpec(ref co
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceFromTemplateSpecAttachedDisk", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceFromTemplateSpecBootDisk", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceFromTemplateSpecGuestAccelerator", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceFromTemplateSpecNetworkInterface", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceFromTemplateSpecScheduling", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceFromTemplateSpecScratchDisk", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceFromTemplateSpecServiceAccount", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceFromTemplateSpecShieldedInstanceConfig"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceFromTemplateSpecAttachedDisk", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceFromTemplateSpecBootDisk", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceFromTemplateSpecGuestAccelerator", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceFromTemplateSpecNetworkInterface", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceFromTemplateSpecScheduling", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceFromTemplateSpecScratchDisk", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceFromTemplateSpecServiceAccount", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceFromTemplateSpecShieldedInstanceConfig"},
 	}
 }
 
@@ -29767,6 +30022,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeInstanceGroupManagerSpec(ref co
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"baseInstanceName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -29869,7 +30129,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeInstanceGroupManagerSpec(ref co
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceGroupManagerSpecNamedPort"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceGroupManagerSpecNamedPort"},
 	}
 }
 
@@ -29952,6 +30212,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeInstanceGroupSpec(ref common.Re
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"description": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -30024,7 +30289,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeInstanceGroupSpec(ref common.Re
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceGroupSpecNamedPort"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceGroupSpecNamedPort"},
 	}
 }
 
@@ -30197,6 +30462,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeInstanceIamBindingSpec(ref comm
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -30245,7 +30515,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeInstanceIamBindingSpec(ref comm
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -30393,6 +30663,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeInstanceIamMemberSpec(ref commo
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -30434,7 +30709,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeInstanceIamMemberSpec(ref commo
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -30582,6 +30857,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeInstanceIamPolicySpec(ref commo
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -30617,7 +30897,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeInstanceIamPolicySpec(ref commo
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -30720,6 +31000,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeInstanceSpec(ref common.Referen
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
 						},
 					},
 					"secretRef": {
@@ -30971,7 +31256,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeInstanceSpec(ref common.Referen
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceSpecAttachedDisk", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceSpecBootDisk", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceSpecGuestAccelerator", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceSpecNetworkInterface", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceSpecScheduling", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceSpecScratchDisk", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceSpecServiceAccount", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceSpecShieldedInstanceConfig"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceSpecAttachedDisk", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceSpecBootDisk", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceSpecGuestAccelerator", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceSpecNetworkInterface", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceSpecScheduling", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceSpecScratchDisk", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceSpecServiceAccount", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceSpecShieldedInstanceConfig"},
 	}
 }
 
@@ -31578,6 +31863,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeInstanceTemplateSpec(ref common
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"canIPForward": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -31774,7 +32064,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeInstanceTemplateSpec(ref common
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceTemplateSpecDisk", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceTemplateSpecGuestAccelerator", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceTemplateSpecNetworkInterface", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceTemplateSpecScheduling", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceTemplateSpecServiceAccount", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceTemplateSpecShieldedInstanceConfig"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceTemplateSpecDisk", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceTemplateSpecGuestAccelerator", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceTemplateSpecNetworkInterface", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceTemplateSpecScheduling", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceTemplateSpecServiceAccount", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInstanceTemplateSpecShieldedInstanceConfig"},
 	}
 }
 
@@ -32326,6 +32616,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeInterconnectAttachmentSpec(ref 
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"adminEnabled": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -32470,7 +32765,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeInterconnectAttachmentSpec(ref 
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInterconnectAttachmentSpecPrivateInterconnectInfo"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeInterconnectAttachmentSpecPrivateInterconnectInfo"},
 	}
 }
 
@@ -32722,6 +33017,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeNetworkEndpointGroupSpec(ref co
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"defaultPort": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
@@ -32787,7 +33087,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeNetworkEndpointGroupSpec(ref co
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -32892,6 +33192,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeNetworkEndpointSpec(ref common.
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"instance": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -32933,7 +33238,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeNetworkEndpointSpec(ref common.
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -33128,6 +33433,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeNetworkPeeringSpec(ref common.R
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"autoCreateRoutes": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Deprecated",
@@ -33170,7 +33480,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeNetworkPeeringSpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -33226,6 +33536,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeNetworkSpec(ref common.Referenc
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
 						},
 					},
 					"autoCreateSubnetworks": {
@@ -33288,7 +33603,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeNetworkSpec(ref common.Referenc
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -33436,6 +33751,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeNodeGroupSpec(ref common.Refere
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"creationTimestamp": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -33489,7 +33809,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeNodeGroupSpec(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -33637,6 +33957,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeNodeTemplateSpec(ref common.Ref
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"creationTimestamp": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -33710,7 +34035,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeNodeTemplateSpec(ref common.Ref
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeNodeTemplateSpecNodeTypeFlexibility"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeNodeTemplateSpecNodeTypeFlexibility"},
 	}
 }
 
@@ -33888,6 +34213,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeProjectDefaultNetworkTierSpec(r
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"networkTier": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -33905,7 +34235,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeProjectDefaultNetworkTierSpec(r
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -34096,6 +34426,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeProjectMetadataItemSpec(ref com
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"key": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -34119,7 +34454,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeProjectMetadataItemSpec(ref com
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -34224,6 +34559,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeProjectMetadataSpec(ref common.
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"metadata": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"object"},
@@ -34249,7 +34589,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeProjectMetadataSpec(ref common.
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -34397,6 +34737,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeRegionAutoscalerSpec(ref common
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"autoscalingPolicy": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -34456,7 +34801,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeRegionAutoscalerSpec(ref common
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeRegionAutoscalerSpecAutoscalingPolicy"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeRegionAutoscalerSpecAutoscalingPolicy"},
 	}
 }
 
@@ -34742,6 +35087,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeRegionBackendServiceSpec(ref co
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"backend": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -34838,7 +35188,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeRegionBackendServiceSpec(ref co
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeRegionBackendServiceSpecBackend"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeRegionBackendServiceSpecBackend"},
 	}
 }
 
@@ -35010,6 +35360,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeRegionDiskSpec(ref common.Refer
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"creationTimestamp": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -35163,7 +35518,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeRegionDiskSpec(ref common.Refer
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeRegionDiskSpecDiskEncryptionKey", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeRegionDiskSpecSourceSnapshotEncryptionKey"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeRegionDiskSpecDiskEncryptionKey", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeRegionDiskSpecSourceSnapshotEncryptionKey"},
 	}
 }
 
@@ -35359,6 +35714,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeRegionInstanceGroupManagerSpec(
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"baseInstanceName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -35475,7 +35835,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeRegionInstanceGroupManagerSpec(
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeRegionInstanceGroupManagerSpecNamedPort"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeRegionInstanceGroupManagerSpecNamedPort"},
 	}
 }
 
@@ -35648,6 +36008,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeReservationSpec(ref common.Refe
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"commitment": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -35719,7 +36084,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeReservationSpec(ref common.Refe
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeReservationSpecSpecificReservation"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeReservationSpecSpecificReservation"},
 	}
 }
 
@@ -36007,6 +36372,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeResourcePolicySpec(ref common.R
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -36048,7 +36418,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeResourcePolicySpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeResourcePolicySpecSnapshotSchedulePolicy"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeResourcePolicySpecSnapshotSchedulePolicy"},
 	}
 }
 
@@ -36469,6 +36839,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeRouteSpec(ref common.ReferenceC
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"description": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -36565,7 +36940,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeRouteSpec(ref common.ReferenceC
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -36756,6 +37131,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeRouterInterfaceSpec(ref common.
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"interconnectAttachment": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -36803,7 +37183,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeRouterInterfaceSpec(ref common.
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -36998,6 +37378,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeRouterNATSpec(ref common.Refere
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"icmpIdleTimeoutSec": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
@@ -37106,7 +37491,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeRouterNATSpec(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeRouterNATSpecLogConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeRouterNATSpecSubnetwork"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeRouterNATSpecLogConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeRouterNATSpecSubnetwork"},
 	}
 }
 
@@ -37324,6 +37709,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeRouterPeerSpec(ref common.Refer
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"advertiseMode": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -37414,7 +37804,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeRouterPeerSpec(ref common.Refer
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeRouterPeerSpecAdvertisedIPRanges"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeRouterPeerSpecAdvertisedIPRanges"},
 	}
 }
 
@@ -37496,6 +37886,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeRouterSpec(ref common.Reference
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"bgp": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -37555,7 +37950,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeRouterSpec(ref common.Reference
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeRouterSpecBgp"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeRouterSpecBgp"},
 	}
 }
 
@@ -37779,6 +38174,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeSSLCertificateSpec(ref common.R
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -37831,7 +38231,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeSSLCertificateSpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -37979,6 +38379,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeSSLPolicySpec(ref common.Refere
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"creationTimestamp": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -38058,7 +38463,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeSSLPolicySpec(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -38206,6 +38611,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeSecurityPolicySpec(ref common.R
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"description": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -38253,7 +38663,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeSecurityPolicySpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeSecurityPolicySpecRule"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeSecurityPolicySpecRule"},
 	}
 }
 
@@ -38511,6 +38921,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeSharedVpcHostProjectSpec(ref co
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"project": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -38522,7 +38937,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeSharedVpcHostProjectSpec(ref co
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -38670,6 +39085,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeSharedVpcServiceProjectSpec(ref
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"hostProject": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -38687,7 +39107,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeSharedVpcServiceProjectSpec(ref
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -38835,6 +39255,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeSnapshotSpec(ref common.Referen
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -38968,7 +39393,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeSnapshotSpec(ref common.Referen
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeSnapshotSpecSnapshotEncryptionKey", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeSnapshotSpecSourceDiskEncryptionKey"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeSnapshotSpecSnapshotEncryptionKey", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeSnapshotSpecSourceDiskEncryptionKey"},
 	}
 }
 
@@ -39187,6 +39612,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeSubnetworkIamBindingSpec(ref co
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -39235,7 +39665,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeSubnetworkIamBindingSpec(ref co
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -39383,6 +39813,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeSubnetworkIamMemberSpec(ref com
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -39424,7 +39859,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeSubnetworkIamMemberSpec(ref com
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -39572,6 +40007,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeSubnetworkIamPolicySpec(ref com
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -39607,7 +40047,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeSubnetworkIamPolicySpec(ref com
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -39712,6 +40152,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeSubnetworkSpec(ref common.Refer
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"creationTimestamp": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -39801,7 +40246,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeSubnetworkSpec(ref common.Refer
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeSubnetworkSpecSecondaryIPRange"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeSubnetworkSpecSecondaryIPRange"},
 	}
 }
 
@@ -39974,6 +40419,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeTargetHTTPProxySpec(ref common.
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"creationTimestamp": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -40021,7 +40471,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeTargetHTTPProxySpec(ref common.
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -40169,6 +40619,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeTargetHTTPSProxySpec(ref common
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"creationTimestamp": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -40241,7 +40696,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeTargetHTTPSProxySpec(ref common
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -40389,6 +40844,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeTargetInstanceSpec(ref common.R
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"creationTimestamp": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -40442,7 +40902,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeTargetInstanceSpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -40590,6 +41050,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeTargetPoolSpec(ref common.Refer
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"backupPool": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -40669,7 +41134,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeTargetPoolSpec(ref common.Refer
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -40817,6 +41282,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeTargetSSLProxySpec(ref common.R
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"backendService": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -40889,7 +41359,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeTargetSSLProxySpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -41037,6 +41507,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeTargetTcpProxySpec(ref common.R
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"backendService": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -41090,7 +41565,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeTargetTcpProxySpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -41238,6 +41713,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeURLMapSpec(ref common.Reference
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"creationTimestamp": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -41327,7 +41807,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeURLMapSpec(ref common.Reference
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeURLMapSpecHostRule", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeURLMapSpecPathMatcher", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeURLMapSpecTest"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeURLMapSpecHostRule", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeURLMapSpecPathMatcher", "kubeform.dev/kubeform/apis/google/v1alpha1.ComputeURLMapSpecTest"},
 	}
 }
 
@@ -41627,6 +42107,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeVPNGatewaySpec(ref common.Refer
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"creationTimestamp": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -41680,7 +42165,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeVPNGatewaySpec(ref common.Refer
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -41828,6 +42313,11 @@ func schema_kubeform_apis_google_v1alpha1_ComputeVPNTunnelSpec(ref common.Refere
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -41942,7 +42432,7 @@ func schema_kubeform_apis_google_v1alpha1_ComputeVPNTunnelSpec(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -42090,6 +42580,11 @@ func schema_kubeform_apis_google_v1alpha1_ContainerAnalysisNoteSpec(ref common.R
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"attestationAuthority": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -42119,7 +42614,7 @@ func schema_kubeform_apis_google_v1alpha1_ContainerAnalysisNoteSpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerAnalysisNoteSpecAttestationAuthority"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerAnalysisNoteSpecAttestationAuthority"},
 	}
 }
 
@@ -42311,6 +42806,11 @@ func schema_kubeform_apis_google_v1alpha1_ContainerClusterSpec(ref common.Refere
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
 						},
 					},
 					"secretRef": {
@@ -42613,7 +43113,7 @@ func schema_kubeform_apis_google_v1alpha1_ContainerClusterSpec(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerClusterSpecAddonsConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerClusterSpecIpAllocationPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerClusterSpecMaintenancePolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerClusterSpecMasterAuth", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerClusterSpecMasterAuthorizedNetworksConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerClusterSpecNetworkPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerClusterSpecNodeConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerClusterSpecNodePool", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerClusterSpecPrivateClusterConfig"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerClusterSpecAddonsConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerClusterSpecIpAllocationPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerClusterSpecMaintenancePolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerClusterSpecMasterAuth", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerClusterSpecMasterAuthorizedNetworksConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerClusterSpecNetworkPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerClusterSpecNodeConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerClusterSpecNodePool", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerClusterSpecPrivateClusterConfig"},
 	}
 }
 
@@ -43641,6 +44141,11 @@ func schema_kubeform_apis_google_v1alpha1_ContainerNodePoolSpec(ref common.Refer
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"autoscaling": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -43763,7 +44268,7 @@ func schema_kubeform_apis_google_v1alpha1_ContainerNodePoolSpec(ref common.Refer
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerNodePoolSpecAutoscaling", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerNodePoolSpecManagement", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerNodePoolSpecNodeConfig"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerNodePoolSpecAutoscaling", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerNodePoolSpecManagement", "kubeform.dev/kubeform/apis/google/v1alpha1.ContainerNodePoolSpecNodeConfig"},
 	}
 }
 
@@ -44113,6 +44618,11 @@ func schema_kubeform_apis_google_v1alpha1_DataflowJobSpec(ref common.ReferenceCa
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"labels": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"object"},
@@ -44224,7 +44734,7 @@ func schema_kubeform_apis_google_v1alpha1_DataflowJobSpec(ref common.ReferenceCa
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -44415,6 +44925,11 @@ func schema_kubeform_apis_google_v1alpha1_DataprocClusterIamBindingSpec(ref comm
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"cluster": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -44463,7 +44978,7 @@ func schema_kubeform_apis_google_v1alpha1_DataprocClusterIamBindingSpec(ref comm
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -44611,6 +45126,11 @@ func schema_kubeform_apis_google_v1alpha1_DataprocClusterIamMemberSpec(ref commo
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"cluster": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -44652,7 +45172,7 @@ func schema_kubeform_apis_google_v1alpha1_DataprocClusterIamMemberSpec(ref commo
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -44800,6 +45320,11 @@ func schema_kubeform_apis_google_v1alpha1_DataprocClusterIamPolicySpec(ref commo
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"cluster": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -44835,7 +45360,7 @@ func schema_kubeform_apis_google_v1alpha1_DataprocClusterIamPolicySpec(ref commo
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -44940,6 +45465,11 @@ func schema_kubeform_apis_google_v1alpha1_DataprocClusterSpec(ref common.Referen
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"clusterConfig": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -44989,7 +45519,7 @@ func schema_kubeform_apis_google_v1alpha1_DataprocClusterSpec(ref common.Referen
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocClusterSpecClusterConfig"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocClusterSpecClusterConfig"},
 	}
 }
 
@@ -45798,6 +46328,11 @@ func schema_kubeform_apis_google_v1alpha1_DataprocJobIamBindingSpec(ref common.R
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -45846,7 +46381,7 @@ func schema_kubeform_apis_google_v1alpha1_DataprocJobIamBindingSpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -45994,6 +46529,11 @@ func schema_kubeform_apis_google_v1alpha1_DataprocJobIamMemberSpec(ref common.Re
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -46035,7 +46575,7 @@ func schema_kubeform_apis_google_v1alpha1_DataprocJobIamMemberSpec(ref common.Re
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -46183,6 +46723,11 @@ func schema_kubeform_apis_google_v1alpha1_DataprocJobIamPolicySpec(ref common.Re
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -46218,7 +46763,7 @@ func schema_kubeform_apis_google_v1alpha1_DataprocJobIamPolicySpec(ref common.Re
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -46321,6 +46866,11 @@ func schema_kubeform_apis_google_v1alpha1_DataprocJobSpec(ref common.ReferenceCa
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
 						},
 					},
 					"driverControlsFilesURI": {
@@ -46496,7 +47046,7 @@ func schema_kubeform_apis_google_v1alpha1_DataprocJobSpec(ref common.ReferenceCa
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocJobSpecHadoopConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocJobSpecHiveConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocJobSpecPigConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocJobSpecPlacement", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocJobSpecPysparkConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocJobSpecReference", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocJobSpecScheduling", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocJobSpecSparkConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocJobSpecSparksqlConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocJobSpecStatus"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocJobSpecHadoopConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocJobSpecHiveConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocJobSpecPigConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocJobSpecPlacement", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocJobSpecPysparkConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocJobSpecReference", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocJobSpecScheduling", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocJobSpecSparkConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocJobSpecSparksqlConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.DataprocJobSpecStatus"},
 	}
 }
 
@@ -47472,6 +48022,11 @@ func schema_kubeform_apis_google_v1alpha1_DnsManagedZoneSpec(ref common.Referenc
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"description": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -47558,7 +48113,7 @@ func schema_kubeform_apis_google_v1alpha1_DnsManagedZoneSpec(ref common.Referenc
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.DnsManagedZoneSpecDnssecConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.DnsManagedZoneSpecPrivateVisibilityConfig"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.DnsManagedZoneSpecDnssecConfig", "kubeform.dev/kubeform/apis/google/v1alpha1.DnsManagedZoneSpecPrivateVisibilityConfig"},
 	}
 }
 
@@ -47830,6 +48385,11 @@ func schema_kubeform_apis_google_v1alpha1_DnsRecordSetSpec(ref common.ReferenceC
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"managedZone": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -47878,7 +48438,7 @@ func schema_kubeform_apis_google_v1alpha1_DnsRecordSetSpec(ref common.ReferenceC
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -48026,6 +48586,11 @@ func schema_kubeform_apis_google_v1alpha1_EndpointsServiceSpec(ref common.Refere
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"apis": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -48097,7 +48662,7 @@ func schema_kubeform_apis_google_v1alpha1_EndpointsServiceSpec(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.EndpointsServiceSpecApis", "kubeform.dev/kubeform/apis/google/v1alpha1.EndpointsServiceSpecEndpoints"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.EndpointsServiceSpecApis", "kubeform.dev/kubeform/apis/google/v1alpha1.EndpointsServiceSpecEndpoints"},
 	}
 }
 
@@ -48349,6 +48914,11 @@ func schema_kubeform_apis_google_v1alpha1_FilestoreInstanceSpec(ref common.Refer
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"createTime": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -48434,7 +49004,7 @@ func schema_kubeform_apis_google_v1alpha1_FilestoreInstanceSpec(ref common.Refer
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.FilestoreInstanceSpecFileShares", "kubeform.dev/kubeform/apis/google/v1alpha1.FilestoreInstanceSpecNetworks"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.FilestoreInstanceSpecFileShares", "kubeform.dev/kubeform/apis/google/v1alpha1.FilestoreInstanceSpecNetworks"},
 	}
 }
 
@@ -48658,6 +49228,11 @@ func schema_kubeform_apis_google_v1alpha1_FirestoreIndexSpec(ref common.Referenc
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"collection": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -48705,7 +49280,7 @@ func schema_kubeform_apis_google_v1alpha1_FirestoreIndexSpec(ref common.Referenc
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.FirestoreIndexSpecFields"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.FirestoreIndexSpecFields"},
 	}
 }
 
@@ -48926,6 +49501,11 @@ func schema_kubeform_apis_google_v1alpha1_FolderIamBindingSpec(ref common.Refere
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -48962,7 +49542,7 @@ func schema_kubeform_apis_google_v1alpha1_FolderIamBindingSpec(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -49110,6 +49690,11 @@ func schema_kubeform_apis_google_v1alpha1_FolderIamMemberSpec(ref common.Referen
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -49139,7 +49724,7 @@ func schema_kubeform_apis_google_v1alpha1_FolderIamMemberSpec(ref common.Referen
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -49287,6 +49872,11 @@ func schema_kubeform_apis_google_v1alpha1_FolderIamPolicySpec(ref common.Referen
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -49310,7 +49900,7 @@ func schema_kubeform_apis_google_v1alpha1_FolderIamPolicySpec(ref common.Referen
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -49505,6 +50095,11 @@ func schema_kubeform_apis_google_v1alpha1_FolderOrganizationPolicySpec(ref commo
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"booleanPolicy": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -49576,7 +50171,7 @@ func schema_kubeform_apis_google_v1alpha1_FolderOrganizationPolicySpec(ref commo
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.FolderOrganizationPolicySpecBooleanPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.FolderOrganizationPolicySpecListPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.FolderOrganizationPolicySpecRestorePolicy"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.FolderOrganizationPolicySpecBooleanPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.FolderOrganizationPolicySpecListPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.FolderOrganizationPolicySpecRestorePolicy"},
 	}
 }
 
@@ -49784,6 +50379,11 @@ func schema_kubeform_apis_google_v1alpha1_FolderSpec(ref common.ReferenceCallbac
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"createTime": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -49819,7 +50419,7 @@ func schema_kubeform_apis_google_v1alpha1_FolderSpec(ref common.ReferenceCallbac
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -49967,6 +50567,11 @@ func schema_kubeform_apis_google_v1alpha1_IapAppEngineServiceIamBindingSpec(ref 
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"appID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -50015,7 +50620,7 @@ func schema_kubeform_apis_google_v1alpha1_IapAppEngineServiceIamBindingSpec(ref 
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -50163,6 +50768,11 @@ func schema_kubeform_apis_google_v1alpha1_IapAppEngineServiceIamMemberSpec(ref c
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"appID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -50204,7 +50814,7 @@ func schema_kubeform_apis_google_v1alpha1_IapAppEngineServiceIamMemberSpec(ref c
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -50352,6 +50962,11 @@ func schema_kubeform_apis_google_v1alpha1_IapAppEngineServiceIamPolicySpec(ref c
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"appID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -50387,7 +51002,7 @@ func schema_kubeform_apis_google_v1alpha1_IapAppEngineServiceIamPolicySpec(ref c
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -50535,6 +51150,11 @@ func schema_kubeform_apis_google_v1alpha1_IapAppEngineVersionIamBindingSpec(ref 
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"appID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -50589,7 +51209,7 @@ func schema_kubeform_apis_google_v1alpha1_IapAppEngineVersionIamBindingSpec(ref 
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -50737,6 +51357,11 @@ func schema_kubeform_apis_google_v1alpha1_IapAppEngineVersionIamMemberSpec(ref c
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"appID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -50784,7 +51409,7 @@ func schema_kubeform_apis_google_v1alpha1_IapAppEngineVersionIamMemberSpec(ref c
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -50932,6 +51557,11 @@ func schema_kubeform_apis_google_v1alpha1_IapAppEngineVersionIamPolicySpec(ref c
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"appID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -50973,7 +51603,7 @@ func schema_kubeform_apis_google_v1alpha1_IapAppEngineVersionIamPolicySpec(ref c
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -51121,6 +51751,11 @@ func schema_kubeform_apis_google_v1alpha1_IapWebBackendServiceIamBindingSpec(ref
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -51163,7 +51798,7 @@ func schema_kubeform_apis_google_v1alpha1_IapWebBackendServiceIamBindingSpec(ref
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -51311,6 +51946,11 @@ func schema_kubeform_apis_google_v1alpha1_IapWebBackendServiceIamMemberSpec(ref 
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -51346,7 +51986,7 @@ func schema_kubeform_apis_google_v1alpha1_IapWebBackendServiceIamMemberSpec(ref 
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -51494,6 +52134,11 @@ func schema_kubeform_apis_google_v1alpha1_IapWebBackendServiceIamPolicySpec(ref 
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -51523,7 +52168,7 @@ func schema_kubeform_apis_google_v1alpha1_IapWebBackendServiceIamPolicySpec(ref 
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -51671,6 +52316,11 @@ func schema_kubeform_apis_google_v1alpha1_IapWebIamBindingSpec(ref common.Refere
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -51707,7 +52357,7 @@ func schema_kubeform_apis_google_v1alpha1_IapWebIamBindingSpec(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -51855,6 +52505,11 @@ func schema_kubeform_apis_google_v1alpha1_IapWebIamMemberSpec(ref common.Referen
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -51884,7 +52539,7 @@ func schema_kubeform_apis_google_v1alpha1_IapWebIamMemberSpec(ref common.Referen
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -52032,6 +52687,11 @@ func schema_kubeform_apis_google_v1alpha1_IapWebIamPolicySpec(ref common.Referen
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -52055,7 +52715,7 @@ func schema_kubeform_apis_google_v1alpha1_IapWebIamPolicySpec(ref common.Referen
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -52203,6 +52863,11 @@ func schema_kubeform_apis_google_v1alpha1_IapWebTypeAppEngineIamBindingSpec(ref 
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"appID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -52245,7 +52910,7 @@ func schema_kubeform_apis_google_v1alpha1_IapWebTypeAppEngineIamBindingSpec(ref 
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -52393,6 +53058,11 @@ func schema_kubeform_apis_google_v1alpha1_IapWebTypeAppEngineIamMemberSpec(ref c
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"appID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -52428,7 +53098,7 @@ func schema_kubeform_apis_google_v1alpha1_IapWebTypeAppEngineIamMemberSpec(ref c
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -52576,6 +53246,11 @@ func schema_kubeform_apis_google_v1alpha1_IapWebTypeAppEngineIamPolicySpec(ref c
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"appID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -52605,7 +53280,7 @@ func schema_kubeform_apis_google_v1alpha1_IapWebTypeAppEngineIamPolicySpec(ref c
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -52753,6 +53428,11 @@ func schema_kubeform_apis_google_v1alpha1_IapWebTypeComputeIamBindingSpec(ref co
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -52789,7 +53469,7 @@ func schema_kubeform_apis_google_v1alpha1_IapWebTypeComputeIamBindingSpec(ref co
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -52937,6 +53617,11 @@ func schema_kubeform_apis_google_v1alpha1_IapWebTypeComputeIamMemberSpec(ref com
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -52966,7 +53651,7 @@ func schema_kubeform_apis_google_v1alpha1_IapWebTypeComputeIamMemberSpec(ref com
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -53114,6 +53799,11 @@ func schema_kubeform_apis_google_v1alpha1_IapWebTypeComputeIamPolicySpec(ref com
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -53137,7 +53827,7 @@ func schema_kubeform_apis_google_v1alpha1_IapWebTypeComputeIamPolicySpec(ref com
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -53328,6 +54018,11 @@ func schema_kubeform_apis_google_v1alpha1_KmsCryptoKeyIamBindingSpec(ref common.
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"cryptoKeyID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -53364,7 +54059,7 @@ func schema_kubeform_apis_google_v1alpha1_KmsCryptoKeyIamBindingSpec(ref common.
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -53512,6 +54207,11 @@ func schema_kubeform_apis_google_v1alpha1_KmsCryptoKeyIamMemberSpec(ref common.R
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"cryptoKeyID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -53541,7 +54241,7 @@ func schema_kubeform_apis_google_v1alpha1_KmsCryptoKeyIamMemberSpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -53646,6 +54346,11 @@ func schema_kubeform_apis_google_v1alpha1_KmsCryptoKeySpec(ref common.ReferenceC
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"keyRing": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -53707,7 +54412,7 @@ func schema_kubeform_apis_google_v1alpha1_KmsCryptoKeySpec(ref common.ReferenceC
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.KmsCryptoKeySpecVersionTemplate"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.KmsCryptoKeySpecVersionTemplate"},
 	}
 }
 
@@ -53923,6 +54628,11 @@ func schema_kubeform_apis_google_v1alpha1_KmsKeyRingIamBindingSpec(ref common.Re
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -53959,7 +54669,7 @@ func schema_kubeform_apis_google_v1alpha1_KmsKeyRingIamBindingSpec(ref common.Re
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -54107,6 +54817,11 @@ func schema_kubeform_apis_google_v1alpha1_KmsKeyRingIamMemberSpec(ref common.Ref
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -54136,7 +54851,7 @@ func schema_kubeform_apis_google_v1alpha1_KmsKeyRingIamMemberSpec(ref common.Ref
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -54284,6 +54999,11 @@ func schema_kubeform_apis_google_v1alpha1_KmsKeyRingIamPolicySpec(ref common.Ref
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -54307,7 +55027,7 @@ func schema_kubeform_apis_google_v1alpha1_KmsKeyRingIamPolicySpec(ref common.Ref
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -54412,6 +55132,11 @@ func schema_kubeform_apis_google_v1alpha1_KmsKeyRingSpec(ref common.ReferenceCal
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"location": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -54441,7 +55166,7 @@ func schema_kubeform_apis_google_v1alpha1_KmsKeyRingSpec(ref common.ReferenceCal
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -54589,6 +55314,11 @@ func schema_kubeform_apis_google_v1alpha1_LoggingBillingAccountExclusionSpec(ref
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"billingAccount": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -54624,7 +55354,7 @@ func schema_kubeform_apis_google_v1alpha1_LoggingBillingAccountExclusionSpec(ref
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -54772,6 +55502,11 @@ func schema_kubeform_apis_google_v1alpha1_LoggingBillingAccountSinkSpec(ref comm
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"billingAccount": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -54807,7 +55542,7 @@ func schema_kubeform_apis_google_v1alpha1_LoggingBillingAccountSinkSpec(ref comm
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -54955,6 +55690,11 @@ func schema_kubeform_apis_google_v1alpha1_LoggingFolderExclusionSpec(ref common.
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"description": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -54990,7 +55730,7 @@ func schema_kubeform_apis_google_v1alpha1_LoggingFolderExclusionSpec(ref common.
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -55138,6 +55878,11 @@ func schema_kubeform_apis_google_v1alpha1_LoggingFolderSinkSpec(ref common.Refer
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"destination": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -55179,7 +55924,7 @@ func schema_kubeform_apis_google_v1alpha1_LoggingFolderSinkSpec(ref common.Refer
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -55327,6 +56072,11 @@ func schema_kubeform_apis_google_v1alpha1_LoggingMetricSpec(ref common.Reference
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"bucketOptions": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -55400,7 +56150,7 @@ func schema_kubeform_apis_google_v1alpha1_LoggingMetricSpec(ref common.Reference
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.LoggingMetricSpecBucketOptions", "kubeform.dev/kubeform/apis/google/v1alpha1.LoggingMetricSpecMetricDescriptor"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.LoggingMetricSpecBucketOptions", "kubeform.dev/kubeform/apis/google/v1alpha1.LoggingMetricSpecMetricDescriptor"},
 	}
 }
 
@@ -55759,6 +56509,11 @@ func schema_kubeform_apis_google_v1alpha1_LoggingOrganizationExclusionSpec(ref c
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"description": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -55794,7 +56549,7 @@ func schema_kubeform_apis_google_v1alpha1_LoggingOrganizationExclusionSpec(ref c
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -55942,6 +56697,11 @@ func schema_kubeform_apis_google_v1alpha1_LoggingOrganizationSinkSpec(ref common
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"destination": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -55983,7 +56743,7 @@ func schema_kubeform_apis_google_v1alpha1_LoggingOrganizationSinkSpec(ref common
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -56131,6 +56891,11 @@ func schema_kubeform_apis_google_v1alpha1_LoggingProjectExclusionSpec(ref common
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"description": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -56166,7 +56931,7 @@ func schema_kubeform_apis_google_v1alpha1_LoggingProjectExclusionSpec(ref common
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -56314,6 +57079,11 @@ func schema_kubeform_apis_google_v1alpha1_LoggingProjectSinkSpec(ref common.Refe
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"destination": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -56355,7 +57125,7 @@ func schema_kubeform_apis_google_v1alpha1_LoggingProjectSinkSpec(ref common.Refe
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -56503,6 +57273,11 @@ func schema_kubeform_apis_google_v1alpha1_MlEngineModelSpec(ref common.Reference
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"defaultVersion": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -56577,7 +57352,7 @@ func schema_kubeform_apis_google_v1alpha1_MlEngineModelSpec(ref common.Reference
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.MlEngineModelSpecDefaultVersion"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.MlEngineModelSpecDefaultVersion"},
 	}
 }
 
@@ -56743,6 +57518,11 @@ func schema_kubeform_apis_google_v1alpha1_MonitoringAlertPolicySpec(ref common.R
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"combiner": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -56855,7 +57635,7 @@ func schema_kubeform_apis_google_v1alpha1_MonitoringAlertPolicySpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.MonitoringAlertPolicySpecConditions", "kubeform.dev/kubeform/apis/google/v1alpha1.MonitoringAlertPolicySpecCreationRecord", "kubeform.dev/kubeform/apis/google/v1alpha1.MonitoringAlertPolicySpecDocumentation"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.MonitoringAlertPolicySpecConditions", "kubeform.dev/kubeform/apis/google/v1alpha1.MonitoringAlertPolicySpecCreationRecord", "kubeform.dev/kubeform/apis/google/v1alpha1.MonitoringAlertPolicySpecDocumentation"},
 	}
 }
 
@@ -57411,6 +58191,11 @@ func schema_kubeform_apis_google_v1alpha1_MonitoringGroupSpec(ref common.Referen
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"displayName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -57452,7 +58237,7 @@ func schema_kubeform_apis_google_v1alpha1_MonitoringGroupSpec(ref common.Referen
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -57600,6 +58385,11 @@ func schema_kubeform_apis_google_v1alpha1_MonitoringNotificationChannelSpec(ref 
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"description": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -57675,7 +58465,7 @@ func schema_kubeform_apis_google_v1alpha1_MonitoringNotificationChannelSpec(ref 
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -57823,6 +58613,11 @@ func schema_kubeform_apis_google_v1alpha1_MonitoringUptimeCheckConfigSpec(ref co
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -57962,7 +58757,7 @@ func schema_kubeform_apis_google_v1alpha1_MonitoringUptimeCheckConfigSpec(ref co
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.MonitoringUptimeCheckConfigSpecContentMatchers", "kubeform.dev/kubeform/apis/google/v1alpha1.MonitoringUptimeCheckConfigSpecHttpCheck", "kubeform.dev/kubeform/apis/google/v1alpha1.MonitoringUptimeCheckConfigSpecInternalCheckers", "kubeform.dev/kubeform/apis/google/v1alpha1.MonitoringUptimeCheckConfigSpecMonitoredResource", "kubeform.dev/kubeform/apis/google/v1alpha1.MonitoringUptimeCheckConfigSpecResourceGroup", "kubeform.dev/kubeform/apis/google/v1alpha1.MonitoringUptimeCheckConfigSpecTcpCheck"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.MonitoringUptimeCheckConfigSpecContentMatchers", "kubeform.dev/kubeform/apis/google/v1alpha1.MonitoringUptimeCheckConfigSpecHttpCheck", "kubeform.dev/kubeform/apis/google/v1alpha1.MonitoringUptimeCheckConfigSpecInternalCheckers", "kubeform.dev/kubeform/apis/google/v1alpha1.MonitoringUptimeCheckConfigSpecMonitoredResource", "kubeform.dev/kubeform/apis/google/v1alpha1.MonitoringUptimeCheckConfigSpecResourceGroup", "kubeform.dev/kubeform/apis/google/v1alpha1.MonitoringUptimeCheckConfigSpecTcpCheck"},
 	}
 }
 
@@ -58333,6 +59128,11 @@ func schema_kubeform_apis_google_v1alpha1_OrganizationIamBindingSpec(ref common.
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -58369,7 +59169,7 @@ func schema_kubeform_apis_google_v1alpha1_OrganizationIamBindingSpec(ref common.
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -58517,6 +59317,11 @@ func schema_kubeform_apis_google_v1alpha1_OrganizationIamCustomRoleSpec(ref comm
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"deleted": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -58571,7 +59376,7 @@ func schema_kubeform_apis_google_v1alpha1_OrganizationIamCustomRoleSpec(ref comm
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -58719,6 +59524,11 @@ func schema_kubeform_apis_google_v1alpha1_OrganizationIamMemberSpec(ref common.R
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -58748,7 +59558,7 @@ func schema_kubeform_apis_google_v1alpha1_OrganizationIamMemberSpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -58896,6 +59706,11 @@ func schema_kubeform_apis_google_v1alpha1_OrganizationIamPolicySpec(ref common.R
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -58919,7 +59734,7 @@ func schema_kubeform_apis_google_v1alpha1_OrganizationIamPolicySpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -59067,6 +59882,11 @@ func schema_kubeform_apis_google_v1alpha1_OrganizationPolicySpec(ref common.Refe
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"booleanPolicy": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -59138,7 +59958,7 @@ func schema_kubeform_apis_google_v1alpha1_OrganizationPolicySpec(ref common.Refe
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.OrganizationPolicySpecBooleanPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.OrganizationPolicySpecListPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.OrganizationPolicySpecRestorePolicy"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.OrganizationPolicySpecBooleanPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.OrganizationPolicySpecListPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.OrganizationPolicySpecRestorePolicy"},
 	}
 }
 
@@ -59479,6 +60299,11 @@ func schema_kubeform_apis_google_v1alpha1_ProjectIamAuditConfigSpec(ref common.R
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"auditLogConfig": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -59514,7 +60339,7 @@ func schema_kubeform_apis_google_v1alpha1_ProjectIamAuditConfigSpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ProjectIamAuditConfigSpecAuditLogConfig"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ProjectIamAuditConfigSpecAuditLogConfig"},
 	}
 }
 
@@ -59694,6 +60519,11 @@ func schema_kubeform_apis_google_v1alpha1_ProjectIamBindingSpec(ref common.Refer
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -59730,7 +60560,7 @@ func schema_kubeform_apis_google_v1alpha1_ProjectIamBindingSpec(ref common.Refer
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -59878,6 +60708,11 @@ func schema_kubeform_apis_google_v1alpha1_ProjectIamCustomRoleSpec(ref common.Re
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"deleted": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -59932,7 +60767,7 @@ func schema_kubeform_apis_google_v1alpha1_ProjectIamCustomRoleSpec(ref common.Re
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -60080,6 +60915,11 @@ func schema_kubeform_apis_google_v1alpha1_ProjectIamMemberSpec(ref common.Refere
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -60109,7 +60949,7 @@ func schema_kubeform_apis_google_v1alpha1_ProjectIamMemberSpec(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -60257,6 +61097,11 @@ func schema_kubeform_apis_google_v1alpha1_ProjectIamPolicySpec(ref common.Refere
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -60280,7 +61125,7 @@ func schema_kubeform_apis_google_v1alpha1_ProjectIamPolicySpec(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -60475,6 +61320,11 @@ func schema_kubeform_apis_google_v1alpha1_ProjectOrganizationPolicySpec(ref comm
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"booleanPolicy": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -60546,7 +61396,7 @@ func schema_kubeform_apis_google_v1alpha1_ProjectOrganizationPolicySpec(ref comm
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.ProjectOrganizationPolicySpecBooleanPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.ProjectOrganizationPolicySpecListPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.ProjectOrganizationPolicySpecRestorePolicy"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.ProjectOrganizationPolicySpecBooleanPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.ProjectOrganizationPolicySpecListPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.ProjectOrganizationPolicySpecRestorePolicy"},
 	}
 }
 
@@ -60887,6 +61737,11 @@ func schema_kubeform_apis_google_v1alpha1_ProjectServiceBatchSpec(ref common.Ref
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"disableOnDestroy": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -60917,7 +61772,7 @@ func schema_kubeform_apis_google_v1alpha1_ProjectServiceBatchSpec(ref common.Ref
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -61022,6 +61877,11 @@ func schema_kubeform_apis_google_v1alpha1_ProjectServiceSpec(ref common.Referenc
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"disableDependentServices": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},
@@ -61051,7 +61911,7 @@ func schema_kubeform_apis_google_v1alpha1_ProjectServiceSpec(ref common.Referenc
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -61107,6 +61967,11 @@ func schema_kubeform_apis_google_v1alpha1_ProjectSpec(ref common.ReferenceCallba
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
 						},
 					},
 					"autoCreateNetwork": {
@@ -61176,7 +62041,7 @@ func schema_kubeform_apis_google_v1alpha1_ProjectSpec(ref common.ReferenceCallba
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -61324,6 +62189,11 @@ func schema_kubeform_apis_google_v1alpha1_ProjectUsageExportBucketSpec(ref commo
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"bucketName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -61347,7 +62217,7 @@ func schema_kubeform_apis_google_v1alpha1_ProjectUsageExportBucketSpec(ref commo
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -61538,6 +62408,11 @@ func schema_kubeform_apis_google_v1alpha1_PubsubSubscriptionIamBindingSpec(ref c
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -61580,7 +62455,7 @@ func schema_kubeform_apis_google_v1alpha1_PubsubSubscriptionIamBindingSpec(ref c
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -61728,6 +62603,11 @@ func schema_kubeform_apis_google_v1alpha1_PubsubSubscriptionIamMemberSpec(ref co
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -61763,7 +62643,7 @@ func schema_kubeform_apis_google_v1alpha1_PubsubSubscriptionIamMemberSpec(ref co
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -61911,6 +62791,11 @@ func schema_kubeform_apis_google_v1alpha1_PubsubSubscriptionIamPolicySpec(ref co
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -61940,7 +62825,7 @@ func schema_kubeform_apis_google_v1alpha1_PubsubSubscriptionIamPolicySpec(ref co
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -62045,6 +62930,11 @@ func schema_kubeform_apis_google_v1alpha1_PubsubSubscriptionSpec(ref common.Refe
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"ackDeadlineSeconds": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
@@ -62130,7 +63020,7 @@ func schema_kubeform_apis_google_v1alpha1_PubsubSubscriptionSpec(ref common.Refe
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.PubsubSubscriptionSpecExpirationPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.PubsubSubscriptionSpecPushConfig"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.PubsubSubscriptionSpecExpirationPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.PubsubSubscriptionSpecPushConfig"},
 	}
 }
 
@@ -62372,6 +63262,11 @@ func schema_kubeform_apis_google_v1alpha1_PubsubTopicIamBindingSpec(ref common.R
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -62414,7 +63309,7 @@ func schema_kubeform_apis_google_v1alpha1_PubsubTopicIamBindingSpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -62562,6 +63457,11 @@ func schema_kubeform_apis_google_v1alpha1_PubsubTopicIamMemberSpec(ref common.Re
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -62597,7 +63497,7 @@ func schema_kubeform_apis_google_v1alpha1_PubsubTopicIamMemberSpec(ref common.Re
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -62745,6 +63645,11 @@ func schema_kubeform_apis_google_v1alpha1_PubsubTopicIamPolicySpec(ref common.Re
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -62774,7 +63679,7 @@ func schema_kubeform_apis_google_v1alpha1_PubsubTopicIamPolicySpec(ref common.Re
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -62879,6 +63784,11 @@ func schema_kubeform_apis_google_v1alpha1_PubsubTopicSpec(ref common.ReferenceCa
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"kmsKeyName": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -62928,7 +63838,7 @@ func schema_kubeform_apis_google_v1alpha1_PubsubTopicSpec(ref common.ReferenceCa
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.PubsubTopicSpecMessageStoragePolicy"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.PubsubTopicSpecMessageStoragePolicy"},
 	}
 }
 
@@ -63102,6 +64012,11 @@ func schema_kubeform_apis_google_v1alpha1_RedisInstanceSpec(ref common.Reference
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"alternativeLocationID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -63225,7 +64140,7 @@ func schema_kubeform_apis_google_v1alpha1_RedisInstanceSpec(ref common.Reference
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -63373,6 +64288,11 @@ func schema_kubeform_apis_google_v1alpha1_ResourceManagerLienSpec(ref common.Ref
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"createTime": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -63421,7 +64341,7 @@ func schema_kubeform_apis_google_v1alpha1_ResourceManagerLienSpec(ref common.Ref
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -63612,6 +64532,11 @@ func schema_kubeform_apis_google_v1alpha1_RuntimeconfigConfigIamBindingSpec(ref 
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"config": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -63654,7 +64579,7 @@ func schema_kubeform_apis_google_v1alpha1_RuntimeconfigConfigIamBindingSpec(ref 
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -63802,6 +64727,11 @@ func schema_kubeform_apis_google_v1alpha1_RuntimeconfigConfigIamMemberSpec(ref c
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"config": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -63837,7 +64767,7 @@ func schema_kubeform_apis_google_v1alpha1_RuntimeconfigConfigIamMemberSpec(ref c
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -63985,6 +64915,11 @@ func schema_kubeform_apis_google_v1alpha1_RuntimeconfigConfigIamPolicySpec(ref c
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"config": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -64014,7 +64949,7 @@ func schema_kubeform_apis_google_v1alpha1_RuntimeconfigConfigIamPolicySpec(ref c
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -64119,6 +65054,11 @@ func schema_kubeform_apis_google_v1alpha1_RuntimeconfigConfigSpec(ref common.Ref
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"description": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -64142,7 +65082,7 @@ func schema_kubeform_apis_google_v1alpha1_RuntimeconfigConfigSpec(ref common.Ref
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -64290,6 +65230,11 @@ func schema_kubeform_apis_google_v1alpha1_RuntimeconfigVariableSpec(ref common.R
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -64331,7 +65276,7 @@ func schema_kubeform_apis_google_v1alpha1_RuntimeconfigVariableSpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -64479,6 +65424,11 @@ func schema_kubeform_apis_google_v1alpha1_SccSourceSpec(ref common.ReferenceCall
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"description": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -64508,7 +65458,7 @@ func schema_kubeform_apis_google_v1alpha1_SccSourceSpec(ref common.ReferenceCall
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -64699,6 +65649,11 @@ func schema_kubeform_apis_google_v1alpha1_ServiceAccountIamBindingSpec(ref commo
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -64735,7 +65690,7 @@ func schema_kubeform_apis_google_v1alpha1_ServiceAccountIamBindingSpec(ref commo
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -64883,6 +65838,11 @@ func schema_kubeform_apis_google_v1alpha1_ServiceAccountIamMemberSpec(ref common
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -64912,7 +65872,7 @@ func schema_kubeform_apis_google_v1alpha1_ServiceAccountIamMemberSpec(ref common
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -65060,6 +66020,11 @@ func schema_kubeform_apis_google_v1alpha1_ServiceAccountIamPolicySpec(ref common
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -65083,7 +66048,7 @@ func schema_kubeform_apis_google_v1alpha1_ServiceAccountIamPolicySpec(ref common
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -65231,6 +66196,11 @@ func schema_kubeform_apis_google_v1alpha1_ServiceAccountKeySpec(ref common.Refer
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -65307,7 +66277,7 @@ func schema_kubeform_apis_google_v1alpha1_ServiceAccountKeySpec(ref common.Refer
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -65412,6 +66382,11 @@ func schema_kubeform_apis_google_v1alpha1_ServiceAccountSpec(ref common.Referenc
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"accountID": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -65453,7 +66428,7 @@ func schema_kubeform_apis_google_v1alpha1_ServiceAccountSpec(ref common.Referenc
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -65601,6 +66576,11 @@ func schema_kubeform_apis_google_v1alpha1_ServiceNetworkingConnectionSpec(ref co
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"network": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -65637,7 +66617,7 @@ func schema_kubeform_apis_google_v1alpha1_ServiceNetworkingConnectionSpec(ref co
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -65828,6 +66808,11 @@ func schema_kubeform_apis_google_v1alpha1_SourcerepoRepositoryIamBindingSpec(ref
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -65870,7 +66855,7 @@ func schema_kubeform_apis_google_v1alpha1_SourcerepoRepositoryIamBindingSpec(ref
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -66018,6 +67003,11 @@ func schema_kubeform_apis_google_v1alpha1_SourcerepoRepositoryIamMemberSpec(ref 
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -66053,7 +67043,7 @@ func schema_kubeform_apis_google_v1alpha1_SourcerepoRepositoryIamMemberSpec(ref 
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -66201,6 +67191,11 @@ func schema_kubeform_apis_google_v1alpha1_SourcerepoRepositoryIamPolicySpec(ref 
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -66230,7 +67225,7 @@ func schema_kubeform_apis_google_v1alpha1_SourcerepoRepositoryIamPolicySpec(ref 
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -66335,6 +67330,11 @@ func schema_kubeform_apis_google_v1alpha1_SourcerepoRepositorySpec(ref common.Re
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -66364,7 +67364,7 @@ func schema_kubeform_apis_google_v1alpha1_SourcerepoRepositorySpec(ref common.Re
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -66555,6 +67555,11 @@ func schema_kubeform_apis_google_v1alpha1_SpannerDatabaseIamBindingSpec(ref comm
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"database": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -66603,7 +67608,7 @@ func schema_kubeform_apis_google_v1alpha1_SpannerDatabaseIamBindingSpec(ref comm
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -66751,6 +67756,11 @@ func schema_kubeform_apis_google_v1alpha1_SpannerDatabaseIamMemberSpec(ref commo
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"database": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -66792,7 +67802,7 @@ func schema_kubeform_apis_google_v1alpha1_SpannerDatabaseIamMemberSpec(ref commo
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -66940,6 +67950,11 @@ func schema_kubeform_apis_google_v1alpha1_SpannerDatabaseIamPolicySpec(ref commo
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"database": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -66975,7 +67990,7 @@ func schema_kubeform_apis_google_v1alpha1_SpannerDatabaseIamPolicySpec(ref commo
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -67080,6 +68095,11 @@ func schema_kubeform_apis_google_v1alpha1_SpannerDatabaseSpec(ref common.Referen
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"ddl": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -67122,7 +68142,7 @@ func schema_kubeform_apis_google_v1alpha1_SpannerDatabaseSpec(ref common.Referen
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -67313,6 +68333,11 @@ func schema_kubeform_apis_google_v1alpha1_SpannerInstanceIamBindingSpec(ref comm
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -67355,7 +68380,7 @@ func schema_kubeform_apis_google_v1alpha1_SpannerInstanceIamBindingSpec(ref comm
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -67503,6 +68528,11 @@ func schema_kubeform_apis_google_v1alpha1_SpannerInstanceIamMemberSpec(ref commo
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -67538,7 +68568,7 @@ func schema_kubeform_apis_google_v1alpha1_SpannerInstanceIamMemberSpec(ref commo
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -67686,6 +68716,11 @@ func schema_kubeform_apis_google_v1alpha1_SpannerInstanceIamPolicySpec(ref commo
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"etag": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -67715,7 +68750,7 @@ func schema_kubeform_apis_google_v1alpha1_SpannerInstanceIamPolicySpec(ref commo
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -67820,6 +68855,11 @@ func schema_kubeform_apis_google_v1alpha1_SpannerInstanceSpec(ref common.Referen
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"config": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -67875,7 +68915,7 @@ func schema_kubeform_apis_google_v1alpha1_SpannerInstanceSpec(ref common.Referen
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -68066,6 +69106,11 @@ func schema_kubeform_apis_google_v1alpha1_SqlDatabaseInstanceSpec(ref common.Ref
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -68190,7 +69235,7 @@ func schema_kubeform_apis_google_v1alpha1_SqlDatabaseInstanceSpec(ref common.Ref
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.SqlDatabaseInstanceSpecIpAddress", "kubeform.dev/kubeform/apis/google/v1alpha1.SqlDatabaseInstanceSpecReplicaConfiguration", "kubeform.dev/kubeform/apis/google/v1alpha1.SqlDatabaseInstanceSpecServerCaCert", "kubeform.dev/kubeform/apis/google/v1alpha1.SqlDatabaseInstanceSpecSettings"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.SqlDatabaseInstanceSpecIpAddress", "kubeform.dev/kubeform/apis/google/v1alpha1.SqlDatabaseInstanceSpecReplicaConfiguration", "kubeform.dev/kubeform/apis/google/v1alpha1.SqlDatabaseInstanceSpecServerCaCert", "kubeform.dev/kubeform/apis/google/v1alpha1.SqlDatabaseInstanceSpecSettings"},
 	}
 }
 
@@ -68783,6 +69828,11 @@ func schema_kubeform_apis_google_v1alpha1_SqlDatabaseSpec(ref common.ReferenceCa
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"charset": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -68824,7 +69874,7 @@ func schema_kubeform_apis_google_v1alpha1_SqlDatabaseSpec(ref common.ReferenceCa
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -68972,6 +70022,11 @@ func schema_kubeform_apis_google_v1alpha1_SqlSSLCertSpec(ref common.ReferenceCal
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -69036,7 +70091,7 @@ func schema_kubeform_apis_google_v1alpha1_SqlSSLCertSpec(ref common.ReferenceCal
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -69184,6 +70239,11 @@ func schema_kubeform_apis_google_v1alpha1_SqlUserSpec(ref common.ReferenceCallba
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -69218,7 +70278,7 @@ func schema_kubeform_apis_google_v1alpha1_SqlUserSpec(ref common.ReferenceCallba
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -69409,6 +70469,11 @@ func schema_kubeform_apis_google_v1alpha1_StorageBucketACLSpec(ref common.Refere
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"bucket": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -69445,7 +70510,7 @@ func schema_kubeform_apis_google_v1alpha1_StorageBucketACLSpec(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -69593,6 +70658,11 @@ func schema_kubeform_apis_google_v1alpha1_StorageBucketAccessControlSpec(ref com
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"bucket": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -69628,7 +70698,7 @@ func schema_kubeform_apis_google_v1alpha1_StorageBucketAccessControlSpec(ref com
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -69776,6 +70846,11 @@ func schema_kubeform_apis_google_v1alpha1_StorageBucketIamBindingSpec(ref common
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"bucket": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -69812,7 +70887,7 @@ func schema_kubeform_apis_google_v1alpha1_StorageBucketIamBindingSpec(ref common
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -69960,6 +71035,11 @@ func schema_kubeform_apis_google_v1alpha1_StorageBucketIamMemberSpec(ref common.
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"bucket": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -69989,7 +71069,7 @@ func schema_kubeform_apis_google_v1alpha1_StorageBucketIamMemberSpec(ref common.
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -70137,6 +71217,11 @@ func schema_kubeform_apis_google_v1alpha1_StorageBucketIamPolicySpec(ref common.
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"bucket": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -70160,7 +71245,7 @@ func schema_kubeform_apis_google_v1alpha1_StorageBucketIamPolicySpec(ref common.
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -70355,6 +71440,11 @@ func schema_kubeform_apis_google_v1alpha1_StorageBucketObjectSpec(ref common.Ref
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -70449,7 +71539,7 @@ func schema_kubeform_apis_google_v1alpha1_StorageBucketObjectSpec(ref common.Ref
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -70505,6 +71595,11 @@ func schema_kubeform_apis_google_v1alpha1_StorageBucketSpec(ref common.Reference
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
 						},
 					},
 					"bucketPolicyOnly": {
@@ -70664,7 +71759,7 @@ func schema_kubeform_apis_google_v1alpha1_StorageBucketSpec(ref common.Reference
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageBucketSpecCors", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageBucketSpecEncryption", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageBucketSpecLifecycleRule", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageBucketSpecLogging", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageBucketSpecRetentionPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageBucketSpecVersioning", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageBucketSpecWebsite"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageBucketSpecCors", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageBucketSpecEncryption", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageBucketSpecLifecycleRule", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageBucketSpecLogging", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageBucketSpecRetentionPolicy", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageBucketSpecVersioning", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageBucketSpecWebsite"},
 	}
 }
 
@@ -71100,6 +72195,11 @@ func schema_kubeform_apis_google_v1alpha1_StorageDefaultObjectACLSpec(ref common
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"bucket": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -71124,7 +72224,7 @@ func schema_kubeform_apis_google_v1alpha1_StorageDefaultObjectACLSpec(ref common
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -71272,6 +72372,11 @@ func schema_kubeform_apis_google_v1alpha1_StorageDefaultObjectAccessControlSpec(
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"bucket": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -71337,7 +72442,7 @@ func schema_kubeform_apis_google_v1alpha1_StorageDefaultObjectAccessControlSpec(
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageDefaultObjectAccessControlSpecProjectTeam"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageDefaultObjectAccessControlSpecProjectTeam"},
 	}
 }
 
@@ -71509,6 +72614,11 @@ func schema_kubeform_apis_google_v1alpha1_StorageNotificationSpec(ref common.Ref
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"bucket": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -71571,7 +72681,7 @@ func schema_kubeform_apis_google_v1alpha1_StorageNotificationSpec(ref common.Ref
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -71719,6 +72829,11 @@ func schema_kubeform_apis_google_v1alpha1_StorageObjectACLSpec(ref common.Refere
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"bucket": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -71755,7 +72870,7 @@ func schema_kubeform_apis_google_v1alpha1_StorageObjectACLSpec(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -71903,6 +73018,11 @@ func schema_kubeform_apis_google_v1alpha1_StorageObjectAccessControlSpec(ref com
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"bucket": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -71968,7 +73088,7 @@ func schema_kubeform_apis_google_v1alpha1_StorageObjectAccessControlSpec(ref com
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageObjectAccessControlSpecProjectTeam"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageObjectAccessControlSpecProjectTeam"},
 	}
 }
 
@@ -72140,6 +73260,11 @@ func schema_kubeform_apis_google_v1alpha1_StorageTransferJobSpec(ref common.Refe
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -72216,7 +73341,7 @@ func schema_kubeform_apis_google_v1alpha1_StorageTransferJobSpec(ref common.Refe
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageTransferJobSpecSchedule", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageTransferJobSpecTransferSpec"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageTransferJobSpecSchedule", "kubeform.dev/kubeform/apis/google/v1alpha1.StorageTransferJobSpecTransferSpec"},
 	}
 }
 
@@ -72780,6 +73905,11 @@ func schema_kubeform_apis_google_v1alpha1_TpuNodeSpec(ref common.ReferenceCallba
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"acceleratorType": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
@@ -72877,7 +74007,7 @@ func schema_kubeform_apis_google_v1alpha1_TpuNodeSpec(ref common.ReferenceCallba
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/google/v1alpha1.TpuNodeSpecNetworkEndpoints", "kubeform.dev/kubeform/apis/google/v1alpha1.TpuNodeSpecSchedulingConfig"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/google/v1alpha1.TpuNodeSpecNetworkEndpoints", "kubeform.dev/kubeform/apis/google/v1alpha1.TpuNodeSpecSchedulingConfig"},
 	}
 }
 

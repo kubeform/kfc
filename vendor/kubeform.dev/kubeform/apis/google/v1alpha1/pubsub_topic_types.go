@@ -48,6 +48,8 @@ type PubsubTopicSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	KmsKeyName string `json:"kmsKeyName,omitempty" tf:"kms_key_name,omitempty"`
 	// +optional

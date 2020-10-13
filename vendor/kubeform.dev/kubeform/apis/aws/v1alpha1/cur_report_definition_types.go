@@ -44,6 +44,8 @@ type CurReportDefinitionSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AdditionalArtifacts      []string `json:"additionalArtifacts,omitempty" tf:"additional_artifacts,omitempty"`
 	AdditionalSchemaElements []string `json:"additionalSchemaElements" tf:"additional_schema_elements"`

@@ -44,6 +44,8 @@ type LicensemanagerAssociationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	LicenseConfigurationArn string `json:"licenseConfigurationArn" tf:"license_configuration_arn"`
 	ResourceArn             string `json:"resourceArn" tf:"resource_arn"`
 }

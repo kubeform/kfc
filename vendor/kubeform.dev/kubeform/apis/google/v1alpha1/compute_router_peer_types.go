@@ -51,6 +51,8 @@ type ComputeRouterPeerSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AdvertiseMode string `json:"advertiseMode,omitempty" tf:"advertise_mode,omitempty"`
 	// +optional

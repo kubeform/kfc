@@ -44,6 +44,8 @@ type SiteRecoveryReplicationPolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	ApplicationConsistentSnapshotFrequencyInMinutes int64  `json:"applicationConsistentSnapshotFrequencyInMinutes" tf:"application_consistent_snapshot_frequency_in_minutes"`
 	Name                                            string `json:"name" tf:"name"`
 	RecoveryPointRetentionInMinutes                 int64  `json:"recoveryPointRetentionInMinutes" tf:"recovery_point_retention_in_minutes"`

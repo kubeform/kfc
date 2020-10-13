@@ -49,6 +49,8 @@ type ComputeBackendBucketSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	BucketName string `json:"bucketName" tf:"bucket_name"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1

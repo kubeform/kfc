@@ -44,6 +44,8 @@ type KeyVaultAccessPolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ApplicationID string `json:"applicationID,omitempty" tf:"application_id,omitempty"`
 	// +optional

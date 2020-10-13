@@ -92,6 +92,11 @@ func (in *AccessContextManagerAccessLevelList) DeepCopyObject() runtime.Object {
 func (in *AccessContextManagerAccessLevelSpec) DeepCopyInto(out *AccessContextManagerAccessLevelSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Basic != nil {
 		in, out := &in.Basic, &out.Basic
 		*out = make([]AccessContextManagerAccessLevelSpecBasic, len(*in))
@@ -251,7 +256,7 @@ func (in *AccessContextManagerAccessPolicy) DeepCopyInto(out *AccessContextManag
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -311,6 +316,11 @@ func (in *AccessContextManagerAccessPolicyList) DeepCopyObject() runtime.Object 
 func (in *AccessContextManagerAccessPolicySpec) DeepCopyInto(out *AccessContextManagerAccessPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -330,7 +340,7 @@ func (in *AccessContextManagerAccessPolicyStatus) DeepCopyInto(out *AccessContex
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(AccessContextManagerAccessPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -415,6 +425,11 @@ func (in *AccessContextManagerServicePerimeterList) DeepCopyObject() runtime.Obj
 func (in *AccessContextManagerServicePerimeterSpec) DeepCopyInto(out *AccessContextManagerServicePerimeterSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Status != nil {
 		in, out := &in.Status, &out.Status
 		*out = make([]AccessContextManagerServicePerimeterSpecStatus, len(*in))
@@ -557,6 +572,11 @@ func (in *AppEngineApplicationList) DeepCopyObject() runtime.Object {
 func (in *AppEngineApplicationSpec) DeepCopyInto(out *AppEngineApplicationSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.FeatureSettings != nil {
 		in, out := &in.FeatureSettings, &out.FeatureSettings
 		*out = make([]AppEngineApplicationSpecFeatureSettings, len(*in))
@@ -703,6 +723,11 @@ func (in *AppEngineDomainMappingList) DeepCopyObject() runtime.Object {
 func (in *AppEngineDomainMappingSpec) DeepCopyInto(out *AppEngineDomainMappingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.ResourceRecords != nil {
 		in, out := &in.ResourceRecords, &out.ResourceRecords
 		*out = make([]AppEngineDomainMappingSpecResourceRecords, len(*in))
@@ -789,7 +814,7 @@ func (in *AppEngineFirewallRule) DeepCopyInto(out *AppEngineFirewallRule) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -849,6 +874,11 @@ func (in *AppEngineFirewallRuleList) DeepCopyObject() runtime.Object {
 func (in *AppEngineFirewallRuleSpec) DeepCopyInto(out *AppEngineFirewallRuleSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -868,7 +898,7 @@ func (in *AppEngineFirewallRuleStatus) DeepCopyInto(out *AppEngineFirewallRuleSt
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(AppEngineFirewallRuleSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -953,6 +983,11 @@ func (in *AppEngineStandardAppVersionList) DeepCopyObject() runtime.Object {
 func (in *AppEngineStandardAppVersionSpec) DeepCopyInto(out *AppEngineStandardAppVersionSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Deployment != nil {
 		in, out := &in.Deployment, &out.Deployment
 		*out = make([]AppEngineStandardAppVersionSpecDeployment, len(*in))
@@ -1245,6 +1280,11 @@ func (in *BigqueryDataTransferConfigList) DeepCopyObject() runtime.Object {
 func (in *BigqueryDataTransferConfigSpec) DeepCopyInto(out *BigqueryDataTransferConfigSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Params != nil {
 		in, out := &in.Params, &out.Params
 		*out = make(map[string]string, len(*in))
@@ -1356,6 +1396,11 @@ func (in *BigqueryDatasetList) DeepCopyObject() runtime.Object {
 func (in *BigqueryDatasetSpec) DeepCopyInto(out *BigqueryDatasetSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Access != nil {
 		in, out := &in.Access, &out.Access
 		*out = make([]BigqueryDatasetSpecAccess, len(*in))
@@ -1532,6 +1577,11 @@ func (in *BigqueryTableList) DeepCopyObject() runtime.Object {
 func (in *BigqueryTableSpec) DeepCopyInto(out *BigqueryTableSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Clustering != nil {
 		in, out := &in.Clustering, &out.Clustering
 		*out = make([]string, len(*in))
@@ -1760,6 +1810,11 @@ func (in *BigtableAppProfileList) DeepCopyObject() runtime.Object {
 func (in *BigtableAppProfileSpec) DeepCopyInto(out *BigtableAppProfileSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SingleClusterRouting != nil {
 		in, out := &in.SingleClusterRouting, &out.SingleClusterRouting
 		*out = make([]BigtableAppProfileSpecSingleClusterRouting, len(*in))
@@ -1885,6 +1940,11 @@ func (in *BigtableGcPolicyList) DeepCopyObject() runtime.Object {
 func (in *BigtableGcPolicySpec) DeepCopyInto(out *BigtableGcPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.MaxAge != nil {
 		in, out := &in.MaxAge, &out.MaxAge
 		*out = make([]BigtableGcPolicySpecMaxAge, len(*in))
@@ -2059,6 +2119,11 @@ func (in *BigtableInstanceIamBindingList) DeepCopyObject() runtime.Object {
 func (in *BigtableInstanceIamBindingSpec) DeepCopyInto(out *BigtableInstanceIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -2108,7 +2173,7 @@ func (in *BigtableInstanceIamMember) DeepCopyInto(out *BigtableInstanceIamMember
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -2168,6 +2233,11 @@ func (in *BigtableInstanceIamMemberList) DeepCopyObject() runtime.Object {
 func (in *BigtableInstanceIamMemberSpec) DeepCopyInto(out *BigtableInstanceIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -2187,7 +2257,7 @@ func (in *BigtableInstanceIamMemberStatus) DeepCopyInto(out *BigtableInstanceIam
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(BigtableInstanceIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -2212,7 +2282,7 @@ func (in *BigtableInstanceIamPolicy) DeepCopyInto(out *BigtableInstanceIamPolicy
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -2272,6 +2342,11 @@ func (in *BigtableInstanceIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *BigtableInstanceIamPolicySpec) DeepCopyInto(out *BigtableInstanceIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -2291,7 +2366,7 @@ func (in *BigtableInstanceIamPolicyStatus) DeepCopyInto(out *BigtableInstanceIam
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(BigtableInstanceIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -2348,6 +2423,11 @@ func (in *BigtableInstanceList) DeepCopyObject() runtime.Object {
 func (in *BigtableInstanceSpec) DeepCopyInto(out *BigtableInstanceSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Cluster != nil {
 		in, out := &in.Cluster, &out.Cluster
 		*out = make([]BigtableInstanceSpecCluster, len(*in))
@@ -2473,6 +2553,11 @@ func (in *BigtableTableList) DeepCopyObject() runtime.Object {
 func (in *BigtableTableSpec) DeepCopyInto(out *BigtableTableSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.ColumnFamily != nil {
 		in, out := &in.ColumnFamily, &out.ColumnFamily
 		*out = make([]BigtableTableSpecColumnFamily, len(*in))
@@ -2603,6 +2688,11 @@ func (in *BillingAccountIamBindingList) DeepCopyObject() runtime.Object {
 func (in *BillingAccountIamBindingSpec) DeepCopyInto(out *BillingAccountIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -2652,7 +2742,7 @@ func (in *BillingAccountIamMember) DeepCopyInto(out *BillingAccountIamMember) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -2712,6 +2802,11 @@ func (in *BillingAccountIamMemberList) DeepCopyObject() runtime.Object {
 func (in *BillingAccountIamMemberSpec) DeepCopyInto(out *BillingAccountIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -2731,7 +2826,7 @@ func (in *BillingAccountIamMemberStatus) DeepCopyInto(out *BillingAccountIamMemb
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(BillingAccountIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -2756,7 +2851,7 @@ func (in *BillingAccountIamPolicy) DeepCopyInto(out *BillingAccountIamPolicy) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -2816,6 +2911,11 @@ func (in *BillingAccountIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *BillingAccountIamPolicySpec) DeepCopyInto(out *BillingAccountIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -2835,7 +2935,7 @@ func (in *BillingAccountIamPolicyStatus) DeepCopyInto(out *BillingAccountIamPoli
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(BillingAccountIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -2948,6 +3048,11 @@ func (in *BinaryAuthorizationAttestorIamBindingList) DeepCopyObject() runtime.Ob
 func (in *BinaryAuthorizationAttestorIamBindingSpec) DeepCopyInto(out *BinaryAuthorizationAttestorIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -2997,7 +3102,7 @@ func (in *BinaryAuthorizationAttestorIamMember) DeepCopyInto(out *BinaryAuthoriz
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -3057,6 +3162,11 @@ func (in *BinaryAuthorizationAttestorIamMemberList) DeepCopyObject() runtime.Obj
 func (in *BinaryAuthorizationAttestorIamMemberSpec) DeepCopyInto(out *BinaryAuthorizationAttestorIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -3076,7 +3186,7 @@ func (in *BinaryAuthorizationAttestorIamMemberStatus) DeepCopyInto(out *BinaryAu
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(BinaryAuthorizationAttestorIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -3101,7 +3211,7 @@ func (in *BinaryAuthorizationAttestorIamPolicy) DeepCopyInto(out *BinaryAuthoriz
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -3161,6 +3271,11 @@ func (in *BinaryAuthorizationAttestorIamPolicyList) DeepCopyObject() runtime.Obj
 func (in *BinaryAuthorizationAttestorIamPolicySpec) DeepCopyInto(out *BinaryAuthorizationAttestorIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -3180,7 +3295,7 @@ func (in *BinaryAuthorizationAttestorIamPolicyStatus) DeepCopyInto(out *BinaryAu
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(BinaryAuthorizationAttestorIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -3237,6 +3352,11 @@ func (in *BinaryAuthorizationAttestorList) DeepCopyObject() runtime.Object {
 func (in *BinaryAuthorizationAttestorSpec) DeepCopyInto(out *BinaryAuthorizationAttestorSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.AttestationAuthorityNote != nil {
 		in, out := &in.AttestationAuthorityNote, &out.AttestationAuthorityNote
 		*out = make([]BinaryAuthorizationAttestorSpecAttestationAuthorityNote, len(*in))
@@ -3408,6 +3528,11 @@ func (in *BinaryAuthorizationPolicyList) DeepCopyObject() runtime.Object {
 func (in *BinaryAuthorizationPolicySpec) DeepCopyInto(out *BinaryAuthorizationPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.AdmissionWhitelistPatterns != nil {
 		in, out := &in.AdmissionWhitelistPatterns, &out.AdmissionWhitelistPatterns
 		*out = make([]BinaryAuthorizationPolicySpecAdmissionWhitelistPatterns, len(*in))
@@ -3589,6 +3714,11 @@ func (in *CloudSchedulerJobList) DeepCopyObject() runtime.Object {
 func (in *CloudSchedulerJobSpec) DeepCopyInto(out *CloudSchedulerJobSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.AppEngineHTTPTarget != nil {
 		in, out := &in.AppEngineHTTPTarget, &out.AppEngineHTTPTarget
 		*out = make([]CloudSchedulerJobSpecAppEngineHTTPTarget, len(*in))
@@ -3867,6 +3997,11 @@ func (in *CloudbuildTriggerList) DeepCopyObject() runtime.Object {
 func (in *CloudbuildTriggerSpec) DeepCopyInto(out *CloudbuildTriggerSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Build != nil {
 		in, out := &in.Build, &out.Build
 		*out = make([]CloudbuildTriggerSpecBuild, len(*in))
@@ -4134,6 +4269,11 @@ func (in *CloudfunctionsFunctionIamBindingList) DeepCopyObject() runtime.Object 
 func (in *CloudfunctionsFunctionIamBindingSpec) DeepCopyInto(out *CloudfunctionsFunctionIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -4183,7 +4323,7 @@ func (in *CloudfunctionsFunctionIamMember) DeepCopyInto(out *CloudfunctionsFunct
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -4243,6 +4383,11 @@ func (in *CloudfunctionsFunctionIamMemberList) DeepCopyObject() runtime.Object {
 func (in *CloudfunctionsFunctionIamMemberSpec) DeepCopyInto(out *CloudfunctionsFunctionIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -4262,7 +4407,7 @@ func (in *CloudfunctionsFunctionIamMemberStatus) DeepCopyInto(out *Cloudfunction
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(CloudfunctionsFunctionIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -4287,7 +4432,7 @@ func (in *CloudfunctionsFunctionIamPolicy) DeepCopyInto(out *CloudfunctionsFunct
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -4347,6 +4492,11 @@ func (in *CloudfunctionsFunctionIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *CloudfunctionsFunctionIamPolicySpec) DeepCopyInto(out *CloudfunctionsFunctionIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -4366,7 +4516,7 @@ func (in *CloudfunctionsFunctionIamPolicyStatus) DeepCopyInto(out *Cloudfunction
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(CloudfunctionsFunctionIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -4423,6 +4573,11 @@ func (in *CloudfunctionsFunctionList) DeepCopyObject() runtime.Object {
 func (in *CloudfunctionsFunctionSpec) DeepCopyInto(out *CloudfunctionsFunctionSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.EnvironmentVariables != nil {
 		in, out := &in.EnvironmentVariables, &out.EnvironmentVariables
 		*out = make(map[string]string, len(*in))
@@ -4606,6 +4761,11 @@ func (in *CloudiotRegistryList) DeepCopyObject() runtime.Object {
 func (in *CloudiotRegistrySpec) DeepCopyInto(out *CloudiotRegistrySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Credentials != nil {
 		in, out := &in.Credentials, &out.Credentials
 		*out = make([]CloudiotRegistrySpecCredentials, len(*in))
@@ -4869,6 +5029,11 @@ func (in *ComposerEnvironmentList) DeepCopyObject() runtime.Object {
 func (in *ComposerEnvironmentSpec) DeepCopyInto(out *ComposerEnvironmentSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Config != nil {
 		in, out := &in.Config, &out.Config
 		*out = make([]ComposerEnvironmentSpecConfig, len(*in))
@@ -5122,6 +5287,11 @@ func (in *ComputeAddressList) DeepCopyObject() runtime.Object {
 func (in *ComputeAddressSpec) DeepCopyInto(out *ComputeAddressSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Users != nil {
 		in, out := &in.Users, &out.Users
 		*out = make([]string, len(*in))
@@ -5171,7 +5341,7 @@ func (in *ComputeAttachedDisk) DeepCopyInto(out *ComputeAttachedDisk) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -5231,6 +5401,11 @@ func (in *ComputeAttachedDiskList) DeepCopyObject() runtime.Object {
 func (in *ComputeAttachedDiskSpec) DeepCopyInto(out *ComputeAttachedDiskSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -5250,7 +5425,7 @@ func (in *ComputeAttachedDiskStatus) DeepCopyInto(out *ComputeAttachedDiskStatus
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeAttachedDiskSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -5335,6 +5510,11 @@ func (in *ComputeAutoscalerList) DeepCopyObject() runtime.Object {
 func (in *ComputeAutoscalerSpec) DeepCopyInto(out *ComputeAutoscalerSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.AutoscalingPolicy != nil {
 		in, out := &in.AutoscalingPolicy, &out.AutoscalingPolicy
 		*out = make([]ComputeAutoscalerSpecAutoscalingPolicy, len(*in))
@@ -5586,6 +5766,11 @@ func (in *ComputeBackendBucketSignedURLKeyList) DeepCopyObject() runtime.Object 
 func (in *ComputeBackendBucketSignedURLKeySpec) DeepCopyInto(out *ComputeBackendBucketSignedURLKeySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SecretRef != nil {
 		in, out := &in.SecretRef, &out.SecretRef
 		*out = new(v1.LocalObjectReference)
@@ -5634,6 +5819,11 @@ func (in *ComputeBackendBucketSignedURLKeyStatus) DeepCopy() *ComputeBackendBuck
 func (in *ComputeBackendBucketSpec) DeepCopyInto(out *ComputeBackendBucketSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.CdnPolicy != nil {
 		in, out := &in.CdnPolicy, &out.CdnPolicy
 		*out = make([]ComputeBackendBucketSpecCdnPolicy, len(*in))
@@ -5820,6 +6010,11 @@ func (in *ComputeBackendServiceSignedURLKeyList) DeepCopyObject() runtime.Object
 func (in *ComputeBackendServiceSignedURLKeySpec) DeepCopyInto(out *ComputeBackendServiceSignedURLKeySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SecretRef != nil {
 		in, out := &in.SecretRef, &out.SecretRef
 		*out = new(v1.LocalObjectReference)
@@ -5868,6 +6063,11 @@ func (in *ComputeBackendServiceSignedURLKeyStatus) DeepCopy() *ComputeBackendSer
 func (in *ComputeBackendServiceSpec) DeepCopyInto(out *ComputeBackendServiceSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SecretRef != nil {
 		in, out := &in.SecretRef, &out.SecretRef
 		*out = new(v1.LocalObjectReference)
@@ -6081,7 +6281,7 @@ func (in *ComputeDiskResourcePolicyAttachment) DeepCopyInto(out *ComputeDiskReso
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -6141,6 +6341,11 @@ func (in *ComputeDiskResourcePolicyAttachmentList) DeepCopyObject() runtime.Obje
 func (in *ComputeDiskResourcePolicyAttachmentSpec) DeepCopyInto(out *ComputeDiskResourcePolicyAttachmentSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -6160,7 +6365,7 @@ func (in *ComputeDiskResourcePolicyAttachmentStatus) DeepCopyInto(out *ComputeDi
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeDiskResourcePolicyAttachmentSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -6184,6 +6389,11 @@ func (in *ComputeDiskResourcePolicyAttachmentStatus) DeepCopy() *ComputeDiskReso
 func (in *ComputeDiskSpec) DeepCopyInto(out *ComputeDiskSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.DiskEncryptionKey != nil {
 		in, out := &in.DiskEncryptionKey, &out.DiskEncryptionKey
 		*out = make([]ComputeDiskSpecDiskEncryptionKey, len(*in))
@@ -6363,6 +6573,11 @@ func (in *ComputeFirewallList) DeepCopyObject() runtime.Object {
 func (in *ComputeFirewallSpec) DeepCopyInto(out *ComputeFirewallSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Allow != nil {
 		in, out := &in.Allow, &out.Allow
 		*out = make([]ComputeFirewallSpecAllow, len(*in))
@@ -6553,6 +6768,11 @@ func (in *ComputeForwardingRuleList) DeepCopyObject() runtime.Object {
 func (in *ComputeForwardingRuleSpec) DeepCopyInto(out *ComputeForwardingRuleSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Ports != nil {
 		in, out := &in.Ports, &out.Ports
 		*out = make([]string, len(*in))
@@ -6602,7 +6822,7 @@ func (in *ComputeGlobalAddress) DeepCopyInto(out *ComputeGlobalAddress) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -6662,6 +6882,11 @@ func (in *ComputeGlobalAddressList) DeepCopyObject() runtime.Object {
 func (in *ComputeGlobalAddressSpec) DeepCopyInto(out *ComputeGlobalAddressSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -6681,7 +6906,7 @@ func (in *ComputeGlobalAddressStatus) DeepCopyInto(out *ComputeGlobalAddressStat
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeGlobalAddressSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -6766,6 +6991,11 @@ func (in *ComputeGlobalForwardingRuleList) DeepCopyObject() runtime.Object {
 func (in *ComputeGlobalForwardingRuleSpec) DeepCopyInto(out *ComputeGlobalForwardingRuleSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.MetadataFilters != nil {
 		in, out := &in.MetadataFilters, &out.MetadataFilters
 		*out = make([]ComputeGlobalForwardingRuleSpecMetadataFilters, len(*in))
@@ -6854,7 +7084,7 @@ func (in *ComputeHTTPHealthCheck) DeepCopyInto(out *ComputeHTTPHealthCheck) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -6914,6 +7144,11 @@ func (in *ComputeHTTPHealthCheckList) DeepCopyObject() runtime.Object {
 func (in *ComputeHTTPHealthCheckSpec) DeepCopyInto(out *ComputeHTTPHealthCheckSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -6933,7 +7168,7 @@ func (in *ComputeHTTPHealthCheckStatus) DeepCopyInto(out *ComputeHTTPHealthCheck
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeHTTPHealthCheckSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -6958,7 +7193,7 @@ func (in *ComputeHTTPSHealthCheck) DeepCopyInto(out *ComputeHTTPSHealthCheck) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -7018,6 +7253,11 @@ func (in *ComputeHTTPSHealthCheckList) DeepCopyObject() runtime.Object {
 func (in *ComputeHTTPSHealthCheckSpec) DeepCopyInto(out *ComputeHTTPSHealthCheckSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -7037,7 +7277,7 @@ func (in *ComputeHTTPSHealthCheckStatus) DeepCopyInto(out *ComputeHTTPSHealthChe
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeHTTPSHealthCheckSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -7122,6 +7362,11 @@ func (in *ComputeHealthCheckList) DeepCopyObject() runtime.Object {
 func (in *ComputeHealthCheckSpec) DeepCopyInto(out *ComputeHealthCheckSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Http2HealthCheck != nil {
 		in, out := &in.Http2HealthCheck, &out.Http2HealthCheck
 		*out = make([]ComputeHealthCheckSpecHttp2HealthCheck, len(*in))
@@ -7331,6 +7576,11 @@ func (in *ComputeImageList) DeepCopyObject() runtime.Object {
 func (in *ComputeImageSpec) DeepCopyInto(out *ComputeImageSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.GuestOsFeatures != nil {
 		in, out := &in.GuestOsFeatures, &out.GuestOsFeatures
 		*out = make([]ComputeImageSpecGuestOsFeatures, len(*in))
@@ -7517,6 +7767,11 @@ func (in *ComputeInstanceFromTemplateList) DeepCopyObject() runtime.Object {
 func (in *ComputeInstanceFromTemplateSpec) DeepCopyInto(out *ComputeInstanceFromTemplateSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SecretRef != nil {
 		in, out := &in.SecretRef, &out.SecretRef
 		*out = new(v1.LocalObjectReference)
@@ -7987,6 +8242,11 @@ func (in *ComputeInstanceGroupManagerList) DeepCopyObject() runtime.Object {
 func (in *ComputeInstanceGroupManagerSpec) DeepCopyInto(out *ComputeInstanceGroupManagerSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.NamedPort != nil {
 		in, out := &in.NamedPort, &out.NamedPort
 		*out = make([]ComputeInstanceGroupManagerSpecNamedPort, len(*in))
@@ -8056,6 +8316,11 @@ func (in *ComputeInstanceGroupManagerStatus) DeepCopy() *ComputeInstanceGroupMan
 func (in *ComputeInstanceGroupSpec) DeepCopyInto(out *ComputeInstanceGroupSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Instances != nil {
 		in, out := &in.Instances, &out.Instances
 		*out = make([]string, len(*in))
@@ -8186,6 +8451,11 @@ func (in *ComputeInstanceIamBindingList) DeepCopyObject() runtime.Object {
 func (in *ComputeInstanceIamBindingSpec) DeepCopyInto(out *ComputeInstanceIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -8235,7 +8505,7 @@ func (in *ComputeInstanceIamMember) DeepCopyInto(out *ComputeInstanceIamMember) 
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -8295,6 +8565,11 @@ func (in *ComputeInstanceIamMemberList) DeepCopyObject() runtime.Object {
 func (in *ComputeInstanceIamMemberSpec) DeepCopyInto(out *ComputeInstanceIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -8314,7 +8589,7 @@ func (in *ComputeInstanceIamMemberStatus) DeepCopyInto(out *ComputeInstanceIamMe
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeInstanceIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -8339,7 +8614,7 @@ func (in *ComputeInstanceIamPolicy) DeepCopyInto(out *ComputeInstanceIamPolicy) 
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -8399,6 +8674,11 @@ func (in *ComputeInstanceIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *ComputeInstanceIamPolicySpec) DeepCopyInto(out *ComputeInstanceIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -8418,7 +8698,7 @@ func (in *ComputeInstanceIamPolicyStatus) DeepCopyInto(out *ComputeInstanceIamPo
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeInstanceIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -8475,6 +8755,11 @@ func (in *ComputeInstanceList) DeepCopyObject() runtime.Object {
 func (in *ComputeInstanceSpec) DeepCopyInto(out *ComputeInstanceSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SecretRef != nil {
 		in, out := &in.SecretRef, &out.SecretRef
 		*out = new(v1.LocalObjectReference)
@@ -8884,6 +9169,11 @@ func (in *ComputeInstanceTemplateList) DeepCopyObject() runtime.Object {
 func (in *ComputeInstanceTemplateSpec) DeepCopyInto(out *ComputeInstanceTemplateSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Disk != nil {
 		in, out := &in.Disk, &out.Disk
 		*out = make([]ComputeInstanceTemplateSpecDisk, len(*in))
@@ -9244,6 +9534,11 @@ func (in *ComputeInterconnectAttachmentList) DeepCopyObject() runtime.Object {
 func (in *ComputeInterconnectAttachmentSpec) DeepCopyInto(out *ComputeInterconnectAttachmentSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.CandidateSubnets != nil {
 		in, out := &in.CandidateSubnets, &out.CandidateSubnets
 		*out = make([]string, len(*in))
@@ -9314,7 +9609,7 @@ func (in *ComputeNetwork) DeepCopyInto(out *ComputeNetwork) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -9342,7 +9637,7 @@ func (in *ComputeNetworkEndpoint) DeepCopyInto(out *ComputeNetworkEndpoint) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -9370,7 +9665,7 @@ func (in *ComputeNetworkEndpointGroup) DeepCopyInto(out *ComputeNetworkEndpointG
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -9430,6 +9725,11 @@ func (in *ComputeNetworkEndpointGroupList) DeepCopyObject() runtime.Object {
 func (in *ComputeNetworkEndpointGroupSpec) DeepCopyInto(out *ComputeNetworkEndpointGroupSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -9449,7 +9749,7 @@ func (in *ComputeNetworkEndpointGroupStatus) DeepCopyInto(out *ComputeNetworkEnd
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeNetworkEndpointGroupSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -9506,6 +9806,11 @@ func (in *ComputeNetworkEndpointList) DeepCopyObject() runtime.Object {
 func (in *ComputeNetworkEndpointSpec) DeepCopyInto(out *ComputeNetworkEndpointSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -9525,7 +9830,7 @@ func (in *ComputeNetworkEndpointStatus) DeepCopyInto(out *ComputeNetworkEndpoint
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeNetworkEndpointSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -9583,7 +9888,7 @@ func (in *ComputeNetworkPeering) DeepCopyInto(out *ComputeNetworkPeering) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -9643,6 +9948,11 @@ func (in *ComputeNetworkPeeringList) DeepCopyObject() runtime.Object {
 func (in *ComputeNetworkPeeringSpec) DeepCopyInto(out *ComputeNetworkPeeringSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -9662,7 +9972,7 @@ func (in *ComputeNetworkPeeringStatus) DeepCopyInto(out *ComputeNetworkPeeringSt
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeNetworkPeeringSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -9686,6 +9996,11 @@ func (in *ComputeNetworkPeeringStatus) DeepCopy() *ComputeNetworkPeeringStatus {
 func (in *ComputeNetworkSpec) DeepCopyInto(out *ComputeNetworkSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -9705,7 +10020,7 @@ func (in *ComputeNetworkStatus) DeepCopyInto(out *ComputeNetworkStatus) {
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeNetworkSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -9730,7 +10045,7 @@ func (in *ComputeNodeGroup) DeepCopyInto(out *ComputeNodeGroup) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -9790,6 +10105,11 @@ func (in *ComputeNodeGroupList) DeepCopyObject() runtime.Object {
 func (in *ComputeNodeGroupSpec) DeepCopyInto(out *ComputeNodeGroupSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -9809,7 +10129,7 @@ func (in *ComputeNodeGroupStatus) DeepCopyInto(out *ComputeNodeGroupStatus) {
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeNodeGroupSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -9894,6 +10214,11 @@ func (in *ComputeNodeTemplateList) DeepCopyObject() runtime.Object {
 func (in *ComputeNodeTemplateSpec) DeepCopyInto(out *ComputeNodeTemplateSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.NodeAffinityLabels != nil {
 		in, out := &in.NodeAffinityLabels, &out.NodeAffinityLabels
 		*out = make(map[string]string, len(*in))
@@ -9966,7 +10291,7 @@ func (in *ComputeProjectDefaultNetworkTier) DeepCopyInto(out *ComputeProjectDefa
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -10026,6 +10351,11 @@ func (in *ComputeProjectDefaultNetworkTierList) DeepCopyObject() runtime.Object 
 func (in *ComputeProjectDefaultNetworkTierSpec) DeepCopyInto(out *ComputeProjectDefaultNetworkTierSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -10045,7 +10375,7 @@ func (in *ComputeProjectDefaultNetworkTierStatus) DeepCopyInto(out *ComputeProje
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeProjectDefaultNetworkTierSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -10098,7 +10428,7 @@ func (in *ComputeProjectMetadataItem) DeepCopyInto(out *ComputeProjectMetadataIt
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -10158,6 +10488,11 @@ func (in *ComputeProjectMetadataItemList) DeepCopyObject() runtime.Object {
 func (in *ComputeProjectMetadataItemSpec) DeepCopyInto(out *ComputeProjectMetadataItemSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -10177,7 +10512,7 @@ func (in *ComputeProjectMetadataItemStatus) DeepCopyInto(out *ComputeProjectMeta
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeProjectMetadataItemSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -10234,6 +10569,11 @@ func (in *ComputeProjectMetadataList) DeepCopyObject() runtime.Object {
 func (in *ComputeProjectMetadataSpec) DeepCopyInto(out *ComputeProjectMetadataSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
 		*out = make(map[string]string, len(*in))
@@ -10345,6 +10685,11 @@ func (in *ComputeRegionAutoscalerList) DeepCopyObject() runtime.Object {
 func (in *ComputeRegionAutoscalerSpec) DeepCopyInto(out *ComputeRegionAutoscalerSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.AutoscalingPolicy != nil {
 		in, out := &in.AutoscalingPolicy, &out.AutoscalingPolicy
 		*out = make([]ComputeRegionAutoscalerSpecAutoscalingPolicy, len(*in))
@@ -10535,6 +10880,11 @@ func (in *ComputeRegionBackendServiceList) DeepCopyObject() runtime.Object {
 func (in *ComputeRegionBackendServiceSpec) DeepCopyInto(out *ComputeRegionBackendServiceSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Backend != nil {
 		in, out := &in.Backend, &out.Backend
 		*out = make([]ComputeRegionBackendServiceSpecBackend, len(*in))
@@ -10665,6 +11015,11 @@ func (in *ComputeRegionDiskList) DeepCopyObject() runtime.Object {
 func (in *ComputeRegionDiskSpec) DeepCopyInto(out *ComputeRegionDiskSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.DiskEncryptionKey != nil {
 		in, out := &in.DiskEncryptionKey, &out.DiskEncryptionKey
 		*out = make([]ComputeRegionDiskSpecDiskEncryptionKey, len(*in))
@@ -10828,6 +11183,11 @@ func (in *ComputeRegionInstanceGroupManagerList) DeepCopyObject() runtime.Object
 func (in *ComputeRegionInstanceGroupManagerSpec) DeepCopyInto(out *ComputeRegionInstanceGroupManagerSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.DistributionPolicyZones != nil {
 		in, out := &in.DistributionPolicyZones, &out.DistributionPolicyZones
 		*out = make([]string, len(*in))
@@ -10963,6 +11323,11 @@ func (in *ComputeReservationList) DeepCopyObject() runtime.Object {
 func (in *ComputeReservationSpec) DeepCopyInto(out *ComputeReservationSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SpecificReservation != nil {
 		in, out := &in.SpecificReservation, &out.SpecificReservation
 		*out = make([]ComputeReservationSpecSpecificReservation, len(*in))
@@ -11155,6 +11520,11 @@ func (in *ComputeResourcePolicyList) DeepCopyObject() runtime.Object {
 func (in *ComputeResourcePolicySpec) DeepCopyInto(out *ComputeResourcePolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SnapshotSchedulePolicy != nil {
 		in, out := &in.SnapshotSchedulePolicy, &out.SnapshotSchedulePolicy
 		*out = make([]ComputeResourcePolicySpecSnapshotSchedulePolicy, len(*in))
@@ -11447,6 +11817,11 @@ func (in *ComputeRouteList) DeepCopyObject() runtime.Object {
 func (in *ComputeRouteSpec) DeepCopyInto(out *ComputeRouteSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
 		*out = make([]string, len(*in))
@@ -11524,7 +11899,7 @@ func (in *ComputeRouterInterface) DeepCopyInto(out *ComputeRouterInterface) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -11584,6 +11959,11 @@ func (in *ComputeRouterInterfaceList) DeepCopyObject() runtime.Object {
 func (in *ComputeRouterInterfaceSpec) DeepCopyInto(out *ComputeRouterInterfaceSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -11603,7 +11983,7 @@ func (in *ComputeRouterInterfaceStatus) DeepCopyInto(out *ComputeRouterInterface
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeRouterInterfaceSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -11721,6 +12101,11 @@ func (in *ComputeRouterNATList) DeepCopyObject() runtime.Object {
 func (in *ComputeRouterNATSpec) DeepCopyInto(out *ComputeRouterNATSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.LogConfig != nil {
 		in, out := &in.LogConfig, &out.LogConfig
 		*out = make([]ComputeRouterNATSpecLogConfig, len(*in))
@@ -11884,6 +12269,11 @@ func (in *ComputeRouterPeerList) DeepCopyObject() runtime.Object {
 func (in *ComputeRouterPeerSpec) DeepCopyInto(out *ComputeRouterPeerSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.AdvertisedGroups != nil {
 		in, out := &in.AdvertisedGroups, &out.AdvertisedGroups
 		*out = make([]string, len(*in))
@@ -11953,6 +12343,11 @@ func (in *ComputeRouterPeerStatus) DeepCopy() *ComputeRouterPeerStatus {
 func (in *ComputeRouterSpec) DeepCopyInto(out *ComputeRouterSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Bgp != nil {
 		in, out := &in.Bgp, &out.Bgp
 		*out = make([]ComputeRouterSpecBgp, len(*in))
@@ -12106,6 +12501,11 @@ func (in *ComputeSSLCertificateList) DeepCopyObject() runtime.Object {
 func (in *ComputeSSLCertificateSpec) DeepCopyInto(out *ComputeSSLCertificateSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SecretRef != nil {
 		in, out := &in.SecretRef, &out.SecretRef
 		*out = new(v1.LocalObjectReference)
@@ -12215,6 +12615,11 @@ func (in *ComputeSSLPolicyList) DeepCopyObject() runtime.Object {
 func (in *ComputeSSLPolicySpec) DeepCopyInto(out *ComputeSSLPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.CustomFeatures != nil {
 		in, out := &in.CustomFeatures, &out.CustomFeatures
 		*out = make([]string, len(*in))
@@ -12329,6 +12734,11 @@ func (in *ComputeSecurityPolicyList) DeepCopyObject() runtime.Object {
 func (in *ComputeSecurityPolicySpec) DeepCopyInto(out *ComputeSecurityPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Rule != nil {
 		in, out := &in.Rule, &out.Rule
 		*out = make([]ComputeSecurityPolicySpecRule, len(*in))
@@ -12447,7 +12857,7 @@ func (in *ComputeSharedVpcHostProject) DeepCopyInto(out *ComputeSharedVpcHostPro
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -12507,6 +12917,11 @@ func (in *ComputeSharedVpcHostProjectList) DeepCopyObject() runtime.Object {
 func (in *ComputeSharedVpcHostProjectSpec) DeepCopyInto(out *ComputeSharedVpcHostProjectSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -12526,7 +12941,7 @@ func (in *ComputeSharedVpcHostProjectStatus) DeepCopyInto(out *ComputeSharedVpcH
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeSharedVpcHostProjectSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -12551,7 +12966,7 @@ func (in *ComputeSharedVpcServiceProject) DeepCopyInto(out *ComputeSharedVpcServ
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -12611,6 +13026,11 @@ func (in *ComputeSharedVpcServiceProjectList) DeepCopyObject() runtime.Object {
 func (in *ComputeSharedVpcServiceProjectSpec) DeepCopyInto(out *ComputeSharedVpcServiceProjectSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -12630,7 +13050,7 @@ func (in *ComputeSharedVpcServiceProjectStatus) DeepCopyInto(out *ComputeSharedV
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeSharedVpcServiceProjectSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -12715,6 +13135,11 @@ func (in *ComputeSnapshotList) DeepCopyObject() runtime.Object {
 func (in *ComputeSnapshotSpec) DeepCopyInto(out *ComputeSnapshotSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SecretRef != nil {
 		in, out := &in.SecretRef, &out.SecretRef
 		*out = new(v1.LocalObjectReference)
@@ -12906,6 +13331,11 @@ func (in *ComputeSubnetworkIamBindingList) DeepCopyObject() runtime.Object {
 func (in *ComputeSubnetworkIamBindingSpec) DeepCopyInto(out *ComputeSubnetworkIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -12955,7 +13385,7 @@ func (in *ComputeSubnetworkIamMember) DeepCopyInto(out *ComputeSubnetworkIamMemb
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -13015,6 +13445,11 @@ func (in *ComputeSubnetworkIamMemberList) DeepCopyObject() runtime.Object {
 func (in *ComputeSubnetworkIamMemberSpec) DeepCopyInto(out *ComputeSubnetworkIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -13034,7 +13469,7 @@ func (in *ComputeSubnetworkIamMemberStatus) DeepCopyInto(out *ComputeSubnetworkI
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeSubnetworkIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -13059,7 +13494,7 @@ func (in *ComputeSubnetworkIamPolicy) DeepCopyInto(out *ComputeSubnetworkIamPoli
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -13119,6 +13554,11 @@ func (in *ComputeSubnetworkIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *ComputeSubnetworkIamPolicySpec) DeepCopyInto(out *ComputeSubnetworkIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -13138,7 +13578,7 @@ func (in *ComputeSubnetworkIamPolicyStatus) DeepCopyInto(out *ComputeSubnetworkI
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeSubnetworkIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -13195,6 +13635,11 @@ func (in *ComputeSubnetworkList) DeepCopyObject() runtime.Object {
 func (in *ComputeSubnetworkSpec) DeepCopyInto(out *ComputeSubnetworkSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SecondaryIPRange != nil {
 		in, out := &in.SecondaryIPRange, &out.SecondaryIPRange
 		*out = make([]ComputeSubnetworkSpecSecondaryIPRange, len(*in))
@@ -13260,7 +13705,7 @@ func (in *ComputeTargetHTTPProxy) DeepCopyInto(out *ComputeTargetHTTPProxy) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -13320,6 +13765,11 @@ func (in *ComputeTargetHTTPProxyList) DeepCopyObject() runtime.Object {
 func (in *ComputeTargetHTTPProxySpec) DeepCopyInto(out *ComputeTargetHTTPProxySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -13339,7 +13789,7 @@ func (in *ComputeTargetHTTPProxyStatus) DeepCopyInto(out *ComputeTargetHTTPProxy
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeTargetHTTPProxySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -13424,6 +13874,11 @@ func (in *ComputeTargetHTTPSProxyList) DeepCopyObject() runtime.Object {
 func (in *ComputeTargetHTTPSProxySpec) DeepCopyInto(out *ComputeTargetHTTPSProxySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SslCertificates != nil {
 		in, out := &in.SslCertificates, &out.SslCertificates
 		*out = make([]string, len(*in))
@@ -13473,7 +13928,7 @@ func (in *ComputeTargetInstance) DeepCopyInto(out *ComputeTargetInstance) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -13533,6 +13988,11 @@ func (in *ComputeTargetInstanceList) DeepCopyObject() runtime.Object {
 func (in *ComputeTargetInstanceSpec) DeepCopyInto(out *ComputeTargetInstanceSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -13552,7 +14012,7 @@ func (in *ComputeTargetInstanceStatus) DeepCopyInto(out *ComputeTargetInstanceSt
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeTargetInstanceSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -13637,6 +14097,11 @@ func (in *ComputeTargetPoolList) DeepCopyObject() runtime.Object {
 func (in *ComputeTargetPoolSpec) DeepCopyInto(out *ComputeTargetPoolSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.HealthChecks != nil {
 		in, out := &in.HealthChecks, &out.HealthChecks
 		*out = make([]string, len(*in))
@@ -13751,6 +14216,11 @@ func (in *ComputeTargetSSLProxyList) DeepCopyObject() runtime.Object {
 func (in *ComputeTargetSSLProxySpec) DeepCopyInto(out *ComputeTargetSSLProxySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SslCertificates != nil {
 		in, out := &in.SslCertificates, &out.SslCertificates
 		*out = make([]string, len(*in))
@@ -13800,7 +14270,7 @@ func (in *ComputeTargetTcpProxy) DeepCopyInto(out *ComputeTargetTcpProxy) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -13860,6 +14330,11 @@ func (in *ComputeTargetTcpProxyList) DeepCopyObject() runtime.Object {
 func (in *ComputeTargetTcpProxySpec) DeepCopyInto(out *ComputeTargetTcpProxySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -13879,7 +14354,7 @@ func (in *ComputeTargetTcpProxyStatus) DeepCopyInto(out *ComputeTargetTcpProxySt
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeTargetTcpProxySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -13964,6 +14439,11 @@ func (in *ComputeURLMapList) DeepCopyObject() runtime.Object {
 func (in *ComputeURLMapSpec) DeepCopyInto(out *ComputeURLMapSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.HostRule != nil {
 		in, out := &in.HostRule, &out.HostRule
 		*out = make([]ComputeURLMapSpecHostRule, len(*in))
@@ -14108,7 +14588,7 @@ func (in *ComputeVPNGateway) DeepCopyInto(out *ComputeVPNGateway) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -14168,6 +14648,11 @@ func (in *ComputeVPNGatewayList) DeepCopyObject() runtime.Object {
 func (in *ComputeVPNGatewaySpec) DeepCopyInto(out *ComputeVPNGatewaySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -14187,7 +14672,7 @@ func (in *ComputeVPNGatewayStatus) DeepCopyInto(out *ComputeVPNGatewayStatus) {
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ComputeVPNGatewaySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -14272,6 +14757,11 @@ func (in *ComputeVPNTunnelList) DeepCopyObject() runtime.Object {
 func (in *ComputeVPNTunnelSpec) DeepCopyInto(out *ComputeVPNTunnelSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SecretRef != nil {
 		in, out := &in.SecretRef, &out.SecretRef
 		*out = new(v1.LocalObjectReference)
@@ -14391,6 +14881,11 @@ func (in *ContainerAnalysisNoteList) DeepCopyObject() runtime.Object {
 func (in *ContainerAnalysisNoteSpec) DeepCopyInto(out *ContainerAnalysisNoteSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.AttestationAuthority != nil {
 		in, out := &in.AttestationAuthority, &out.AttestationAuthority
 		*out = make([]ContainerAnalysisNoteSpecAttestationAuthority, len(*in))
@@ -14539,6 +15034,11 @@ func (in *ContainerClusterList) DeepCopyObject() runtime.Object {
 func (in *ContainerClusterSpec) DeepCopyInto(out *ContainerClusterSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SecretRef != nil {
 		in, out := &in.SecretRef, &out.SecretRef
 		*out = new(v1.LocalObjectReference)
@@ -15178,6 +15678,11 @@ func (in *ContainerNodePoolList) DeepCopyObject() runtime.Object {
 func (in *ContainerNodePoolSpec) DeepCopyInto(out *ContainerNodePoolSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Autoscaling != nil {
 		in, out := &in.Autoscaling, &out.Autoscaling
 		*out = make([]ContainerNodePoolSpecAutoscaling, len(*in))
@@ -15397,6 +15902,11 @@ func (in *DataflowJobList) DeepCopyObject() runtime.Object {
 func (in *DataflowJobSpec) DeepCopyInto(out *DataflowJobSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Labels != nil {
 		in, out := &in.Labels, &out.Labels
 		*out = make(map[string]string, len(*in))
@@ -15543,6 +16053,11 @@ func (in *DataprocClusterIamBindingList) DeepCopyObject() runtime.Object {
 func (in *DataprocClusterIamBindingSpec) DeepCopyInto(out *DataprocClusterIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -15592,7 +16107,7 @@ func (in *DataprocClusterIamMember) DeepCopyInto(out *DataprocClusterIamMember) 
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -15652,6 +16167,11 @@ func (in *DataprocClusterIamMemberList) DeepCopyObject() runtime.Object {
 func (in *DataprocClusterIamMemberSpec) DeepCopyInto(out *DataprocClusterIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -15671,7 +16191,7 @@ func (in *DataprocClusterIamMemberStatus) DeepCopyInto(out *DataprocClusterIamMe
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(DataprocClusterIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -15696,7 +16216,7 @@ func (in *DataprocClusterIamPolicy) DeepCopyInto(out *DataprocClusterIamPolicy) 
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -15756,6 +16276,11 @@ func (in *DataprocClusterIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *DataprocClusterIamPolicySpec) DeepCopyInto(out *DataprocClusterIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -15775,7 +16300,7 @@ func (in *DataprocClusterIamPolicyStatus) DeepCopyInto(out *DataprocClusterIamPo
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(DataprocClusterIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -15832,6 +16357,11 @@ func (in *DataprocClusterList) DeepCopyObject() runtime.Object {
 func (in *DataprocClusterSpec) DeepCopyInto(out *DataprocClusterSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.ClusterConfig != nil {
 		in, out := &in.ClusterConfig, &out.ClusterConfig
 		*out = make([]DataprocClusterSpecClusterConfig, len(*in))
@@ -16307,6 +16837,11 @@ func (in *DataprocJobIamBindingList) DeepCopyObject() runtime.Object {
 func (in *DataprocJobIamBindingSpec) DeepCopyInto(out *DataprocJobIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -16356,7 +16891,7 @@ func (in *DataprocJobIamMember) DeepCopyInto(out *DataprocJobIamMember) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -16416,6 +16951,11 @@ func (in *DataprocJobIamMemberList) DeepCopyObject() runtime.Object {
 func (in *DataprocJobIamMemberSpec) DeepCopyInto(out *DataprocJobIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -16435,7 +16975,7 @@ func (in *DataprocJobIamMemberStatus) DeepCopyInto(out *DataprocJobIamMemberStat
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(DataprocJobIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -16460,7 +17000,7 @@ func (in *DataprocJobIamPolicy) DeepCopyInto(out *DataprocJobIamPolicy) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -16520,6 +17060,11 @@ func (in *DataprocJobIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *DataprocJobIamPolicySpec) DeepCopyInto(out *DataprocJobIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -16539,7 +17084,7 @@ func (in *DataprocJobIamPolicyStatus) DeepCopyInto(out *DataprocJobIamPolicyStat
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(DataprocJobIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -16596,6 +17141,11 @@ func (in *DataprocJobList) DeepCopyObject() runtime.Object {
 func (in *DataprocJobSpec) DeepCopyInto(out *DataprocJobSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.HadoopConfig != nil {
 		in, out := &in.HadoopConfig, &out.HadoopConfig
 		*out = make([]DataprocJobSpecHadoopConfig, len(*in))
@@ -17237,6 +17787,11 @@ func (in *DnsManagedZoneList) DeepCopyObject() runtime.Object {
 func (in *DnsManagedZoneSpec) DeepCopyInto(out *DnsManagedZoneSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.DnssecConfig != nil {
 		in, out := &in.DnssecConfig, &out.DnssecConfig
 		*out = make([]DnsManagedZoneSpecDnssecConfig, len(*in))
@@ -17441,6 +17996,11 @@ func (in *DnsRecordSetList) DeepCopyObject() runtime.Object {
 func (in *DnsRecordSetSpec) DeepCopyInto(out *DnsRecordSetSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Rrdatas != nil {
 		in, out := &in.Rrdatas, &out.Rrdatas
 		*out = make([]string, len(*in))
@@ -17550,6 +18110,11 @@ func (in *EndpointsServiceList) DeepCopyObject() runtime.Object {
 func (in *EndpointsServiceSpec) DeepCopyInto(out *EndpointsServiceSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Apis != nil {
 		in, out := &in.Apis, &out.Apis
 		*out = make([]EndpointsServiceSpecApis, len(*in))
@@ -17719,6 +18284,11 @@ func (in *FilestoreInstanceList) DeepCopyObject() runtime.Object {
 func (in *FilestoreInstanceSpec) DeepCopyInto(out *FilestoreInstanceSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.FileShares != nil {
 		in, out := &in.FileShares, &out.FileShares
 		*out = make([]FilestoreInstanceSpecFileShares, len(*in))
@@ -17884,6 +18454,11 @@ func (in *FirestoreIndexList) DeepCopyObject() runtime.Object {
 func (in *FirestoreIndexSpec) DeepCopyInto(out *FirestoreIndexSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Fields != nil {
 		in, out := &in.Fields, &out.Fields
 		*out = make([]FirestoreIndexSpecFields, len(*in))
@@ -17949,7 +18524,7 @@ func (in *Folder) DeepCopyInto(out *Folder) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -18037,6 +18612,11 @@ func (in *FolderIamBindingList) DeepCopyObject() runtime.Object {
 func (in *FolderIamBindingSpec) DeepCopyInto(out *FolderIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -18086,7 +18666,7 @@ func (in *FolderIamMember) DeepCopyInto(out *FolderIamMember) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -18146,6 +18726,11 @@ func (in *FolderIamMemberList) DeepCopyObject() runtime.Object {
 func (in *FolderIamMemberSpec) DeepCopyInto(out *FolderIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -18165,7 +18750,7 @@ func (in *FolderIamMemberStatus) DeepCopyInto(out *FolderIamMemberStatus) {
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(FolderIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -18190,7 +18775,7 @@ func (in *FolderIamPolicy) DeepCopyInto(out *FolderIamPolicy) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -18250,6 +18835,11 @@ func (in *FolderIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *FolderIamPolicySpec) DeepCopyInto(out *FolderIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -18269,7 +18859,7 @@ func (in *FolderIamPolicyStatus) DeepCopyInto(out *FolderIamPolicyStatus) {
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(FolderIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -18387,6 +18977,11 @@ func (in *FolderOrganizationPolicyList) DeepCopyObject() runtime.Object {
 func (in *FolderOrganizationPolicySpec) DeepCopyInto(out *FolderOrganizationPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.BooleanPolicy != nil {
 		in, out := &in.BooleanPolicy, &out.BooleanPolicy
 		*out = make([]FolderOrganizationPolicySpecBooleanPolicy, len(*in))
@@ -18551,6 +19146,11 @@ func (in *FolderOrganizationPolicyStatus) DeepCopy() *FolderOrganizationPolicySt
 func (in *FolderSpec) DeepCopyInto(out *FolderSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -18570,7 +19170,7 @@ func (in *FolderStatus) DeepCopyInto(out *FolderStatus) {
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(FolderSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -18655,6 +19255,11 @@ func (in *IapAppEngineServiceIamBindingList) DeepCopyObject() runtime.Object {
 func (in *IapAppEngineServiceIamBindingSpec) DeepCopyInto(out *IapAppEngineServiceIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -18704,7 +19309,7 @@ func (in *IapAppEngineServiceIamMember) DeepCopyInto(out *IapAppEngineServiceIam
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -18764,6 +19369,11 @@ func (in *IapAppEngineServiceIamMemberList) DeepCopyObject() runtime.Object {
 func (in *IapAppEngineServiceIamMemberSpec) DeepCopyInto(out *IapAppEngineServiceIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -18783,7 +19393,7 @@ func (in *IapAppEngineServiceIamMemberStatus) DeepCopyInto(out *IapAppEngineServ
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(IapAppEngineServiceIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -18808,7 +19418,7 @@ func (in *IapAppEngineServiceIamPolicy) DeepCopyInto(out *IapAppEngineServiceIam
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -18868,6 +19478,11 @@ func (in *IapAppEngineServiceIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *IapAppEngineServiceIamPolicySpec) DeepCopyInto(out *IapAppEngineServiceIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -18887,7 +19502,7 @@ func (in *IapAppEngineServiceIamPolicyStatus) DeepCopyInto(out *IapAppEngineServ
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(IapAppEngineServiceIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -18972,6 +19587,11 @@ func (in *IapAppEngineVersionIamBindingList) DeepCopyObject() runtime.Object {
 func (in *IapAppEngineVersionIamBindingSpec) DeepCopyInto(out *IapAppEngineVersionIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -19021,7 +19641,7 @@ func (in *IapAppEngineVersionIamMember) DeepCopyInto(out *IapAppEngineVersionIam
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -19081,6 +19701,11 @@ func (in *IapAppEngineVersionIamMemberList) DeepCopyObject() runtime.Object {
 func (in *IapAppEngineVersionIamMemberSpec) DeepCopyInto(out *IapAppEngineVersionIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -19100,7 +19725,7 @@ func (in *IapAppEngineVersionIamMemberStatus) DeepCopyInto(out *IapAppEngineVers
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(IapAppEngineVersionIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -19125,7 +19750,7 @@ func (in *IapAppEngineVersionIamPolicy) DeepCopyInto(out *IapAppEngineVersionIam
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -19185,6 +19810,11 @@ func (in *IapAppEngineVersionIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *IapAppEngineVersionIamPolicySpec) DeepCopyInto(out *IapAppEngineVersionIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -19204,7 +19834,7 @@ func (in *IapAppEngineVersionIamPolicyStatus) DeepCopyInto(out *IapAppEngineVers
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(IapAppEngineVersionIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -19289,6 +19919,11 @@ func (in *IapWebBackendServiceIamBindingList) DeepCopyObject() runtime.Object {
 func (in *IapWebBackendServiceIamBindingSpec) DeepCopyInto(out *IapWebBackendServiceIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -19338,7 +19973,7 @@ func (in *IapWebBackendServiceIamMember) DeepCopyInto(out *IapWebBackendServiceI
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -19398,6 +20033,11 @@ func (in *IapWebBackendServiceIamMemberList) DeepCopyObject() runtime.Object {
 func (in *IapWebBackendServiceIamMemberSpec) DeepCopyInto(out *IapWebBackendServiceIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -19417,7 +20057,7 @@ func (in *IapWebBackendServiceIamMemberStatus) DeepCopyInto(out *IapWebBackendSe
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(IapWebBackendServiceIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -19442,7 +20082,7 @@ func (in *IapWebBackendServiceIamPolicy) DeepCopyInto(out *IapWebBackendServiceI
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -19502,6 +20142,11 @@ func (in *IapWebBackendServiceIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *IapWebBackendServiceIamPolicySpec) DeepCopyInto(out *IapWebBackendServiceIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -19521,7 +20166,7 @@ func (in *IapWebBackendServiceIamPolicyStatus) DeepCopyInto(out *IapWebBackendSe
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(IapWebBackendServiceIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -19606,6 +20251,11 @@ func (in *IapWebIamBindingList) DeepCopyObject() runtime.Object {
 func (in *IapWebIamBindingSpec) DeepCopyInto(out *IapWebIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -19655,7 +20305,7 @@ func (in *IapWebIamMember) DeepCopyInto(out *IapWebIamMember) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -19715,6 +20365,11 @@ func (in *IapWebIamMemberList) DeepCopyObject() runtime.Object {
 func (in *IapWebIamMemberSpec) DeepCopyInto(out *IapWebIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -19734,7 +20389,7 @@ func (in *IapWebIamMemberStatus) DeepCopyInto(out *IapWebIamMemberStatus) {
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(IapWebIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -19759,7 +20414,7 @@ func (in *IapWebIamPolicy) DeepCopyInto(out *IapWebIamPolicy) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -19819,6 +20474,11 @@ func (in *IapWebIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *IapWebIamPolicySpec) DeepCopyInto(out *IapWebIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -19838,7 +20498,7 @@ func (in *IapWebIamPolicyStatus) DeepCopyInto(out *IapWebIamPolicyStatus) {
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(IapWebIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -19923,6 +20583,11 @@ func (in *IapWebTypeAppEngineIamBindingList) DeepCopyObject() runtime.Object {
 func (in *IapWebTypeAppEngineIamBindingSpec) DeepCopyInto(out *IapWebTypeAppEngineIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -19972,7 +20637,7 @@ func (in *IapWebTypeAppEngineIamMember) DeepCopyInto(out *IapWebTypeAppEngineIam
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -20032,6 +20697,11 @@ func (in *IapWebTypeAppEngineIamMemberList) DeepCopyObject() runtime.Object {
 func (in *IapWebTypeAppEngineIamMemberSpec) DeepCopyInto(out *IapWebTypeAppEngineIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -20051,7 +20721,7 @@ func (in *IapWebTypeAppEngineIamMemberStatus) DeepCopyInto(out *IapWebTypeAppEng
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(IapWebTypeAppEngineIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -20076,7 +20746,7 @@ func (in *IapWebTypeAppEngineIamPolicy) DeepCopyInto(out *IapWebTypeAppEngineIam
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -20136,6 +20806,11 @@ func (in *IapWebTypeAppEngineIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *IapWebTypeAppEngineIamPolicySpec) DeepCopyInto(out *IapWebTypeAppEngineIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -20155,7 +20830,7 @@ func (in *IapWebTypeAppEngineIamPolicyStatus) DeepCopyInto(out *IapWebTypeAppEng
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(IapWebTypeAppEngineIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -20240,6 +20915,11 @@ func (in *IapWebTypeComputeIamBindingList) DeepCopyObject() runtime.Object {
 func (in *IapWebTypeComputeIamBindingSpec) DeepCopyInto(out *IapWebTypeComputeIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -20289,7 +20969,7 @@ func (in *IapWebTypeComputeIamMember) DeepCopyInto(out *IapWebTypeComputeIamMemb
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -20349,6 +21029,11 @@ func (in *IapWebTypeComputeIamMemberList) DeepCopyObject() runtime.Object {
 func (in *IapWebTypeComputeIamMemberSpec) DeepCopyInto(out *IapWebTypeComputeIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -20368,7 +21053,7 @@ func (in *IapWebTypeComputeIamMemberStatus) DeepCopyInto(out *IapWebTypeComputeI
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(IapWebTypeComputeIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -20393,7 +21078,7 @@ func (in *IapWebTypeComputeIamPolicy) DeepCopyInto(out *IapWebTypeComputeIamPoli
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -20453,6 +21138,11 @@ func (in *IapWebTypeComputeIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *IapWebTypeComputeIamPolicySpec) DeepCopyInto(out *IapWebTypeComputeIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -20472,7 +21162,7 @@ func (in *IapWebTypeComputeIamPolicyStatus) DeepCopyInto(out *IapWebTypeComputeI
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(IapWebTypeComputeIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -20585,6 +21275,11 @@ func (in *KmsCryptoKeyIamBindingList) DeepCopyObject() runtime.Object {
 func (in *KmsCryptoKeyIamBindingSpec) DeepCopyInto(out *KmsCryptoKeyIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -20634,7 +21329,7 @@ func (in *KmsCryptoKeyIamMember) DeepCopyInto(out *KmsCryptoKeyIamMember) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -20694,6 +21389,11 @@ func (in *KmsCryptoKeyIamMemberList) DeepCopyObject() runtime.Object {
 func (in *KmsCryptoKeyIamMemberSpec) DeepCopyInto(out *KmsCryptoKeyIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -20713,7 +21413,7 @@ func (in *KmsCryptoKeyIamMemberStatus) DeepCopyInto(out *KmsCryptoKeyIamMemberSt
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(KmsCryptoKeyIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -20770,6 +21470,11 @@ func (in *KmsCryptoKeyList) DeepCopyObject() runtime.Object {
 func (in *KmsCryptoKeySpec) DeepCopyInto(out *KmsCryptoKeySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Labels != nil {
 		in, out := &in.Labels, &out.Labels
 		*out = make(map[string]string, len(*in))
@@ -20842,7 +21547,7 @@ func (in *KmsKeyRing) DeepCopyInto(out *KmsKeyRing) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -20930,6 +21635,11 @@ func (in *KmsKeyRingIamBindingList) DeepCopyObject() runtime.Object {
 func (in *KmsKeyRingIamBindingSpec) DeepCopyInto(out *KmsKeyRingIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -20979,7 +21689,7 @@ func (in *KmsKeyRingIamMember) DeepCopyInto(out *KmsKeyRingIamMember) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -21039,6 +21749,11 @@ func (in *KmsKeyRingIamMemberList) DeepCopyObject() runtime.Object {
 func (in *KmsKeyRingIamMemberSpec) DeepCopyInto(out *KmsKeyRingIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -21058,7 +21773,7 @@ func (in *KmsKeyRingIamMemberStatus) DeepCopyInto(out *KmsKeyRingIamMemberStatus
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(KmsKeyRingIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -21083,7 +21798,7 @@ func (in *KmsKeyRingIamPolicy) DeepCopyInto(out *KmsKeyRingIamPolicy) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -21143,6 +21858,11 @@ func (in *KmsKeyRingIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *KmsKeyRingIamPolicySpec) DeepCopyInto(out *KmsKeyRingIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -21162,7 +21882,7 @@ func (in *KmsKeyRingIamPolicyStatus) DeepCopyInto(out *KmsKeyRingIamPolicyStatus
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(KmsKeyRingIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -21219,6 +21939,11 @@ func (in *KmsKeyRingList) DeepCopyObject() runtime.Object {
 func (in *KmsKeyRingSpec) DeepCopyInto(out *KmsKeyRingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -21238,7 +21963,7 @@ func (in *KmsKeyRingStatus) DeepCopyInto(out *KmsKeyRingStatus) {
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(KmsKeyRingSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -21263,7 +21988,7 @@ func (in *LoggingBillingAccountExclusion) DeepCopyInto(out *LoggingBillingAccoun
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -21323,6 +22048,11 @@ func (in *LoggingBillingAccountExclusionList) DeepCopyObject() runtime.Object {
 func (in *LoggingBillingAccountExclusionSpec) DeepCopyInto(out *LoggingBillingAccountExclusionSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -21342,7 +22072,7 @@ func (in *LoggingBillingAccountExclusionStatus) DeepCopyInto(out *LoggingBilling
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(LoggingBillingAccountExclusionSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -21367,7 +22097,7 @@ func (in *LoggingBillingAccountSink) DeepCopyInto(out *LoggingBillingAccountSink
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -21427,6 +22157,11 @@ func (in *LoggingBillingAccountSinkList) DeepCopyObject() runtime.Object {
 func (in *LoggingBillingAccountSinkSpec) DeepCopyInto(out *LoggingBillingAccountSinkSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -21446,7 +22181,7 @@ func (in *LoggingBillingAccountSinkStatus) DeepCopyInto(out *LoggingBillingAccou
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(LoggingBillingAccountSinkSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -21471,7 +22206,7 @@ func (in *LoggingFolderExclusion) DeepCopyInto(out *LoggingFolderExclusion) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -21531,6 +22266,11 @@ func (in *LoggingFolderExclusionList) DeepCopyObject() runtime.Object {
 func (in *LoggingFolderExclusionSpec) DeepCopyInto(out *LoggingFolderExclusionSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -21550,7 +22290,7 @@ func (in *LoggingFolderExclusionStatus) DeepCopyInto(out *LoggingFolderExclusion
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(LoggingFolderExclusionSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -21575,7 +22315,7 @@ func (in *LoggingFolderSink) DeepCopyInto(out *LoggingFolderSink) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -21635,6 +22375,11 @@ func (in *LoggingFolderSinkList) DeepCopyObject() runtime.Object {
 func (in *LoggingFolderSinkSpec) DeepCopyInto(out *LoggingFolderSinkSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -21654,7 +22399,7 @@ func (in *LoggingFolderSinkStatus) DeepCopyInto(out *LoggingFolderSinkStatus) {
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(LoggingFolderSinkSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -21739,6 +22484,11 @@ func (in *LoggingMetricList) DeepCopyObject() runtime.Object {
 func (in *LoggingMetricSpec) DeepCopyInto(out *LoggingMetricSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.BucketOptions != nil {
 		in, out := &in.BucketOptions, &out.BucketOptions
 		*out = make([]LoggingMetricSpecBucketOptions, len(*in))
@@ -21927,7 +22677,7 @@ func (in *LoggingOrganizationExclusion) DeepCopyInto(out *LoggingOrganizationExc
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -21987,6 +22737,11 @@ func (in *LoggingOrganizationExclusionList) DeepCopyObject() runtime.Object {
 func (in *LoggingOrganizationExclusionSpec) DeepCopyInto(out *LoggingOrganizationExclusionSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -22006,7 +22761,7 @@ func (in *LoggingOrganizationExclusionStatus) DeepCopyInto(out *LoggingOrganizat
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(LoggingOrganizationExclusionSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -22031,7 +22786,7 @@ func (in *LoggingOrganizationSink) DeepCopyInto(out *LoggingOrganizationSink) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -22091,6 +22846,11 @@ func (in *LoggingOrganizationSinkList) DeepCopyObject() runtime.Object {
 func (in *LoggingOrganizationSinkSpec) DeepCopyInto(out *LoggingOrganizationSinkSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -22110,7 +22870,7 @@ func (in *LoggingOrganizationSinkStatus) DeepCopyInto(out *LoggingOrganizationSi
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(LoggingOrganizationSinkSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -22135,7 +22895,7 @@ func (in *LoggingProjectExclusion) DeepCopyInto(out *LoggingProjectExclusion) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -22195,6 +22955,11 @@ func (in *LoggingProjectExclusionList) DeepCopyObject() runtime.Object {
 func (in *LoggingProjectExclusionSpec) DeepCopyInto(out *LoggingProjectExclusionSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -22214,7 +22979,7 @@ func (in *LoggingProjectExclusionStatus) DeepCopyInto(out *LoggingProjectExclusi
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(LoggingProjectExclusionSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -22239,7 +23004,7 @@ func (in *LoggingProjectSink) DeepCopyInto(out *LoggingProjectSink) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -22299,6 +23064,11 @@ func (in *LoggingProjectSinkList) DeepCopyObject() runtime.Object {
 func (in *LoggingProjectSinkSpec) DeepCopyInto(out *LoggingProjectSinkSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -22318,7 +23088,7 @@ func (in *LoggingProjectSinkStatus) DeepCopyInto(out *LoggingProjectSinkStatus) 
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(LoggingProjectSinkSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -22403,6 +23173,11 @@ func (in *MlEngineModelList) DeepCopyObject() runtime.Object {
 func (in *MlEngineModelSpec) DeepCopyInto(out *MlEngineModelSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.DefaultVersion != nil {
 		in, out := &in.DefaultVersion, &out.DefaultVersion
 		*out = make([]MlEngineModelSpecDefaultVersion, len(*in))
@@ -22540,6 +23315,11 @@ func (in *MonitoringAlertPolicyList) DeepCopyObject() runtime.Object {
 func (in *MonitoringAlertPolicySpec) DeepCopyInto(out *MonitoringAlertPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Conditions != nil {
 		in, out := &in.Conditions, &out.Conditions
 		*out = make([]MonitoringAlertPolicySpecConditions, len(*in))
@@ -22838,7 +23618,7 @@ func (in *MonitoringGroup) DeepCopyInto(out *MonitoringGroup) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -22898,6 +23678,11 @@ func (in *MonitoringGroupList) DeepCopyObject() runtime.Object {
 func (in *MonitoringGroupSpec) DeepCopyInto(out *MonitoringGroupSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -22917,7 +23702,7 @@ func (in *MonitoringGroupStatus) DeepCopyInto(out *MonitoringGroupStatus) {
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(MonitoringGroupSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -23002,6 +23787,11 @@ func (in *MonitoringNotificationChannelList) DeepCopyObject() runtime.Object {
 func (in *MonitoringNotificationChannelSpec) DeepCopyInto(out *MonitoringNotificationChannelSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Labels != nil {
 		in, out := &in.Labels, &out.Labels
 		*out = make(map[string]string, len(*in))
@@ -23120,6 +23910,11 @@ func (in *MonitoringUptimeCheckConfigList) DeepCopyObject() runtime.Object {
 func (in *MonitoringUptimeCheckConfigSpec) DeepCopyInto(out *MonitoringUptimeCheckConfigSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SecretRef != nil {
 		in, out := &in.SecretRef, &out.SecretRef
 		*out = new(v1.LocalObjectReference)
@@ -23399,6 +24194,11 @@ func (in *OrganizationIamBindingList) DeepCopyObject() runtime.Object {
 func (in *OrganizationIamBindingSpec) DeepCopyInto(out *OrganizationIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -23508,6 +24308,11 @@ func (in *OrganizationIamCustomRoleList) DeepCopyObject() runtime.Object {
 func (in *OrganizationIamCustomRoleSpec) DeepCopyInto(out *OrganizationIamCustomRoleSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Permissions != nil {
 		in, out := &in.Permissions, &out.Permissions
 		*out = make([]string, len(*in))
@@ -23557,7 +24362,7 @@ func (in *OrganizationIamMember) DeepCopyInto(out *OrganizationIamMember) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -23617,6 +24422,11 @@ func (in *OrganizationIamMemberList) DeepCopyObject() runtime.Object {
 func (in *OrganizationIamMemberSpec) DeepCopyInto(out *OrganizationIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -23636,7 +24446,7 @@ func (in *OrganizationIamMemberStatus) DeepCopyInto(out *OrganizationIamMemberSt
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(OrganizationIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -23661,7 +24471,7 @@ func (in *OrganizationIamPolicy) DeepCopyInto(out *OrganizationIamPolicy) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -23721,6 +24531,11 @@ func (in *OrganizationIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *OrganizationIamPolicySpec) DeepCopyInto(out *OrganizationIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -23740,7 +24555,7 @@ func (in *OrganizationIamPolicyStatus) DeepCopyInto(out *OrganizationIamPolicySt
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(OrganizationIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -23825,6 +24640,11 @@ func (in *OrganizationPolicyList) DeepCopyObject() runtime.Object {
 func (in *OrganizationPolicySpec) DeepCopyInto(out *OrganizationPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.BooleanPolicy != nil {
 		in, out := &in.BooleanPolicy, &out.BooleanPolicy
 		*out = make([]OrganizationPolicySpecBooleanPolicy, len(*in))
@@ -24078,6 +24898,11 @@ func (in *ProjectIamAuditConfigList) DeepCopyObject() runtime.Object {
 func (in *ProjectIamAuditConfigSpec) DeepCopyInto(out *ProjectIamAuditConfigSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.AuditLogConfig != nil {
 		in, out := &in.AuditLogConfig, &out.AuditLogConfig
 		*out = make([]ProjectIamAuditConfigSpecAuditLogConfig, len(*in))
@@ -24210,6 +25035,11 @@ func (in *ProjectIamBindingList) DeepCopyObject() runtime.Object {
 func (in *ProjectIamBindingSpec) DeepCopyInto(out *ProjectIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -24319,6 +25149,11 @@ func (in *ProjectIamCustomRoleList) DeepCopyObject() runtime.Object {
 func (in *ProjectIamCustomRoleSpec) DeepCopyInto(out *ProjectIamCustomRoleSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Permissions != nil {
 		in, out := &in.Permissions, &out.Permissions
 		*out = make([]string, len(*in))
@@ -24368,7 +25203,7 @@ func (in *ProjectIamMember) DeepCopyInto(out *ProjectIamMember) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -24428,6 +25263,11 @@ func (in *ProjectIamMemberList) DeepCopyObject() runtime.Object {
 func (in *ProjectIamMemberSpec) DeepCopyInto(out *ProjectIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -24447,7 +25287,7 @@ func (in *ProjectIamMemberStatus) DeepCopyInto(out *ProjectIamMemberStatus) {
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ProjectIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -24472,7 +25312,7 @@ func (in *ProjectIamPolicy) DeepCopyInto(out *ProjectIamPolicy) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -24532,6 +25372,11 @@ func (in *ProjectIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *ProjectIamPolicySpec) DeepCopyInto(out *ProjectIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -24551,7 +25396,7 @@ func (in *ProjectIamPolicyStatus) DeepCopyInto(out *ProjectIamPolicyStatus) {
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ProjectIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -24669,6 +25514,11 @@ func (in *ProjectOrganizationPolicyList) DeepCopyObject() runtime.Object {
 func (in *ProjectOrganizationPolicySpec) DeepCopyInto(out *ProjectOrganizationPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.BooleanPolicy != nil {
 		in, out := &in.BooleanPolicy, &out.BooleanPolicy
 		*out = make([]ProjectOrganizationPolicySpecBooleanPolicy, len(*in))
@@ -24834,7 +25684,7 @@ func (in *ProjectService) DeepCopyInto(out *ProjectService) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -24922,6 +25772,11 @@ func (in *ProjectServiceBatchList) DeepCopyObject() runtime.Object {
 func (in *ProjectServiceBatchSpec) DeepCopyInto(out *ProjectServiceBatchSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Services != nil {
 		in, out := &in.Services, &out.Services
 		*out = make([]string, len(*in))
@@ -25003,6 +25858,11 @@ func (in *ProjectServiceList) DeepCopyObject() runtime.Object {
 func (in *ProjectServiceSpec) DeepCopyInto(out *ProjectServiceSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -25022,7 +25882,7 @@ func (in *ProjectServiceStatus) DeepCopyInto(out *ProjectServiceStatus) {
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ProjectServiceSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -25046,6 +25906,11 @@ func (in *ProjectServiceStatus) DeepCopy() *ProjectServiceStatus {
 func (in *ProjectSpec) DeepCopyInto(out *ProjectSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Labels != nil {
 		in, out := &in.Labels, &out.Labels
 		*out = make(map[string]string, len(*in))
@@ -25097,7 +25962,7 @@ func (in *ProjectUsageExportBucket) DeepCopyInto(out *ProjectUsageExportBucket) 
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -25157,6 +26022,11 @@ func (in *ProjectUsageExportBucketList) DeepCopyObject() runtime.Object {
 func (in *ProjectUsageExportBucketSpec) DeepCopyInto(out *ProjectUsageExportBucketSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -25176,7 +26046,7 @@ func (in *ProjectUsageExportBucketStatus) DeepCopyInto(out *ProjectUsageExportBu
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ProjectUsageExportBucketSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -25289,6 +26159,11 @@ func (in *PubsubSubscriptionIamBindingList) DeepCopyObject() runtime.Object {
 func (in *PubsubSubscriptionIamBindingSpec) DeepCopyInto(out *PubsubSubscriptionIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -25338,7 +26213,7 @@ func (in *PubsubSubscriptionIamMember) DeepCopyInto(out *PubsubSubscriptionIamMe
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -25398,6 +26273,11 @@ func (in *PubsubSubscriptionIamMemberList) DeepCopyObject() runtime.Object {
 func (in *PubsubSubscriptionIamMemberSpec) DeepCopyInto(out *PubsubSubscriptionIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -25417,7 +26297,7 @@ func (in *PubsubSubscriptionIamMemberStatus) DeepCopyInto(out *PubsubSubscriptio
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(PubsubSubscriptionIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -25442,7 +26322,7 @@ func (in *PubsubSubscriptionIamPolicy) DeepCopyInto(out *PubsubSubscriptionIamPo
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -25502,6 +26382,11 @@ func (in *PubsubSubscriptionIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *PubsubSubscriptionIamPolicySpec) DeepCopyInto(out *PubsubSubscriptionIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -25521,7 +26406,7 @@ func (in *PubsubSubscriptionIamPolicyStatus) DeepCopyInto(out *PubsubSubscriptio
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(PubsubSubscriptionIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -25578,6 +26463,11 @@ func (in *PubsubSubscriptionList) DeepCopyObject() runtime.Object {
 func (in *PubsubSubscriptionSpec) DeepCopyInto(out *PubsubSubscriptionSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.ExpirationPolicy != nil {
 		in, out := &in.ExpirationPolicy, &out.ExpirationPolicy
 		*out = make([]PubsubSubscriptionSpecExpirationPolicy, len(*in))
@@ -25768,6 +26658,11 @@ func (in *PubsubTopicIamBindingList) DeepCopyObject() runtime.Object {
 func (in *PubsubTopicIamBindingSpec) DeepCopyInto(out *PubsubTopicIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -25817,7 +26712,7 @@ func (in *PubsubTopicIamMember) DeepCopyInto(out *PubsubTopicIamMember) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -25877,6 +26772,11 @@ func (in *PubsubTopicIamMemberList) DeepCopyObject() runtime.Object {
 func (in *PubsubTopicIamMemberSpec) DeepCopyInto(out *PubsubTopicIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -25896,7 +26796,7 @@ func (in *PubsubTopicIamMemberStatus) DeepCopyInto(out *PubsubTopicIamMemberStat
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(PubsubTopicIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -25921,7 +26821,7 @@ func (in *PubsubTopicIamPolicy) DeepCopyInto(out *PubsubTopicIamPolicy) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -25981,6 +26881,11 @@ func (in *PubsubTopicIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *PubsubTopicIamPolicySpec) DeepCopyInto(out *PubsubTopicIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -26000,7 +26905,7 @@ func (in *PubsubTopicIamPolicyStatus) DeepCopyInto(out *PubsubTopicIamPolicyStat
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(PubsubTopicIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -26057,6 +26962,11 @@ func (in *PubsubTopicList) DeepCopyObject() runtime.Object {
 func (in *PubsubTopicSpec) DeepCopyInto(out *PubsubTopicSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Labels != nil {
 		in, out := &in.Labels, &out.Labels
 		*out = make(map[string]string, len(*in))
@@ -26196,6 +27106,11 @@ func (in *RedisInstanceList) DeepCopyObject() runtime.Object {
 func (in *RedisInstanceSpec) DeepCopyInto(out *RedisInstanceSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Labels != nil {
 		in, out := &in.Labels, &out.Labels
 		*out = make(map[string]string, len(*in))
@@ -26314,6 +27229,11 @@ func (in *ResourceManagerLienList) DeepCopyObject() runtime.Object {
 func (in *ResourceManagerLienSpec) DeepCopyInto(out *ResourceManagerLienSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Restrictions != nil {
 		in, out := &in.Restrictions, &out.Restrictions
 		*out = make([]string, len(*in))
@@ -26363,7 +27283,7 @@ func (in *RuntimeconfigConfig) DeepCopyInto(out *RuntimeconfigConfig) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -26451,6 +27371,11 @@ func (in *RuntimeconfigConfigIamBindingList) DeepCopyObject() runtime.Object {
 func (in *RuntimeconfigConfigIamBindingSpec) DeepCopyInto(out *RuntimeconfigConfigIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -26500,7 +27425,7 @@ func (in *RuntimeconfigConfigIamMember) DeepCopyInto(out *RuntimeconfigConfigIam
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -26560,6 +27485,11 @@ func (in *RuntimeconfigConfigIamMemberList) DeepCopyObject() runtime.Object {
 func (in *RuntimeconfigConfigIamMemberSpec) DeepCopyInto(out *RuntimeconfigConfigIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -26579,7 +27509,7 @@ func (in *RuntimeconfigConfigIamMemberStatus) DeepCopyInto(out *RuntimeconfigCon
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(RuntimeconfigConfigIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -26604,7 +27534,7 @@ func (in *RuntimeconfigConfigIamPolicy) DeepCopyInto(out *RuntimeconfigConfigIam
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -26664,6 +27594,11 @@ func (in *RuntimeconfigConfigIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *RuntimeconfigConfigIamPolicySpec) DeepCopyInto(out *RuntimeconfigConfigIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -26683,7 +27618,7 @@ func (in *RuntimeconfigConfigIamPolicyStatus) DeepCopyInto(out *RuntimeconfigCon
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(RuntimeconfigConfigIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -26740,6 +27675,11 @@ func (in *RuntimeconfigConfigList) DeepCopyObject() runtime.Object {
 func (in *RuntimeconfigConfigSpec) DeepCopyInto(out *RuntimeconfigConfigSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -26759,7 +27699,7 @@ func (in *RuntimeconfigConfigStatus) DeepCopyInto(out *RuntimeconfigConfigStatus
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(RuntimeconfigConfigSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -26784,7 +27724,7 @@ func (in *RuntimeconfigVariable) DeepCopyInto(out *RuntimeconfigVariable) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -26844,6 +27784,11 @@ func (in *RuntimeconfigVariableList) DeepCopyObject() runtime.Object {
 func (in *RuntimeconfigVariableSpec) DeepCopyInto(out *RuntimeconfigVariableSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -26863,7 +27808,7 @@ func (in *RuntimeconfigVariableStatus) DeepCopyInto(out *RuntimeconfigVariableSt
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(RuntimeconfigVariableSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -26888,7 +27833,7 @@ func (in *SccSource) DeepCopyInto(out *SccSource) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -26948,6 +27893,11 @@ func (in *SccSourceList) DeepCopyObject() runtime.Object {
 func (in *SccSourceSpec) DeepCopyInto(out *SccSourceSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -26967,7 +27917,7 @@ func (in *SccSourceStatus) DeepCopyInto(out *SccSourceStatus) {
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(SccSourceSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -26992,7 +27942,7 @@ func (in *ServiceAccount) DeepCopyInto(out *ServiceAccount) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -27080,6 +28030,11 @@ func (in *ServiceAccountIamBindingList) DeepCopyObject() runtime.Object {
 func (in *ServiceAccountIamBindingSpec) DeepCopyInto(out *ServiceAccountIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -27129,7 +28084,7 @@ func (in *ServiceAccountIamMember) DeepCopyInto(out *ServiceAccountIamMember) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -27189,6 +28144,11 @@ func (in *ServiceAccountIamMemberList) DeepCopyObject() runtime.Object {
 func (in *ServiceAccountIamMemberSpec) DeepCopyInto(out *ServiceAccountIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -27208,7 +28168,7 @@ func (in *ServiceAccountIamMemberStatus) DeepCopyInto(out *ServiceAccountIamMemb
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ServiceAccountIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -27233,7 +28193,7 @@ func (in *ServiceAccountIamPolicy) DeepCopyInto(out *ServiceAccountIamPolicy) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -27293,6 +28253,11 @@ func (in *ServiceAccountIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *ServiceAccountIamPolicySpec) DeepCopyInto(out *ServiceAccountIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -27312,7 +28277,7 @@ func (in *ServiceAccountIamPolicyStatus) DeepCopyInto(out *ServiceAccountIamPoli
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ServiceAccountIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -27397,6 +28362,11 @@ func (in *ServiceAccountKeyList) DeepCopyObject() runtime.Object {
 func (in *ServiceAccountKeySpec) DeepCopyInto(out *ServiceAccountKeySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SecretRef != nil {
 		in, out := &in.SecretRef, &out.SecretRef
 		*out = new(v1.LocalObjectReference)
@@ -27478,6 +28448,11 @@ func (in *ServiceAccountList) DeepCopyObject() runtime.Object {
 func (in *ServiceAccountSpec) DeepCopyInto(out *ServiceAccountSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -27497,7 +28472,7 @@ func (in *ServiceAccountStatus) DeepCopyInto(out *ServiceAccountStatus) {
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(ServiceAccountSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -27582,6 +28557,11 @@ func (in *ServiceNetworkingConnectionList) DeepCopyObject() runtime.Object {
 func (in *ServiceNetworkingConnectionSpec) DeepCopyInto(out *ServiceNetworkingConnectionSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.ReservedPeeringRanges != nil {
 		in, out := &in.ReservedPeeringRanges, &out.ReservedPeeringRanges
 		*out = make([]string, len(*in))
@@ -27631,7 +28611,7 @@ func (in *SourcerepoRepository) DeepCopyInto(out *SourcerepoRepository) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -27719,6 +28699,11 @@ func (in *SourcerepoRepositoryIamBindingList) DeepCopyObject() runtime.Object {
 func (in *SourcerepoRepositoryIamBindingSpec) DeepCopyInto(out *SourcerepoRepositoryIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -27768,7 +28753,7 @@ func (in *SourcerepoRepositoryIamMember) DeepCopyInto(out *SourcerepoRepositoryI
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -27828,6 +28813,11 @@ func (in *SourcerepoRepositoryIamMemberList) DeepCopyObject() runtime.Object {
 func (in *SourcerepoRepositoryIamMemberSpec) DeepCopyInto(out *SourcerepoRepositoryIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -27847,7 +28837,7 @@ func (in *SourcerepoRepositoryIamMemberStatus) DeepCopyInto(out *SourcerepoRepos
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(SourcerepoRepositoryIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -27872,7 +28862,7 @@ func (in *SourcerepoRepositoryIamPolicy) DeepCopyInto(out *SourcerepoRepositoryI
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -27932,6 +28922,11 @@ func (in *SourcerepoRepositoryIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *SourcerepoRepositoryIamPolicySpec) DeepCopyInto(out *SourcerepoRepositoryIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -27951,7 +28946,7 @@ func (in *SourcerepoRepositoryIamPolicyStatus) DeepCopyInto(out *SourcerepoRepos
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(SourcerepoRepositoryIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -28008,6 +29003,11 @@ func (in *SourcerepoRepositoryList) DeepCopyObject() runtime.Object {
 func (in *SourcerepoRepositorySpec) DeepCopyInto(out *SourcerepoRepositorySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -28027,7 +29027,7 @@ func (in *SourcerepoRepositoryStatus) DeepCopyInto(out *SourcerepoRepositoryStat
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(SourcerepoRepositorySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -28140,6 +29140,11 @@ func (in *SpannerDatabaseIamBindingList) DeepCopyObject() runtime.Object {
 func (in *SpannerDatabaseIamBindingSpec) DeepCopyInto(out *SpannerDatabaseIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -28189,7 +29194,7 @@ func (in *SpannerDatabaseIamMember) DeepCopyInto(out *SpannerDatabaseIamMember) 
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -28249,6 +29254,11 @@ func (in *SpannerDatabaseIamMemberList) DeepCopyObject() runtime.Object {
 func (in *SpannerDatabaseIamMemberSpec) DeepCopyInto(out *SpannerDatabaseIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -28268,7 +29278,7 @@ func (in *SpannerDatabaseIamMemberStatus) DeepCopyInto(out *SpannerDatabaseIamMe
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(SpannerDatabaseIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -28293,7 +29303,7 @@ func (in *SpannerDatabaseIamPolicy) DeepCopyInto(out *SpannerDatabaseIamPolicy) 
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -28353,6 +29363,11 @@ func (in *SpannerDatabaseIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *SpannerDatabaseIamPolicySpec) DeepCopyInto(out *SpannerDatabaseIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -28372,7 +29387,7 @@ func (in *SpannerDatabaseIamPolicyStatus) DeepCopyInto(out *SpannerDatabaseIamPo
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(SpannerDatabaseIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -28429,6 +29444,11 @@ func (in *SpannerDatabaseList) DeepCopyObject() runtime.Object {
 func (in *SpannerDatabaseSpec) DeepCopyInto(out *SpannerDatabaseSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Ddl != nil {
 		in, out := &in.Ddl, &out.Ddl
 		*out = make([]string, len(*in))
@@ -28566,6 +29586,11 @@ func (in *SpannerInstanceIamBindingList) DeepCopyObject() runtime.Object {
 func (in *SpannerInstanceIamBindingSpec) DeepCopyInto(out *SpannerInstanceIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -28615,7 +29640,7 @@ func (in *SpannerInstanceIamMember) DeepCopyInto(out *SpannerInstanceIamMember) 
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -28675,6 +29700,11 @@ func (in *SpannerInstanceIamMemberList) DeepCopyObject() runtime.Object {
 func (in *SpannerInstanceIamMemberSpec) DeepCopyInto(out *SpannerInstanceIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -28694,7 +29724,7 @@ func (in *SpannerInstanceIamMemberStatus) DeepCopyInto(out *SpannerInstanceIamMe
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(SpannerInstanceIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -28719,7 +29749,7 @@ func (in *SpannerInstanceIamPolicy) DeepCopyInto(out *SpannerInstanceIamPolicy) 
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -28779,6 +29809,11 @@ func (in *SpannerInstanceIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *SpannerInstanceIamPolicySpec) DeepCopyInto(out *SpannerInstanceIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -28798,7 +29833,7 @@ func (in *SpannerInstanceIamPolicyStatus) DeepCopyInto(out *SpannerInstanceIamPo
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(SpannerInstanceIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -28855,6 +29890,11 @@ func (in *SpannerInstanceList) DeepCopyObject() runtime.Object {
 func (in *SpannerInstanceSpec) DeepCopyInto(out *SpannerInstanceSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Labels != nil {
 		in, out := &in.Labels, &out.Labels
 		*out = make(map[string]string, len(*in))
@@ -28906,7 +29946,7 @@ func (in *SqlDatabase) DeepCopyInto(out *SqlDatabase) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -28994,6 +30034,11 @@ func (in *SqlDatabaseInstanceList) DeepCopyObject() runtime.Object {
 func (in *SqlDatabaseInstanceSpec) DeepCopyInto(out *SqlDatabaseInstanceSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SecretRef != nil {
 		in, out := &in.SecretRef, &out.SecretRef
 		*out = new(v1.LocalObjectReference)
@@ -29301,6 +30346,11 @@ func (in *SqlDatabaseList) DeepCopyObject() runtime.Object {
 func (in *SqlDatabaseSpec) DeepCopyInto(out *SqlDatabaseSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -29320,7 +30370,7 @@ func (in *SqlDatabaseStatus) DeepCopyInto(out *SqlDatabaseStatus) {
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(SqlDatabaseSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -29405,6 +30455,11 @@ func (in *SqlSSLCertList) DeepCopyObject() runtime.Object {
 func (in *SqlSSLCertSpec) DeepCopyInto(out *SqlSSLCertSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SecretRef != nil {
 		in, out := &in.SecretRef, &out.SecretRef
 		*out = new(v1.LocalObjectReference)
@@ -29514,6 +30569,11 @@ func (in *SqlUserList) DeepCopyObject() runtime.Object {
 func (in *SqlUserSpec) DeepCopyInto(out *SqlUserSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SecretRef != nil {
 		in, out := &in.SecretRef, &out.SecretRef
 		*out = new(v1.LocalObjectReference)
@@ -29651,6 +30711,11 @@ func (in *StorageBucketACLList) DeepCopyObject() runtime.Object {
 func (in *StorageBucketACLSpec) DeepCopyInto(out *StorageBucketACLSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.RoleEntity != nil {
 		in, out := &in.RoleEntity, &out.RoleEntity
 		*out = make([]string, len(*in))
@@ -29700,7 +30765,7 @@ func (in *StorageBucketAccessControl) DeepCopyInto(out *StorageBucketAccessContr
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -29760,6 +30825,11 @@ func (in *StorageBucketAccessControlList) DeepCopyObject() runtime.Object {
 func (in *StorageBucketAccessControlSpec) DeepCopyInto(out *StorageBucketAccessControlSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -29779,7 +30849,7 @@ func (in *StorageBucketAccessControlStatus) DeepCopyInto(out *StorageBucketAcces
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(StorageBucketAccessControlSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -29864,6 +30934,11 @@ func (in *StorageBucketIamBindingList) DeepCopyObject() runtime.Object {
 func (in *StorageBucketIamBindingSpec) DeepCopyInto(out *StorageBucketIamBindingSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Members != nil {
 		in, out := &in.Members, &out.Members
 		*out = make([]string, len(*in))
@@ -29913,7 +30988,7 @@ func (in *StorageBucketIamMember) DeepCopyInto(out *StorageBucketIamMember) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -29973,6 +31048,11 @@ func (in *StorageBucketIamMemberList) DeepCopyObject() runtime.Object {
 func (in *StorageBucketIamMemberSpec) DeepCopyInto(out *StorageBucketIamMemberSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -29992,7 +31072,7 @@ func (in *StorageBucketIamMemberStatus) DeepCopyInto(out *StorageBucketIamMember
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(StorageBucketIamMemberSpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -30017,7 +31097,7 @@ func (in *StorageBucketIamPolicy) DeepCopyInto(out *StorageBucketIamPolicy) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
-	out.Spec = in.Spec
+	in.Spec.DeepCopyInto(&out.Spec)
 	in.Status.DeepCopyInto(&out.Status)
 	return
 }
@@ -30077,6 +31157,11 @@ func (in *StorageBucketIamPolicyList) DeepCopyObject() runtime.Object {
 func (in *StorageBucketIamPolicySpec) DeepCopyInto(out *StorageBucketIamPolicySpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	return
 }
 
@@ -30096,7 +31181,7 @@ func (in *StorageBucketIamPolicyStatus) DeepCopyInto(out *StorageBucketIamPolicy
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
 		*out = new(StorageBucketIamPolicySpec)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.State != nil {
 		in, out := &in.State, &out.State
@@ -30214,6 +31299,11 @@ func (in *StorageBucketObjectList) DeepCopyObject() runtime.Object {
 func (in *StorageBucketObjectSpec) DeepCopyInto(out *StorageBucketObjectSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SecretRef != nil {
 		in, out := &in.SecretRef, &out.SecretRef
 		*out = new(v1.LocalObjectReference)
@@ -30262,6 +31352,11 @@ func (in *StorageBucketObjectStatus) DeepCopy() *StorageBucketObjectStatus {
 func (in *StorageBucketSpec) DeepCopyInto(out *StorageBucketSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Cors != nil {
 		in, out := &in.Cors, &out.Cors
 		*out = make([]StorageBucketSpecCors, len(*in))
@@ -30588,6 +31683,11 @@ func (in *StorageDefaultObjectACLList) DeepCopyObject() runtime.Object {
 func (in *StorageDefaultObjectACLSpec) DeepCopyInto(out *StorageDefaultObjectACLSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.RoleEntity != nil {
 		in, out := &in.RoleEntity, &out.RoleEntity
 		*out = make([]string, len(*in))
@@ -30697,6 +31797,11 @@ func (in *StorageDefaultObjectAccessControlList) DeepCopyObject() runtime.Object
 func (in *StorageDefaultObjectAccessControlSpec) DeepCopyInto(out *StorageDefaultObjectAccessControlSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.ProjectTeam != nil {
 		in, out := &in.ProjectTeam, &out.ProjectTeam
 		*out = make([]StorageDefaultObjectAccessControlSpecProjectTeam, len(*in))
@@ -30822,6 +31927,11 @@ func (in *StorageNotificationList) DeepCopyObject() runtime.Object {
 func (in *StorageNotificationSpec) DeepCopyInto(out *StorageNotificationSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.CustomAttributes != nil {
 		in, out := &in.CustomAttributes, &out.CustomAttributes
 		*out = make(map[string]string, len(*in))
@@ -30938,6 +32048,11 @@ func (in *StorageObjectACLList) DeepCopyObject() runtime.Object {
 func (in *StorageObjectACLSpec) DeepCopyInto(out *StorageObjectACLSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.RoleEntity != nil {
 		in, out := &in.RoleEntity, &out.RoleEntity
 		*out = make([]string, len(*in))
@@ -31047,6 +32162,11 @@ func (in *StorageObjectAccessControlList) DeepCopyObject() runtime.Object {
 func (in *StorageObjectAccessControlSpec) DeepCopyInto(out *StorageObjectAccessControlSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.ProjectTeam != nil {
 		in, out := &in.ProjectTeam, &out.ProjectTeam
 		*out = make([]StorageObjectAccessControlSpecProjectTeam, len(*in))
@@ -31172,6 +32292,11 @@ func (in *StorageTransferJobList) DeepCopyObject() runtime.Object {
 func (in *StorageTransferJobSpec) DeepCopyInto(out *StorageTransferJobSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.SecretRef != nil {
 		in, out := &in.SecretRef, &out.SecretRef
 		*out = new(v1.LocalObjectReference)
@@ -31551,6 +32676,11 @@ func (in *TpuNodeList) DeepCopyObject() runtime.Object {
 func (in *TpuNodeSpec) DeepCopyInto(out *TpuNodeSpec) {
 	*out = *in
 	out.ProviderRef = in.ProviderRef
+	if in.RemoteBackend != nil {
+		in, out := &in.RemoteBackend, &out.RemoteBackend
+		*out = new(basev1alpha1.Backend)
+		**out = **in
+	}
 	if in.Labels != nil {
 		in, out := &in.Labels, &out.Labels
 		*out = make(map[string]string, len(*in))

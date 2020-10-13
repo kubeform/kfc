@@ -44,6 +44,8 @@ type ApiGatewayIntegrationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	CacheKeyParameters []string `json:"cacheKeyParameters,omitempty" tf:"cache_key_parameters,omitempty"`
 	// +optional

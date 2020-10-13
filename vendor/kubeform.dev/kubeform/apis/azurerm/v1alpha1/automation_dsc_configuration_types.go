@@ -44,6 +44,8 @@ type AutomationDscConfigurationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	AutomationAccountName string `json:"automationAccountName" tf:"automation_account_name"`
 	ContentEmbedded       string `json:"contentEmbedded" tf:"content_embedded"`
 	// +optional

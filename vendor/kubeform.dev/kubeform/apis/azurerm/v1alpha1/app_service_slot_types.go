@@ -246,6 +246,8 @@ type AppServiceSlotSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	SecretRef *core.LocalObjectReference `json:"secretRef,omitempty" tf:"-"`
 
 	AppServiceName   string `json:"appServiceName" tf:"app_service_name"`

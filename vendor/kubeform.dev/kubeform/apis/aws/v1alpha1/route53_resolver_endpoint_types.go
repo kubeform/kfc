@@ -52,6 +52,8 @@ type Route53ResolverEndpointSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Arn       string `json:"arn,omitempty" tf:"arn,omitempty"`
 	Direction string `json:"direction" tf:"direction"`

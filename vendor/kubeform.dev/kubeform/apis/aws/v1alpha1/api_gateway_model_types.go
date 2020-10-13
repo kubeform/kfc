@@ -44,6 +44,8 @@ type ApiGatewayModelSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	ContentType string `json:"contentType" tf:"content_type"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`

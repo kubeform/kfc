@@ -44,6 +44,8 @@ type CodedeployAppSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ComputePlatform string `json:"computePlatform,omitempty" tf:"compute_platform,omitempty"`
 	Name            string `json:"name" tf:"name"`

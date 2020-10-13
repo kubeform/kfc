@@ -44,6 +44,8 @@ type RecordSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Domain string `json:"domain" tf:"domain"`
 	// +optional
 	Flags int64 `json:"flags,omitempty" tf:"flags,omitempty"`

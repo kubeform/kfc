@@ -44,6 +44,8 @@ type VpnGatewaySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AmazonSideAsn string `json:"amazonSideAsn,omitempty" tf:"amazon_side_asn,omitempty"`
 	// +optional

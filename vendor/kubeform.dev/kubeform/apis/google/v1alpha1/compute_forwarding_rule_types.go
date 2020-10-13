@@ -44,6 +44,8 @@ type ComputeForwardingRuleSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AllPorts bool `json:"allPorts,omitempty" tf:"all_ports,omitempty"`
 	// +optional

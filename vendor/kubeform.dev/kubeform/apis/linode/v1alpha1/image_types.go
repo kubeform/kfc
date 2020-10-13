@@ -44,6 +44,8 @@ type ImageSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// When this Image was created.
 	// +optional
 	Created string `json:"created,omitempty" tf:"created,omitempty"`

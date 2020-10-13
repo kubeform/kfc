@@ -62,6 +62,8 @@ type SqlFailoverGroupSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Databases []string `json:"databases,omitempty" tf:"databases,omitempty"`
 	// +optional

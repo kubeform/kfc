@@ -59,6 +59,8 @@ type KubernetesNodePoolSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ActualNodeCount int64 `json:"actualNodeCount,omitempty" tf:"actual_node_count,omitempty"`
 	// +optional

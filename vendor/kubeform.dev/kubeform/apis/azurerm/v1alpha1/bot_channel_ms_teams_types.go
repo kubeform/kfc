@@ -44,6 +44,8 @@ type BotChannelMsTeamsSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	BotName string `json:"botName" tf:"bot_name"`
 	// +optional
 	CallingWebHook string `json:"callingWebHook,omitempty" tf:"calling_web_hook,omitempty"`

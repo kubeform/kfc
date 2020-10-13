@@ -146,6 +146,8 @@ type MonitoringAlertPolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Combiner   string                                `json:"combiner" tf:"combiner"`
 	Conditions []MonitoringAlertPolicySpecConditions `json:"conditions" tf:"conditions"`
 	// +optional

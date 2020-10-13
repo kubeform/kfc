@@ -68,6 +68,8 @@ type AmiFromInstanceSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Architecture string `json:"architecture,omitempty" tf:"architecture,omitempty"`
 	// +optional

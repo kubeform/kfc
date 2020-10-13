@@ -80,6 +80,8 @@ type EcsTaskDefinitionSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Arn                  string `json:"arn,omitempty" tf:"arn,omitempty"`
 	ContainerDefinitions string `json:"containerDefinitions" tf:"container_definitions"`

@@ -44,6 +44,8 @@ type AppServiceActiveSlotSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	AppServiceName     string `json:"appServiceName" tf:"app_service_name"`
 	AppServiceSlotName string `json:"appServiceSlotName" tf:"app_service_slot_name"`
 	ResourceGroupName  string `json:"resourceGroupName" tf:"resource_group_name"`

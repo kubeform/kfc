@@ -44,6 +44,8 @@ type ApiGatewayRequestValidatorSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Name      string `json:"name" tf:"name"`
 	RestAPIID string `json:"restAPIID" tf:"rest_api_id"`
 	// +optional

@@ -44,6 +44,8 @@ type DnsZoneSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	MaxNumberOfRecordSets int64  `json:"maxNumberOfRecordSets,omitempty" tf:"max_number_of_record_sets,omitempty"`
 	Name                  string `json:"name" tf:"name"`

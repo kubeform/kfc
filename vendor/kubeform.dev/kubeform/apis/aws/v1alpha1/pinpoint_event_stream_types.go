@@ -44,6 +44,8 @@ type PinpointEventStreamSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	ApplicationID        string `json:"applicationID" tf:"application_id"`
 	DestinationStreamArn string `json:"destinationStreamArn" tf:"destination_stream_arn"`
 	RoleArn              string `json:"roleArn" tf:"role_arn"`

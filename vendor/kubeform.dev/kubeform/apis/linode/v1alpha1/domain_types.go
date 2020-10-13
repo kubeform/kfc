@@ -44,6 +44,8 @@ type DomainSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// The list of IPs that may perform a zone transfer for this Domain. This is potentially dangerous, and should be set to an empty list unless you intend to use it.
 	// +optional
 	AxfrIPS []string `json:"axfrIPS,omitempty" tf:"axfr_ips,omitempty"`

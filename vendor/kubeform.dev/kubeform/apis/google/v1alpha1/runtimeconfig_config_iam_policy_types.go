@@ -44,6 +44,8 @@ type RuntimeconfigConfigIamPolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Config string `json:"config" tf:"config"`
 	// +optional
 	Etag       string `json:"etag,omitempty" tf:"etag,omitempty"`

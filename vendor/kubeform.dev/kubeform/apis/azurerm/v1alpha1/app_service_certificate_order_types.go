@@ -55,6 +55,8 @@ type AppServiceCertificateOrderSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AppServiceCertificateNotRenewableReasons []string `json:"appServiceCertificateNotRenewableReasons,omitempty" tf:"app_service_certificate_not_renewable_reasons,omitempty"`
 	// +optional

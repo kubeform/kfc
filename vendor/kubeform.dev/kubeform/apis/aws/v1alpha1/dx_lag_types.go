@@ -44,6 +44,8 @@ type DxLagSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Arn                  string `json:"arn,omitempty" tf:"arn,omitempty"`
 	ConnectionsBandwidth string `json:"connectionsBandwidth" tf:"connections_bandwidth"`

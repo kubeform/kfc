@@ -69,6 +69,8 @@ type CloudwatchMetricAlarmSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ActionsEnabled bool `json:"actionsEnabled,omitempty" tf:"actions_enabled,omitempty"`
 	// +optional

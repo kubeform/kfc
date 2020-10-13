@@ -44,6 +44,8 @@ type RamResourceShareSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AllowExternalPrincipals bool `json:"allowExternalPrincipals,omitempty" tf:"allow_external_principals,omitempty"`
 	// +optional

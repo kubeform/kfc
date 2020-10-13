@@ -118,6 +118,8 @@ type ComposerEnvironmentSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	Config []ComposerEnvironmentSpecConfig `json:"config,omitempty" tf:"config,omitempty"`

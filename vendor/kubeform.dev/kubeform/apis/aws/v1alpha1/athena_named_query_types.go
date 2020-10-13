@@ -44,6 +44,8 @@ type AthenaNamedQuerySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Database string `json:"database" tf:"database"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`

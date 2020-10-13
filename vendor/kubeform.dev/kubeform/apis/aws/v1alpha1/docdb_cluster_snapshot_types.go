@@ -44,6 +44,8 @@ type DocdbClusterSnapshotSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AvailabilityZones   []string `json:"availabilityZones,omitempty" tf:"availability_zones,omitempty"`
 	DbClusterIdentifier string   `json:"dbClusterIdentifier" tf:"db_cluster_identifier"`

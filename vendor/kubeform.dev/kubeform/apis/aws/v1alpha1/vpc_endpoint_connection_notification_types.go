@@ -44,6 +44,8 @@ type VpcEndpointConnectionNotificationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +kubebuilder:validation:MinItems=1
 	ConnectionEvents          []string `json:"connectionEvents" tf:"connection_events"`
 	ConnectionNotificationArn string   `json:"connectionNotificationArn" tf:"connection_notification_arn"`

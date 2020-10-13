@@ -44,6 +44,8 @@ type ApiGatewayMethodSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ApiKeyRequired bool   `json:"apiKeyRequired,omitempty" tf:"api_key_required,omitempty"`
 	Authorization  string `json:"authorization" tf:"authorization"`

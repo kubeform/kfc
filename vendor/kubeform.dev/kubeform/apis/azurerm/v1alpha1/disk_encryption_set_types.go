@@ -52,6 +52,8 @@ type DiskEncryptionSetSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +kubebuilder:validation:MaxItems=1
 	Identity          []DiskEncryptionSetSpecIdentity `json:"identity" tf:"identity"`
 	KeyVaultKeyID     string                          `json:"keyVaultKeyID" tf:"key_vault_key_id"`

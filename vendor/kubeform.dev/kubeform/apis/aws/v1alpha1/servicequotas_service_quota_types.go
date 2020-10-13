@@ -44,6 +44,8 @@ type ServicequotasServiceQuotaSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Adjustable bool `json:"adjustable,omitempty" tf:"adjustable,omitempty"`
 	// +optional

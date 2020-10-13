@@ -53,6 +53,8 @@ type DatabaseFirewallSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	ClusterID string                     `json:"clusterID" tf:"cluster_id"`
 	Rule      []DatabaseFirewallSpecRule `json:"rule" tf:"rule"`
 }

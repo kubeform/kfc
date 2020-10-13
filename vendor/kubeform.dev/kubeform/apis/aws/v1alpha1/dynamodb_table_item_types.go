@@ -44,6 +44,8 @@ type DynamodbTableItemSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	HashKey string `json:"hashKey" tf:"hash_key"`
 	Item    string `json:"item" tf:"item"`
 	// +optional

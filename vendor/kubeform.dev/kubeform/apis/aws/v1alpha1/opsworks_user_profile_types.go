@@ -44,6 +44,8 @@ type OpsworksUserProfileSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AllowSelfManagement bool `json:"allowSelfManagement,omitempty" tf:"allow_self_management,omitempty"`
 	// +optional

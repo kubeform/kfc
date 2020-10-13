@@ -66,6 +66,8 @@ type BinaryAuthorizationPolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AdmissionWhitelistPatterns []BinaryAuthorizationPolicySpecAdmissionWhitelistPatterns `json:"admissionWhitelistPatterns,omitempty" tf:"admission_whitelist_patterns,omitempty"`
 	// +optional

@@ -57,6 +57,8 @@ type CloudhsmV2ClusterSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	ClusterCertificates []CloudhsmV2ClusterSpecClusterCertificates `json:"clusterCertificates,omitempty" tf:"cluster_certificates,omitempty"`

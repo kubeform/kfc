@@ -44,6 +44,8 @@ type VolumeSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// The full filesystem path for the Volume based on the Volume's label. Path is /dev/disk/by-id/scsi-0Linode_Volume_ + Volume label.
 	// +optional
 	FilesystemPath string `json:"filesystemPath,omitempty" tf:"filesystem_path,omitempty"`

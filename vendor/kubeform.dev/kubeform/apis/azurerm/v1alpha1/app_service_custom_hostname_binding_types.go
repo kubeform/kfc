@@ -44,6 +44,8 @@ type AppServiceCustomHostnameBindingSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	AppServiceName    string `json:"appServiceName" tf:"app_service_name"`
 	Hostname          string `json:"hostname" tf:"hostname"`
 	ResourceGroupName string `json:"resourceGroupName" tf:"resource_group_name"`

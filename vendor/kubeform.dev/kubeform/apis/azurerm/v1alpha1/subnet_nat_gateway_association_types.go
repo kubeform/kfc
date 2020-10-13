@@ -44,6 +44,8 @@ type SubnetNATGatewayAssociationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	NatGatewayID string `json:"natGatewayID" tf:"nat_gateway_id"`
 	SubnetID     string `json:"subnetID" tf:"subnet_id"`
 }

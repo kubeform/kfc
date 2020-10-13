@@ -76,6 +76,8 @@ type NetworkACLSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Egress []NetworkACLSpecEgress `json:"egress,omitempty" tf:"egress,omitempty"`
 	// +optional

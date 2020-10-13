@@ -44,6 +44,8 @@ type MonitoringGroupSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	DisplayName string `json:"displayName" tf:"display_name"`
 	Filter      string `json:"filter" tf:"filter"`
 	// +optional

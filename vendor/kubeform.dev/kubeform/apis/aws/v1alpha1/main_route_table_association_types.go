@@ -44,6 +44,8 @@ type MainRouteTableAssociationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	OriginalRouteTableID string `json:"originalRouteTableID,omitempty" tf:"original_route_table_id,omitempty"`
 	RouteTableID         string `json:"routeTableID" tf:"route_table_id"`

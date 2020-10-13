@@ -73,6 +73,8 @@ type EndpointsServiceSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Apis []EndpointsServiceSpecApis `json:"apis,omitempty" tf:"apis,omitempty"`
 	// +optional

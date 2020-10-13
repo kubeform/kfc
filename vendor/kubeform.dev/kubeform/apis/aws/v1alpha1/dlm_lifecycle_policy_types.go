@@ -75,6 +75,8 @@ type DlmLifecyclePolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Description      string `json:"description" tf:"description"`
 	ExecutionRoleArn string `json:"executionRoleArn" tf:"execution_role_arn"`
 	// +kubebuilder:validation:MaxItems=1

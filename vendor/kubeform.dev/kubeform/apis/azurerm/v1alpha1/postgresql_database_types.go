@@ -44,6 +44,8 @@ type PostgresqlDatabaseSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Charset           string `json:"charset" tf:"charset"`
 	Collation         string `json:"collation" tf:"collation"`
 	Name              string `json:"name" tf:"name"`

@@ -44,6 +44,8 @@ type TransferSSHKeySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Body     string `json:"body" tf:"body"`
 	ServerID string `json:"serverID" tf:"server_id"`
 	UserName string `json:"userName" tf:"user_name"`

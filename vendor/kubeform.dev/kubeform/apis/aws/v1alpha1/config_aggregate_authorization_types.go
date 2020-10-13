@@ -44,6 +44,8 @@ type ConfigAggregateAuthorizationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	AccountID string `json:"accountID" tf:"account_id"`
 	// +optional
 	Arn    string `json:"arn,omitempty" tf:"arn,omitempty"`

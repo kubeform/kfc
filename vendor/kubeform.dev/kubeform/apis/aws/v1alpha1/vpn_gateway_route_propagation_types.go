@@ -44,6 +44,8 @@ type VpnGatewayRoutePropagationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	RouteTableID string `json:"routeTableID" tf:"route_table_id"`
 	VpnGatewayID string `json:"vpnGatewayID" tf:"vpn_gateway_id"`
 }

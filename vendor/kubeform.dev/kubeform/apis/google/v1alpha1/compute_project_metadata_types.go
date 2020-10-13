@@ -44,6 +44,8 @@ type ComputeProjectMetadataSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Metadata map[string]string `json:"metadata" tf:"metadata"`
 	// +optional
 	Project string `json:"project,omitempty" tf:"project,omitempty"`

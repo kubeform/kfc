@@ -44,6 +44,8 @@ type SpannerDatabaseIamMemberSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Database string `json:"database" tf:"database"`
 	// +optional
 	Etag     string `json:"etag,omitempty" tf:"etag,omitempty"`

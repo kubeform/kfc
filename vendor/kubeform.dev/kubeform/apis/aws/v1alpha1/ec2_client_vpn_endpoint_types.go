@@ -60,6 +60,8 @@ type Ec2ClientVPNEndpointSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +kubebuilder:validation:MaxItems=1
 	AuthenticationOptions []Ec2ClientVPNEndpointSpecAuthenticationOptions `json:"authenticationOptions" tf:"authentication_options"`
 	ClientCIDRBlock       string                                          `json:"clientCIDRBlock" tf:"client_cidr_block"`

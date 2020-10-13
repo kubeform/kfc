@@ -44,6 +44,8 @@ type ApiManagementAPIVersionSetSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	ApiManagementName string `json:"apiManagementName" tf:"api_management_name"`
 	// +optional
 	Description       string `json:"description,omitempty" tf:"description,omitempty"`

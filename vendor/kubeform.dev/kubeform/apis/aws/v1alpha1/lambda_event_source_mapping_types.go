@@ -44,6 +44,8 @@ type LambdaEventSourceMappingSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	BatchSize int64 `json:"batchSize,omitempty" tf:"batch_size,omitempty"`
 	// +optional

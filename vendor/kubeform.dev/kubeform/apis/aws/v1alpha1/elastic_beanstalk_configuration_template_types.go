@@ -52,6 +52,8 @@ type ElasticBeanstalkConfigurationTemplateSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Application string `json:"application" tf:"application"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`

@@ -44,6 +44,8 @@ type ApiGatewayBasePathMappingSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	ApiID string `json:"apiID" tf:"api_id"`
 	// +optional
 	BasePath   string `json:"basePath,omitempty" tf:"base_path,omitempty"`

@@ -44,6 +44,8 @@ type ProjectServiceSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	DisableDependentServices bool `json:"disableDependentServices,omitempty" tf:"disable_dependent_services,omitempty"`
 	// +optional

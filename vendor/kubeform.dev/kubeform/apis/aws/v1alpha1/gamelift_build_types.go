@@ -50,6 +50,8 @@ type GameliftBuildSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Name            string `json:"name" tf:"name"`
 	OperatingSystem string `json:"operatingSystem" tf:"operating_system"`
 	// +kubebuilder:validation:MaxItems=1

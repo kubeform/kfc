@@ -44,6 +44,8 @@ type CloudfrontPublicKeySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	CallerReference string `json:"callerReference,omitempty" tf:"caller_reference,omitempty"`
 	// +optional

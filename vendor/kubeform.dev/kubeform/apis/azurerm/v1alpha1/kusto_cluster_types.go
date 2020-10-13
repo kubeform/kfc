@@ -49,6 +49,8 @@ type KustoClusterSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	DataIngestionURI  string `json:"dataIngestionURI,omitempty" tf:"data_ingestion_uri,omitempty"`
 	Location          string `json:"location" tf:"location"`

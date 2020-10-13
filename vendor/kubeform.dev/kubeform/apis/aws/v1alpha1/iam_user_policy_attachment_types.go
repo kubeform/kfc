@@ -44,6 +44,8 @@ type IamUserPolicyAttachmentSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	PolicyArn string `json:"policyArn" tf:"policy_arn"`
 	User      string `json:"user" tf:"user"`
 }

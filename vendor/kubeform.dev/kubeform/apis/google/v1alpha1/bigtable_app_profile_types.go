@@ -51,6 +51,8 @@ type BigtableAppProfileSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	AppProfileID string `json:"appProfileID" tf:"app_profile_id"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`

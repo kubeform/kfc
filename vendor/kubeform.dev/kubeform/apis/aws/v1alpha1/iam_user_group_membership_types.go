@@ -44,6 +44,8 @@ type IamUserGroupMembershipSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Groups []string `json:"groups" tf:"groups"`
 	User   string   `json:"user" tf:"user"`
 }

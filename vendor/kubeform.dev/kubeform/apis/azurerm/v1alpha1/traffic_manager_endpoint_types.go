@@ -57,6 +57,8 @@ type TrafficManagerEndpointSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	CustomHeader []TrafficManagerEndpointSpecCustomHeader `json:"customHeader,omitempty" tf:"custom_header,omitempty"`
 	// +optional

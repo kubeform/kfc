@@ -44,6 +44,8 @@ type ComputeBackendServiceSignedURLKeySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	SecretRef *core.LocalObjectReference `json:"secretRef,omitempty" tf:"-"`
 
 	BackendService string `json:"backendService" tf:"backend_service"`

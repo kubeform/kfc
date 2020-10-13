@@ -53,6 +53,8 @@ type FirestoreIndexSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Collection string `json:"collection" tf:"collection"`
 	// +optional
 	Database string `json:"database,omitempty" tf:"database,omitempty"`

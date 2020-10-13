@@ -44,6 +44,8 @@ type SesIdentityPolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Identity string `json:"identity" tf:"identity"`
 	Name     string `json:"name" tf:"name"`
 	Policy   string `json:"policy" tf:"policy"`

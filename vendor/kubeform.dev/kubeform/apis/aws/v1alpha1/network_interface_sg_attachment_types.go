@@ -44,6 +44,8 @@ type NetworkInterfaceSgAttachmentSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	NetworkInterfaceID string `json:"networkInterfaceID" tf:"network_interface_id"`
 	SecurityGroupID    string `json:"securityGroupID" tf:"security_group_id"`
 }

@@ -55,6 +55,8 @@ type SsmAssociationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AssociationID string `json:"associationID,omitempty" tf:"association_id,omitempty"`
 	// +optional

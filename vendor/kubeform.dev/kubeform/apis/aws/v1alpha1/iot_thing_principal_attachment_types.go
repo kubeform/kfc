@@ -44,6 +44,8 @@ type IotThingPrincipalAttachmentSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Principal string `json:"principal" tf:"principal"`
 	Thing     string `json:"thing" tf:"thing"`
 }

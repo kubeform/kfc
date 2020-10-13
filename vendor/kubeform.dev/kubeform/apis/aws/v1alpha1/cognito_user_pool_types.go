@@ -170,6 +170,8 @@ type CognitoUserPoolSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	// +kubebuilder:validation:MaxItems=1
 	AdminCreateUserConfig []CognitoUserPoolSpecAdminCreateUserConfig `json:"adminCreateUserConfig,omitempty" tf:"admin_create_user_config,omitempty"`

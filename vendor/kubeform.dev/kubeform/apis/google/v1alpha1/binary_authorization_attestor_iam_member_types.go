@@ -44,6 +44,8 @@ type BinaryAuthorizationAttestorIamMemberSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Attestor string `json:"attestor" tf:"attestor"`
 	// +optional
 	Etag   string `json:"etag,omitempty" tf:"etag,omitempty"`

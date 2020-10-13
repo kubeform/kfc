@@ -49,6 +49,8 @@ type AutomationAccountSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	DscPrimaryAccessKey string `json:"dscPrimaryAccessKey,omitempty" tf:"dsc_primary_access_key,omitempty"`
 	// +optional

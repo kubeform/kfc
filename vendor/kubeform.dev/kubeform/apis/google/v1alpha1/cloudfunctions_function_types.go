@@ -62,6 +62,8 @@ type CloudfunctionsFunctionSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AvailableMemoryMb int64 `json:"availableMemoryMb,omitempty" tf:"available_memory_mb,omitempty"`
 	// +optional

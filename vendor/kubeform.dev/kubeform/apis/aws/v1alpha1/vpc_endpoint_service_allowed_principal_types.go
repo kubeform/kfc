@@ -44,6 +44,8 @@ type VpcEndpointServiceAllowedPrincipalSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	PrincipalArn         string `json:"principalArn" tf:"principal_arn"`
 	VpcEndpointServiceID string `json:"vpcEndpointServiceID" tf:"vpc_endpoint_service_id"`
 }

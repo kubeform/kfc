@@ -100,6 +100,8 @@ type SesReceiptRuleSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AddHeaderAction []SesReceiptRuleSpecAddHeaderAction `json:"addHeaderAction,omitempty" tf:"add_header_action,omitempty"`
 	// +optional

@@ -44,6 +44,8 @@ type CognitoUserPoolClientSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	// +kubebuilder:validation:MaxItems=3
 	AllowedOauthFlows []string `json:"allowedOauthFlows,omitempty" tf:"allowed_oauth_flows,omitempty"`

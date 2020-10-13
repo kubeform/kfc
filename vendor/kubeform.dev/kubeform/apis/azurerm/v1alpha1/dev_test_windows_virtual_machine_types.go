@@ -58,6 +58,8 @@ type DevTestWindowsVirtualMachineSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AllowClaim bool `json:"allowClaim,omitempty" tf:"allow_claim,omitempty"`
 	// +optional

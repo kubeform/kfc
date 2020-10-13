@@ -44,6 +44,8 @@ type ComputeProjectDefaultNetworkTierSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	NetworkTier string `json:"networkTier" tf:"network_tier"`
 	// +optional
 	Project string `json:"project,omitempty" tf:"project,omitempty"`

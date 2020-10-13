@@ -44,6 +44,8 @@ type LbListenerCertificateSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	CertificateArn string `json:"certificateArn" tf:"certificate_arn"`
 	ListenerArn    string `json:"listenerArn" tf:"listener_arn"`
 }

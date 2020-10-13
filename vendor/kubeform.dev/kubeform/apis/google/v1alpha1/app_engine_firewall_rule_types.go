@@ -44,6 +44,8 @@ type AppEngineFirewallRuleSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Action string `json:"action" tf:"action"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`

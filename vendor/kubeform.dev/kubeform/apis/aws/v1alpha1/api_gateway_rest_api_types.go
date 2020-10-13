@@ -50,6 +50,8 @@ type ApiGatewayRestAPISpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ApiKeySource string `json:"apiKeySource,omitempty" tf:"api_key_source,omitempty"`
 	// +optional

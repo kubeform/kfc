@@ -44,6 +44,8 @@ type ComputeNetworkPeeringSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	// Deprecated
 	AutoCreateRoutes bool   `json:"autoCreateRoutes,omitempty" tf:"auto_create_routes,omitempty"`

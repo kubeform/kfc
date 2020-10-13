@@ -44,6 +44,8 @@ type GlacierVaultLockSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	CompleteLock bool `json:"completeLock" tf:"complete_lock"`
 	// +optional
 	IgnoreDeletionError bool   `json:"ignoreDeletionError,omitempty" tf:"ignore_deletion_error,omitempty"`

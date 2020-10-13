@@ -51,6 +51,8 @@ type LocalNetworkGatewaySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	AddressSpace []string `json:"addressSpace" tf:"address_space"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1

@@ -44,6 +44,8 @@ type AutoscalingNotificationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	GroupNames    []string `json:"groupNames" tf:"group_names"`
 	Notifications []string `json:"notifications" tf:"notifications"`
 	TopicArn      string   `json:"topicArn" tf:"topic_arn"`

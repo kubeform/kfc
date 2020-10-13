@@ -44,6 +44,8 @@ type BackupContainerStorageAccountSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	RecoveryVaultName string `json:"recoveryVaultName" tf:"recovery_vault_name"`
 	ResourceGroupName string `json:"resourceGroupName" tf:"resource_group_name"`
 	StorageAccountID  string `json:"storageAccountID" tf:"storage_account_id"`

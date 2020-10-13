@@ -44,6 +44,8 @@ type CognitoIdentityProviderSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AttributeMapping map[string]string `json:"attributeMapping,omitempty" tf:"attribute_mapping,omitempty"`
 	// +optional

@@ -13678,6 +13678,11 @@ func schema_kubeform_apis_linode_v1alpha1_DomainRecordSpec(ref common.ReferenceC
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"domainID": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The ID of the Domain to access.",
@@ -13760,7 +13765,7 @@ func schema_kubeform_apis_linode_v1alpha1_DomainRecordSpec(ref common.ReferenceC
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -13816,6 +13821,11 @@ func schema_kubeform_apis_linode_v1alpha1_DomainSpec(ref common.ReferenceCallbac
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
 						},
 					},
 					"axfrIPS": {
@@ -13935,7 +13945,7 @@ func schema_kubeform_apis_linode_v1alpha1_DomainSpec(ref common.ReferenceCallbac
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -14083,6 +14093,11 @@ func schema_kubeform_apis_linode_v1alpha1_FirewallSpec(ref common.ReferenceCallb
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"devices": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The devices associated with this firewall.",
@@ -14176,7 +14191,7 @@ func schema_kubeform_apis_linode_v1alpha1_FirewallSpec(ref common.ReferenceCallb
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/linode/v1alpha1.FirewallSpecDevices", "kubeform.dev/kubeform/apis/linode/v1alpha1.FirewallSpecInbound", "kubeform.dev/kubeform/apis/linode/v1alpha1.FirewallSpecOutbound"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/linode/v1alpha1.FirewallSpecDevices", "kubeform.dev/kubeform/apis/linode/v1alpha1.FirewallSpecInbound", "kubeform.dev/kubeform/apis/linode/v1alpha1.FirewallSpecOutbound"},
 	}
 }
 
@@ -14467,6 +14482,11 @@ func schema_kubeform_apis_linode_v1alpha1_ImageSpec(ref common.ReferenceCallback
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"created": {
 						SchemaProps: spec.SchemaProps{
 							Description: "When this Image was created.",
@@ -14556,7 +14576,7 @@ func schema_kubeform_apis_linode_v1alpha1_ImageSpec(ref common.ReferenceCallback
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -14702,6 +14722,11 @@ func schema_kubeform_apis_linode_v1alpha1_InstanceSpec(ref common.ReferenceCallb
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
 						},
 					},
 					"secretRef": {
@@ -14944,7 +14969,7 @@ func schema_kubeform_apis_linode_v1alpha1_InstanceSpec(ref common.ReferenceCallb
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/linode/v1alpha1.InstanceSpecAlerts", "kubeform.dev/kubeform/apis/linode/v1alpha1.InstanceSpecBackups", "kubeform.dev/kubeform/apis/linode/v1alpha1.InstanceSpecConfig", "kubeform.dev/kubeform/apis/linode/v1alpha1.InstanceSpecDisk", "kubeform.dev/kubeform/apis/linode/v1alpha1.InstanceSpecSpecs"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/linode/v1alpha1.InstanceSpecAlerts", "kubeform.dev/kubeform/apis/linode/v1alpha1.InstanceSpecBackups", "kubeform.dev/kubeform/apis/linode/v1alpha1.InstanceSpecConfig", "kubeform.dev/kubeform/apis/linode/v1alpha1.InstanceSpecDisk", "kubeform.dev/kubeform/apis/linode/v1alpha1.InstanceSpecSpecs"},
 	}
 }
 
@@ -15839,6 +15864,11 @@ func schema_kubeform_apis_linode_v1alpha1_LkeClusterSpec(ref common.ReferenceCal
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -15918,7 +15948,7 @@ func schema_kubeform_apis_linode_v1alpha1_LkeClusterSpec(ref common.ReferenceCal
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/linode/v1alpha1.LkeClusterSpecPool"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/linode/v1alpha1.LkeClusterSpecPool"},
 	}
 }
 
@@ -16191,6 +16221,11 @@ func schema_kubeform_apis_linode_v1alpha1_NodebalancerConfigSpec(ref common.Refe
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -16326,7 +16361,7 @@ func schema_kubeform_apis_linode_v1alpha1_NodebalancerConfigSpec(ref common.Refe
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/linode/v1alpha1.NodebalancerConfigSpecNodeStatus"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/linode/v1alpha1.NodebalancerConfigSpecNodeStatus"},
 	}
 }
 
@@ -16547,6 +16582,11 @@ func schema_kubeform_apis_linode_v1alpha1_NodebalancerNodeSpec(ref common.Refere
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"address": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The private IP Address and port (IP:PORT) where this backend can be reached. This must be a private IP address.",
@@ -16601,7 +16641,7 @@ func schema_kubeform_apis_linode_v1alpha1_NodebalancerNodeSpec(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -16657,6 +16697,11 @@ func schema_kubeform_apis_linode_v1alpha1_NodebalancerSpec(ref common.ReferenceC
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
 						},
 					},
 					"clientConnThrottle": {
@@ -16745,7 +16790,7 @@ func schema_kubeform_apis_linode_v1alpha1_NodebalancerSpec(ref common.ReferenceC
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/linode/v1alpha1.NodebalancerSpecTransfer"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/linode/v1alpha1.NodebalancerSpecTransfer"},
 	}
 }
 
@@ -16926,6 +16971,11 @@ func schema_kubeform_apis_linode_v1alpha1_ObjectStorageBucketSpec(ref common.Ref
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"cluster": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The cluster of the Linode Object Storage Bucket.",
@@ -16945,7 +16995,7 @@ func schema_kubeform_apis_linode_v1alpha1_ObjectStorageBucketSpec(ref common.Ref
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -17093,6 +17143,11 @@ func schema_kubeform_apis_linode_v1alpha1_ObjectStorageKeySpec(ref common.Refere
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -17117,7 +17172,7 @@ func schema_kubeform_apis_linode_v1alpha1_ObjectStorageKeySpec(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -17265,6 +17320,11 @@ func schema_kubeform_apis_linode_v1alpha1_RdnsSpec(ref common.ReferenceCallback)
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"address": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The public Linode IPv4 or IPv6 address to operate on.",
@@ -17284,7 +17344,7 @@ func schema_kubeform_apis_linode_v1alpha1_RdnsSpec(ref common.ReferenceCallback)
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -17432,6 +17492,11 @@ func schema_kubeform_apis_linode_v1alpha1_SshkeySpec(ref common.ReferenceCallbac
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"created": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The date this key was added.",
@@ -17458,7 +17523,7 @@ func schema_kubeform_apis_linode_v1alpha1_SshkeySpec(ref common.ReferenceCallbac
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -17606,6 +17671,11 @@ func schema_kubeform_apis_linode_v1alpha1_StackscriptSpec(ref common.ReferenceCa
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"created": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The date this StackScript was created.",
@@ -17715,7 +17785,7 @@ func schema_kubeform_apis_linode_v1alpha1_StackscriptSpec(ref common.ReferenceCa
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/linode/v1alpha1.StackscriptSpecUserDefinedFields"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend", "kubeform.dev/kubeform/apis/linode/v1alpha1.StackscriptSpecUserDefinedFields"},
 	}
 }
 
@@ -17911,6 +17981,11 @@ func schema_kubeform_apis_linode_v1alpha1_TokenSpec(ref common.ReferenceCallback
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"secretRef": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("k8s.io/api/core/v1.LocalObjectReference"),
@@ -17949,7 +18024,7 @@ func schema_kubeform_apis_linode_v1alpha1_TokenSpec(ref common.ReferenceCallback
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 
@@ -18097,6 +18172,11 @@ func schema_kubeform_apis_linode_v1alpha1_VolumeSpec(ref common.ReferenceCallbac
 							Format: "",
 						},
 					},
+					"remoteBackend": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubeform.dev/kubeform/apis/base/v1alpha1.Backend"),
+						},
+					},
 					"filesystemPath": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The full filesystem path for the Volume based on the Volume's label. Path is /dev/disk/by-id/scsi-0Linode_Volume_ + Volume label.",
@@ -18158,7 +18238,7 @@ func schema_kubeform_apis_linode_v1alpha1_VolumeSpec(ref common.ReferenceCallbac
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "kubeform.dev/kubeform/apis/base/v1alpha1.Backend"},
 	}
 }
 

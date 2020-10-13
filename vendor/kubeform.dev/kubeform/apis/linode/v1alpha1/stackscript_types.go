@@ -59,6 +59,8 @@ type StackscriptSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// The date this StackScript was created.
 	// +optional
 	Created string `json:"created,omitempty" tf:"created,omitempty"`

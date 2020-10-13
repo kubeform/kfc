@@ -44,6 +44,8 @@ type SesDomainDkimSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	DkimTokens []string `json:"dkimTokens,omitempty" tf:"dkim_tokens,omitempty"`
 	Domain     string   `json:"domain" tf:"domain"`

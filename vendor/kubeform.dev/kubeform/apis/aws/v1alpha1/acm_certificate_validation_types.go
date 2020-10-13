@@ -44,6 +44,8 @@ type AcmCertificateValidationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	CertificateArn string `json:"certificateArn" tf:"certificate_arn"`
 	// +optional
 	ValidationRecordFqdns []string `json:"validationRecordFqdns,omitempty" tf:"validation_record_fqdns,omitempty"`

@@ -44,6 +44,8 @@ type DmsReplicationSubnetGroupSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ReplicationSubnetGroupArn         string   `json:"replicationSubnetGroupArn,omitempty" tf:"replication_subnet_group_arn,omitempty"`
 	ReplicationSubnetGroupDescription string   `json:"replicationSubnetGroupDescription" tf:"replication_subnet_group_description"`

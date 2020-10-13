@@ -44,6 +44,8 @@ type SesActiveReceiptRuleSetSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	RuleSetName string `json:"ruleSetName" tf:"rule_set_name"`
 }
 

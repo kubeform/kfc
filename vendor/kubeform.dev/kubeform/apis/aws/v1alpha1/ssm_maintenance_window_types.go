@@ -44,6 +44,8 @@ type SsmMaintenanceWindowSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AllowUnassociatedTargets bool  `json:"allowUnassociatedTargets,omitempty" tf:"allow_unassociated_targets,omitempty"`
 	Cutoff                   int64 `json:"cutoff" tf:"cutoff"`

@@ -56,6 +56,8 @@ type FirewallNATRuleCollectionSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Action            string `json:"action" tf:"action"`
 	AzureFirewallName string `json:"azureFirewallName" tf:"azure_firewall_name"`
 	Name              string `json:"name" tf:"name"`

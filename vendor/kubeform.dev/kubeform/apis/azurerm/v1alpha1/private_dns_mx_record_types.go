@@ -49,6 +49,8 @@ type PrivateDNSMxRecordSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Name              string                         `json:"name,omitempty" tf:"name,omitempty"`
 	Record            []PrivateDNSMxRecordSpecRecord `json:"record" tf:"record"`

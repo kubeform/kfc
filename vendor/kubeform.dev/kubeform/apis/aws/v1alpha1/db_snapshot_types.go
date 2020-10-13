@@ -44,6 +44,8 @@ type DbSnapshotSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AllocatedStorage int64 `json:"allocatedStorage,omitempty" tf:"allocated_storage,omitempty"`
 	// +optional

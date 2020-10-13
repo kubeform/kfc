@@ -44,6 +44,8 @@ type AutomationVariableBoolSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	AutomationAccountName string `json:"automationAccountName" tf:"automation_account_name"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`

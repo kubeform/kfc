@@ -44,6 +44,8 @@ type LoggingFolderSinkSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Destination string `json:"destination" tf:"destination"`
 	// +optional
 	Filter string `json:"filter,omitempty" tf:"filter,omitempty"`

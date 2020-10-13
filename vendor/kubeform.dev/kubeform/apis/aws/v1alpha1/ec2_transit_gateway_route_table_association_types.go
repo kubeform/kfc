@@ -44,6 +44,8 @@ type Ec2TransitGatewayRouteTableAssociationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ResourceID string `json:"resourceID,omitempty" tf:"resource_id,omitempty"`
 	// +optional

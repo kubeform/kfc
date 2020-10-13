@@ -74,6 +74,8 @@ type GlueSecurityConfigurationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +kubebuilder:validation:MaxItems=1
 	EncryptionConfiguration []GlueSecurityConfigurationSpecEncryptionConfiguration `json:"encryptionConfiguration" tf:"encryption_configuration"`
 	Name                    string                                                 `json:"name" tf:"name"`

@@ -44,6 +44,8 @@ type FloatingIPSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	DropletID int64 `json:"dropletID,omitempty" tf:"droplet_id,omitempty"`
 	// +optional

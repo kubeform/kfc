@@ -44,6 +44,8 @@ type NetworkInterfaceAttachmentSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AttachmentID       string `json:"attachmentID,omitempty" tf:"attachment_id,omitempty"`
 	DeviceIndex        int64  `json:"deviceIndex" tf:"device_index"`

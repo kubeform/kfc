@@ -44,6 +44,8 @@ type NodebalancerNodeSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// The private IP Address and port (IP:PORT) where this backend can be reached. This must be a private IP address.
 	Address string `json:"address" tf:"address"`
 	// The ID of the NodeBalancerConfig to access.

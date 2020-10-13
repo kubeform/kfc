@@ -67,6 +67,8 @@ type ApiGatewayMethodSettingsSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	MethodPath string `json:"methodPath" tf:"method_path"`
 	RestAPIID  string `json:"restAPIID" tf:"rest_api_id"`
 	// +kubebuilder:validation:MaxItems=1

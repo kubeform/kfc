@@ -54,6 +54,8 @@ type PointToSiteVPNGatewaySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +kubebuilder:validation:MaxItems=1
 	ConnectionConfiguration []PointToSiteVPNGatewaySpecConnectionConfiguration `json:"connectionConfiguration" tf:"connection_configuration"`
 	Location                string                                             `json:"location" tf:"location"`

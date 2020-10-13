@@ -44,6 +44,8 @@ type KustoDatabaseSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	ClusterName string `json:"clusterName" tf:"cluster_name"`
 	// +optional
 	HotCachePeriod    string `json:"hotCachePeriod,omitempty" tf:"hot_cache_period,omitempty"`

@@ -44,6 +44,8 @@ type SesDomainMailFromSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	BehaviorOnMxFailure string `json:"behaviorOnMxFailure,omitempty" tf:"behavior_on_mx_failure,omitempty"`
 	Domain              string `json:"domain" tf:"domain"`

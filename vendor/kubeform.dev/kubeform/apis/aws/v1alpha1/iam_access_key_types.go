@@ -44,6 +44,8 @@ type IamAccessKeySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	EncryptedSecret string `json:"encryptedSecret,omitempty" tf:"encrypted_secret,omitempty"`
 	// +optional

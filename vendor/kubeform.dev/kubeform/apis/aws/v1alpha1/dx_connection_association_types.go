@@ -44,6 +44,8 @@ type DxConnectionAssociationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	ConnectionID string `json:"connectionID" tf:"connection_id"`
 	LagID        string `json:"lagID" tf:"lag_id"`
 }

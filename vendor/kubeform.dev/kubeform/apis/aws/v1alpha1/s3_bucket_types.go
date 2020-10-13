@@ -228,6 +228,8 @@ type S3BucketSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AccelerationStatus string `json:"accelerationStatus,omitempty" tf:"acceleration_status,omitempty"`
 	// +optional

@@ -44,6 +44,8 @@ type SfnActivitySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	CreationDate string `json:"creationDate,omitempty" tf:"creation_date,omitempty"`
 	Name         string `json:"name" tf:"name"`

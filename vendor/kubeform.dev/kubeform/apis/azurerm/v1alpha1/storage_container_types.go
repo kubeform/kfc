@@ -44,6 +44,8 @@ type StorageContainerSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ContainerAccessType string `json:"containerAccessType,omitempty" tf:"container_access_type,omitempty"`
 	// +optional

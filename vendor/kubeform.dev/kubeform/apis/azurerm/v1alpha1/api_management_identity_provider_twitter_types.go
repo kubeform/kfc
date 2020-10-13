@@ -44,6 +44,8 @@ type ApiManagementIdentityProviderTwitterSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	SecretRef *core.LocalObjectReference `json:"secretRef,omitempty" tf:"-"`
 
 	ApiKey            string `json:"apiKey" tf:"api_key"`

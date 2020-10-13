@@ -44,6 +44,8 @@ type GuarddutyInviteAccepterSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	DetectorID      string `json:"detectorID" tf:"detector_id"`
 	MasterAccountID string `json:"masterAccountID" tf:"master_account_id"`
 }

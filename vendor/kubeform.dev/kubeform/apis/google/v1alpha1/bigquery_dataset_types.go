@@ -70,6 +70,8 @@ type BigqueryDatasetSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Access []BigqueryDatasetSpecAccess `json:"access,omitempty" tf:"access,omitempty"`
 	// +optional

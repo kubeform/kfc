@@ -52,6 +52,8 @@ type CloudwatchLogMetricFilterSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	LogGroupName string `json:"logGroupName" tf:"log_group_name"`
 	// +kubebuilder:validation:MaxItems=1
 	MetricTransformation []CloudwatchLogMetricFilterSpecMetricTransformation `json:"metricTransformation" tf:"metric_transformation"`

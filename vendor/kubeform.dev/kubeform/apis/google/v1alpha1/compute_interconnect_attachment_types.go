@@ -49,6 +49,8 @@ type ComputeInterconnectAttachmentSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AdminEnabled bool `json:"adminEnabled,omitempty" tf:"admin_enabled,omitempty"`
 	// +optional

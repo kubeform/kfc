@@ -50,6 +50,8 @@ type LbOutboundRuleSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AllocatedOutboundPorts int64  `json:"allocatedOutboundPorts,omitempty" tf:"allocated_outbound_ports,omitempty"`
 	BackendAddressPoolID   string `json:"backendAddressPoolID" tf:"backend_address_pool_id"`

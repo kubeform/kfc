@@ -44,6 +44,8 @@ type ApiManagementPropertySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	ApiManagementName string `json:"apiManagementName" tf:"api_management_name"`
 	DisplayName       string `json:"displayName" tf:"display_name"`
 	Name              string `json:"name" tf:"name"`

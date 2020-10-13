@@ -51,6 +51,8 @@ type S3BucketMetricSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Bucket string `json:"bucket" tf:"bucket"`
 	// +optional
 	// +kubebuilder:validation:MaxItems=1

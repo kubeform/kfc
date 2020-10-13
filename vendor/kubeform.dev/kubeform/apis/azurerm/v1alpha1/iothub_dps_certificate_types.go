@@ -44,6 +44,8 @@ type IothubDpsCertificateSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	SecretRef *core.LocalObjectReference `json:"secretRef,omitempty" tf:"-"`
 
 	CertificateContent string `json:"-" sensitive:"true" tf:"certificate_content"`

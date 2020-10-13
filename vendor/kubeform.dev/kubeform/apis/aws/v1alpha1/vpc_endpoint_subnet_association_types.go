@@ -44,6 +44,8 @@ type VpcEndpointSubnetAssociationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	SubnetID      string `json:"subnetID" tf:"subnet_id"`
 	VpcEndpointID string `json:"vpcEndpointID" tf:"vpc_endpoint_id"`
 }

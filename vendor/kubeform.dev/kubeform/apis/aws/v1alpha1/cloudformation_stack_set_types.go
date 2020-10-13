@@ -44,6 +44,8 @@ type CloudformationStackSetSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	AdministrationRoleArn string `json:"administrationRoleArn" tf:"administration_role_arn"`
 	// +optional
 	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`

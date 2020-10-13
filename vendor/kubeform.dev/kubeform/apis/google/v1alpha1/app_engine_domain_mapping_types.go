@@ -62,6 +62,8 @@ type AppEngineDomainMappingSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	DomainName string `json:"domainName" tf:"domain_name"`
 	// +optional
 	Name string `json:"name,omitempty" tf:"name,omitempty"`

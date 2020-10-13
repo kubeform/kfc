@@ -44,6 +44,8 @@ type ApiGatewayIntegrationResponseSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	ContentHandling string `json:"contentHandling,omitempty" tf:"content_handling,omitempty"`
 	HttpMethod      string `json:"httpMethod" tf:"http_method"`

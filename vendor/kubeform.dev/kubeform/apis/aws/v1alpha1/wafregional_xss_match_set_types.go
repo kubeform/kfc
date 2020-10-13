@@ -56,6 +56,8 @@ type WafregionalXssMatchSetSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Name string `json:"name" tf:"name"`
 	// +optional
 	XssMatchTuple []WafregionalXssMatchSetSpecXssMatchTuple `json:"xssMatchTuple,omitempty" tf:"xss_match_tuple,omitempty"`

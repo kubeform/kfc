@@ -44,6 +44,8 @@ type DirectoryServiceConditionalForwarderSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	DirectoryID string `json:"directoryID" tf:"directory_id"`
 	// +kubebuilder:validation:MinItems=1
 	DnsIPS           []string `json:"dnsIPS" tf:"dns_ips"`

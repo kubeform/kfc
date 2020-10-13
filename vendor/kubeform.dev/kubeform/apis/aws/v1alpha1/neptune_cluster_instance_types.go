@@ -44,6 +44,8 @@ type NeptuneClusterInstanceSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Address string `json:"address,omitempty" tf:"address,omitempty"`
 	// +optional

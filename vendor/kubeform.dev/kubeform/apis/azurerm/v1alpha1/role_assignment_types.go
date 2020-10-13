@@ -44,6 +44,8 @@ type RoleAssignmentSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Name        string `json:"name,omitempty" tf:"name,omitempty"`
 	PrincipalID string `json:"principalID" tf:"principal_id"`

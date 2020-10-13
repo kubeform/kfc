@@ -44,6 +44,8 @@ type AdvancedThreatProtectionSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Enabled          bool   `json:"enabled" tf:"enabled"`
 	TargetResourceID string `json:"targetResourceID" tf:"target_resource_id"`
 }

@@ -44,6 +44,8 @@ type NetappSnapshotSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	AccountName       string `json:"accountName" tf:"account_name"`
 	Location          string `json:"location" tf:"location"`
 	Name              string `json:"name" tf:"name"`

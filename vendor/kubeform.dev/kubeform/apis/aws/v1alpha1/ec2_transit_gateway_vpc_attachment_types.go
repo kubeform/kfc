@@ -44,6 +44,8 @@ type Ec2TransitGatewayVpcAttachmentSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	DnsSupport string `json:"dnsSupport,omitempty" tf:"dns_support,omitempty"`
 	// +optional

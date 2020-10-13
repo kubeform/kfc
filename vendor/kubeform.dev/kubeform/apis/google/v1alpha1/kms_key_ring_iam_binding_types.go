@@ -44,6 +44,8 @@ type KmsKeyRingIamBindingSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Etag      string   `json:"etag,omitempty" tf:"etag,omitempty"`
 	KeyRingID string   `json:"keyRingID" tf:"key_ring_id"`

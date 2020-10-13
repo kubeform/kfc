@@ -44,6 +44,8 @@ type BillingAccountIamBindingSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	BillingAccountID string `json:"billingAccountID" tf:"billing_account_id"`
 	// +optional
 	Etag    string   `json:"etag,omitempty" tf:"etag,omitempty"`

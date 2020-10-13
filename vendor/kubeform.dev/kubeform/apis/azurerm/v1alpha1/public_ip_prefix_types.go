@@ -44,6 +44,8 @@ type PublicIPPrefixSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	IpPrefix string `json:"ipPrefix,omitempty" tf:"ip_prefix,omitempty"`
 	Location string `json:"location" tf:"location"`

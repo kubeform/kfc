@@ -44,6 +44,8 @@ type WafRegexPatternSetSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Name string `json:"name" tf:"name"`
 	// +optional
 	RegexPatternStrings []string `json:"regexPatternStrings,omitempty" tf:"regex_pattern_strings,omitempty"`

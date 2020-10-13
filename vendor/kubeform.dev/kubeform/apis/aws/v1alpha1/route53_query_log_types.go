@@ -44,6 +44,8 @@ type Route53QueryLogSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	CloudwatchLogGroupArn string `json:"cloudwatchLogGroupArn" tf:"cloudwatch_log_group_arn"`
 	ZoneID                string `json:"zoneID" tf:"zone_id"`
 }

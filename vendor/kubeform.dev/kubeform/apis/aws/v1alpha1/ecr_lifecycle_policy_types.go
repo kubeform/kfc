@@ -44,6 +44,8 @@ type EcrLifecyclePolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Policy string `json:"policy" tf:"policy"`
 	// +optional
 	RegistryID string `json:"registryID,omitempty" tf:"registry_id,omitempty"`

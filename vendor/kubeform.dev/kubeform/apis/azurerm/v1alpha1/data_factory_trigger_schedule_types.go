@@ -44,6 +44,8 @@ type DataFactoryTriggerScheduleSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Annotations     []string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 	DataFactoryName string   `json:"dataFactoryName" tf:"data_factory_name"`

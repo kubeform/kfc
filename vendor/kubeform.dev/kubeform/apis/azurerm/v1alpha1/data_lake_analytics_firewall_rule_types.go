@@ -44,6 +44,8 @@ type DataLakeAnalyticsFirewallRuleSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	AccountName       string `json:"accountName" tf:"account_name"`
 	EndIPAddress      string `json:"endIPAddress" tf:"end_ip_address"`
 	Name              string `json:"name" tf:"name"`

@@ -44,6 +44,8 @@ type IamUserSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Arn string `json:"arn,omitempty" tf:"arn,omitempty"`
 	// Delete user even if it has non-Terraform-managed IAM access keys, login profile or MFA devices

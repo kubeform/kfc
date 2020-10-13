@@ -44,6 +44,8 @@ type OrganizationsPolicyAttachmentSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	PolicyID string `json:"policyID" tf:"policy_id"`
 	TargetID string `json:"targetID" tf:"target_id"`
 }

@@ -44,6 +44,8 @@ type Route53DelegationSetSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	NameServers []string `json:"nameServers,omitempty" tf:"name_servers,omitempty"`
 	// +optional

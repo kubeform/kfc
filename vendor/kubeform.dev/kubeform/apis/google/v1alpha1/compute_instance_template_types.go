@@ -144,6 +144,8 @@ type ComputeInstanceTemplateSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	CanIPForward bool `json:"canIPForward,omitempty" tf:"can_ip_forward,omitempty"`
 	// +optional

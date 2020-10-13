@@ -57,6 +57,8 @@ type MetricAlertruleSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Aggregation string `json:"aggregation" tf:"aggregation"`
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`

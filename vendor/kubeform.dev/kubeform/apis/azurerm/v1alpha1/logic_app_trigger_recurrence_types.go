@@ -44,6 +44,8 @@ type LogicAppTriggerRecurrenceSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Frequency  string `json:"frequency" tf:"frequency"`
 	Interval   int64  `json:"interval" tf:"interval"`
 	LogicAppID string `json:"logicAppID" tf:"logic_app_id"`

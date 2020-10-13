@@ -44,6 +44,8 @@ type ManagementLockSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	LockLevel string `json:"lockLevel" tf:"lock_level"`
 	Name      string `json:"name" tf:"name"`
 	// +optional

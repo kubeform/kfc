@@ -63,6 +63,8 @@ type AppServicePlanSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AppServiceEnvironmentID string `json:"appServiceEnvironmentID,omitempty" tf:"app_service_environment_id,omitempty"`
 	// +optional

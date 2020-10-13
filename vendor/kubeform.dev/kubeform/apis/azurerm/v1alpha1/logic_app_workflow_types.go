@@ -44,6 +44,8 @@ type LogicAppWorkflowSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AccessEndpoint string `json:"accessEndpoint,omitempty" tf:"access_endpoint,omitempty"`
 	Location       string `json:"location" tf:"location"`

@@ -55,6 +55,8 @@ type PubsubSubscriptionSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	AckDeadlineSeconds int64 `json:"ackDeadlineSeconds,omitempty" tf:"ack_deadline_seconds,omitempty"`
 	// +optional

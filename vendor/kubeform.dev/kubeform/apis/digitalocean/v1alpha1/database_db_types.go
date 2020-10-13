@@ -44,6 +44,8 @@ type DatabaseDbSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	ClusterID string `json:"clusterID" tf:"cluster_id"`
 	Name      string `json:"name" tf:"name"`
 }

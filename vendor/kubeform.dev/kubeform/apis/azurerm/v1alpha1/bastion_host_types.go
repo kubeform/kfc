@@ -50,6 +50,8 @@ type BastionHostSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	DnsName string `json:"dnsName,omitempty" tf:"dns_name,omitempty"`
 	// +optional

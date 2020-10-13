@@ -44,6 +44,8 @@ type ApiGatewayDocumentationVersionSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Description string `json:"description,omitempty" tf:"description,omitempty"`
 	RestAPIID   string `json:"restAPIID" tf:"rest_api_id"`

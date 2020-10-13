@@ -44,6 +44,8 @@ type CdnSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// ID of a DigitalOcean managed TLS certificate for use with custom domains
 	// +optional
 	CertificateID string `json:"certificateID,omitempty" tf:"certificate_id,omitempty"`

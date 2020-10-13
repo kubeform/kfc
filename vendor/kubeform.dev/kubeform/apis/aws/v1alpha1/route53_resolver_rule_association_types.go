@@ -44,6 +44,8 @@ type Route53ResolverRuleAssociationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Name           string `json:"name,omitempty" tf:"name,omitempty"`
 	ResolverRuleID string `json:"resolverRuleID" tf:"resolver_rule_id"`

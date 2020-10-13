@@ -44,6 +44,8 @@ type FolderIamMemberSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Etag   string `json:"etag,omitempty" tf:"etag,omitempty"`
 	Folder string `json:"folder" tf:"folder"`

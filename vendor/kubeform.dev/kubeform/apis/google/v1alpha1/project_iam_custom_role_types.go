@@ -44,6 +44,8 @@ type ProjectIamCustomRoleSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Deleted bool `json:"deleted,omitempty" tf:"deleted,omitempty"`
 	// +optional

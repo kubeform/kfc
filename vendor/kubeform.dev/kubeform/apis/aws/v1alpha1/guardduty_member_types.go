@@ -44,6 +44,8 @@ type GuarddutyMemberSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	AccountID  string `json:"accountID" tf:"account_id"`
 	DetectorID string `json:"detectorID" tf:"detector_id"`
 	// +optional

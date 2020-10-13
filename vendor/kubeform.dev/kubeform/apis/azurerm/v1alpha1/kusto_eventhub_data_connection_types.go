@@ -44,6 +44,8 @@ type KustoEventhubDataConnectionSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	ClusterName   string `json:"clusterName" tf:"cluster_name"`
 	ConsumerGroup string `json:"consumerGroup" tf:"consumer_group"`
 	// +optional

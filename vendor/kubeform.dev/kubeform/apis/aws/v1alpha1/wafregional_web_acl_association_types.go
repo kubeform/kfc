@@ -44,6 +44,8 @@ type WafregionalWebACLAssociationSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	ResourceArn string `json:"resourceArn" tf:"resource_arn"`
 	WebACLID    string `json:"webACLID" tf:"web_acl_id"`
 }

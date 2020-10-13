@@ -44,6 +44,8 @@ type LbCookieStickinessPolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	CookieExpirationPeriod int64  `json:"cookieExpirationPeriod,omitempty" tf:"cookie_expiration_period,omitempty"`
 	LbPort                 int64  `json:"lbPort" tf:"lb_port"`

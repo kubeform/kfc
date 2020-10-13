@@ -44,6 +44,8 @@ type PrivateDNSCnameRecordSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Name              string `json:"name" tf:"name"`
 	Record            string `json:"record" tf:"record"`
 	ResourceGroupName string `json:"resourceGroupName" tf:"resource_group_name"`

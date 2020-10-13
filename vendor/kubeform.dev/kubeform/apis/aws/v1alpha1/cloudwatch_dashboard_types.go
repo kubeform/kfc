@@ -44,6 +44,8 @@ type CloudwatchDashboardSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	DashboardArn  string `json:"dashboardArn,omitempty" tf:"dashboard_arn,omitempty"`
 	DashboardBody string `json:"dashboardBody" tf:"dashboard_body"`

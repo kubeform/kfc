@@ -44,6 +44,8 @@ type IothubConsumerGroupSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	EventhubEndpointName string `json:"eventhubEndpointName" tf:"eventhub_endpoint_name"`
 	IothubName           string `json:"iothubName" tf:"iothub_name"`
 	Name                 string `json:"name" tf:"name"`

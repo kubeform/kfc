@@ -33,7 +33,7 @@ require (
 	k8s.io/utils v0.0.0-20200414100711-2df71ebbae66 // indirect
 	kmodules.xyz/client-go v0.0.0-20201013083546-b17c1e15f1a3
 	kmodules.xyz/constants v0.0.0-20200506032633-a21e58ceec72
-	kubeform.dev/kubeform v0.1.1-0.20200630094658-eeabd42236da
+	kubeform.dev/kubeform v0.1.1-0.20201013174216-f4cc48f4f039
 )
 
 replace github.com/linode/linodego => github.com/linode/linodego v0.19.0

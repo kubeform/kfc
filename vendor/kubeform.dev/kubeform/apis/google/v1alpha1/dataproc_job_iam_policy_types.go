@@ -44,6 +44,8 @@ type DataprocJobIamPolicySpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Etag       string `json:"etag,omitempty" tf:"etag,omitempty"`
 	JobID      string `json:"jobID" tf:"job_id"`

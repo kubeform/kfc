@@ -44,6 +44,8 @@ type FolderSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	CreateTime  string `json:"createTime,omitempty" tf:"create_time,omitempty"`
 	DisplayName string `json:"displayName" tf:"display_name"`

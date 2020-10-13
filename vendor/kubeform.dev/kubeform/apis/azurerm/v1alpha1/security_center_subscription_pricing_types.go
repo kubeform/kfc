@@ -44,6 +44,8 @@ type SecurityCenterSubscriptionPricingSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	Tier string `json:"tier" tf:"tier"`
 }
 

@@ -71,6 +71,8 @@ type Route53RecordSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	Alias []Route53RecordSpecAlias `json:"alias,omitempty" tf:"alias,omitempty"`
 	// +optional

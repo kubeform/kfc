@@ -44,6 +44,8 @@ type ComputeTargetPoolSpec struct {
 
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
+	RemoteBackend *base.Backend `json:"remoteBackend,omitempty" tf:"-"`
+
 	// +optional
 	BackupPool string `json:"backupPool,omitempty" tf:"backup_pool,omitempty"`
 	// +optional
