@@ -15,6 +15,10 @@
 
 SHELL=/bin/bash -o pipefail
 
+PRODUCT_OWNER_NAME := appscode
+PRODUCT_NAME       := kubeform-community
+ENFORCE_LICENSE    ?=
+
 GO_PKG   := kubeform.dev
 REPO     := $(notdir $(shell pwd))
 BIN      := kfc
@@ -179,6 +183,9 @@ $(OUTBIN): .go/$(OUTBIN).stamp
 	    --env HTTPS_PROXY=$(HTTPS_PROXY)                        \
 	    $(BUILD_IMAGE)                                          \
 	    /bin/bash -c "                                          \
+	        PRODUCT_OWNER_NAME=$(PRODUCT_OWNER_NAME)            \
+	        PRODUCT_NAME=$(PRODUCT_NAME)                        \
+	        ENFORCE_LICENSE=$(ENFORCE_LICENSE)                  \
 	        ARCH=$(ARCH)                                        \
 	        OS=$(OS)                                            \
 	        VERSION=$(VERSION)                                  \
@@ -334,21 +341,35 @@ lint: $(BUILD_DIRS)
 $(BUILD_DIRS):
 	@mkdir -p $@
 
+REGISTRY_SECRET 	?=
+KUBE_NAMESPACE  	?=
+LICENSE_FILE    	?=
+IMAGE_PULL_POLICY 	?= Always
+
+ifeq ($(strip $(REGISTRY_SECRET)),)
+	IMAGE_PULL_SECRETS =
+else
+	IMAGE_PULL_SECRETS = --set imagePullSecrets[0].name=$(REGISTRY_SECRET)
+endif
+
 .PHONY: install
 install:
 	@echo "register Kubeform crds"; \
-	kubectl apply -f https://github.com/kubeform/kubeform/raw/v0.1.0/api/crds/google.kubeform.com_serviceaccounts.yaml; \
-	kubectl apply -f https://github.com/kubeform/kubeform/raw/v0.1.0/api/crds/aws.kubeform.com_s3buckets.yaml; \
-	kubectl apply -f https://github.com/kubeform/kubeform/raw/v0.1.0/api/crds/digitalocean.kubeform.com_droplets.yaml; \
-	kubectl apply -f https://github.com/kubeform/kubeform/raw/v0.1.0/api/crds/linode.kubeform.com_instances.yaml; \
-	kubectl apply -f https://github.com/kubeform/kubeform/raw/v0.1.0/api/crds/azurerm.kubeform.com_resourcegroups.yaml; \
-	kubectl apply -f https://github.com/kubeform/kubeform/raw/v0.1.0/api/crds/modules.kubeform.com_googleserviceaccounts.yaml; \
-	echo "install Kubeform controller"; \
-	cd ../installer; \
-	helm install kfc ./charts/kubeform \
-		--namespace kube-system \
-		--set operator.registry=$(REGISTRY) \
-		--set operator.tag=$(TAG)
+	kubectl apply -f https://github.com/kubeform/kubeform/raw/v0.2.0/crds/google.kubeform.com_serviceaccounts.yaml; \
+	kubectl apply -f https://github.com/kubeform/kubeform/raw/v0.2.0/crds/aws.kubeform.com_s3buckets.yaml; \
+	kubectl apply -f https://github.com/kubeform/kubeform/raw/v0.2.0/crds/digitalocean.kubeform.com_droplets.yaml; \
+	kubectl apply -f https://github.com/kubeform/kubeform/raw/v0.2.0/crds/linode.kubeform.com_instances.yaml; \
+	kubectl apply -f https://github.com/kubeform/kubeform/raw/v0.2.0/crds/azurerm.kubeform.com_resourcegroups.yaml; \
+	kubectl apply -f https://github.com/kubeform/kubeform/raw/v0.2.0/crds/modules.kubeform.com_googleserviceaccounts.yaml; \
+	echo "install Kubeform controller";              \
+	cd ../installer;                                 \
+	helm install kfc ./charts/kubeform               \
+		--namespace=$(KUBE_NAMESPACE)                \
+		--set-file license=$(LICENSE_FILE)           \
+		--set operator.registry=$(REGISTRY)          \
+		--set operator.tag=$(TAG)                    \
+		--set imagePullPolicy=$(IMAGE_PULL_POLICY)   \
+		$(IMAGE_PULL_SECRETS)
 
 .PHONY: uninstall
 uninstall:

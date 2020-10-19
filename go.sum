@@ -460,6 +460,7 @@ github.com/kmodules/api v0.18.10-0.20200922195318-d60fe725dea0 h1:1Pf9Bq4ckUK551
 github.com/kmodules/api v0.18.10-0.20200922195318-d60fe725dea0/go.mod h1:9u/h6sUh6FxfErv7QqetX1EB3yBMIYOBXzdcf0Gf0rc=
 github.com/kmodules/apimachinery v0.19.0-alpha.0.0.20200922195535-0c9a1b86beec h1:sQp539eyQsIguskgE5obrCwT/IaPj98/J9IBgj/sBc4=
 github.com/kmodules/apimachinery v0.19.0-alpha.0.0.20200922195535-0c9a1b86beec/go.mod h1:PF5taHbXgTEJLU+xMypMmYTXTWPJ5LaW8bfsisxnEXk=
+github.com/kmodules/apiserver v0.18.10-0.20200922195747-1bd1cc8f00d1 h1:7EoPyLcCaVlTFNB/pJgUhAHvFuvemtn8fiLI77XMM08=
 github.com/kmodules/apiserver v0.18.10-0.20200922195747-1bd1cc8f00d1/go.mod h1:vXQzMtUCLsGg1Bh+7Jo2mZKHpHZFCZn8eTNSepcIA1M=
 github.com/kmodules/k8s-client-go v0.18.10-0.20200922201634-73fedf3d677e h1:y3n9GoRUtgt6ira3KVIr8iT6laR9y61/vuqdZKsGdUM=
 github.com/kmodules/k8s-client-go v0.18.10-0.20200922201634-73fedf3d677e/go.mod h1:UjkEetDmr40P9NX0Ok3Idt08FCf2I4mIHgjFsot77uY=
@@ -707,6 +708,10 @@ github.com/zclconf/go-cty v1.1.0/go.mod h1:xnAOWiHeOqg2nWS62VtQ7pbOu17FtxJNW8RLE
 github.com/zclconf/go-cty v1.2.0/go.mod h1:hOPWgoHbaTUnI5k4D2ld+GRpFJSCe6bCM7m1q/N4PQ8=
 github.com/zclconf/go-cty v1.2.1/go.mod h1:hOPWgoHbaTUnI5k4D2ld+GRpFJSCe6bCM7m1q/N4PQ8=
 github.com/zclconf/go-cty-yaml v1.0.1/go.mod h1:IP3Ylp0wQpYm50IHK8OZWKMu6sPJIUgKa8XhiVHura0=
+go.bytebuilders.dev/license-verifier v0.3.0 h1:OyxDrV07KfKNh0f+rtvPQYC6BedITIeTIzexW+YiUSs=
+go.bytebuilders.dev/license-verifier v0.3.0/go.mod h1:0zzm7+djZ/Ff41BNZYWH80t9mMb42T3Nx2KqQGV9N8s=
+go.bytebuilders.dev/license-verifier/kubernetes v0.3.0 h1:qj/pfjtG0uvsTasaNt2DkdH6xXcbLeoRS6HQLCi0k+k=
+go.bytebuilders.dev/license-verifier/kubernetes v0.3.0/go.mod h1:7Yy4OHy6+Mx+nox31jzTcxTNZd6KOrKdlMw1d6SyJ4I=
 go.etcd.io/bbolt v1.3.2/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.etcd.io/bbolt v1.3.3/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.etcd.io/etcd v0.0.0-20191023171146-3cf2f69b5738/go.mod h1:dnLIgRNXwCJa5e+c6mIZCrds/GIG4ncV9HhK5PX7jPg=
@@ -748,6 +753,8 @@ golang.org/x/crypto v0.0.0-20191206172530-e9b2fee46413/go.mod h1:LzIPMQfyMNhhGPh
 golang.org/x/crypto v0.0.0-20200220183623-bac4c82f6975/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=
 golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37 h1:cg5LA/zNPRzIXIWSCxQW10Rvpy94aQh3LT/ShoCpkHw=
 golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=
+golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9 h1:psW17arqaxU48Z5kZ0CQnkZWQJsqcURM6tKiBApRjXI=
+golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=
 golang.org/x/exp v0.0.0-20190121172915-509febef88a4/go.mod h1:CJ0aWSM057203Lf6IL+f9T1iT9GByDxfZKAQTCR3kQA=
 golang.org/x/exp v0.0.0-20190306152737-a1d7652674e8/go.mod h1:CJ0aWSM057203Lf6IL+f9T1iT9GByDxfZKAQTCR3kQA=
 golang.org/x/exp v0.0.0-20190912063710-ac5d2bfcbfe0/go.mod h1:86+5VVa7VpoJ4kLfm080zCjGlMRFzhUhsZKEZO7MGek=
@@ -818,6 +825,8 @@ golang.org/x/net v0.0.0-20200513185701-a91f0712d120/go.mod h1:qpuaurCH72eLCgpAm/
 golang.org/x/net v0.0.0-20200520182314-0ba52f642ac2/go.mod h1:qpuaurCH72eLCgpAm/N6yyVIVM9cpaDIP3A8BGJEC5A=
 golang.org/x/net v0.0.0-20200602114024-627f9648deb9 h1:pNX+40auqi2JqRfOP1akLGtYcn15TUbkhwuCO3foqqM=
 golang.org/x/net v0.0.0-20200602114024-627f9648deb9/go.mod h1:qpuaurCH72eLCgpAm/N6yyVIVM9cpaDIP3A8BGJEC5A=
+golang.org/x/net v0.0.0-20200625001655-4c5254603344 h1:vGXIOMxbNfDTk/aXCmfdLgkrSV+Z2tcbze+pEc3v5W4=
+golang.org/x/net v0.0.0-20200625001655-4c5254603344/go.mod h1:/O7V0waA8r7cgGh81Ro3o1hOxt32SMVPicZroKQ2sZA=
 golang.org/x/oauth2 v0.0.0-20180821212333-d2e6202438be/go.mod h1:N/0e6XlmueqKjAGxoOufVs8QHGRruUQn6yWY3a++T0U=
 golang.org/x/oauth2 v0.0.0-20190226205417-e64efc72b421/go.mod h1:gOpvHmFTYa4IltrdGE7lF6nIHvwfUNPOp7c8zoXwtLw=
 golang.org/x/oauth2 v0.0.0-20190402181905-9f3314589c9a/go.mod h1:gOpvHmFTYa4IltrdGE7lF6nIHvwfUNPOp7c8zoXwtLw=
@@ -961,6 +970,8 @@ gomodules.xyz/jsonpatch/v2 v2.1.0 h1:Phva6wqu+xR//Njw6iorylFFgn/z547tw5Ne3HZPQ+k
 gomodules.xyz/jsonpatch/v2 v2.1.0/go.mod h1:IhYNNY4jnS53ZnfE4PAmpKtDpTCj1JFXc+3mwe7XcUU=
 gomodules.xyz/password-generator v0.2.3 h1:ZU751qRdzvvKziAYyCLY6j0TIn7xJP/fjaacfC0dAo0=
 gomodules.xyz/password-generator v0.2.3/go.mod h1:TvwYYTx9+P1pPwKQKfZgB/wr2Id9MqAQ3B5auY7reNg=
+gomodules.xyz/sets v0.0.0-20200817084356-ae6e5e14ce3d h1:iikjtYw6tLPrD2dXkzDVMygYLaqzGRxQTDFZI23MXes=
+gomodules.xyz/sets v0.0.0-20200817084356-ae6e5e14ce3d/go.mod h1:jKgNp01/iDs+svOWXaPk5cKP3VXy0mWUoTF/ore+aMc=
 gomodules.xyz/version v0.1.0 h1:inGItCg/egI0jPMeIE0SQkiDIJaodOMoCrxYqasQLR0=
 gomodules.xyz/version v0.1.0/go.mod h1:Y8xuV02mL/45psyPKG3NCVOwvAOy6T5Kx0l3rCjKSjU=
 google.golang.org/api v0.14.0 h1:uMf5uLi4eQMRrMKhCplNik4U4H8Z6C1br3zOtAa/aDE=
@@ -1033,6 +1044,7 @@ k8s.io/klog v1.0.0 h1:Pt+yjF5aB1xDSVbau4VsWe+dQNzA0qv1LlXdC2dF6Q8=
 k8s.io/klog v1.0.0/go.mod h1:4Bi6QPql/J/LkTDqv7R/cd3hPo4k2DG6Ptcz060Ez5I=
 k8s.io/kube-aggregator v0.0.0-20190508191239-c5c2b08eec9f/go.mod h1:8sbzT4QQKDEmSCIbfqjV0sd97GpUT7A4W626sBiYJmU=
 k8s.io/kube-aggregator v0.18.3/go.mod h1:fux0WabUOggW2yAACL4jQGVd6kv7mSgBnJ3GgCXCris=
+k8s.io/kube-aggregator v0.18.9 h1:kqwbA15uygYfLfdMUlyBm/q3OHaYbnirFrg7tGUTVZk=
 k8s.io/kube-aggregator v0.18.9/go.mod h1:ik5Mf6JaP2M9XbWZR/AYgXx2Nj4EDBrHyakUx7C8cdw=
 k8s.io/kube-openapi v0.0.0-20200410145947-61e04a5be9a6 h1:Oh3Mzx5pJ+yIumsAD0MOECPVeXsVot0UkiaCGVyfGQY=
 k8s.io/kube-openapi v0.0.0-20200410145947-61e04a5be9a6/go.mod h1:GRQhZsXIAJ1xR0C9bd8UpWHZ5plfAS9fzPjJuQ6JL3E=
@@ -1040,6 +1052,7 @@ k8s.io/utils v0.0.0-20200324210504-a9aa75ae1b89 h1:d4vVOjXm687F1iLSP2q3lyPPuyvTU
 k8s.io/utils v0.0.0-20200324210504-a9aa75ae1b89/go.mod h1:sZAwmy6armz5eXlNoLmJcl4F1QuKu7sr+mFQ0byX7Ew=
 kmodules.xyz/client-go v0.0.0-20200630053911-20d035822d35 h1:gDzZWVvgAaEBzo4lxMGhPUWqySgFyFDkcqw3NskZiwQ=
 kmodules.xyz/client-go v0.0.0-20200630053911-20d035822d35/go.mod h1:sY/eoe4ktxZEoHpr5NpAQ5s22VSwTE8psJtKVeVgLRY=
+kmodules.xyz/client-go v0.0.0-20200818143024-600fef263e03/go.mod h1:sY/eoe4ktxZEoHpr5NpAQ5s22VSwTE8psJtKVeVgLRY=
 kmodules.xyz/client-go v0.0.0-20201013083546-b17c1e15f1a3 h1:vP8h3s+JdqXQHhhmvoTgKZOtpraF4X1NxA/y4OFTn+I=
 kmodules.xyz/client-go v0.0.0-20201013083546-b17c1e15f1a3/go.mod h1:pnRh7gtJ6ErPJQBkQeRlpD95KRtxhD4eGrYagZEU8RM=
 kmodules.xyz/constants v0.0.0-20200506032633-a21e58ceec72 h1:0sM6nE7aJon/PSdqZTj0bKJlPyzobXkG0wVYKpjcJJE=

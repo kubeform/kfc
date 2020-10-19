@@ -31,6 +31,7 @@ import (
 	"github.com/appscode/go/log"
 	v "github.com/appscode/go/version"
 	"github.com/spf13/cobra"
+	license "go.bytebuilders.dev/license-verifier/kubernetes"
 	"k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
 	informers "k8s.io/apiextensions-apiserver/pkg/client/informers/externalversions"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -46,8 +47,9 @@ import (
 )
 
 var (
-	masterURL  string
-	kubeconfig string
+	masterURL   string
+	kubeconfig  string
+	licenseFile string
 )
 
 func NewCmdRun(stopCh <-chan struct{}) *cobra.Command {
@@ -83,8 +85,11 @@ func NewCmdRun(stopCh <-chan struct{}) *cobra.Command {
 			google.Install(clientsetscheme.Scheme)
 			modules.Install(clientsetscheme.Scheme)
 
-			controller := controllers.NewController(kubeClient, dynamicClient)
+			// Start periodic license verification
+			//nolint:errcheck
+			go license.VerifyLicensePeriodically(cfg, licenseFile, stopCh)
 
+			controller := controllers.NewController(kubeClient, dynamicClient)
 			watchCRD(cfg, stopCh, controller, dynamicClient)
 
 			return controller.Run(stopCh)
@@ -93,6 +98,7 @@ func NewCmdRun(stopCh <-chan struct{}) *cobra.Command {
 
 	cmd.Flags().StringVar(&kubeconfig, "kubeconfig", "", "Path to a kubeconfig. Only required if out-of-cluster.")
 	cmd.Flags().StringVar(&masterURL, "master", "", "The address of the Kubernetes API server. Overrides any value in kubeconfig. Only required if out-of-cluster.")
+	cmd.Flags().StringVar(&licenseFile, "license-file", licenseFile, "Path to license file")
 	cmd.Flags().StringVar(&controllers.SecretKey, "secret-key", "", "A base64-encoded key, of length 32 bytes when decoded.")
 
 	return cmd
