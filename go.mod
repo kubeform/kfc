@@ -33,7 +33,7 @@ require (
 	k8s.io/client-go v10.0.0+incompatible
 	k8s.io/klog v1.0.0
 	k8s.io/utils v0.0.0-20200414100711-2df71ebbae66 // indirect
-	kmodules.xyz/client-go v0.0.0-20201013083546-b17c1e15f1a3
+	kmodules.xyz/client-go v0.0.0-20201021051118-03dac1aea508
 	kmodules.xyz/constants v0.0.0-20200506032633-a21e58ceec72
 	kubeform.dev/kubeform v0.2.0
 )
