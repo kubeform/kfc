@@ -124,7 +124,7 @@ type RDSSpec struct {
 	// The name of your final DB snapshot when this DB instance is deleted.
 	FinalSnapshotIdentifier string `json:"finalSnapshotIdentifier,omitempty" tf:"final_snapshot_identifier,omitempty"`
 	// +optional
-	// Specifies whether or mappings of AWS Identity and Access Management (IAM) accounts to database accounts is enabled
+	// Specifies whether or not the mappings of AWS Identity and Access Management (IAM) accounts to database accounts are enabled
 	IamDatabaseAuthenticationEnabled bool `json:"iamDatabaseAuthenticationEnabled,omitempty" tf:"iam_database_authentication_enabled,omitempty"`
 	// +optional
 	// The name of the RDS instance, if omitted, Terraform will assign a random, unique identifier

@@ -14211,7 +14211,7 @@ func schema_kubeform_apis_modules_v1alpha1_RDSSpec(ref common.ReferenceCallback)
 					},
 					"iamDatabaseAuthenticationEnabled": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Specifies whether or mappings of AWS Identity and Access Management (IAM) accounts to database accounts is enabled",
+							Description: "Specifies whether or not the mappings of AWS Identity and Access Management (IAM) accounts to database accounts are enabled",
 							Type:        []string{"boolean"},
 							Format:      "",
 						},
