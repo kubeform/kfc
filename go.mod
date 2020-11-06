@@ -15,17 +15,16 @@ require (
 	github.com/json-iterator/go v1.1.10
 	github.com/kr/pretty v0.2.0 // indirect
 	github.com/mailru/easyjson v0.7.1 // indirect
-	github.com/mattn/go-colorable v0.1.6 // indirect
 	github.com/mitchellh/mapstructure v1.2.2 // indirect
 	github.com/onsi/ginkgo v1.11.0
 	github.com/onsi/gomega v1.8.1
-	github.com/spf13/cobra v0.0.5
-	github.com/stretchr/testify v1.5.1 // indirect
+	github.com/spf13/cobra v1.1.1
 	go.bytebuilders.dev/license-verifier v0.3.0
 	go.bytebuilders.dev/license-verifier/kubernetes v0.3.0
 	gocloud.dev v0.20.0
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
 	golang.org/x/time v0.0.0-20200416051211-89c76fbcd5d1 // indirect
+	gomodules.xyz/pointer v0.0.0-20201105071923-daf60fa55209 // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 	k8s.io/api v0.18.9
 	k8s.io/apiextensions-apiserver v0.18.9
@@ -33,8 +32,8 @@ require (
 	k8s.io/client-go v10.0.0+incompatible
 	k8s.io/klog v1.0.0
 	k8s.io/utils v0.0.0-20200414100711-2df71ebbae66 // indirect
-	kmodules.xyz/client-go v0.0.0-20201027113349-01a6d453d836
-	kmodules.xyz/constants v0.0.0-20200506032633-a21e58ceec72
+	kmodules.xyz/client-go v0.0.0-20201105071625-0b277310b9b8
+	kmodules.xyz/constants v0.0.0-20200923054614-6b87dbbae4d6
 	kubeform.dev/kubeform v0.3.0
 )
 
