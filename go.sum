@@ -708,10 +708,11 @@ github.com/zclconf/go-cty v1.1.0/go.mod h1:xnAOWiHeOqg2nWS62VtQ7pbOu17FtxJNW8RLE
 github.com/zclconf/go-cty v1.2.0/go.mod h1:hOPWgoHbaTUnI5k4D2ld+GRpFJSCe6bCM7m1q/N4PQ8=
 github.com/zclconf/go-cty v1.2.1/go.mod h1:hOPWgoHbaTUnI5k4D2ld+GRpFJSCe6bCM7m1q/N4PQ8=
 github.com/zclconf/go-cty-yaml v1.0.1/go.mod h1:IP3Ylp0wQpYm50IHK8OZWKMu6sPJIUgKa8XhiVHura0=
-go.bytebuilders.dev/license-verifier v0.3.0 h1:OyxDrV07KfKNh0f+rtvPQYC6BedITIeTIzexW+YiUSs=
-go.bytebuilders.dev/license-verifier v0.3.0/go.mod h1:0zzm7+djZ/Ff41BNZYWH80t9mMb42T3Nx2KqQGV9N8s=
-go.bytebuilders.dev/license-verifier/kubernetes v0.3.0 h1:qj/pfjtG0uvsTasaNt2DkdH6xXcbLeoRS6HQLCi0k+k=
-go.bytebuilders.dev/license-verifier/kubernetes v0.3.0/go.mod h1:7Yy4OHy6+Mx+nox31jzTcxTNZd6KOrKdlMw1d6SyJ4I=
+go.bytebuilders.dev/license-verifier v0.0.5/go.mod h1:0zzm7+djZ/Ff41BNZYWH80t9mMb42T3Nx2KqQGV9N8s=
+go.bytebuilders.dev/license-verifier v0.5.0 h1:vjzwnh0f24ykQXUaWYc5OQ+HIfpyvmPTGJ8PQR3FtnY=
+go.bytebuilders.dev/license-verifier v0.5.0/go.mod h1:0zzm7+djZ/Ff41BNZYWH80t9mMb42T3Nx2KqQGV9N8s=
+go.bytebuilders.dev/license-verifier/kubernetes v0.5.0 h1:ho1x2X32lKP6LMFBDfBFG2xxR3U2kXcZkXl0qrptuPo=
+go.bytebuilders.dev/license-verifier/kubernetes v0.5.0/go.mod h1:HGzFl2VYe7QOYpjN0ui1aRAF3JcUFaCMrenfK2rTPVc=
 go.etcd.io/bbolt v1.3.2/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.etcd.io/bbolt v1.3.3/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.etcd.io/etcd v0.0.0-20191023171146-3cf2f69b5738/go.mod h1:dnLIgRNXwCJa5e+c6mIZCrds/GIG4ncV9HhK5PX7jPg=
@@ -1065,7 +1066,6 @@ k8s.io/utils v0.0.0-20200324210504-a9aa75ae1b89 h1:d4vVOjXm687F1iLSP2q3lyPPuyvTU
 k8s.io/utils v0.0.0-20200324210504-a9aa75ae1b89/go.mod h1:sZAwmy6armz5eXlNoLmJcl4F1QuKu7sr+mFQ0byX7Ew=
 kmodules.xyz/client-go v0.0.0-20200630053911-20d035822d35 h1:gDzZWVvgAaEBzo4lxMGhPUWqySgFyFDkcqw3NskZiwQ=
 kmodules.xyz/client-go v0.0.0-20200630053911-20d035822d35/go.mod h1:sY/eoe4ktxZEoHpr5NpAQ5s22VSwTE8psJtKVeVgLRY=
-kmodules.xyz/client-go v0.0.0-20200818143024-600fef263e03/go.mod h1:sY/eoe4ktxZEoHpr5NpAQ5s22VSwTE8psJtKVeVgLRY=
 kmodules.xyz/client-go v0.0.0-20201105071625-0b277310b9b8 h1:zs2+yI/Ola5HjdtfP29XD76Bx5BO4WchC2uN9lkhxQM=
 kmodules.xyz/client-go v0.0.0-20201105071625-0b277310b9b8/go.mod h1:WXDwZBmvrcLgGcuO9iZpI9jcfPuDFfWbxA4EnhAFtGw=
 kmodules.xyz/constants v0.0.0-20200923054614-6b87dbbae4d6 h1:9b61GdwFN3IC9tPmBvgXdo2kBlQKvyFUy5y4Q0fwB5E=
