@@ -708,11 +708,10 @@ github.com/zclconf/go-cty v1.1.0/go.mod h1:xnAOWiHeOqg2nWS62VtQ7pbOu17FtxJNW8RLE
 github.com/zclconf/go-cty v1.2.0/go.mod h1:hOPWgoHbaTUnI5k4D2ld+GRpFJSCe6bCM7m1q/N4PQ8=
 github.com/zclconf/go-cty v1.2.1/go.mod h1:hOPWgoHbaTUnI5k4D2ld+GRpFJSCe6bCM7m1q/N4PQ8=
 github.com/zclconf/go-cty-yaml v1.0.1/go.mod h1:IP3Ylp0wQpYm50IHK8OZWKMu6sPJIUgKa8XhiVHura0=
-go.bytebuilders.dev/license-verifier v0.0.5/go.mod h1:0zzm7+djZ/Ff41BNZYWH80t9mMb42T3Nx2KqQGV9N8s=
-go.bytebuilders.dev/license-verifier v0.5.0 h1:vjzwnh0f24ykQXUaWYc5OQ+HIfpyvmPTGJ8PQR3FtnY=
-go.bytebuilders.dev/license-verifier v0.5.0/go.mod h1:0zzm7+djZ/Ff41BNZYWH80t9mMb42T3Nx2KqQGV9N8s=
-go.bytebuilders.dev/license-verifier/kubernetes v0.5.0 h1:ho1x2X32lKP6LMFBDfBFG2xxR3U2kXcZkXl0qrptuPo=
-go.bytebuilders.dev/license-verifier/kubernetes v0.5.0/go.mod h1:HGzFl2VYe7QOYpjN0ui1aRAF3JcUFaCMrenfK2rTPVc=
+go.bytebuilders.dev/license-verifier v0.5.1 h1:GfYRI8rhGO98FmanlzPoOzDfthoY8ATNY3xDdRKs5jQ=
+go.bytebuilders.dev/license-verifier v0.5.1/go.mod h1:SNXpEKh3gg2ljHzh6Dxa7qMZS6hM6L9eQ+U0vaGyfFQ=
+go.bytebuilders.dev/license-verifier/kubernetes v0.5.1 h1:X6arsotN7dT5UHNL4cpwBmOJTR16fsQGACIB1IKepYQ=
+go.bytebuilders.dev/license-verifier/kubernetes v0.5.1/go.mod h1:WXm+QeT10DcIJu6S4e2WmN2pP/QG+X/h4rKnM5bivkE=
 go.etcd.io/bbolt v1.3.2/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.etcd.io/bbolt v1.3.3/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.etcd.io/etcd v0.0.0-20191023171146-3cf2f69b5738/go.mod h1:dnLIgRNXwCJa5e+c6mIZCrds/GIG4ncV9HhK5PX7jPg=
@@ -980,8 +979,6 @@ gomodules.xyz/password-generator v0.2.6/go.mod h1:TvwYYTx9+P1pPwKQKfZgB/wr2Id9Mq
 gomodules.xyz/pointer v0.0.0-20201105040656-991dd254b680/go.mod h1:sPLsC0+yLTRecUiC5yVlyvXhZ6LAGojNCRWNNqoplvo=
 gomodules.xyz/pointer v0.0.0-20201105071923-daf60fa55209 h1:7tRaHoF3a725gtWs/NKkRNK5sBMXUyopVIsJ4WvhcTI=
 gomodules.xyz/pointer v0.0.0-20201105071923-daf60fa55209/go.mod h1:sPLsC0+yLTRecUiC5yVlyvXhZ6LAGojNCRWNNqoplvo=
-gomodules.xyz/sets v0.0.0-20200817084356-ae6e5e14ce3d h1:iikjtYw6tLPrD2dXkzDVMygYLaqzGRxQTDFZI23MXes=
-gomodules.xyz/sets v0.0.0-20200817084356-ae6e5e14ce3d/go.mod h1:jKgNp01/iDs+svOWXaPk5cKP3VXy0mWUoTF/ore+aMc=
 gomodules.xyz/sets v0.0.0-20200930152147-4f4543544799 h1:EkAevJpXguUjG191D3TjkYlKME1hc6yqr+4/imkpsks=
 gomodules.xyz/sets v0.0.0-20200930152147-4f4543544799/go.mod h1:jKgNp01/iDs+svOWXaPk5cKP3VXy0mWUoTF/ore+aMc=
 gomodules.xyz/version v0.1.0 h1:inGItCg/egI0jPMeIE0SQkiDIJaodOMoCrxYqasQLR0=
