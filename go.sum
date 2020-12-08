@@ -1065,6 +1065,8 @@ kmodules.xyz/client-go v0.0.0-20200630053911-20d035822d35 h1:gDzZWVvgAaEBzo4lxMG
 kmodules.xyz/client-go v0.0.0-20200630053911-20d035822d35/go.mod h1:sY/eoe4ktxZEoHpr5NpAQ5s22VSwTE8psJtKVeVgLRY=
 kmodules.xyz/client-go v0.0.0-20201105071625-0b277310b9b8 h1:zs2+yI/Ola5HjdtfP29XD76Bx5BO4WchC2uN9lkhxQM=
 kmodules.xyz/client-go v0.0.0-20201105071625-0b277310b9b8/go.mod h1:WXDwZBmvrcLgGcuO9iZpI9jcfPuDFfWbxA4EnhAFtGw=
+kmodules.xyz/client-go v0.0.0-20201208053851-a1d7be95e006 h1:gNrNTwi0jViRqdszsb0W5CQF+ANNVFlvh/LO0A3R7dM=
+kmodules.xyz/client-go v0.0.0-20201208053851-a1d7be95e006/go.mod h1:WXDwZBmvrcLgGcuO9iZpI9jcfPuDFfWbxA4EnhAFtGw=
 kmodules.xyz/constants v0.0.0-20200923054614-6b87dbbae4d6 h1:9b61GdwFN3IC9tPmBvgXdo2kBlQKvyFUy5y4Q0fwB5E=
 kmodules.xyz/constants v0.0.0-20200923054614-6b87dbbae4d6/go.mod h1:DbiFk1bJ1KEO94t1SlAn7tzc+Zz95rSXgyUKa2nzPmY=
 kubeform.dev/kubeform v0.3.0 h1:vjwovdyT1sQ5Y1vkEhDTjNoLSMGtLHc5CQ9abWnVkJc=
