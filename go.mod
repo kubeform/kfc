@@ -18,8 +18,8 @@ require (
 	github.com/onsi/ginkgo v1.11.0
 	github.com/onsi/gomega v1.8.1
 	github.com/spf13/cobra v1.1.1
-	go.bytebuilders.dev/license-verifier v0.5.1
-	go.bytebuilders.dev/license-verifier/kubernetes v0.5.1
+	go.bytebuilders.dev/license-verifier v0.6.1
+	go.bytebuilders.dev/license-verifier/kubernetes v0.6.1
 	gocloud.dev v0.20.0
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
 	golang.org/x/time v0.0.0-20200416051211-89c76fbcd5d1 // indirect
@@ -31,7 +31,7 @@ require (
 	k8s.io/client-go v10.0.0+incompatible
 	k8s.io/klog v1.0.0
 	k8s.io/utils v0.0.0-20200414100711-2df71ebbae66 // indirect
-	kmodules.xyz/client-go v0.0.0-20201230092550-8ca15cfcbefa
+	kmodules.xyz/client-go v0.0.0-20210118094617-273ba20ad7ca
 	kmodules.xyz/constants v0.0.0-20200923054614-6b87dbbae4d6
 	kubeform.dev/kubeform v0.3.0
 )

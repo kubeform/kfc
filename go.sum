@@ -148,6 +148,7 @@ github.com/cpuguy83/go-md2man v1.0.10/go.mod h1:SmD6nW6nTyfqj6ABTjUi3V3JVMnlJmwc
 github.com/cpuguy83/go-md2man/v2 v2.0.0 h1:EoUDS0afbrsXAZ9YQ9jdu/mZ2sXgT1/2yyNng4PGlyM=
 github.com/cpuguy83/go-md2man/v2 v2.0.0/go.mod h1:maD7wRr/U5Z6m/iR4s+kqSMx2CaBsrgA7czyZG/E6dU=
 github.com/creack/pty v1.1.7/go.mod h1:lj5s0c3V2DBrqTV7llrYr5NG6My20zk30Fl46Y7DoTY=
+github.com/cubewise-code/go-mime v0.0.0-20200519001935-8c5762b177d8/go.mod h1:4abs/jPXcmJzYoYGF91JF9Uq9s/KL5n1jvFDix8KcqY=
 github.com/dave/jennifer v1.4.0/go.mod h1:fIb+770HOpJ2fmN9EPPKOqm1vMGhB+TwXKMZhrIygKg=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
@@ -188,6 +189,7 @@ github.com/fsnotify/fsnotify v1.4.7 h1:IXs+QLmnXW2CcXuY+8Mzv/fWEsPGWxqefPtCP5CnV
 github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMoQvtojpjFo=
 github.com/fsnotify/fsnotify v1.4.9 h1:hsms1Qyu0jgnwNXIxa+/V/PDsU6CfLf6CNO8H7IWoS4=
 github.com/fsnotify/fsnotify v1.4.9/go.mod h1:znqG4EE+3YCdAaPaxE2ZRY/06pZUdp0tY4IgpuI1SZQ=
+github.com/gabriel-vasile/mimetype v1.1.2/go.mod h1:6CDPel/o/3/s4+bp6kIbsWATq8pmgOisOPG40CJa6To=
 github.com/gammazero/deque v0.0.0-20180920172122-f6adf94963e4/go.mod h1:GeIq9qoE43YdGnDXURnmKTnGg15pQz4mYkXSTChbneI=
 github.com/gammazero/workerpool v0.0.0-20181230203049-86a96b5d5d92/go.mod h1:w9RqFVO2BM3xwWEcAB8Fwp0OviTBBEiRmSBDfbXnd3w=
 github.com/ghodss/yaml v0.0.0-20150909031657-73d445a93680/go.mod h1:4dBDuWmgqj2HViK6kFavaiC9ZROes6MMH2rRYeMEF04=
@@ -708,10 +710,10 @@ github.com/zclconf/go-cty v1.1.0/go.mod h1:xnAOWiHeOqg2nWS62VtQ7pbOu17FtxJNW8RLE
 github.com/zclconf/go-cty v1.2.0/go.mod h1:hOPWgoHbaTUnI5k4D2ld+GRpFJSCe6bCM7m1q/N4PQ8=
 github.com/zclconf/go-cty v1.2.1/go.mod h1:hOPWgoHbaTUnI5k4D2ld+GRpFJSCe6bCM7m1q/N4PQ8=
 github.com/zclconf/go-cty-yaml v1.0.1/go.mod h1:IP3Ylp0wQpYm50IHK8OZWKMu6sPJIUgKa8XhiVHura0=
-go.bytebuilders.dev/license-verifier v0.5.1 h1:GfYRI8rhGO98FmanlzPoOzDfthoY8ATNY3xDdRKs5jQ=
-go.bytebuilders.dev/license-verifier v0.5.1/go.mod h1:SNXpEKh3gg2ljHzh6Dxa7qMZS6hM6L9eQ+U0vaGyfFQ=
-go.bytebuilders.dev/license-verifier/kubernetes v0.5.1 h1:X6arsotN7dT5UHNL4cpwBmOJTR16fsQGACIB1IKepYQ=
-go.bytebuilders.dev/license-verifier/kubernetes v0.5.1/go.mod h1:WXm+QeT10DcIJu6S4e2WmN2pP/QG+X/h4rKnM5bivkE=
+go.bytebuilders.dev/license-verifier v0.6.1 h1:HhtVt+K4TBlOwUNhE4HJWBm5S7nsAizOLuirLmIz2ZA=
+go.bytebuilders.dev/license-verifier v0.6.1/go.mod h1:SNXpEKh3gg2ljHzh6Dxa7qMZS6hM6L9eQ+U0vaGyfFQ=
+go.bytebuilders.dev/license-verifier/kubernetes v0.6.1 h1:WTT81asc7ykKI6E9BzeV0EFkaTniqaghKsybvHQlaGc=
+go.bytebuilders.dev/license-verifier/kubernetes v0.6.1/go.mod h1:YyvxUrqALordUC9554S2J93ozJ6PK4GVEyUCmUgUSbo=
 go.etcd.io/bbolt v1.3.2/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.etcd.io/bbolt v1.3.3/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.etcd.io/etcd v0.0.0-20191023171146-3cf2f69b5738/go.mod h1:dnLIgRNXwCJa5e+c6mIZCrds/GIG4ncV9HhK5PX7jPg=
@@ -1065,8 +1067,8 @@ kmodules.xyz/client-go v0.0.0-20200630053911-20d035822d35 h1:gDzZWVvgAaEBzo4lxMG
 kmodules.xyz/client-go v0.0.0-20200630053911-20d035822d35/go.mod h1:sY/eoe4ktxZEoHpr5NpAQ5s22VSwTE8psJtKVeVgLRY=
 kmodules.xyz/client-go v0.0.0-20201105071625-0b277310b9b8 h1:zs2+yI/Ola5HjdtfP29XD76Bx5BO4WchC2uN9lkhxQM=
 kmodules.xyz/client-go v0.0.0-20201105071625-0b277310b9b8/go.mod h1:WXDwZBmvrcLgGcuO9iZpI9jcfPuDFfWbxA4EnhAFtGw=
-kmodules.xyz/client-go v0.0.0-20201230092550-8ca15cfcbefa h1:1a6/yWhBhxAXzvPsPXW4tg7l93pP2B9LsEZOe4ldGPE=
-kmodules.xyz/client-go v0.0.0-20201230092550-8ca15cfcbefa/go.mod h1:WXDwZBmvrcLgGcuO9iZpI9jcfPuDFfWbxA4EnhAFtGw=
+kmodules.xyz/client-go v0.0.0-20210118094617-273ba20ad7ca h1:w2vMnu71zJf8RB0qAMV3yt7zHnwg456u6B0S9OHz2lc=
+kmodules.xyz/client-go v0.0.0-20210118094617-273ba20ad7ca/go.mod h1:GdX1CHOpjL4F8P9O/7dE9m0fIOs05BNHKVT+kM51rk8=
 kmodules.xyz/constants v0.0.0-20200923054614-6b87dbbae4d6 h1:9b61GdwFN3IC9tPmBvgXdo2kBlQKvyFUy5y4Q0fwB5E=
 kmodules.xyz/constants v0.0.0-20200923054614-6b87dbbae4d6/go.mod h1:DbiFk1bJ1KEO94t1SlAn7tzc+Zz95rSXgyUKa2nzPmY=
 kubeform.dev/kubeform v0.3.0 h1:vjwovdyT1sQ5Y1vkEhDTjNoLSMGtLHc5CQ9abWnVkJc=
