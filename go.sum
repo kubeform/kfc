@@ -710,10 +710,10 @@ github.com/zclconf/go-cty v1.1.0/go.mod h1:xnAOWiHeOqg2nWS62VtQ7pbOu17FtxJNW8RLE
 github.com/zclconf/go-cty v1.2.0/go.mod h1:hOPWgoHbaTUnI5k4D2ld+GRpFJSCe6bCM7m1q/N4PQ8=
 github.com/zclconf/go-cty v1.2.1/go.mod h1:hOPWgoHbaTUnI5k4D2ld+GRpFJSCe6bCM7m1q/N4PQ8=
 github.com/zclconf/go-cty-yaml v1.0.1/go.mod h1:IP3Ylp0wQpYm50IHK8OZWKMu6sPJIUgKa8XhiVHura0=
-go.bytebuilders.dev/license-verifier v0.6.1 h1:HhtVt+K4TBlOwUNhE4HJWBm5S7nsAizOLuirLmIz2ZA=
-go.bytebuilders.dev/license-verifier v0.6.1/go.mod h1:SNXpEKh3gg2ljHzh6Dxa7qMZS6hM6L9eQ+U0vaGyfFQ=
-go.bytebuilders.dev/license-verifier/kubernetes v0.6.1 h1:WTT81asc7ykKI6E9BzeV0EFkaTniqaghKsybvHQlaGc=
-go.bytebuilders.dev/license-verifier/kubernetes v0.6.1/go.mod h1:YyvxUrqALordUC9554S2J93ozJ6PK4GVEyUCmUgUSbo=
+go.bytebuilders.dev/license-verifier v0.7.0 h1:4yECFKjyji+40zNUA9jiW4pC2C0k8YOHy2cHCZVb22Y=
+go.bytebuilders.dev/license-verifier v0.7.0/go.mod h1:N7fJxdaBJQ9seOGFg+trJQ3eWwy/ga6YZi0wlvdDQi0=
+go.bytebuilders.dev/license-verifier/kubernetes v0.7.0 h1:58gla1SvxreTnburXGlbKl13Is3IN62eQM4JPmXqDoo=
+go.bytebuilders.dev/license-verifier/kubernetes v0.7.0/go.mod h1:tirEPJlf+upKc6jTEx0486K0Wm0gWuI3aiV+xXmnmSM=
 go.etcd.io/bbolt v1.3.2/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.etcd.io/bbolt v1.3.3/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.etcd.io/etcd v0.0.0-20191023171146-3cf2f69b5738/go.mod h1:dnLIgRNXwCJa5e+c6mIZCrds/GIG4ncV9HhK5PX7jPg=
