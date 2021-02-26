@@ -699,7 +699,7 @@ k8s.io/utils/buffer
 k8s.io/utils/integer
 k8s.io/utils/pointer
 k8s.io/utils/trace
-# kmodules.xyz/client-go v0.0.0-20210213000708-f480974ce46d
+# kmodules.xyz/client-go v0.0.0-20210218100652-8f345ddfe801
 kmodules.xyz/client-go
 kmodules.xyz/client-go/core/v1
 kmodules.xyz/client-go/discovery
