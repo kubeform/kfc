@@ -19,23 +19,17 @@ package info
 import "strconv"
 
 var (
-	EnforceLicense       string
-	NoLicenseGracePeriod string
-	LicenseCA            string
+	EnforceLicense string
+	LicenseCA      string
 
 	ProductOwnerName string
 	ProductOwnerUID  string
 
-	ProductName string
+	ProductName string // This has been renamed to Features
 	ProductUID  string
 )
 
 func SkipLicenseVerification() bool {
 	v, _ := strconv.ParseBool(EnforceLicense)
 	return !v
-}
-
-func EnforceLicenseImmediately() bool {
-	v, _ := strconv.ParseBool(NoLicenseGracePeriod)
-	return v
 }
