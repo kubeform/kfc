@@ -73,8 +73,8 @@ func NewLicenseEnforcer(config *rest.Config, licenseFile string) *LicenseEnforce
 		licenseFile: licenseFile,
 		config:      config,
 		opts: &verifier.Options{
-			CACert:      []byte(info.LicenseCA),
-			ProductName: info.ProductName,
+			CACert:   []byte(info.LicenseCA),
+			Features: info.ProductName,
 		},
 	}
 }
@@ -110,8 +110,18 @@ func (le *LicenseEnforcer) podName() (string, error) {
 
 func (le *LicenseEnforcer) handleLicenseVerificationFailure(licenseErr error) error {
 	// Send interrupt so that all go-routines shut-down gracefully
+	// https://pracucci.com/graceful-shutdown-of-kubernetes-pods.html
+	// https://linuxhandbook.com/sigterm-vs-sigkill/
+	// https://pracucci.com/graceful-shutdown-of-kubernetes-pods.html
 	//nolint:errcheck
-	defer syscall.Kill(syscall.Getpid(), syscall.SIGINT)
+	defer func() {
+		// Need to send signal twice because
+		// we catch the first INT/TERM signal
+		// ref: https://github.com/kubernetes/apiserver/blob/8d97c871d91c75b81b8b4c438f4dd1eaa7f35052/pkg/server/signal.go#L47-L51
+		_ = syscall.Kill(syscall.Getpid(), syscall.SIGTERM)
+		time.Sleep(30 * time.Second)
+		_ = syscall.Kill(syscall.Getpid(), syscall.SIGKILL)
+	}()
 
 	// Log licenseInfo verification failure
 	klog.Errorln("Failed to verify license. Reason: ", licenseErr.Error())
@@ -216,19 +226,27 @@ func VerifyLicensePeriodically(config *rest.Config, licenseFile string, stopCh <
 		licenseFile: licenseFile,
 		config:      config,
 		opts: &verifier.Options{
-			CACert:      []byte(info.LicenseCA),
-			ProductName: info.ProductName,
+			CACert:   []byte(info.LicenseCA),
+			Features: info.ProductName,
 		},
 	}
+
+	if err := verifyLicensePeriodically(le, licenseFile, stopCh); err != nil {
+		return le.handleLicenseVerificationFailure(err)
+	}
+	return nil
+}
+
+func verifyLicensePeriodically(le *LicenseEnforcer, licenseFile string, stopCh <-chan struct{}) error {
 	// Create Kubernetes client
 	err := le.createClients()
 	if err != nil {
-		return le.handleLicenseVerificationFailure(err)
+		return err
 	}
 	// Read cluster UID (UID of the "kube-system" namespace)
 	err = le.readClusterUID()
 	if err != nil {
-		return le.handleLicenseVerificationFailure(err)
+		return err
 	}
 
 	// Periodically verify license with 1 hour interval
@@ -237,30 +255,21 @@ func VerifyLicensePeriodically(config *rest.Config, licenseFile string, stopCh <
 		// Read license from file
 		err = le.readLicenseFromFile()
 		if err != nil {
-			return false, le.handleLicenseVerificationFailure(err)
+			return false, err
 		}
 		// Validate license
 		_, err = verifier.VerifyLicense(le.opts)
 		if err != nil {
-			return false, le.handleLicenseVerificationFailure(err)
+			return false, err
 		}
 		klog.Infoln("Successfully verified license!")
 		// return false so that the loop never ends
 		return false, nil
 	}
 
-	if !info.EnforceLicenseImmediately() {
-		licenseMissing := licenseFile == ""
-		if _, err := os.Stat(licenseFile); os.IsNotExist(err) {
-			licenseMissing = true
-		}
-		if licenseMissing {
-			klog.Warningf("license file is missing. You have %v to acquire a valid license", licenseCheckInterval)
-
-			return wait.PollUntil(licenseCheckInterval, fn, stopCh)
-		}
+	if _, err := os.Stat(licenseFile); os.IsNotExist(err) {
+		return errors.New("license file is missing")
 	}
-
 	return wait.PollImmediateUntil(licenseCheckInterval, fn, stopCh)
 }
 
@@ -276,36 +285,44 @@ func CheckLicenseFile(config *rest.Config, licenseFile string) error {
 		licenseFile: licenseFile,
 		config:      config,
 		opts: &verifier.Options{
-			CACert:      []byte(info.LicenseCA),
-			ProductName: info.ProductName,
+			CACert:   []byte(info.LicenseCA),
+			Features: info.ProductName,
 		},
 	}
+
+	if err := checkLicenseFile(le); err != nil {
+		return le.handleLicenseVerificationFailure(err)
+	}
+	return nil
+}
+
+func checkLicenseFile(le *LicenseEnforcer) error {
 	// Create Kubernetes client
 	err := le.createClients()
 	if err != nil {
-		return le.handleLicenseVerificationFailure(err)
+		return err
 	}
 	// Read cluster UID (UID of the "kube-system" namespace)
 	err = le.readClusterUID()
 	if err != nil {
-		return le.handleLicenseVerificationFailure(err)
+		return err
 	}
 	// Read license from file
 	err = le.readLicenseFromFile()
 	if err != nil {
-		return le.handleLicenseVerificationFailure(err)
+		return err
 	}
 	// Validate license
 	_, err = verifier.VerifyLicense(le.opts)
 	if err != nil {
-		return le.handleLicenseVerificationFailure(err)
+		return err
 	}
 	klog.Infoln("Successfully verified license!")
 	return nil
 }
 
-// CheckLicenseEndpoint verifies whether the provided api server has a valid license is valid for products.
-func CheckLicenseEndpoint(config *rest.Config, apiServiceName string, products []string) error {
+// CheckLicenseEndpoint verifies whether the provided api server has a valid license is valid for features.
+func CheckLicenseEndpoint(config *rest.Config, apiServiceName string, features []string) error {
 	aggrClient, err := clientset.NewForConfig(config)
 	if err != nil {
 		return err
@@ -355,8 +372,8 @@ func CheckLicenseEndpoint(config *rest.Config, apiServiceName string, products [
 		return fmt.Errorf("license %s is not active, status: %s, reason: %s", license.ID, license.Status, license.Reason)
 	}
 
-	if !sets.NewString(license.Products...).HasAny(products...) {
-		return fmt.Errorf("license %s is not valid for products %q", license.ID, strings.Join(products, ","))
+	if !sets.NewString(license.Features...).HasAny(features...) {
+		return fmt.Errorf("license %s is not valid for products %q", license.ID, strings.Join(features, ","))
 	}
 	return nil
 }
