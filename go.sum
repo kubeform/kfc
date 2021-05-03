@@ -1117,8 +1117,8 @@ k8s.io/utils v0.0.0-20201110183641-67b214c5f920 h1:CbnUZsM497iRC5QMVkHwyl8s2tB3g
 k8s.io/utils v0.0.0-20201110183641-67b214c5f920/go.mod h1:jPW/WVKK9YHAvNhRxK0md/EJ228hCsBRufyofKtW8HA=
 kmodules.xyz/client-go v0.0.0-20200630053911-20d035822d35/go.mod h1:sY/eoe4ktxZEoHpr5NpAQ5s22VSwTE8psJtKVeVgLRY=
 kmodules.xyz/client-go v0.0.0-20210425191502-3a7296dae084/go.mod h1:GzfBodwFuZ0M6Dswr95bI4V3BG6DH2sPsRipJqqofCA=
-kmodules.xyz/client-go v0.0.0-20210502215034-b73197efff3f h1:a0ClahgI4hrGg2VM+brfmPKjx52s8aDMHyB1b8xXpxY=
-kmodules.xyz/client-go v0.0.0-20210502215034-b73197efff3f/go.mod h1:lHHgEovuSVHCDl7pe0ZyY4VrVTtByfijZpKeLk5A1/M=
+kmodules.xyz/client-go v0.0.0-20210503064222-c8c59295a3a5 h1:4EyHIidgWmKsej6QLyHOhZXelzWB/FcEx/E+SQz9Tl0=
+kmodules.xyz/client-go v0.0.0-20210503064222-c8c59295a3a5/go.mod h1:Dg0/zImljlRXce1Nr/nr0xv2bOIVTFqRJr+AvFoYXJU=
 kmodules.xyz/constants v0.0.0-20210218100002-2c304bfda278 h1:sFmqh4EaiZ4K2FkkGvrDFddstq8GSf6ogH24IAsuKew=
 kmodules.xyz/constants v0.0.0-20210218100002-2c304bfda278/go.mod h1:DbiFk1bJ1KEO94t1SlAn7tzc+Zz95rSXgyUKa2nzPmY=
 kubeform.dev/kubeform v0.3.0 h1:vjwovdyT1sQ5Y1vkEhDTjNoLSMGtLHc5CQ9abWnVkJc=
