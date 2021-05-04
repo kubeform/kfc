@@ -5,13 +5,13 @@ go 1.12
 require (
 	ekyu.moe/base91 v0.2.3
 	github.com/appscode/go v0.0.0-20200928211031-cc0c23082d91
-	github.com/aws/aws-sdk-go v1.35.24 // indirect
+	github.com/aws/aws-sdk-go v1.38.31 // indirect
 	github.com/fatih/structs v1.1.0
 	github.com/gobuffalo/flect v0.2.1
 	github.com/json-iterator/go v1.1.10
 	github.com/onsi/ginkgo v1.11.0
 	github.com/onsi/gomega v1.8.1
-	github.com/spf13/cobra v1.1.1
+	github.com/spf13/cobra v1.1.3
 	go.bytebuilders.dev/license-verifier v0.9.1
 	go.bytebuilders.dev/license-verifier/kubernetes v0.9.1
 	gocloud.dev v0.20.0
