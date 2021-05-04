@@ -12,16 +12,16 @@ require (
 	github.com/onsi/ginkgo v1.11.0
 	github.com/onsi/gomega v1.8.1
 	github.com/spf13/cobra v1.1.1
-	go.bytebuilders.dev/license-verifier v0.9.0
-	go.bytebuilders.dev/license-verifier/kubernetes v0.9.0
+	go.bytebuilders.dev/license-verifier v0.9.1
+	go.bytebuilders.dev/license-verifier/kubernetes v0.9.1
 	gocloud.dev v0.20.0
+	gomodules.xyz/x v0.0.3 // indirect
 	k8s.io/api v0.21.0
 	k8s.io/apiextensions-apiserver v0.21.0
 	k8s.io/apimachinery v0.21.0
 	k8s.io/client-go v10.0.0+incompatible
 	k8s.io/klog v1.0.0
-	k8s.io/utils v0.0.0-20210111153108-fddb29f9d009 // indirect
-	kmodules.xyz/client-go v0.0.0-20210503064222-c8c59295a3a5
+	kmodules.xyz/client-go v0.0.0-20210504024435-1eb80721e9b8
 	kmodules.xyz/constants v0.0.0-20210218100002-2c304bfda278
 	kubeform.dev/kubeform v0.3.0
 )
