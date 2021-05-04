@@ -181,12 +181,12 @@ github.com/yudai/gojsondiff
 github.com/yudai/gojsondiff/formatter
 # github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82
 github.com/yudai/golcs
-# go.bytebuilders.dev/license-verifier v0.9.0
+# go.bytebuilders.dev/license-verifier v0.9.1
 go.bytebuilders.dev/license-verifier
 go.bytebuilders.dev/license-verifier/apis/licenses
 go.bytebuilders.dev/license-verifier/apis/licenses/v1alpha1
 go.bytebuilders.dev/license-verifier/info
-# go.bytebuilders.dev/license-verifier/kubernetes v0.9.0
+# go.bytebuilders.dev/license-verifier/kubernetes v0.9.1
 go.bytebuilders.dev/license-verifier/kubernetes
 # go.opencensus.io v0.22.3
 go.opencensus.io
@@ -292,7 +292,7 @@ gomodules.xyz/pointer
 gomodules.xyz/sets
 # gomodules.xyz/version v0.1.0
 gomodules.xyz/version
-# gomodules.xyz/x v0.0.0-20201105065653-91c568df6331
+# gomodules.xyz/x v0.0.3
 gomodules.xyz/x/analytics
 gomodules.xyz/x/log/golog
 # google.golang.org/appengine v1.6.5
@@ -795,7 +795,7 @@ k8s.io/utils/buffer
 k8s.io/utils/integer
 k8s.io/utils/pointer
 k8s.io/utils/trace
-# kmodules.xyz/client-go v0.0.0-20210503064222-c8c59295a3a5
+# kmodules.xyz/client-go v0.0.0-20210504024435-1eb80721e9b8
 kmodules.xyz/client-go
 kmodules.xyz/client-go/core/v1
 kmodules.xyz/client-go/discovery
